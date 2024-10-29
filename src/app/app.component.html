@@ -1,28 +1,11 @@
-<nav>
-    <ul>
-        <li>
-            <a class="menu servicios" href="#" data-title="Servicios">
-                <span>
-                    <span>Servicios</span>
-                </span>
-            </a>
-        </li>
-        <li><a class="menu proyectos" href="#" data-title="Proyectos">
-                <span>
-                    <span>Proyectos</span>
-                </span>
-            </a></li>
-        <li><a class="menu recursos" href="#" data-title="Recursos">
-                <span>
-                    <span>Recursos</span>
-                </span>
-            </a></li>
-        <li><a class="menu contacto" href="#" data-title="Contacto">
-                <span>
-                    <span>Contacto</span>
-                </span>
-            </a></li>
-    </ul>
-</nav>
+<div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form action="#" method="post">
+        <input type="email" class="input-field" placeholder="Correo electrónico" required>
+        <input type="password" class="input-field" placeholder="Contraseña" required>
+        <button type="submit" class="login-button">Iniciar sesión</button>
+    </form>
+    <button class="google-button">Iniciar sesión con Google</button>
+</div>
 
 <router-outlet />
