@@ -1,20 +1,30 @@
-/* Menú horizontal con transiciones */
-/*En este menú se ha creado una línea horizontal de colores diferentes encima de cada enlace. Se incluye una transición para cambiar el ancho de esa línea al 100% del contenedor de forma gradual*/
-/* Formato general de cada item */
-
 .menu {
-    display: flexbox;
-    position: relative;;
+    display: block;
+    position: relative;
     height: 76px;
     width: 120px;
     margin: 0;
     overflow: hidden;
 }
 
-/* Bordes superiores */
 
 
+.menu.servicios {
+    border-left: #ffc000 0.3em solid;
+    
+}
 
+.menu.recursos {
+    border-left: #b81800 0.3em solid;
+}
+
+.menu.proyectos {
+    border-left: #00a53c 0.3em solid;
+}
+
+.menu.contacto {
+    border-left: #9600b4 0.3em solid;
+}
 .menu>span {
     display: block;
     position: absolute;
@@ -22,9 +32,19 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 0%;
-    transition: 1s ease-in-out;
-    -webkit-transition: 0.3s ease-in-out;
+    height: 0;
+    
+    transition: 0.2s ease-in-out;
+}
+
+
+@keyframes trasformacion {
+    0%{
+
+    }
+    100%{
+
+    }
 }
 
 .menu:after,
@@ -48,19 +68,19 @@
 }
 
 .menu.servicios>span>span {
-    background: #ebca6a;
+    background: #ffc000;
 }
 
 .menu.proyectos>span>span {
-    background: #ebca6a;
+    background: #00a53c;
 }
 
 .menu.recursos>span>span {
-    background: #ebca6a;
+    background: #b81800;
 }
 
 .menu.contacto>span>span {
-    background: #ebca6a;
+    background: #9600b4;
 }
 
 .menu:hover>span {
@@ -74,8 +94,6 @@ ul {
 }
 
 li a {
-    
-    float: left;
     text-decoration: none;
     font-family: sans;
 }
