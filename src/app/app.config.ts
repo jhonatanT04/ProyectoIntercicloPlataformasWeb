@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import {initializeApp} from 'firebase/app';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {AngularFireModule} from '@angular/'
+//import {AngularFireModule} from '@angular/'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOZ-vpnqt1ls05BBkIIE4GMTSK4BxO2BQ",
@@ -21,6 +21,6 @@ initializeApp(firebaseConfig);
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),
-    importProvidersFrom(HttpClientModule,AngularFireModule)
+    //importProvidersFrom(HttpClientModule,AngularFireModule)
   ]
 };
