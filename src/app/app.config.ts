@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import {initializeApp} from 'firebase/app';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {} from '@angular/'
+import {AngularFireModule} from '@angular/'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOZ-vpnqt1ls05BBkIIE4GMTSK4BxO2BQ",
