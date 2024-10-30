@@ -21,6 +21,8 @@ initializeApp(firebaseConfig);
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),
-    importProvidersFrom(HttpClientModule,AngularFireModule)
+    importProvidersFrom(HttpClientModule,
+      AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule)
   ]
 };
