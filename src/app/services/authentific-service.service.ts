@@ -24,6 +24,6 @@ export class AuthentificServiceService {
   }
   isAutheticate():boolean{
     const user = getAuth()
-    return user!!null
+    return user!==null
   }
 }
