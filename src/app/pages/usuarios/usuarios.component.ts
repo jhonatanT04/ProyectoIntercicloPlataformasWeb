@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 import {MatButtonModule} from '@angular/material/button'
+import { error } from 'node:console';
 // Matbu
 @Component({
   selector: 'app-usuarios',
@@ -27,8 +28,13 @@ export class UsuariosComponent {
       this.loginService.regitrase(this.form.value as User)
       .then(resr =>{
         this.router.navigate(['pages/login'])
-      })
+      }).catch(error=>console.log(error))
       
     }
+  }
+  onGoogle(){
+    this.loginService.loginGoogle().then(resr =>{
+      this.router.navigate(['pages/login'])
+    }).catch(error=>console.log(error))
   }
 }
