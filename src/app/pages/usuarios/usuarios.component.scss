@@ -1,13 +1,12 @@
-section{
-    border: #194756;
-    padding: auto;
-    margin: auto;
-    border-radius: 20%; 
+div{
+    padding-top:10rem ;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
 }
-
-label{
-    display: block;
-    border-radius: 20%;
-    padding: auto;
-    margin: auto;
+.button-sudmit{
+    
 }

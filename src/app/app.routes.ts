@@ -4,6 +4,7 @@ import { AdministadoresComponent } from './components/administadores/administado
 import { GestionEspaciosComponent } from './pages/gestion-espacios/gestion-espacios.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PantallaCargaComponent } from './pages/pantalla-carga/pantalla-carga.component';
+import { guardsAuthGuard } from './guards/guards-auth.guard';
 
 export const routes: Routes = [
     {
@@ -21,5 +22,12 @@ export const routes: Routes = [
     {
         path: '',
         component: PantallaCargaComponent
-    }
+    },
+    // {
+    //     path: 'dasholder',
+    //     canActivate:[guardsAuthGuard],
+    //     loadComponent:()=> import('pages/login'),
+    // }
+    
+    
 ];
