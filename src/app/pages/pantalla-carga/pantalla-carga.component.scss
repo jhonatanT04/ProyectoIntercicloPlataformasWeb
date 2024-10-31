@@ -1,0 +1,43 @@
+.pantalla-inicial {
+    background-color: #F2EABC;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pantalla-inicial h1 {
+    color: #194756;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+}
+
+.pantalla-inicial p {
+    color: #54736E;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+}
+
+.boton-iniciar-sesion {
+    margin-top: 20px;
+}
+
+.boton-iniciar-sesion button {
+    background-color: #54736E;
+    color: #FFFFFF;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.boton-iniciar-sesion button:hover {
+    background-color: #FF3B58;
+}

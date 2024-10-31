@@ -1,8 +1,22 @@
-<nav>
+<div class="gestion-espacios">
+    <h2>Gestión de Espacios</h2>
+    <form>
+        <label for="nombre">Nombre del Espacio:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="tipo">Tipo de Espacio:</label>
+        <select id="tipo" name="tipo" required>
+            <option value="auto">Auto</option>
+            <option value="moto">Moto</option>
+            <option value="bicicleta">Bicicleta</option>
+        </select>
+
+        <button type="submit">Agregar Espacio</button>
+    </form>
+
     <ul>
-        <li><a href="">Parqueaderos</a></li>
-        <li><a href="">Contratos</a></li>
-        <li><a href="">Tarifas</a></li>
-        <li><a href="">Horarios</a></li>
+        <li>
+            <button>Eliminar</button>
+        </li>
     </ul>
-</nav>
+</div>

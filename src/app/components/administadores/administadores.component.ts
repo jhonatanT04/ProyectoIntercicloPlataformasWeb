@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-administadores',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './administadores.component.html',
   styleUrl: './administadores.component.scss'
 })

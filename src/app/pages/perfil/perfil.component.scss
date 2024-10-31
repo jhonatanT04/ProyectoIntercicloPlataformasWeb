@@ -1,0 +1,35 @@
+div {
+    background-color: #F2EABC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+div h2 {
+    color: #194756;
+    margin-bottom: 20px;
+}
+
+div p {
+    color: #194756;
+    margin: 5px 0;
+}
+
+div strong {
+    color: #194756;
+}
+
+div button {
+    background-color: #54736E;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+div button:hover {
+    background-color: #FF3B58;
+}

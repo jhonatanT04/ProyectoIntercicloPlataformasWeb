@@ -1,0 +1,69 @@
+.gestion-contratos {
+    background-color: #F2EABC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gestion-contratos h2 {
+    color: #194756;
+    margin-bottom: 20px;
+}
+
+.gestion-contratos form {
+    display: flex;
+    flex-direction: column;
+}
+
+.gestion-contratos label {
+    margin-bottom: 5px;
+    color: #194756;
+}
+
+.gestion-contratos input[type="text"],
+.gestion-contratos input[type="number"],
+.gestion-contratos select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #080000;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.gestion-contratos button {
+    background-color: #54736E;
+    color: #FFFFFF;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.gestion-contratos button:hover {
+    background-color: #FF3B58;
+}
+
+.gestion-contratos ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.gestion-contratos li {
+    margin-top: 10px;
+}
+
+.gestion-contratos li button {
+    background-color: #FF3B58;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.gestion-contratos li button:hover {
+    background-color: #54736E;
+}

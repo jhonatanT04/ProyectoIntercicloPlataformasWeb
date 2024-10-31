@@ -1,1 +1,24 @@
-<p>contratos works!</p>
+<div class="gestion-contratos">
+    <h2>Gestión de Contratos de Arriendo</h2>
+    <form>
+        <label for="cliente">Nombre del Cliente:</label>
+        <input type="text" id="cliente" name="cliente" required>
+
+        <label for="espacio">Espacio:</label>
+        <select id="espacio" name="espacio" required>
+            <option>Nombre espacio</option>
+        </select>
+
+        <label for="duracion">Duración (meses):</label>
+        <input type="number" id="duracion" name="duracion" required>
+
+        <button type="submit">Agregar Contrato</button>
+    </form>
+
+    <ul>
+        <li>
+            Espacio: Duración: meses
+            <button>Eliminar</button>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,68 @@
+.horario-parqueadero {
+    background-color: #F2EABC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.horario-parqueadero h2 {
+    color: #194756;
+    margin-bottom: 20px;
+}
+
+.horario-parqueadero form {
+    display: flex;
+    flex-direction: column;
+}
+
+.horario-parqueadero label {
+    margin-bottom: 5px;
+    color: #194756;
+}
+
+.horario-parqueadero select,
+.horario-parqueadero input[type="time"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #080000; 
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.horario-parqueadero button {
+    background-color: #54736E; 
+    color: #FFFFFF; 
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; 
+}
+
+.horario-parqueadero button:hover {
+    background-color: #FF3B58;
+}
+
+.horario-parqueadero ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.horario-parqueadero li {
+    margin-top: 10px;
+}
+
+.horario-parqueadero li button {
+    background-color: #FF3B58; 
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.horario-parqueadero li button:hover {
+    background-color: #54736E; 
+}

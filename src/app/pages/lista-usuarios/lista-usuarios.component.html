@@ -1,1 +1,41 @@
-<p>lista-usuarios works!</p>
+<div class="lista-clientes">
+    <h2>Lista de Clientes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button>Editar</button>
+                    <button>Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="editar">
+        <h3>Editar Cliente</h3>
+        <form>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono">
+
+            <button type="submit">Guardar</button>
+            <button type="button">Cancelar</button>
+        </form>
+    </div>
+</div>

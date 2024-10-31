@@ -5,6 +5,12 @@ import { GestionEspaciosComponent } from './pages/gestion-espacios/gestion-espac
 import { LoginComponent } from './pages/login/login.component';
 import { PantallaCargaComponent } from './pages/pantalla-carga/pantalla-carga.component';
 import { guardsAuthGuard } from './guards/guards-auth.guard';
+import { ContratosComponent } from './pages/contratos/contratos.component';
+import { TarifasComponent } from './pages/tarifas/tarifas.component';
+import { HorariosComponent } from './pages/horarios/horarios.component';
+import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.component';
+import { ActualizarPerfilComponent } from './pages/actualizar-perfil/actualizar-perfil.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
     {
@@ -12,8 +18,8 @@ export const routes: Routes = [
         component: UsuariosComponent
     },
     {
-        path: 'pages/gestion',
-        component: GestionEspaciosComponent
+        path: 'pages/administrador',
+        component: AdministadoresComponent
     },
     {
         path: 'pages/login',
@@ -28,6 +34,33 @@ export const routes: Routes = [
     //     canActivate:[guardsAuthGuard],
     //     loadComponent:()=> import('pages/login'),
     // }
-    
+    {
+        path: 'pages/parqueaderos',
+        component: GestionEspaciosComponent
+    },
+    {
+        path: 'pages/contratos',
+        component: ContratosComponent
+    },
+    {
+        path: 'pages/tarifas',
+        component: TarifasComponent
+    },
+    {
+        path: 'pages/horarios',
+        component: HorariosComponent
+    },
+    {
+        path: 'pages/lista',
+        component: ListaUsuariosComponent
+    },
+    {
+        path: 'pages/actualizar',
+        component: ActualizarPerfilComponent
+    },
+    {
+        path: 'pages/perfil',
+        component: PerfilComponent
+    }
     
 ];

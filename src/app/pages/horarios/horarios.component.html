@@ -1,1 +1,29 @@
-<p>horarios works!</p>
+<div class="horario-parqueadero">
+    <h2>Definir Horario de Trabajo</h2>
+    <form>
+        <label for="dia">Día:</label>
+        <select id="dia" name="dia" required>
+            <option value="lunes">Lunes</option>
+            <option value="martes">Martes</option>
+            <option value="miércoles">Miércoles</option>
+            <option value="jueves">Jueves</option>
+            <option value="viernes">Viernes</option>
+            <option value="sábado">Sábado</option>
+            <option value="domingo">Domingo</option>
+        </select>
+
+        <label for="horaApertura">Hora de Apertura:</label>
+        <input type="time" id="horaApertura" name="horaApertura" required>
+
+        <label for="horaCierre">Hora de Cierre:</label>
+        <input type="time" id="horaCierre" name="horaCierre" required>
+
+        <button type="submit">Definir Horario</button>
+    </form>
+
+    <ul>
+        <li>
+            <button>Eliminar</button>
+        </li>
+    </ul>
+</div>

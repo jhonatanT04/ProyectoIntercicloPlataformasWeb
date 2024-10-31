@@ -1,0 +1,68 @@
+.gestion-tarifas {
+    background-color: #F2EABC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gestion-tarifas h2 {
+    color: #194756;
+    margin-bottom: 20px;
+}
+
+.gestion-tarifas form {
+    display: flex;
+    flex-direction: column;
+}
+
+.gestion-tarifas label {
+    margin-bottom: 5px;
+    color: #194756;
+}
+
+.gestion-tarifas input[type="number"],
+.gestion-tarifas select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #080000;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.gestion-tarifas button {
+    background-color: #54736E;
+    color: #FFFFFF;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.gestion-tarifas button:hover {
+    background-color: #FF3B58;
+}
+
+.gestion-tarifas ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.gestion-tarifas li {
+    margin-top: 10px;
+}
+
+.gestion-tarifas li button {
+    background-color: #FF3B58;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.gestion-tarifas li button:hover {
+    background-color: #54736E;
+}

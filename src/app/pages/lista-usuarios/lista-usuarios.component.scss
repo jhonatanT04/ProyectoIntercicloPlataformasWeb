@@ -1,0 +1,116 @@
+.lista-clientes {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #F2EABC;
+    border-radius: 8px;
+  }
+  
+  .lista-clientes h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #194756;
+    margin-bottom: 20px;
+  }
+  
+  .lista-clientes table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .lista-clientes th, .lista-clientes td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #080000;
+  }
+  
+  .lista-clientes th {
+    background-color: #54736E;
+    color: #F2EABC;
+  }
+  
+  .lista-clientes tr:hover {
+    background-color: #FF3B58;
+  }
+  
+  .lista-clientes td {
+    color: #080000;
+  }
+  
+  .lista-clientes button {
+    background-color: #54736E;
+    color: #F2EABC;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .lista-clientes button:hover {
+    background-color: #FF3B58;
+  }
+  
+  .editar {
+    display: none; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #F2EABC;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .editar h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #194756;
+    margin-bottom: 15px;
+  }
+  
+  .editar form label {
+    display: block;
+    font-weight: bold;
+    color: #194756;
+    margin-top: 10px;
+  }
+  
+  .editar form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #080000;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .editar form button[type="submit"] {
+    background-color: #54736E;
+    color: #F2EABC;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .editar form button[type="submit"]:hover {
+    background-color: #FF3B58;
+  }
+  
+  .editar form button[type="button"] {
+    background-color: #54736E;
+    color: #F2EABC;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .editar form button[type="button"]:hover {
+    background-color: #FF3B58;
+  }  
