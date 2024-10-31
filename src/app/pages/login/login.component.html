@@ -1,4 +1,4 @@
-<div class="login-container">
+<!-- <div class="login-container">
     <h2>Iniciar Sesión</h2>
     <form action="#" method="post">
         <input type="email" class="input-field" placeholder="Correo electrónico" required>
@@ -7,4 +7,28 @@
     </form>
     <button class="google-button" routerLink="/pages/perfil">Iniciar sesión con Google</button><hr/>
     <button class="registrarse" routerLink="/pages/usuarios">Registrarse</button>
+</div> -->
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="container">
+        <h2>Login</h2>
+        <mat-form-field class="example-full-width"> 
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="example.com" formControlName="email">
+            
+        </mat-form-field>
+        <mat-form-field class="example-full-width"> 
+            <mat-label>Password</mat-label>
+            <input matInput [type]="'password'" formControlName="password">
+        </mat-form-field>
+
+        <div class="button-submit">
+            <button mat-flat-button type="submit">Iniciar Seccion</button>
+        </div>
+    </div>
+    
+</form>
+<div class="button-submit">
+    <button mat-flat-button type="submit" (click)="onGoogle()" >Inciar con google</button>
 </div>
+
