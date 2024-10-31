@@ -24,7 +24,8 @@ export class LoginComponent {
   })
   onSubmit(){
     if(this.form.valid){
-      this.loginService.regitrase(this.form.value as User)
+      
+      this.loginService.login(this.form.value as User)
       .then(resr =>{
         this.router.navigate(['/pages/administrador'])
       }).catch(error=>console.log(error))

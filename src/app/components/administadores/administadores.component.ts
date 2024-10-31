@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { AuthentificServiceService } from '../../services/authentific-service.service';
+
 
 @Component({
   selector: 'app-administadores',
@@ -9,5 +11,12 @@ import { RouterModule } from '@angular/router';
   styleUrl: './administadores.component.scss'
 })
 export class AdministadoresComponent {
-
+  authServicio = inject(AuthentificServiceService)
+  router = inject(Router)
+  cerrarSeccion(){
+    
+    this.authServicio.logout().then(()=>
+    this.router.navigate(['pages/login']))
+    .catch(error => console.log(error))
+  }
 }

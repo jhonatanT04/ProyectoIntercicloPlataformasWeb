@@ -9,26 +9,29 @@
     <button class="registrarse" routerLink="/pages/usuarios">Registrarse</button>
 </div> -->
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="container">
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" >
+    <div class="login-container">
         <h2>Login</h2>
-        <mat-form-field class="example-full-width"> 
+        <mat-form-field > 
             <mat-label>Email</mat-label>
-            <input matInput placeholder="example.com" formControlName="email">
+            <input matInput placeholder="example.com" formControlName="email" class="input-field">
             
         </mat-form-field>
-        <mat-form-field class="example-full-width"> 
+        <mat-form-field > 
             <mat-label>Password</mat-label>
-            <input matInput [type]="'password'" formControlName="password">
+            <input matInput [type]="'password'" formControlName="password" class="input-field">
         </mat-form-field>
 
-        <div class="button-submit">
-            <button mat-flat-button type="submit">Iniciar Seccion</button>
+        <div>
+            <button mat-flat-button type="submit" class="registrarse">Iniciar Seccion</button>
         </div>
+        <button mat-flat-button type="submit" (click)="onGoogle()" class="google-button">Inciar con google</button>
     </div>
     
 </form>
-<div class="button-submit">
-    <button mat-flat-button type="submit" (click)="onGoogle()" >Inciar con google</button>
-</div>
+
 

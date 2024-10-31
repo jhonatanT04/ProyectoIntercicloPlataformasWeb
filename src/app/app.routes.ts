@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
-import { AdministadoresComponent } from './components/administadores/administadores.component';
+
 import { GestionEspaciosComponent } from './pages/gestion-espacios/gestion-espacios.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PantallaCargaComponent } from './pages/pantalla-carga/pantalla-carga.component';
@@ -17,10 +17,10 @@ export const routes: Routes = [
         path: 'pages/usuarios',
         component: UsuariosComponent
     },
-    {
-        path: 'pages/administrador',
-        component: AdministadoresComponent
-    },
+    // {
+    //     path: 'pages/administrador',
+    //     component: AdministadoresComponent
+    // },
     {
         path: 'pages/login',
         component: LoginComponent
@@ -29,11 +29,13 @@ export const routes: Routes = [
         path: '',
         component: PantallaCargaComponent
     },
-    // {
-    //     path: 'dasholder',
-    //     canActivate:[guardsAuthGuard],
-    //     loadComponent:()=> import('pages/login'),
-    // }
+    {
+        path: 'pages/administrador',
+        canActivate:[guardsAuthGuard],
+        loadComponent:()=>import('./components/administadores/administadores.component')
+        .then(comp=> comp.AdministadoresComponent),
+        
+    },
     {
         path: 'pages/parqueaderos',
         component: GestionEspaciosComponent
