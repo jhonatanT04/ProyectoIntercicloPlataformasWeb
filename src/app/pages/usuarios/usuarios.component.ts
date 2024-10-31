@@ -20,7 +20,7 @@ export class UsuariosComponent {
 
   form = new FormGroup({
     email:new FormControl('',[Validators.required]),
-    password:new FormControl(' ',[Validators.required])
+    password:new FormControl('',[Validators.required])
   })
   onSubmit(){
     if(this.form.valid){
@@ -28,6 +28,7 @@ export class UsuariosComponent {
       .then(resr =>{
         this.router.navigate(['pages/login'])
       })
+      
     }
   }
 }
