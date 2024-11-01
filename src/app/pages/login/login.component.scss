@@ -1,67 +1,98 @@
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f2f2f2;
 
-    padding: 20rem;
+
+.conteiner-form {
+    width: 100%;
+    background-color: #ece9d8;
 }
-
-
-
-.login-container {
-    width: 300px;
-    padding: 2rem;
-    margin: auto;
-    margin-top: 12rem;
-    background-color: #f2eabc ;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 2rem;
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #ffffff; 
+    box-sizing: border-box;
     
+}
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 75px;
+    background-color: #2e7a94;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 999px 15px #8f8d8d83;
 }
 
 .login-container h2 {
-    margin-bottom: 1rem;
-    color: #333;
+    margin-bottom: 5rem;
+    font-size: 50px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    
 }
 
 .input-field {
-    width: 90%;
-    padding: 0.8rem ;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: 2%;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    
+    border-bottom: 1px solid #080000;
+    box-sizing: border-box;
+}
+.input-field :hover {
+    border: none;
 }
 
-.login-button,
-.google-button {
-    width: 70%;
-    padding: 0.8rem;
+.registrarse-button {
+    width: 80%;
+    margin-top: 1.5rem;
+    padding: 0.75rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
     cursor: pointer;
     font-size: 1rem;
-    margin: 0.5rem 0;
+    background-origin: padding-box;
+    font-weight: bold;
+    transition: background-color 0.5s ease;
 }
 
-.login-button {
-    background-color: #4383d8;
-    color: #fff;
+.registrarse-button:hover {
+    transition: background-color 0.5s ease;
+    color: #2c5ba1;
+    background-color: #080000;
 }
+
 
 .google-button {
-    background-color: #db4437;
-    color: #fff;
+    width: 80%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #ffffff;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: bold;
+    
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.5s ease;
 }
 
-.registrarse{
-    font-size: 100% ;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #f2eabc;
-    color: black;
-    border: #f2eabc;
+.google-button:hover {
+    transition: background-color 0.5s ease;
+    border: 1px solid #2c5ba1;
+    background-color: #ddd ;
+    color: #2c5ba1;
 }
-
