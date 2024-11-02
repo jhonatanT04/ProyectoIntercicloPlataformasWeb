@@ -74,7 +74,7 @@ label {
     width: 80%;
     margin-top: 1.5rem;
     padding: 0.75rem;
-    border: none;
+    
     border-radius: 999px;
     cursor: pointer;
     color: white;
@@ -83,18 +83,6 @@ label {
     background-origin: padding-box;
     font-weight: bold;
     transition: background-color 0.5s ease;
-}
-
-.registrarse-button:hover {
-    box-sizing: border-box;
-    transition: background-color 0.5s ease ;
-    background-color: #080000;
-    border: 1px solid #2c5ba1;
-    color: #ffffff;
-}
-
-button{
-    box-sizing: border-box;
 }
 .google-button {
     box-sizing: border-box;
@@ -112,6 +100,18 @@ button{
     justify-content: center;
     transition: background-color 0.5s ease !important;
 }
+.registrarse-button:hover {
+    box-sizing: border-box;
+    transition: background-color 0.5s ease ;
+    background-color: #080000;
+    border: 1px solid #2c5ba1;
+    color: #ffffff;
+}
+
+button{
+    box-sizing: border-box;
+}
+
 
 .google-button:hover {
     box-sizing: border-box;
