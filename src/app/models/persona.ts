@@ -20,7 +20,7 @@ export class Persona extends User{
         codigo:string,
         pais:string,
         ciudad:string,
-        rolAdministrativo=true
+        rolAdministrativo=false
     ){
         super(correo,password);
         this.nombre = nombre;
