@@ -3,14 +3,12 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import {FormGroup,FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
 import { User } from '../../models/user';
-import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatInputModule} from '@angular/material/input'
-import {MatButtonModule} from '@angular/material/button'
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule,MatFormFieldModule,MatInputModule,MatButtonModule],
+  imports: [RouterModule,ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
