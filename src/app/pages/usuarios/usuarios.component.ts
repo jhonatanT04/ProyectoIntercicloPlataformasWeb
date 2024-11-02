@@ -3,9 +3,6 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms'
 import { User } from '../../models/user';
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
-import { MatButtonModule } from '@angular/material/button'
 import { CommonModule } from '@angular/common';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
@@ -14,7 +11,7 @@ import { Persona } from '../../models/persona';
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })

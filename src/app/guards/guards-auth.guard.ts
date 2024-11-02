@@ -11,5 +11,4 @@ export const guardsAuthGuard: CanMatchFn = (route, state) => {
     router.navigate(['pages/login'])
     return false;
   }
-
 };
