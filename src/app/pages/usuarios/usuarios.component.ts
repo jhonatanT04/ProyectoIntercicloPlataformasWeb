@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { CommonModule } from '@angular/common';
+import { UsuariosServiceService } from '../../services/usuarios-service.service';
+import { Persona } from '../../models/persona';
 
 // Matbu
 @Component({
@@ -19,7 +21,8 @@ import { CommonModule } from '@angular/common';
 export class UsuariosComponent {
   constructor(private loginService: AuthentificServiceService) { }
   router = inject(Router)
-
+  servicioUser = inject(UsuariosServiceService)
+  
   form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl('', [Validators.required]),
@@ -37,8 +40,23 @@ export class UsuariosComponent {
 
   onSubmit() {
     this.form.markAllAsTouched();
+    
     if (this.form.valid) {
-      this.loginService.regitrase(this.form.value as User)
+      
+      const per = new Persona(
+        this.form.get('email')?.value||' ',
+        this.form.get('password')?.value||' ',
+        this.form.get('name')?.value ||' ',
+        this.form.get('lastName')?.value ||' ',
+        this.form.get('numberPhone')?.value ||' ',
+        this.form.get('addres')?.value ||' ',
+        this.form.get('codeZip')?.value ||' ',
+        this.form.get('country')?.value ||' ',
+        this.form.get('city')?.value ||' '
+    );
+      
+      this.servicioUser.nuevoUsuario(per)
+      this.loginService.regitrase(new User(this.form.get('email')?.value||' ',this.form.get('password')?.value||'ania'))
         .then(resr => {
           this.router.navigate(['pages/login'])
         }).catch(error => console.log(error))

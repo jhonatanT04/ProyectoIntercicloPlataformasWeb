@@ -13,6 +13,7 @@ export class AuthentificServiceService {
   }
   
   regitrase(usuario:User){
+    console.log(usuario.password+'xd')
     return createUserWithEmailAndPassword(getAuth(),usuario.email,usuario.password)
   }
   login (usuario:User){
@@ -28,6 +29,7 @@ export class AuthentificServiceService {
     const user = getAuth().currentUser
     return user!==null
   }
+  
   isNewCliente(){
     return
   }
