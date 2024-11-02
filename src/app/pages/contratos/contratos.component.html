@@ -2,23 +2,24 @@
     <h2>Gestión de Contratos de Arriendo</h2>
     <form>
         <label for="cliente">Nombre del Cliente:</label>
-        <input type="text" id="cliente" name="cliente" required>
+        <input type="text" id="cliente" [(ngModel)]="cliente" name="cliente" required>
 
         <label for="espacio">Espacio:</label>
-        <select id="espacio" name="espacio" required>
-            <option>Nombre espacio</option>
+        <select id="espacio" [(ngModel)]="espacio" name="espacio" required>
+            <option value="" disabled selected>Seleccione un espacio</option>
+            <option *ngFor="let espacio of espacios" [value]="espacio.nombre">{{ espacio.nombre }}</option>
         </select>
 
         <label for="duracion">Duración (meses):</label>
-        <input type="number" id="duracion" name="duracion" required>
+        <input type="number" id="duracion" [(ngModel)]="duracion" name="duracion" required>
 
-        <button type="submit">Agregar Contrato</button>
+        <button type="submit" (click)="agregarContrato()">Agregar Contrato</button>
     </form>
 
     <ul>
-        <li>
-            Espacio: Duración: meses
-            <button>Eliminar</button>
+        <li *ngFor="let contrato of contratos">
+            Espacio: {{ contrato.espacio }} | Duración: {{ contrato.duracion }} meses
+            <button (click)="eliminarContrato(contrato)">Eliminar</button>
         </li>
     </ul>
 </div>
