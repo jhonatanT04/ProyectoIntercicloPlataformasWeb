@@ -3,7 +3,7 @@
     <form>
         <label for="cliente">Nombre del Cliente:</label>
         <select id="cliente" [(ngModel)]="cliente" name="cliente" required>
-            <option value="" disabled selected>Seleccione un espacio</option>
+            <option value="" disabled selected>Seleccione un cliente</option>
             <option *ngFor="let cliente of clientes" [value]="cliente.nombre">{{cliente.nombre}}{{cliente.apellido}}</option>
         </select>
 
