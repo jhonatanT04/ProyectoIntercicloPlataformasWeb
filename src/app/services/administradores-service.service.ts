@@ -105,5 +105,20 @@ export class AdministradoresServiceService {
 
   listaHorarios:any =[]
 
-  agrgarHorario(){}
+  agrgarHorario(dia:string,horaA:string,horaC:string){
+    this.listaHorarios.push({dia,horaA,horaC})
+    localStorage.setItem('listHorarios',JSON.stringify(this.listaHorarios))
+  }
+
+  eliminarHorario(horario:any){
+    const index = this.listaHorarios.indexOf(horario)
+    if(index>-1){
+      this.listaHorarios.splice(index,1)
+    } 
+    localStorage.setItem('listHorarios',JSON.stringify(this.listaHorarios))
+  }
+
+  cargarHorario(){
+    return this.listaHorarios
+  }
 }

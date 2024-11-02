@@ -1,22 +1,24 @@
 <div class="gestion-tarifas">
     <h2>Gestión de Tarifas</h2>
     <form>
-        <label for="tipoEspacio">Tipo de Espacio:</label>
-        <select id="tipoEspacio" name="tipoEspacio" required>
-            <option value="auto">Auto</option>
-            <option value="moto">Moto</option>
-            <option value="bicicleta">Bicicleta</option>
-        </select>
-
-        <label for="costo">Costo por Hora:</label>
-        <input type="number" id="costo" name="costo" required>
-
-        <button type="submit">Definir Tarifa</button>
+      <label for="tipo">Tipo de Espacio:</label>
+      <select id="tipo" [(ngModel)]="tipo" name="tipo" required>
+        <option value="auto">Auto</option>
+        <option value="moto">Moto</option>
+        <option value="bicicleta">Bicicleta</option>
+      </select>
+  
+      <label for="costo">Costo por Hora:</label>
+      <input type="number" id="costo" [(ngModel)]="costo" name="costo" required>
+  
+      <button type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
     </form>
-
+  
     <ul>
-        <li>
-            <button>Eliminar</button>
-        </li>
+      <li *ngFor="let tarifa of tarifas">
+        {{ tarifa.tipoEspacio }} - {{ tarifa.costo }} por hora
+        <button (click)="eliminarTarifa(tarifa.id)">Eliminar</button>
+      </li>
     </ul>
-</div>
+  </div>
+  

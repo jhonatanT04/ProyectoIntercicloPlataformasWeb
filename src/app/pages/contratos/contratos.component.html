@@ -16,6 +16,12 @@
         <label for="duracion">Duración (meses):</label>
         <input type="number" id="duracion" [(ngModel)]="duracion" name="duracion" required>
 
+        <label for="tarifa">Tarifa</label>
+        <select id="tarifa" [(ngModel)]="tarifa" name="tarifa" required>
+            <option value="" disabled selected>Seleccione un cliente</option>
+            <option *ngFor="let tarifa of tarifas" [value]="tarifa.costo">{{tarifa.costo}}</option>
+        </select>
+
         <button type="submit" (click)="agregarContrato()">Agregar Contrato</button>
     </form>
 

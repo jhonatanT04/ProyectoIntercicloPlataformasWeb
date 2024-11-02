@@ -16,16 +16,19 @@ export class ContratosComponent implements OnInit{
   espacios: any =[]
   contratos: any = []
   clientes:any =  []
+  tarifas:any = []
 
   cliente=''
   espacio=''
   duracion=0
+  tarifa=0
 
   constructor(private contratoS:AdministradoresServiceService,private clienteS:UsuariosServiceService){}
   ngOnInit(): void {
     this.cargarContratos()
     this.cargarEspacios()
     this.cargarClientes() 
+    this.cargarTarifas() 
   }
 
   cargarClientes(){
@@ -39,8 +42,11 @@ export class ContratosComponent implements OnInit{
     this.contratos =this.contratoS.cargarContratos()
   }
 
+  cargarTarifas(){
+    this.tarifas = this.contratoS.cargarTarifa()
+  }
   agregarContrato(){
-    this.contratoS.agregarContrato(this.cliente,this.espacio,this.duracion,1)
+    this.contratoS.agregarContrato(this.cliente,this.espacio,this.duracion,this.tarifa)
     localStorage.setItem('listContratos',JSON.stringify(this.contratos))
     this.cargarContratos() 
   }
