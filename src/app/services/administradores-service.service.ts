@@ -6,14 +6,28 @@ import { Persona } from '../models/persona';
 })
 export class AdministradoresServiceService {
 
-  constructor() { }
+  constructor() {
+    this.cargarAdmi()
+   }
 
   listaAdministradores: Persona[] =[]
   cargarAdmi(): Persona[] {
     const storedList = localStorage.getItem('listAdm');
-    if (!storedList) {
-      localStorage.setItem('listAdm', JSON.stringify([]));
-      this.listaAdministradores = [];
+    if (!storedList || JSON.parse(storedList).length === 0) {
+      const administradorPorDefecto = new Persona(
+        'admin@example.com',     
+        'admin123',               
+        'Admin',                  
+        'Principal',              
+        '123456789',              
+        '123 Calle Falsa',        
+        'ADM001',                 
+        'Ecuador',                
+        'Quito',                  
+        true                      
+      );
+      this.listaAdministradores = [administradorPorDefecto];
+      localStorage.setItem('listAdm', JSON.stringify(this.listaAdministradores));
     } else {
       this.listaAdministradores = JSON.parse(storedList);
     }
