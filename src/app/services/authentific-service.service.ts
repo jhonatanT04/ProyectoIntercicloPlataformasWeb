@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import  { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth'
+import  { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, verifyBeforeUpdateEmail} from 'firebase/auth'
 import { User } from '../models/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +27,8 @@ export class AuthentificServiceService {
   isAutheticate():boolean{
     const user = getAuth().currentUser
     return user!==null
+  }
+  isNewCliente(){
+    return
   }
 }

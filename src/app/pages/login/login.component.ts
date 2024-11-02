@@ -37,4 +37,12 @@ export class LoginComponent {
       this.router.navigate(['/pages/administrador'])
     }).catch(error=>console.log(error))
   }
+  visible:boolean = true;
+  changetype:boolean =true;
+  
+  viewpass(){
+    this.visible = !this.visible;
+    this.changetype = !this.changetype;
+    
+  }
 }

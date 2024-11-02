@@ -1,26 +1,43 @@
-
-
-.conteiner-form {
+.conteiner {
     width: 100%;
-    background-color: #ece9d8;
+    background-color: #f1f1f1;
+    box-sizing: border-box;
+    padding: 0;
+    height: 100vh;
 }
+
+.hader-main{
+    margin: 0;
+    background-color: #3a4d48;
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+.hader-main h2{
+    padding: 30px 2px;
+    font-family: sans-serif;
+}
+
 form{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    margin-top: 9rem;
     color: #ffffff; 
     box-sizing: border-box;
-    
+    font-family: sans-serif;
 }
 .login-container {
-    width: 100%;
-    max-width: 420px;
-    padding: 75px;
-    background-color: #2e7a94;
+    box-sizing: border-box;
+    max-width: 520px;
+    padding: 0 75px;
+    padding-top: 75px;
+    padding-bottom: 55px;
+    background-color: #31c68b;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0 0 999px 15px #8f8d8d83;
+    box-shadow: 0 0 999px 15px #1863456c;
 }
 
 .login-container h2 {
@@ -37,8 +54,8 @@ label {
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
-    
-}
+    font-family: sans-serif;
+}   
 
 .input-field {
     width: 100%;
@@ -47,21 +64,21 @@ label {
     font-size: 1rem;
     background-color: transparent;
     border: none;
-    
     border-bottom: 1px solid #080000;
     box-sizing: border-box;
 }
-.input-field :hover {
-    border: none;
-}
 
+    
 .registrarse-button {
+    box-sizing: border-box;
     width: 80%;
     margin-top: 1.5rem;
     padding: 0.75rem;
     border: none;
     border-radius: 999px;
     cursor: pointer;
+    color: white;
+    background-color: #2c5ba1;
     font-size: 1rem;
     background-origin: padding-box;
     font-weight: bold;
@@ -69,30 +86,47 @@ label {
 }
 
 .registrarse-button:hover {
-    transition: background-color 0.5s ease;
-    color: #2c5ba1;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease ;
     background-color: #080000;
+    border: 1px solid #2c5ba1;
+    color: #ffffff;
 }
 
-
+button{
+    box-sizing: border-box;
+}
 .google-button {
+    box-sizing: border-box;
     width: 80%;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     padding: 0.75rem;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     border-radius: 999px;
     cursor: pointer;
     font-weight: bold;
-    
+    color: #080000 !important;
     font-size: 1rem;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease !important;
 }
 
 .google-button:hover {
-    transition: background-color 0.5s ease;
-    border: 1px solid #2c5ba1;
-    background-color: #ddd ;
-    color: #2c5ba1;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease !important;
+    background-color: #080000 !important;
+    border: 2px solid #2c5ba1 ;
+    color: #ffffff !important;
 }
+
+a{
+    padding: 100px 0;
+    color: #000000;
+    text-decoration: none;
+    font-family:sans-serif
+}
+
+
+

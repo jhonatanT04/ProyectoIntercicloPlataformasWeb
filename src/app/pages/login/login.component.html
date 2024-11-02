@@ -1,34 +1,34 @@
-<!-- <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <form action="#" method="post">
-        <input type="email" class="input-field" placeholder="Correo electrónico" required>
-        <input type="password" class="input-field" placeholder="Contraseña" required>
-        <button type="submit" class="login-button" routerLink="/pages/administrador">Iniciar sesión</button>
-    </form>
-    <button class="google-button" routerLink="/pages/perfil">Iniciar sesión con Google</button><hr/>
-    <button class="registrarse" routerLink="/pages/usuarios">Registrarse</button>
-</div> -->
 
 
-
-
-<div class="conteiner-form">
+<div class="conteiner">
+    <div class="hader-main">
+        <h2>
+            Parqueadero UPS
+        </h2>
+    </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="login-container">
             <h2>Iniciar seccion</h2>
             <label for="email">Correo electrónico</label><br>
-            <input matInput id="email" placeholder="example.com" formControlName="email" class="input-field"><br>
+            <input  id="email" placeholder="example.com" formControlName="email" class="input-field"><br>
 
             <label for="password">Contraseña</label><br>
-            <input matInput [type]="'password'" id="password" formControlName="password" class="input-field" placeholder="Contraseña">
 
-            <button mat-flat-button type="submit" class="registrarse-button" (click)="onSubmit()">
+            <input matInput [type]="changetype?'password':'text'" id="password" formControlName="password" class="input-field" placeholder="Contraseña">
+
+            <div class="chech-password">
+                <label for="checkbox-passw"><input type="checkbox" (click)="viewpass()" id="checkbox-passw" > Mostrar Contraseña</label>
+            </div>
+            
+
+            <button type="submit" class="registrarse-button" (click)="onSubmit()">
                 Iniciar Seccion
             </button>
-            <button mat-flat-button type="submit" (click)="onGoogle()" class="google-button" >
+
+            <button  type="submit" (click)="onGoogle()" class="google-button" >
                 Inciar con google
             </button>
-
+            <a href="/pages/usuarios">Registrarse</a>
         </div>
 
     </form>

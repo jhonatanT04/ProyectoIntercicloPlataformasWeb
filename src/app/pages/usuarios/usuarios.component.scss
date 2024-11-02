@@ -1,9 +1,69 @@
-div{
-    padding-top:10rem ;
-    display: flex;
-    flex-direction: column;
+.container {
     width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
+}
+
+.hader-main {
+    background-color: #3a4d48;
+    width: 100%;
+    max-height: 250px;
+    color: #f1f1f1;
+    margin-bottom: 20px; 
+}
+
+.hader-main h2 {
+    margin: 0; 
+    margin-bottom: 10px;
+    font-family: sans-serif;
+}
+
+.login-container {
+    margin: 0 auto; /* Centra el contenedor en la pantalla */
+    max-width: 80%;
+    flex-direction: row-reverse; /* Disposición en columna */
+    background-color: #f1f1f1; /* Color de fondo del contenedor */
+    padding: 20px; /* Espaciado interno del contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    box-sizing: border-box; /* Incluye padding y border en el ancho y alto */   
+}
+
+.login-container label {
+    margin-top: 1rem; /* Espacio encima de las etiquetas */
+    font-weight: bold; /* Etiquetas en negrita */
+}
+
+.login-container input {
+    width: 100%; /* Ocupa el 100% del ancho */
+    padding: 10px; /* Espacio interno de los campos */
+    margin-bottom: 1rem; /* Espacio debajo de cada campo */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados en los campos */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño */
+}
+.is-danger{
+    background-color:rgb(255, 169, 169) ;
+    color: black;
+}
+.error-message {
+    /* Puedes ajustar el tamaño del texto según tu preferencia */
+    color: red;
+}
+.button-submit {
+    display: flex; /* Usa flexbox para centrar el botón */
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 1.5rem; /* Espacio encima del botón */
+}
+
+button {
+    padding: 10px 20px; /* Espacio interno del botón */
+    background-color: #31c68b; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar el fondo */
+}
+
+button:hover {
+    background-color: #28a745; /* Color de fondo en hover */
 }
