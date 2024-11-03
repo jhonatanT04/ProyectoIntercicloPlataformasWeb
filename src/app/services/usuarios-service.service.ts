@@ -33,4 +33,8 @@ export class UsuariosServiceService {
       localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios));
     }
   }
+
+  seleccionarUsuraio(usuario:any){
+    return this.listaUsuarios.find(usuario=>usuario.email === usuario.email)
+  }
 }

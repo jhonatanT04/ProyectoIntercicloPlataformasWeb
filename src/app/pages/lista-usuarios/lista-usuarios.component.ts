@@ -26,7 +26,7 @@ export class ListaUsuariosComponent implements OnInit{
   }
 
   editarCliente(cliente:any){
-
+    let selec = this.clienteS.seleccionarUsuraio(cliente)
   }
 
   guardarCliente(){
@@ -34,6 +34,6 @@ export class ListaUsuariosComponent implements OnInit{
   }
 
   eliminarCliente(cliente:any){
-    
+
   }
 }
