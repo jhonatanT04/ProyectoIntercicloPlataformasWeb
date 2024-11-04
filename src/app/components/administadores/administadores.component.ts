@@ -14,10 +14,14 @@ import { AuthentificServiceService } from '../../services/authentific-service.se
 export class AdministadoresComponent {
   authServicio = inject(AuthentificServiceService)
   router = inject(Router)
+  isSize = false
   cerrarSeccion(){
     
     this.authServicio.logout().then(()=>
     this.router.navigate(['pages/login']))
     .catch(error => console.log(error))
+  }
+  agrandar(){
+    this.isSize = !this.isSize;
   }
 }
