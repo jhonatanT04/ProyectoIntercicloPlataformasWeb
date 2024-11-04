@@ -14,12 +14,13 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 export class ContratosComponent implements OnInit{
 
   espacios: any =[]
+  espaciosF: any = []
   contratos: any = []
   clientes:any =  []
   tarifas:any = []
 
   cliente=''
-  espacio=''
+  espacio='' 
   duracion=0
   tarifa=0
 
@@ -36,8 +37,18 @@ export class ContratosComponent implements OnInit{
   }
   cargarEspacios(){
     this.espacios = this.contratoS.cargarEspacios()
+    this.filtrarEspacios() 
   }
 
+  filtrarEspacios() {
+    this.espaciosF = [];
+    for (const espacio of this.espacios) {
+      if (espacio.estado === 'D') {
+        this.espaciosF.push(espacio); 
+      }
+    }
+  }
+  
   cargarContratos(){
     this.contratos =this.contratoS.cargarContratos()
   }
@@ -47,13 +58,11 @@ export class ContratosComponent implements OnInit{
   }
   agregarContrato(){
     this.contratoS.agregarContrato(this.cliente,this.espacio,this.duracion,this.tarifa)
-    localStorage.setItem('listContratos',JSON.stringify(this.contratos))
     this.cargarContratos() 
   }
 
   eliminarContrato(contrato:any){
     this.contratoS.eliminarContrato(contrato)
-    localStorage.setItem('listContratos',JSON.stringify(this.contratos))
     this.cargarContratos() 
   }
 }

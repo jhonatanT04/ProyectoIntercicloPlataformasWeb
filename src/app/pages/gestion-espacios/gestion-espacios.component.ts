@@ -15,6 +15,7 @@ export class GestionEspaciosComponent implements OnInit{
 
   tipo = ''
   nombre= ''
+  estado= ''
   espacios:any =[]
   constructor(private espacioS:AdministradoresServiceService){}
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class GestionEspaciosComponent implements OnInit{
   }
 
   agregarEspacio(){
-    this.espacioS.agregarEspacio(this.nombre,this.tipo)
+    this.espacioS.agregarEspacio(this.nombre,this.tipo,'D')
     this.cargarEs() 
     this.tipo=''
     this.nombre=''

@@ -60,9 +60,9 @@ export class AdministradoresServiceService {
     }
   }
 
-  agregarEspacio(nombre: string, tipo: string) {
+  agregarEspacio(nombre: string, tipo: string,estado:string) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaEspacios.push({ nombre, tipo });
+      this.listaEspacios.push({ nombre, tipo ,estado});
       localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
     }
   }
@@ -88,8 +88,18 @@ export class AdministradoresServiceService {
     if (isPlatformBrowser(this.platformId)) {
       this.listaContratos.push({ nombreC, nombreE, duracion, tarifa });
       localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
+  
+      if (!this.listaEspacios || this.listaEspacios.length === 0) {
+        this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
+      }
+  
+      const espacio = this.listaEspacios.find((espacio: any) => espacio.nombre === nombreE);
+      if (espacio) {
+        espacio.estado = 'O';  
+        localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
+      }
     }
-  }
+  } 
 
   eliminarContrato(contrato: any) {
     if (isPlatformBrowser(this.platformId)) {
@@ -97,9 +107,20 @@ export class AdministradoresServiceService {
       if (index > -1) {
         this.listaContratos.splice(index, 1);
         localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
+        
+        if (!this.listaEspacios || this.listaEspacios.length === 0) {
+          this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
+        }
+  
+        const espacio = this.listaEspacios.find((e: any) => e.nombre === contrato.nombreE);
+        if (espacio) {
+          espacio.estado = 'D';
+          localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
+        }
       }
     }
   }
+  
 
   cargarContratos() {
     if (isPlatformBrowser(this.platformId)) {

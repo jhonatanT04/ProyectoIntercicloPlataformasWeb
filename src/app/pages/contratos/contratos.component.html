@@ -10,7 +10,7 @@
         <label for="espacio">Espacio:</label>
         <select id="espacio" [(ngModel)]="espacio" name="espacio" required>
             <option value="" disabled selected>Seleccione un espacio</option>
-            <option *ngFor="let espacio of espacios" [value]="espacio.nombre">{{ espacio.nombre }}</option>
+            <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{ espacio.nombre }}</option>
         </select>
 
         <label for="duracion">Duración (meses):</label>
