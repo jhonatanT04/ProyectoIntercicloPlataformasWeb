@@ -62,7 +62,9 @@ export const routes: Routes = [
     },
     {
         path: 'pages/perfil',
-        component: PerfilComponent
+        canActivate:[guardsAuthGuard],
+        loadComponent:()=>import('./pages/perfil/perfil.component')
+        .then(comp=> comp.PerfilComponent),
     }
     
 ];
