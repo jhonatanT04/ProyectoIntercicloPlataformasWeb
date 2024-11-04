@@ -1,4 +1,3 @@
-
 <div class="conteiner">
     <div class="menu-container" [class.menu-container-select]="isSize">
         <nav>
@@ -12,7 +11,7 @@
                     <div class="text-item-menu" [class.text-item-menu-select]="isSize"></div>
             </ul>
             <ul class="menu-item" >
-                <a class="link-ruta" routerLink="/pages/parqueaderos">
+                <a class="link-ruta" (click)="abrirSeccion('espacios')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                         <path d="M260-320q25 0 42.5-17.5T320-380q0-25-17.5-42.5T260-440q-25 0-42.5 17.5T200-380q0 25 17.5 42.5T260-320Zm360 0q20 0 36-12t21-31q-20-4-38-13.5T606-401l-25-25q-10 8-15.5 20t-5.5 26q0 25 17.5 42.5T620-320Zm-460 40v-200 200Zm40 80v40q0 17-11.5 28.5T160-120h-40q-17 0-28.5-11.5T80-160v-320l84-240q6-18 21.5-29t34.5-11h140v55q0 6 .5 12.5T362-680H234l-42 120h255l80 80H160v200h560v-81q22-2 42.5-11t37.5-25v237q0 17-11.5 28.5T760-120h-40q-17 0-28.5-11.5T680-160v-40H200Zm400-520q17 0 28.5-11.5T640-760q0-17-11.5-28.5T600-800q-17 0-28.5 11.5T560-760q0 17 11.5 28.5T600-720Zm62 262L458-662q-8-8-13-19.5t-5-23.5v-155q0-25 17.5-42.5T500-920h155q12 0 23.5 5t19.5 13l204 204q17 17 17 42.5T902-613L747-458q-17 17-42.5 17T662-458Zm43-70 127-127-185-185H520v127l185 185Zm-29-156Z"/>
                     </svg>
@@ -24,7 +23,7 @@
             </ul>
     
             <ul class="menu-item">
-                <a class="link-ruta" routerLink="/pages/contratos">
+                <a class="link-ruta" (click)="abrirSeccion('contratos')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF" class="icon">
                         <path d="M240-80q-50 0-85-35t-35-85v-120h120v-560h600v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-600H320v480h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h360v80H360Zm0 120v-80h360v80H360ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm0 0h-40 400-360Z"/>
                     </svg>
@@ -38,7 +37,7 @@
     
     
             <ul class="menu-item">
-                <a class="link-ruta" routerLink="/pages/tarifas">
+                <a class="link-ruta" (click)="abrirSeccion('tarifas')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                         <path d="M560-440q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM280-320q-33 0-56.5-23.5T200-400v-320q0-33 23.5-56.5T280-800h560q33 0 56.5 23.5T920-720v320q0 33-23.5 56.5T840-320H280Zm80-80h400q0-33 23.5-56.5T840-480v-160q-33 0-56.5-23.5T760-720H360q0 33-23.5 56.5T280-640v160q33 0 56.5 23.5T360-400Zm440 240H120q-33 0-56.5-23.5T40-240v-440h80v440h680v80ZM280-400v-320 320Z"/>
                     </svg>
@@ -50,7 +49,7 @@
     
     
             <ul class="menu-item">
-                <a class="link-ruta" routerLink="/pages/horarios">
+                <a class="link-ruta" (click)="abrirSeccion('horarios')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                         <path d="M320-400q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm160 0q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm160 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/>
                     </svg>
@@ -62,7 +61,7 @@
     
     
             <ul class="menu-item">
-                <a class="link-ruta" routerLink="/pages/lista">
+                <a class="link-ruta" (click)="abrirSeccion('clientes')"> 
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                         <path d="M680-360q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM480-160v-56q0-24 12.5-44.5T528-290q36-15 74.5-22.5T680-320q39 0 77.5 7.5T832-290q23 9 35.5 29.5T880-216v56H480Zm-80-320q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-160ZM80-160v-112q0-34 17-62.5t47-43.5q60-30 124.5-46T400-440q35 0 70 6t70 14l-34 34-34 34q-18-5-36-6.5t-36-1.5q-58 0-113.5 14T180-306q-10 5-15 14t-5 20v32h240v80H80Zm320-80Zm0-320q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Z"/>
                     </svg>
@@ -85,5 +84,25 @@
             </ul>   
             
         </nav>
+    </div>
+
+    <div *ngIf="seccionAbierta('espacios')" class="contenido-espacios">
+        <app-gestion-espacios></app-gestion-espacios>
+    </div>
+
+    <div *ngIf="seccionAbierta('contratos')" class="contenido-espacios">
+        <app-contratos></app-contratos>
+    </div>
+
+    <div *ngIf="seccionAbierta('tarifas')" class="contenido-espacios">
+        <app-tarifas></app-tarifas>
+    </div>
+
+    <div *ngIf="seccionAbierta('horarios')" class="contenido-espacios">
+        <app-horarios></app-horarios>
+    </div>
+
+    <div *ngIf="seccionAbierta('clientes')" class="contenido-espacios">
+        <app-lista-usuarios></app-lista-usuarios>
     </div>
 </div>
