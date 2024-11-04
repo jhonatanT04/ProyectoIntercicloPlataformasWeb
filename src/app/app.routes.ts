@@ -60,6 +60,10 @@ export const routes: Routes = [
         path: 'pages/actualizar',
         component: ActualizarPerfilComponent
     },
+    // {
+    //     path: 'pages/perfil',
+    //     component: PerfilComponent
+    // },
     {
         path: 'pages/perfil',
         canActivate:[guardsAuthGuard],
