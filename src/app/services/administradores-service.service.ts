@@ -120,7 +120,6 @@ export class AdministradoresServiceService {
       }
     }
   }
-  
 
   cargarContratos() {
     if (isPlatformBrowser(this.platformId)) {
