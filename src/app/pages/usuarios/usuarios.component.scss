@@ -44,13 +44,13 @@
     background-color:rgb(255, 169, 169) ;
     color: black;
 }
-.error-message {
-    
-    color: red;
-    //padding-top: 2.1rem;
-    //position: fixed;
-    
-}
+// .error-message {
+
+//     color: red;
+//     //padding-top: 2.1rem;
+//     //position: fixed;
+
+// }
 .button-submit {
     display: flex; /* Usa flexbox para centrar el botón */
     justify-content: center; /* Centra horizontalmente */
@@ -87,3 +87,5 @@ button:hover {
     margin: 0; /* Asegura que no haya márgenes */
     box-sizing: border-box; /* Incluye padding y border en el ancho total */
 }
+
+
