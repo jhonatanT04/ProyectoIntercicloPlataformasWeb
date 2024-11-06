@@ -1,5 +1,9 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core'; import { Persona } from '../models/persona';
 import { isPlatformBrowser } from '@angular/common';
+import { Espacio } from '../models/espacio';
+import { Contrato } from '../models/contrato';
+import { Tarifa } from '../models/tarifa';
+import { Horario } from '../models/horario';
 
 @Injectable({
   providedIn: 'root'
@@ -60,9 +64,9 @@ export class AdministradoresServiceService {
     }
   }
 
-  agregarEspacio(nombre: string, tipo: string,estado:string) {
+  agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaEspacios.push({ nombre, tipo ,estado});
+      this.listaEspacios.push(espacio);
       localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
     }
   }
@@ -84,9 +88,9 @@ export class AdministradoresServiceService {
     return this.listaEspacios;
   }
 
-  agregarContrato(nombreC: string, nombreE: string, duracion: number, tarifa: number) {
+  agregarContrato(contrato:Contrato,nombreE:string) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaContratos.push({ nombreC, nombreE, duracion, tarifa });
+      this.listaContratos.push(contrato);
       localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
   
       if (!this.listaEspacios || this.listaEspacios.length === 0) {
@@ -128,9 +132,9 @@ export class AdministradoresServiceService {
     return this.listaContratos;
   }
 
-  agregarTarifa(tipo: string, costo: number) {
+  agregarTarifa(tarifa:Tarifa) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaTarifa.push({ tipo, costo });
+      this.listaTarifa.push(tarifa);
       localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
     }
   }
@@ -152,9 +156,9 @@ export class AdministradoresServiceService {
     return this.listaTarifa;
   }
 
-  agrgarHorario(dia: string, horaA: string, horaC: string) {
+  agrgarHorario(horario:Horario) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaHorarios.push({ dia, horaA, horaC });
+      this.listaHorarios.push(horario);
       localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
     }
   }

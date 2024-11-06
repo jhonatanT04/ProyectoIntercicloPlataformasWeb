@@ -18,9 +18,12 @@
 
         <label for="tarifa">Tarifa</label>
         <select id="tarifa" [(ngModel)]="tarifa" name="tarifa" required>
-            <option value="" disabled selected>Seleccione un cliente</option>
+            <option value="" disabled selected>Selecciona tarifa</option>
             <option *ngFor="let tarifa of tarifas" [value]="tarifa.costo">{{tarifa.costo}}</option>
         </select>
+
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" [(ngModel)]="placa" name="placa" required placeholder="AAA-0000">
 
         <button type="submit" (click)="agregarContrato()">Agregar Contrato</button>
     </form>

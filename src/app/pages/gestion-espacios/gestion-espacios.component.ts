@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { Espacio } from '../../models/espacio';
 
 @Component({
   selector: 'app-gestion-espacios',
@@ -27,7 +28,8 @@ export class GestionEspaciosComponent implements OnInit{
   }
 
   agregarEspacio(){
-    this.espacioS.agregarEspacio(this.nombre,this.tipo,'D')
+    const espacio = new Espacio(this.nombre,this.tipo,'D');
+    this.espacioS.agregarEspacio(espacio)
     this.cargarEs() 
     this.tipo=''
     this.nombre=''

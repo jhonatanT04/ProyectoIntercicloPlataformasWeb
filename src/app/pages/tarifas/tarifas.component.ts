@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { Tarifa } from '../../models/tarifa';
 
 @Component({
   selector: 'app-tarifas',
@@ -22,7 +23,8 @@ export class TarifasComponent implements OnInit{
   }
 
   agregarTarifa(){
-    this.tarifaS.agregarTarifa(this.tipo,this.costo);
+    const tarifa = new Tarifa(this.tipo,this.costo);
+    this.tarifaS.agregarTarifa(tarifa);
     this.cargarTarifa()
   }
 

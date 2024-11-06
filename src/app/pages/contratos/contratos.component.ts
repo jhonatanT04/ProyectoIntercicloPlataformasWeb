@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
+import { Contrato } from '../../models/contrato';
 
 @Component({
   selector: 'app-contratos',
@@ -23,6 +24,7 @@ export class ContratosComponent implements OnInit{
   espacio='' 
   duracion=0
   tarifa=0
+  placa=''
 
   constructor(private contratoS:AdministradoresServiceService,private clienteS:UsuariosServiceService){}
   ngOnInit(): void {
@@ -57,7 +59,8 @@ export class ContratosComponent implements OnInit{
     this.tarifas = this.contratoS.cargarTarifa()
   }
   agregarContrato(){
-    this.contratoS.agregarContrato(this.cliente,this.espacio,this.duracion,this.tarifa)
+    const contrato = new Contrato(this.cliente,this.espacio,this.duracion,this.tarifa,this.placa);
+    this.contratoS.agregarContrato(contrato,this.espacio)
     this.cargarContratos() 
   }
 

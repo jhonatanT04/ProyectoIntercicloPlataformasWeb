@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Horario } from '../../models/horario';
 
 @Component({
   selector: 'app-horarios',
@@ -21,7 +22,8 @@ export class HorariosComponent implements OnInit{
   }
 
   definirHorario(){
-    this.horarioS.agrgarHorario(this.dia,this.horaApertura,this.horaCierre)
+    const horario = new Horario(this.dia,this.horaApertura,this.horaCierre);
+    this.horarioS.agrgarHorario(horario)
     this.cargarHorario()
   }
 
