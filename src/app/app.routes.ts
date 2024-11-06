@@ -37,26 +37,6 @@ export const routes: Routes = [
         
     },
     {
-        path: 'pages/parqueaderos',
-        component: GestionEspaciosComponent
-    },
-    {
-        path: 'pages/contratos',
-        component: ContratosComponent
-    },
-    {
-        path: 'pages/tarifas',
-        component: TarifasComponent
-    },
-    {
-        path: 'pages/horarios',
-        component: HorariosComponent
-    },
-    {
-        path: 'pages/lista',
-        component: ListaUsuariosComponent
-    },
-    {
         path: 'pages/actualizar',
         component: ActualizarPerfilComponent
     },
