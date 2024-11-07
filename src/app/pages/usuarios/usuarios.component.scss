@@ -1,91 +1,120 @@
-.container {
-    width: 100%;
-}
 
 .hader-main {
     background-color: #3a4d48;
     width: 100%;
     max-height: 250px;
     color: #f1f1f1;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .hader-main h2 {
-    margin: 0; 
+    margin: 0;
     margin-bottom: 10px;
     font-family: sans-serif;
 }
 
 .login-container {
-    margin: 0 auto; /* Centra el contenedor en la pantalla */
-    max-width: 80%;
-    flex-direction: row-reverse; /* Disposición en columna */
-    background-color: #f1f1f1; /* Color de fondo del contenedor */
-    padding: 20px; /* Espaciado interno del contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    box-sizing: border-box; /* Incluye padding y border en el ancho y alto */   
+    margin: 0 auto;
+    max-width: 50%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    
 }
 
-.login-container label {
-    margin-top: 1rem; /* Espacio encima de las etiquetas */
-    font-weight: bold; /* Etiquetas en negrita */
+.column-form{
+    width: 100%;
+    display: flex;
+}
+.column-form .row-form{
+    width: 100%;
+    padding: 12px;
+}
+
+.login-container label{
+    margin-top: 1rem;
+    font-weight: bold;
 }
 
 .login-container input {
-    width: 100%; /* Ocupa el 100% del ancho */
-    padding: 10px; /* Espacio interno de los campos */
-    margin-bottom: 1rem; /* Espacio debajo de cada campo */
-    border: 1px solid #ccc; /* Borde gris claro */
-    border-radius: 4px; /* Bordes redondeados en los campos */
-    box-sizing: border-box; /* Incluye padding y border en el tamaño */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
-.is-danger{
-    background-color:rgb(255, 169, 169) ;
+
+.is-danger {
+    background-color: rgb(255, 169, 169);
     color: black;
 }
-// .error-message {
 
-//     color: red;
-//     //padding-top: 2.1rem;
-//     //position: fixed;
+.error-message {
 
-// }
-.button-submit {
-    display: flex; /* Usa flexbox para centrar el botón */
-    justify-content: center; /* Centra horizontalmente */
-    margin-top: 1.5rem; /* Espacio encima del botón */
+    color: red;
+    //padding-top: 2.1rem;
+    //position: fixed;
+
 }
 
+.button-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+
+
+
+
 button {
-    padding: 10px 20px; /* Espacio interno del botón */
-    background-color: #31c68b; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.3s ease; /* Transición suave al cambiar el fondo */
+    border: none;
+    padding: 10px 20px;
+    background-color: #31c68b;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #28a745; /* Color de fondo en hover */
-}
-.error-mensaje-repit {
-    position: fixed;  /* Hace que el div esté fijo en la pantalla */
-    bottom: 20px;     /* Espacio desde el fondo de la pantalla */
-    right: 20px;      /* Espacio desde la derecha de la pantalla */
-    background-color: #ffcccc; /* Color de fondo para el mensaje de error */
-    color: #c00;      /* Color del texto */
-    padding: 15px;    /* Espacio interno alrededor del texto */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para el div */
-    z-index: 1000;    /* Asegura que el div esté por encima de otros elementos */
-    display: flex;     /* Usamos flexbox para alinear el contenido */
-    align-items: center; /* Centra el contenido verticalmente */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    max-width: 300px; /* Limita el ancho máximo del mensaje */
-    margin: 0; /* Asegura que no haya márgenes */
-    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    background-color: #28a745;
+    
 }
 
+.error-mensaje-repit {
+    position: fixed;
+    /* Hace que el div esté fijo en la pantalla */
+    bottom: 20px;
+    /* Espacio desde el fondo de la pantalla */
+    right: 20px;
+    /* Espacio desde la derecha de la pantalla */
+    background-color: #ffcccc;
+    /* Color de fondo para el mensaje de error */
+    color: #c00;
+    /* Color del texto */
+    padding: 15px;
+    /* Espacio interno alrededor del texto */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil para el div */
+    z-index: 1000;
+    /* Asegura que el div esté por encima de otros elementos */
+    display: flex;
+    /* Usamos flexbox para alinear el contenido */
+    align-items: center;
+    /* Centra el contenido verticalmente */
+    justify-content: center;
+    /* Centra el contenido horizontalmente */
+    max-width: 300px;
+    /* Limita el ancho máximo del mensaje */
+    margin: 0;
+    /* Asegura que no haya márgenes */
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho total */
+}
 
