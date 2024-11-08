@@ -2,7 +2,7 @@
     <div class="menu-container" [class.menu-container-select]="isSize">
         <nav>
             <ul class="menu-item">
-                    <button class="menu__icon" (click)="agrandar()">
+                    <button class="menu__icon" (click)="agrandar()" [class.menu__icon-last] = "isSize">
                         <span></span>
                         <span></span>
                         <span></span>
