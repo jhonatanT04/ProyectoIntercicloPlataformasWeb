@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { Tarifa } from '../../models/tarifa';
 
 @Component({
   selector: 'app-tarifas',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,ReactiveFormsModule],
   templateUrl: './tarifas.component.html',
   styleUrl: './tarifas.component.scss'
 })
@@ -16,16 +16,29 @@ export class TarifasComponent implements OnInit{
   tipo=''
   costo =0
 
+  tarifaForm = new FormGroup({
+    tipo: new FormControl('', [Validators.required]),
+    costo: new FormControl('', [Validators.required, Validators.min(0)])
+  });
   constructor(private  tarifaS:AdministradoresServiceService){}
 
   ngOnInit(): void {
     this.cargarTarifa()
   }
 
-  agregarTarifa(){
-    const tarifa = new Tarifa(this.tipo,this.costo);
-    this.tarifaS.agregarTarifa(tarifa);
-    this.cargarTarifa()
+  agregarTarifa() {
+    if (this.tarifaForm.valid) {
+      const costo = parseFloat(this.tarifaForm.get('costo')?.value || '')??0;
+      const nuevaTarifa = new Tarifa(
+        this.tarifaForm.get('tipo')?.value || '', costo
+        
+      );
+      this.tarifaS.agregarTarifa(nuevaTarifa);
+      this.cargarTarifa();
+      this.tarifaForm.reset();  
+    } else {
+      this.tarifaForm.markAllAsTouched(); 
+    }
   }
 
   eliminarTarifa(tarifa:any){

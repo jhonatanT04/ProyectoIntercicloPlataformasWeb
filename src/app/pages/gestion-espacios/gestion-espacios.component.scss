@@ -66,3 +66,14 @@
 .gestion-espacios li button:hover {
     background-color: #54736E;
 }
+
+input.error, select.error {
+    border: 1px solid red;
+    background-color: #ffdddd;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}

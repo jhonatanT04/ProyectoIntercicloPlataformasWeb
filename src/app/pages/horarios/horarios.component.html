@@ -1,31 +1,38 @@
 <div class="horario-parqueadero">
-    <h2>Definir Horario de Trabajo</h2>
-    <form>
-      <label for="dia">Día:</label>
-      <select id="dia" [(ngModel)]="dia" name="dia" required>
-        <option value="lunes">Lunes</option>
-        <option value="martes">Martes</option>
-        <option value="miércoles">Miércoles</option>
-        <option value="jueves">Jueves</option>
-        <option value="viernes">Viernes</option>
-        <option value="sábado">Sábado</option>
-        <option value="domingo">Domingo</option>
-      </select>
-  
-      <label for="horaApertura">Hora de Apertura:</label>
-      <input type="time" id="horaApertura" [(ngModel)]="horaApertura" name="horaApertura" required>
-  
-      <label for="horaCierre">Hora de Cierre:</label>
-      <input type="time" id="horaCierre" [(ngModel)]="horaCierre" name="horaCierre" required>
-  
-      <button type="submit"  (click)="definirHorario()">Definir Horario</button>
-    </form>
-  
-    <ul>
-      <li *ngFor="let horario of horarios">
-        {{ horario.dia }} - {{ horario.horaApertura }} a {{ horario.horaCierre }}
-        <button (click)="eliminarHorario(horario)">Eliminar</button>
-      </li>
-    </ul>
-  </div>
-  
+  <h2>Definir Horario de Trabajo</h2>
+    <form [formGroup]="horarioForm">
+    <label for="dia">Día:</label>
+    <select id="dia" formControlName="dia">
+      <option value="lunes">Lunes</option>
+      <option value="martes">Martes</option>
+      <option value="miércoles">Miércoles</option>
+      <option value="jueves">Jueves</option>
+      <option value="viernes">Viernes</option>
+      <option value="sábado">Sábado</option>
+      <option value="domingo">Domingo</option>
+    </select>
+    <div *ngIf="horarioForm.get('dia')?.hasError('required') && horarioForm.get('dia')?.touched" class="error-message">
+      Por favor selecciona un día.
+    </div>
+
+    <label for="horaApertura">Hora de Apertura:</label>
+    <input type="time" id="horaApertura" formControlName="horaApertura" [class.ng-invalid.ng-touched]="horarioForm.get('horaApertura')?.hasError('required') && horarioForm.get('horaApertura')?.touched">
+    <div *ngIf="horarioForm.get('horaApertura')?.hasError('required') && horarioForm.get('horaApertura')?.touched" class="error-message">
+      La hora de apertura es obligatoria.
+    </div>
+
+    <label for="horaCierre">Hora de Cierre:</label>
+    <input type="time" id="horaCierre" formControlName="horaCierre">
+    <div *ngIf="horarioForm.get('horaCierre')?.hasError('required') && horarioForm.get('horaCierre')?.touched" class="error-message">
+      La hora de cierre es obligatoria.
+    </div>
+
+    <button type="submit" (click)="definirHorario()">Definir Horario</button>
+  </form>
+  <ul>
+    <li *ngFor="let horario of horarios">
+      {{ horario.dia }} - {{ horario.horaApertura }} a {{ horario.horaCierre }}
+      <button (click)="eliminarHorario(horario)">Eliminar</button>
+    </li>
+  </ul>
+</div>

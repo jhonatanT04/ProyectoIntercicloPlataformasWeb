@@ -1,24 +1,28 @@
 <div class="gestion-tarifas">
-    <h2>Gestión de Tarifas</h2>
-    <form>
-      <label for="tipo">Tipo de Espacio:</label>
-      <select id="tipo" [(ngModel)]="tipo" name="tipo" required>
-        <option value="auto">Auto</option>
-        <option value="moto">Moto</option>
-        <option value="bicicleta">Bicicleta</option>
-      </select>
-  
-      <label for="costo">Costo por Hora:</label>
-      <input type="number" id="costo" [(ngModel)]="costo" name="costo" required>
-  
-      <button type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
-    </form>
-  
-    <ul>
-      <li *ngFor="let tarifa of tarifas">
-        {{ tarifa.tipoEspacio }} - {{ tarifa.costo }} por hora
-        <button (click)="eliminarTarifa(tarifa.id)">Eliminar</button>
-      </li>
-    </ul>
-  </div>
-  
+  <h2>Gestión de Tarifas</h2>
+  <form [formGroup]="tarifaForm">
+    <label for="tipo">Tipo de Espacio:</label>
+    <select id="tipo" formControlName="tipo">
+      <option value="auto">Auto</option>
+      <option value="moto">Moto</option>
+    </select>
+    <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched" class="error-message">
+      Por favor selecciona un tipo de espacio.
+    </div>
+
+    <label for="costo">Costo por Hora:</label>
+    <input type="number" id="costo" formControlName="costo" min="0">
+    <div *ngIf="tarifaForm.get('costo')?.hasError('required') && tarifaForm.get('costo')?.touched" class="error-message">
+      El costo por hora es obligatorio.
+    </div>
+
+    <button type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let tarifa of tarifas">
+      {{ tarifa.tipoEspacio }} - {{ tarifa.costo }} por hora
+      <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
+    </li>
+  </ul>
+</div>

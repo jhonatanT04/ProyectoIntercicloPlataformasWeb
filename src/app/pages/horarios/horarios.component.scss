@@ -24,20 +24,20 @@
 .horario-parqueadero input[type="time"] {
     padding: 10px;
     margin-bottom: 15px;
-    border: 2px solid #080000; 
+    border: 2px solid #080000;
     border-radius: 5px;
     font-size: 16px;
 }
 
 .horario-parqueadero button {
-    background-color: #54736E; 
-    color: #FFFFFF; 
+    background-color: #54736E;
+    color: #FFFFFF;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
 }
 
 .horario-parqueadero button:hover {
@@ -54,7 +54,7 @@
 }
 
 .horario-parqueadero li button {
-    background-color: #FF3B58; 
+    background-color: #FF3B58;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -64,5 +64,22 @@
 }
 
 .horario-parqueadero li button:hover {
-    background-color: #54736E; 
+    background-color: #54736E;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    border: 1px solid red;
+    background-color: #FF3B58
+}
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
 }

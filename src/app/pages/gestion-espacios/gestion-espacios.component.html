@@ -1,22 +1,46 @@
 <div class="gestion-espacios">
     <h2>Gestión de Espacios</h2>
-    <form>
-        <label for="nombre">Nombre del Espacio:</label>
-        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
-
-        <label for="tipo">Tipo de Espacio:</label>
-        <select id="tipo" [(ngModel)]="tipo" name="tipo" required>
-            <option value="auto">Auto</option>
-            <option value="moto">Moto</option>
-        </select>
-
-        <button type="submit" (click)="agregarEspacio()">Agregar Espacio</button>
+    <form [formGroup]="espacioForm">
+      <label for="nombre">Nombre del Espacio:</label>
+      <input type="text" id="nombre" formControlName="nombre" required>
+      <div *ngIf="espacioForm.get('nombre')?.hasError('required') && espacioForm.get('nombre')?.touched" class="error-message">
+        Ingrese un nombre para el espacio.
+      </div>
+  
+      <label for="tipo">Tipo de Espacio:</label>
+      <select id="tipo" formControlName="tipo" required>
+        <option value="" disabled selected>Seleccione un tipo de espacio</option>
+        <option value="auto">Auto</option>  
+        <option value="moto">Moto</option>
+      </select>
+      <div *ngIf="espacioForm.get('tipo')?.hasError('required') && espacioForm.get('tipo')?.touched" class="error-message">
+        Seleccione un tipo de espacio.
+      </div>
+  
+      <button type="button" (click)="agregarEspacio()">Agregar Espacio</button>
     </form>
-
-    <ul>
-        <li *ngFor="let espacio of espacios">
-            {{espacio.nombre}} ({{espacio.tipo}})
+  
+    <table *ngIf="espacios.length > 0">
+      <thead>
+        <tr>
+          <th>Nombre del Espacio</th>
+          <th>Tipo de Espacio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let espacio of espacios">
+          <td>{{ espacio.nombre }}</td>
+          <td>{{ espacio.tipo }}</td>
+          <td>
             <button (click)="eliminarEspacio(espacio)">Eliminar</button>
-        </li>
-    </ul>
-</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="espacios.length === 0">
+      No hay espacios registrados.
+    </div>
+  </div>
+  
