@@ -37,11 +37,11 @@ export class GestionEspaciosComponent implements OnInit{
       const nuevoEspacio = new Espacio(
         this.espacioForm.get('nombre')?.value || '',
         this.espacioForm.get('tipo')?.value || '',
-        'D' // Estado predeterminado
+        'D' 
       );
       this.espacioS.agregarEspacio(nuevoEspacio);
       this.cargarEs();
-      this.espacioForm.reset(); // Reiniciar formulario
+      this.espacioForm.reset(); 
     } else {
       this.espacioForm.markAllAsTouched();
     }

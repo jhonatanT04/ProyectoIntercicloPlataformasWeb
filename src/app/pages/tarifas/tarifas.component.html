@@ -19,10 +19,23 @@
     <button type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
   </form>
 
-  <ul>
-    <li *ngFor="let tarifa of tarifas">
-      {{ tarifa.tipoEspacio }} - {{ tarifa.costo }} por hora
-      <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
-    </li>
-  </ul>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Tipo de Espacio</th>
+        <th>Costo por Hora</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tarifa of tarifas">
+        <td>{{ tarifa.tipo }}</td>
+        <td>{{ tarifa.costo }}$ por hora</td>
+        <td>
+          <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
 </div>
