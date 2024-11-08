@@ -29,10 +29,26 @@
 
     <button type="submit" (click)="definirHorario()">Definir Horario</button>
   </form>
-  <ul>
-    <li *ngFor="let horario of horarios">
-      {{ horario.dia }} - {{ horario.horaApertura }} a {{ horario.horaCierre }}
-      <button (click)="eliminarHorario(horario)">Eliminar</button>
-    </li>
-  </ul>
+  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Día</th>
+        <th>Hora de Apertura</th>
+        <th>Hora de Cierre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let horario of horarios">
+        <td>{{ horario.dia }}</td>
+        <td>{{ horario.horaA }}</td>
+        <td>{{ horario.horaC }}</td>
+        <td>
+          <button (click)="eliminarHorario(horario)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
 </div>

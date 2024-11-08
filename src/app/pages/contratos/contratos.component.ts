@@ -62,13 +62,6 @@ export class ContratosComponent implements OnInit {
     this.contratos = this.contratoS.cargarContratos()
   }
 
-  placaInvalida = false;
-
-  validarPlaca() {
-    const placaRegex = /^[A-Z]{3}-\d{4}$/;
-    this.placaInvalida = !placaRegex.test(this.placa);
-  }
-
   cargarTarifas() {
     this.tarifas = this.contratoS.cargarTarifa()
   }
@@ -84,8 +77,9 @@ export class ContratosComponent implements OnInit {
         this.contratoForm.get('placa')?.value || ''
       );
   
-      this.contratoS.agregarContrato(contrato,this.contratoForm.get('cliente')?.value || '');
+      this.contratoS.agregarContrato(contrato,this.contratoForm.get('espacio')?.value || '');
       this.cargarContratos();
+      this.contratoForm.reset() 
     } else {
       this.contratoForm.markAllAsTouched();
     }
