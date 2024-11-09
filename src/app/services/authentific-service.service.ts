@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import  { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, verifyBeforeUpdateEmail} from 'firebase/auth'
+import  { createUserWithEmailAndPassword, deleteUser, getAdditionalUserInfo, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, verifyBeforeUpdateEmail} from 'firebase/auth'
 import { User } from '../models/user';
 import { Persona } from '../models/persona';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,21 @@ export class AuthentificServiceService {
         return null; 
       });
   }
+  
   loginGoogle(){
     return signInWithPopup(getAuth(),new GoogleAuthProvider)
+    .then((result) => {
+      return getAdditionalUserInfo(result)?.isNewUser;
+    })
+    .catch((error) => {
+      console.error("Error al iniciar sesión con Google:", error);
+    });
   }
+  
+  getInfo(){
+    return getAuth().currentUser
+  }
+
   logout(){
     return signOut(getAuth())
   }
@@ -43,8 +56,13 @@ export class AuthentificServiceService {
     const user = getAuth().currentUser
     return user!==null
   }
-  
-  isNewCliente(){
-    return
+  deleteCuentaPerma(){
+    return getAuth().currentUser?.delete().then(
+      ()=>{
+        console.log("Usuario eliminado con éxito");
+      })
+      .catch((error) => {
+        console.error("Error al eliminar el usuario: ", error);
+      });
   }
 }

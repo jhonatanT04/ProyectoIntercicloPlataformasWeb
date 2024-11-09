@@ -41,9 +41,18 @@ export class LoginComponent implements OnInit{
   }
   onGoogle(){
     this.loginService.loginGoogle().then(resr =>{
-      this.router.navigate(['/pages/administrador'])
-    }).catch(error=>console.log(error))
+      console.log(resr)
+      if(resr){
+        this.loginService.deleteCuentaPerma()
+        console.log("Primera vez")
+      }else{
+        this.router.navigate(['/pages/administrador'])
+      }
+      
+    })
   }
+  
+
   visible:boolean = true;
   changetype:boolean =true;
   

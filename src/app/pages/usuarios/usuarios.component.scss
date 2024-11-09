@@ -61,11 +61,14 @@
 
 .error-message {
     font-size: 12px;
-    padding: 0;
     color: red;
-    //padding-top: 2.1rem;
-    //position: fixed;
+    padding-top: 2.1rem;
+    position: absolute;
 
+}
+.error-message-password {
+    font-size: 12px;
+    color: red;
 }
 
 .button-submit {

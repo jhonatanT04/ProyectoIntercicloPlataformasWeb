@@ -43,14 +43,14 @@
                     <label for="passwordRepit">Repita la contraseña</label><br>
                     <input matInput [type]="'password'" formControlName="passwordRepit"  [class.is-danger]="(form.get('password')?.hasError('minlength'))||(form.get('password')?.hasError('required') && form.get('password')?.touched)||form.hasError('fieldsMismatch')"><br>
 
-                    <div *ngIf=" form.get('password')?.hasError('minlength') " class="error-message">
+                    <div *ngIf=" form.get('password')?.hasError('minlength') " class="error-message-password">
                         La contraseña debe ser mayor a 8 caracteres.
                     </div>
                     <div *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched"
-                        class="error-message">
+                        class="error-message-password">
                         Ingrese una contraseña.
                     </div>
-                    <div *ngIf="form.hasError('fieldsMismatch') " class="error-message">
+                    <div *ngIf="form.hasError('fieldsMismatch') " class="error-message-password">
                         Las contraseñas deben coincidir.
                     </div>
 
@@ -67,7 +67,7 @@
                     <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" class="error-message">
                         El numero de cedula es obligatoria.
                     </div>
-                    <input matInput formControlName="codeZip" required [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" class="error-message"><br>
+                    <input matInput formControlName="codeZip" required [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" ><br>
 
 
                     <label for="country">Pais</label><br>

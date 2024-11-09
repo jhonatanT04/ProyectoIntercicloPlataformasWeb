@@ -61,7 +61,6 @@ export class UsuariosComponent {
     }
   }
   onGoogle() {
-    
     if (this.form.valid) {
       this.loginService.loginGoogle().then(resr => {
         this.router.navigate(['pages/login'])
