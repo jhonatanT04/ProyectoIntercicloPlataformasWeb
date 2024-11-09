@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
   onGoogle(){
     this.loginService.loginGoogle().then(resr =>{
       this.router.navigate(['/pages/administrador'])
-    }).catch(error=>console.log(error))
+    })
   }
   visible:boolean = true;
   changetype:boolean =true;

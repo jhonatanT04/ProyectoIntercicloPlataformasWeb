@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import  { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, verifyBeforeUpdateEmail} from 'firebase/auth'
 import { User } from '../models/user';
 import { Persona } from '../models/persona';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,30 @@ export class AuthentificServiceService {
         return null; 
       });
   }
-  loginGoogle(){
-    return signInWithPopup(getAuth(),new GoogleAuthProvider)
+  
+  loginGoogle() {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+  
+    return signInWithPopup(auth, provider).then(async userCredential => {
+        const user = userCredential.user;
+        const db = getFirestore();
+        
+        const userRef = doc(db, 'users', user.uid); 
+        const userDoc = await getDoc(userRef);
+        
+        if (userDoc.exists()) {
+          console.log("Inicio de sesión exitoso para usuario existente:", user);
+          return user;
+        } else {
+          console.log("Usuario no autorizado o no registrado.");
+          throw new Error("Usuario no autorizado o no registrado.");
+        }
+      })
+      .catch(error => {
+        console.error("Error en inicio de sesión: xs", error);
+        throw error;
+      });
   }
   logout(){
     return signOut(getAuth())
@@ -43,6 +66,7 @@ export class AuthentificServiceService {
     const user = getAuth().currentUser
     return user!==null
   }
+  
   
   isNewCliente(){
     return

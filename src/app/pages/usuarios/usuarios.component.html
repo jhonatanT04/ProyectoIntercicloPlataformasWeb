@@ -67,7 +67,7 @@
                     <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" class="error-message">
                         El numero de cedula es obligatoria.
                     </div>
-                    <input matInput formControlName="codeZip" required [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" class="error-message"><br>
+                    <input matInput formControlName="codeZip" required [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched" ><br>
 
 
                     <label for="country">Pais</label><br>
