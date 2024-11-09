@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoFaltanteComponent } from './info-faltante.component';
+import { RegistroGoogleComponent } from './registro-google.component';
 
-describe('InfoFaltanteComponent', () => {
-  let component: InfoFaltanteComponent;
-  let fixture: ComponentFixture<InfoFaltanteComponent>;
+describe('RegistroGoogleComponent', () => {
+  let component: RegistroGoogleComponent;
+  let fixture: ComponentFixture<RegistroGoogleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InfoFaltanteComponent]
+      imports: [RegistroGoogleComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InfoFaltanteComponent);
+    fixture = TestBed.createComponent(RegistroGoogleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
