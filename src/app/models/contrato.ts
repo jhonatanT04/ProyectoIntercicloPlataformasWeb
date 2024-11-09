@@ -1,13 +1,15 @@
+import { Persona } from "./persona"
+
 export class Contrato {
-    nombreC:string
+    cliente:Persona
     nombreE:string
     duracion:number
     tarifa:number
     placa:string
     nombreA:string
 
-    constructor(nombreC:string,nombreE:string,duracion:number,tarifa:number,placa:string,nombreA:string){
-        this.nombreC = nombreC
+    constructor(cliente:Persona,nombreE:string,duracion:number,tarifa:number,placa:string,nombreA:string){
+        this.cliente = cliente
         this.nombreE = nombreE
         this.duracion = duracion
         this.tarifa = tarifa
