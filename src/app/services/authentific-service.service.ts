@@ -35,16 +35,7 @@ export class AuthentificServiceService {
       });
   }
   
-<<<<<<< HEAD
-  loginGoogle(){
-    return signInWithPopup(getAuth(),new GoogleAuthProvider)
-    .then((result) => {
-      return getAdditionalUserInfo(result)?.isNewUser;
-    })
-    .catch((error) => {
-      console.error("Error al iniciar sesión con Google:", error);
-    });
-=======
+
   loginGoogle() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -68,7 +59,7 @@ export class AuthentificServiceService {
         console.error("Error en inicio de sesión: xs", error);
         throw error;
       });
->>>>>>> a9530b572b5b92c70484bdc37db0f0fcc4b52f35
+
   }
   
   getInfo(){
@@ -82,7 +73,6 @@ export class AuthentificServiceService {
     const user = getAuth().currentUser
     return user!==null
   }
-<<<<<<< HEAD
   deleteCuentaPerma(){
     return getAuth().currentUser?.delete().then(
       ()=>{
@@ -91,11 +81,5 @@ export class AuthentificServiceService {
       .catch((error) => {
         console.error("Error al eliminar el usuario: ", error);
       });
-=======
-  
-  
-  isNewCliente(){
-    return
->>>>>>> a9530b572b5b92c70484bdc37db0f0fcc4b52f35
-  }
+    }
 }
