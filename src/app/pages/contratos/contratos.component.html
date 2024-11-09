@@ -58,6 +58,7 @@
                 <th>Duración (meses)</th>
                 <th>Tarifa</th>
                 <th>Placa</th>
+                <th>Nombre Administrador</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -68,9 +69,13 @@
                 <td>{{ contrato.duracion }} meses</td>
                 <td>{{ contrato.tarifa }}</td>
                 <td>{{ contrato.placa }}</td>
+                <td>{{ contrato.nombreA }}</td>
                 <td><button (click)="eliminarContrato(contrato)">Eliminar</button></td>
             </tr>
         </tbody>
     </table>
     <div *ngIf="contratos.length === 0">No hay contratos registrados.</div>
+    <div *ngIf="email1">
+        <p>Correo del usuario: {{ email1 }}</p>
+      </div>      
 </div>

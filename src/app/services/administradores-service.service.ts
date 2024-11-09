@@ -64,6 +64,12 @@ export class AdministradoresServiceService {
     }
   }
 
+  buscarAdminPorEmail(email: string | null = null): Persona | null {
+    const admin = this.listaAdministradores.find(adm => adm.email === email);
+    return admin ? admin : null;
+  }
+  
+
   agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaEspacios.push(espacio);

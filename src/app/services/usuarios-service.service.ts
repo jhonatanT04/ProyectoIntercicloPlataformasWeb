@@ -37,4 +37,10 @@ export class UsuariosServiceService {
   seleccionarUsuraio(usuario:any){
     return this.listaUsuarios.find(usuario=>usuario.email === usuario.email)
   }
+
+  buscarUsuarioPorEmail(email: string | null=null): Persona | null {
+    this.listaUsuarios = this.cargarUsuario();
+    const usuario = this.listaUsuarios.find(usuario => usuario.email === email);
+    return usuario ? usuario : null;
+  }
 }

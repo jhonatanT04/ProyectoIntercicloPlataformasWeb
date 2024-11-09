@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Contrato } from '../../models/contrato';
+import { AuthentificServiceService } from '../../services/authentific-service.service';
 
 @Component({
   selector: 'app-contratos',
@@ -20,6 +21,7 @@ export class ContratosComponent implements OnInit {
   clientes: any = []
   tarifas: any = []
 
+  email1 : string | null = null;
   cliente = ''
   espacio = ''
   duracion = 0
@@ -33,12 +35,13 @@ export class ContratosComponent implements OnInit {
     tarifa: new FormControl('', [Validators.required]),
     placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')])
   });
-  constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService) { }
+  constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService,private login:AuthentificServiceService) { }
   ngOnInit(): void {
     this.cargarContratos()
     this.cargarEspacios()
     this.cargarClientes()
     this.cargarTarifas()
+    this.email1 = this.login.getUserEmail()
   }
 
   cargarClientes() {
@@ -65,16 +68,19 @@ export class ContratosComponent implements OnInit {
   cargarTarifas() {
     this.tarifas = this.contratoS.cargarTarifa()
   }
+  
   agregarContrato() {
     if (this.contratoForm.valid) {
       const duracion = parseFloat(this.contratoForm.get('duracion')?.value||'') ?? 0;
       const tarifa = parseFloat(this.contratoForm.get('tarifa')?.value ||'')?? 0;
+      const nombre = this.contratoS.buscarAdminPorEmail(this.email1 || '')?.nombre || '';
       const contrato = new Contrato(
         this.contratoForm.get('cliente')?.value || '',
         this.contratoForm.get('espacio')?.value || '',
         duracion,
         tarifa,
-        this.contratoForm.get('placa')?.value || ''
+        this.contratoForm.get('placa')?.value || '',
+        nombre
       );
   
       this.contratoS.agregarContrato(contrato,this.contratoForm.get('espacio')?.value || '');

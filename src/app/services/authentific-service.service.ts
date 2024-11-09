@@ -21,6 +21,7 @@ export class AuthentificServiceService {
   login(usuario: User): Promise<Persona | null> {
     return signInWithEmailAndPassword(this.getAuth(), usuario.email, usuario.password)
       .then(async (userCredential) => {
+        this.userEmail = usuario.email;
         const listaAdministradores = JSON.parse(localStorage.getItem('listAdm') || '[]') as Persona[];
         const listaUsuarios = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
         const usuarioAdmin = listaAdministradores.find(admin => admin.email === usuario.email && admin.rolAdministrativo === true);
@@ -64,6 +65,11 @@ export class AuthentificServiceService {
   
   getInfo(){
     return getAuth().currentUser
+  }
+
+  private userEmail: string | null = null;
+  getUserEmail() {
+    return this.userEmail; 
   }
 
   logout(){
