@@ -35,6 +35,7 @@ export class AuthentificServiceService {
       });
   }
   
+<<<<<<< HEAD
   loginGoogle(){
     return signInWithPopup(getAuth(),new GoogleAuthProvider)
     .then((result) => {
@@ -43,6 +44,31 @@ export class AuthentificServiceService {
     .catch((error) => {
       console.error("Error al iniciar sesión con Google:", error);
     });
+=======
+  loginGoogle() {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+  
+    return signInWithPopup(auth, provider).then(async userCredential => {
+        const user = userCredential.user;
+        const db = getFirestore();
+        
+        const userRef = doc(db, 'users', user.uid); 
+        const userDoc = await getDoc(userRef);
+        
+        if (userDoc.exists()) {
+          console.log("Inicio de sesión exitoso para usuario existente:", user);
+          return user;
+        } else {
+          console.log("Usuario no autorizado o no registrado.");
+          throw new Error("Usuario no autorizado o no registrado.");
+        }
+      })
+      .catch(error => {
+        console.error("Error en inicio de sesión: xs", error);
+        throw error;
+      });
+>>>>>>> a9530b572b5b92c70484bdc37db0f0fcc4b52f35
   }
   
   getInfo(){
@@ -56,6 +82,7 @@ export class AuthentificServiceService {
     const user = getAuth().currentUser
     return user!==null
   }
+<<<<<<< HEAD
   deleteCuentaPerma(){
     return getAuth().currentUser?.delete().then(
       ()=>{
@@ -64,5 +91,11 @@ export class AuthentificServiceService {
       .catch((error) => {
         console.error("Error al eliminar el usuario: ", error);
       });
+=======
+  
+  
+  isNewCliente(){
+    return
+>>>>>>> a9530b572b5b92c70484bdc37db0f0fcc4b52f35
   }
 }
