@@ -13,7 +13,7 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 export class PerfilComponent implements OnInit{
   nombre=''
   apellido=''
-  correo:string | null =null
+  correo:string =''
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService){}
   ngOnInit(): void {
     this.correo = this.correoS.getUserEmail()

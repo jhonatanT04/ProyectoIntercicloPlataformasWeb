@@ -67,7 +67,7 @@ export class AuthentificServiceService {
     return getAuth().currentUser
   }
 
-  private userEmail: string | null = null;
+  private userEmail: string = '';
   getUserEmail() {
     return this.userEmail; 
   }

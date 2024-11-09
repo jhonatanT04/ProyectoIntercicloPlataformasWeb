@@ -38,7 +38,7 @@ export class UsuariosServiceService {
     return this.listaUsuarios.find(usuario=>usuario.email === usuario.email)
   }
 
-  buscarUsuarioPorEmail(email: string | null=null): Persona | null {
+  buscarUsuarioPorEmail(email: string): Persona | null {
     this.listaUsuarios = this.cargarUsuario();
     const usuario = this.listaUsuarios.find(usuario => usuario.email === email);
     return usuario ? usuario : null;

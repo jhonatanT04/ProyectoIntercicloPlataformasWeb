@@ -21,7 +21,7 @@ export class ContratosComponent implements OnInit {
   clientes: any = []
   tarifas: any = []
 
-  email1 : string | null = null;
+  email1 : string ='';
   cliente = ''
   espacio = ''
   duracion = 0
