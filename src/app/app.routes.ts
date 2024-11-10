@@ -11,11 +11,16 @@ import { HorariosComponent } from './pages/horarios/horarios.component';
 import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.component';
 import { ActualizarPerfilComponent } from './pages/actualizar-perfil/actualizar-perfil.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { RegistroGoogleComponent } from './components/registro-google/registro-google.component';
 
 export const routes: Routes = [
     {
         path: 'pages/usuarios',
         component: UsuariosComponent
+    },
+    {
+        path: 'components/registro-google',
+        component: RegistroGoogleComponent
     },
     // {
     //     path: 'pages/administrador',

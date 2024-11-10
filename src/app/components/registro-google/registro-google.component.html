@@ -1,1 +1,93 @@
-<p>registro-google works!</p>
+<div class="container">
+    <div class="hader-main">
+        <h2>
+            Parqueadero UPS
+        </h2>
+    </div>
+
+    <form [formGroup]="form">
+        <div class="login-container">
+            <h2>Complete su informacion</h2>
+            <p>
+                Ya casi terminamos solo completa la informacion.
+            </p>
+            <div class="column-form">
+                <div class="row-form">
+
+                    <label for="name">Nombre</label>
+                    <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched"
+                        class="error-message">
+                        El nombre invalido.
+                    </div>
+                    <input placeholder="Ingrese su nombre" class="input-class"
+                        [class.is-danger]="form.get('name')?.hasError('required') && form.get('name')?.touched"
+                        formControlName="name"><br>
+
+                    <label for="addres">Direccion</label><br>
+                    <div *ngIf="form.get('addres')?.hasError('required') && form.get('addres')?.touched"
+                        class="error-message">
+                        Direccion invalido.
+                    </div>
+                    <input matInput placeholder="Direccion, nombre edificio.etc" formControlName="addres" required
+                        [class.is-danger]="form.get('addres')?.hasError('required') && form.get('addres')?.touched"><br>
+
+
+                    <label for="numberPhone">Numero celular/telefono</label><br>
+                    <div *ngIf="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"
+                        class="error-message">
+                        El numero invalido.
+                    </div>
+                    <input matInput formControlName="numberPhone" required
+                        [class.is-danger]="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"><br>
+                </div>
+
+                <div class="row-form">
+                    <label for="lastName">Apellido</label><br>
+                    <div *ngIf="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"
+                        class="error-message">
+                        El apellido es requerido.
+                    </div>
+                    <input placeholder="Ingrese su apellido" formControlName="lastName" required
+                        [class.is-danger]="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"><br>
+                    <label for="codeZip">Numero de cedula </label><br>
+                    <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"
+                        class="error-message">
+                        El numero de cedula es invalido.
+                    </div>
+                    <input matInput formControlName="codeZip" required
+                        [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"><br>
+
+                    <label for="country">Pais</label><br>
+                    <div *ngIf="form.get('country')?.hasError('required') && form.get('country')?.touched"
+                        class="error-message">
+                        Escoja un Pais
+                    </div>
+                    <input matInput formControlName="country" placeholder="Seleccione un pais"
+                        [class.is-danger]="form.get('country')?.hasError('required') && form.get('country')?.touched"><br>
+
+
+                    <label for="city">Ciudad</label><br>
+                    <div *ngIf="form.get('city')?.hasError('required') && form.get('city')?.touched"
+                        class="error-message">
+                        Escoja una ciudad.
+                    </div>
+                    <input matInput placeholder="Seleccione una ciudad" formControlName="city" [class.is-danger]="form.get('city')?.hasError('required') && form.get('city')?.touched"><br>
+                </div>
+            </div>
+            <div class="button-submit" (click)="registrarse()">
+                <button type="submit">Registrarse</button>
+            </div>
+            
+        </div>
+    </form>
+</div>
+<div class="alert-container">
+    <div *ngIf="showDangerAlert" class="alert-danger">
+        <svg viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+                d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+        </svg>
+        {{textError}}
+    </div>
+
+</div>
