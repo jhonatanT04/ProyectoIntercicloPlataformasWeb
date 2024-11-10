@@ -47,10 +47,9 @@ export class UsuariosServiceService {
   actualizarUsuario(email: string, nuevosDatos: Partial<Persona>): boolean {
     this.listaUsuarios = this.cargarUsuario();
     const index = this.listaUsuarios.findIndex(usuario => usuario.email === email);
-  
     if (index !== -1) {
-      this.listaUsuarios[index] = { ...this.listaUsuarios[index], ...nuevosDatos }; // Actualiza solo los campos proporcionados
-      localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios)); // Guardamos la lista actualizada en el localStorage
+      this.listaUsuarios[index] = { ...this.listaUsuarios[index], ...nuevosDatos }; 
+      localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios)); 
       return true; 
     }
     return false; 
