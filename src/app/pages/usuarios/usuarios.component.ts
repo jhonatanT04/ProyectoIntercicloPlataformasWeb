@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
 
-// Matbu
+
 @Component({
   selector: 'app-usuarios',
   standalone: true,
@@ -34,10 +34,10 @@ export class UsuariosComponent {
   },{validators:this.validationPassword('password','passwordRepit')})
   
   
-
+  showDangerAlert = false;
+  showDangerAlertInfor = false;
   onSubmit() {
     this.form.markAllAsTouched();
-    
     if (this.form.valid) {
       
       const per = new Persona(
@@ -58,6 +58,8 @@ export class UsuariosComponent {
           this.router.navigate(['pages/login'])
         }).catch(error => console.log(error))
 
+    }else{
+      this.alertErrorDatos()
     }
   }
   onGoogle() {
@@ -69,11 +71,22 @@ export class UsuariosComponent {
   }
 
   validationPassword(field1: string, field2: string):ValidatorFn{
-    
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const field1Value = formGroup.get(field1)?.value;
       const field2Value = formGroup.get(field2)?.value;
       return field1Value === field2Value ? null : { fieldsMismatch: true };
     };
+  }
+  alertErrorDatos(){
+    setTimeout(() => {
+      this.showDangerAlertInfor = true;
+    }, 4); 
+    this.showDangerAlertInfor = false;
+  }
+  alertError(){
+    setTimeout(() => {
+      this.showDangerAlert = true;
+    }, 4);
+    this.showDangerAlert = false;
   }
 }
