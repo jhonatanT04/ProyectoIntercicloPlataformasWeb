@@ -5,11 +5,12 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Contrato } from '../../models/contrato';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
+import { Persona } from '../../models/persona';
 
 @Component({
   selector: 'app-contratos',
   standalone: true,
-  imports: [FormsModule, CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './contratos.component.html',
   styleUrl: './contratos.component.scss'
 })
@@ -21,7 +22,7 @@ export class ContratosComponent implements OnInit {
   clientes: any = []
   tarifas: any = []
 
-  email1 : string ='';
+  email1: string = '';
   cliente = ''
   espacio = ''
   duracion = 0
@@ -35,7 +36,7 @@ export class ContratosComponent implements OnInit {
     tarifa: new FormControl('', [Validators.required]),
     placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')])
   });
-  constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService,private login:AuthentificServiceService) { }
+  constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService) { }
   ngOnInit(): void {
     this.cargarContratos()
     this.cargarEspacios()
@@ -68,24 +69,41 @@ export class ContratosComponent implements OnInit {
   cargarTarifas() {
     this.tarifas = this.contratoS.cargarTarifa()
   }
-  
+
   agregarContrato() {
     if (this.contratoForm.valid) {
-      const duracion = parseFloat(this.contratoForm.get('duracion')?.value||'') ?? 0;
-      const tarifa = parseFloat(this.contratoForm.get('tarifa')?.value ||'')?? 0;
+      const duracion = parseFloat(this.contratoForm.get('duracion')?.value || '') ?? 0;
+      const tarifa = parseFloat(this.contratoForm.get('tarifa')?.value || '') ?? 0;
       const nombre = this.contratoS.buscarAdminPorEmail(this.email1 || '')?.nombre || '';
-      const contrato = new Contrato(
-        this.contratoForm.get('cliente')?.value || '',
-        this.contratoForm.get('espacio')?.value || '',
-        duracion,
-        tarifa,
-        this.contratoForm.get('placa')?.value || '',
-        nombre
-      );
-  
-      this.contratoS.agregarContrato(contrato,this.contratoForm.get('espacio')?.value || '');
-      this.cargarContratos();
-      this.contratoForm.reset() 
+      const per = this.userS.buscarUsuarioPorEmail(this.contratoForm.get('cliente')?.value || '');
+
+      if (per) {
+        const cliente = new Persona(
+          per.email,
+          per.password,
+          per.nombre,
+          per.apellido,
+          per.numeroTelefonico,
+          per.direccion,
+          per.codigo,
+          per.pais,
+          per.ciudad,
+          per.rolAdministrativo
+        );
+
+        const contrato = new Contrato(
+          cliente,
+          this.contratoForm.get('espacio')?.value || '',
+          duracion,
+          tarifa,
+          this.contratoForm.get('placa')?.value || '',
+          nombre,
+        );
+
+        this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
+        this.cargarContratos();
+        this.contratoForm.reset()
+      }
     } else {
       this.contratoForm.markAllAsTouched();
     }

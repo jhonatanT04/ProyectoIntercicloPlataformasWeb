@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
+import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss'
 })
@@ -14,10 +16,14 @@ export class PerfilComponent implements OnInit{
   nombre=''
   apellido=''
   correo:string =''
-  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService){}
+  contrato=''
+  contratos:any = []
+  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
   ngOnInit(): void {
     this.correo = this.correoS.getUserEmail()
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
     this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
+    this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.nombreE || ''
+    this.contratos=this.contratoS.buscarListaContratosPorEmail(this.correo)
   }
 }

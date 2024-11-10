@@ -69,6 +69,16 @@ export class AdministradoresServiceService {
     return admin ? admin : null;
   }
   
+  buscarContratoPorEmail(email: string): Contrato | null {
+    const contrato = this.listaContratos.find((contrato: any) => contrato.cliente.email === email);
+    return contrato ? contrato : null; 
+  }
+
+  buscarListaContratosPorEmail(email: string): Contrato[] {
+    const contratosFiltrados = this.listaContratos.filter((contrato: any) => contrato.cliente.email === email);
+    return contratosFiltrados;  
+  }
+  
 
   agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {

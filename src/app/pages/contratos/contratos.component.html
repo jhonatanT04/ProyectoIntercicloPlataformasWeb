@@ -5,7 +5,7 @@
         <select id="cliente" formControlName="cliente"
             [class.ng-invalid.ng-touched]="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched">
             <option value="" disabled selected>Seleccione un cliente</option>
-            <option *ngFor="let cliente of clientes" [value]="cliente.nombre">{{cliente.nombre}} {{cliente.apellido}}
+            <option *ngFor="let cliente of clientes"  [value]="cliente.email">{{cliente.nombre}}  {{cliente.apellido}}  {{cliente.email}}
             </option>
         </select>
         <div *ngIf="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched"
@@ -54,6 +54,7 @@
         <thead>
             <tr>
                 <th>Cliente</th>
+                <th>Correo Cliente</th>
                 <th>Espacio</th>
                 <th>Duración (meses)</th>
                 <th>Tarifa</th>
@@ -64,7 +65,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let contrato of contratos">
-                <td>{{ contrato.nombreC }}</td>
+                <td>{{ contrato.cliente.nombre }}</td>
+                <td>{{ contrato.cliente.email}}</td>
                 <td>{{ contrato.nombreE }}</td>
                 <td>{{ contrato.duracion }} meses</td>
                 <td>{{ contrato.tarifa }}</td>
