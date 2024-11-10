@@ -43,4 +43,17 @@ export class UsuariosServiceService {
     const usuario = this.listaUsuarios.find(usuario => usuario.email === email);
     return usuario ? usuario : null;
   }
+
+  actualizarUsuario(email: string, nuevosDatos: Partial<Persona>): boolean {
+    this.listaUsuarios = this.cargarUsuario();
+    const index = this.listaUsuarios.findIndex(usuario => usuario.email === email);
+  
+    if (index !== -1) {
+      this.listaUsuarios[index] = { ...this.listaUsuarios[index], ...nuevosDatos }; // Actualiza solo los campos proporcionados
+      localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios)); // Guardamos la lista actualizada en el localStorage
+      return true; 
+    }
+    return false; 
+  }
+  
 }

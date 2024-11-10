@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
+import { Persona } from '../../models/persona';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -11,10 +12,11 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
   styleUrl: './lista-usuarios.component.scss'
 })
 export class ListaUsuariosComponent implements OnInit{
-  clientes:any = []
+  clientes: Persona[] = []
   nombre=''
   correo=''
   telefono=''
+  clienteSeleccionado: Persona | null = null
 
   ngOnInit(): void {
     this.cargarClientes() 
@@ -25,15 +27,20 @@ export class ListaUsuariosComponent implements OnInit{
     this.clientes = this.clienteS.cargarUsuario() 
   }
 
-  editarCliente(cliente:any){
-    let selec = this.clienteS.seleccionarUsuraio(cliente)
-  }
-
   guardarCliente(){
 
   }
 
   eliminarCliente(cliente:any){
 
+  }
+
+  editarCliente(cliente: Persona) {
+    this.clienteSeleccionado = { ...cliente }; 
+  }
+  actualizarCliente(){
+    this.clienteS.buscarUsuarioPorEmail(this.correo)
+
+    //this.clienteS.actualizarUsuario(this.correo);
   }
 }

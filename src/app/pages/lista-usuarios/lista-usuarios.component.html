@@ -1,40 +1,41 @@
 <div class="lista-clientes">
-    <h2>Lista de Clientes</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Correo Electrónico</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.apellido }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>
-            <button (click)="editarCliente(cliente)">Editar</button>
-            <button (click)="eliminarCliente(cliente)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Lista de Clientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo Electrónico</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.apellido }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>
+          <button (click)="editarCliente(cliente)">Editar</button>
+          <button (click)="eliminarCliente(cliente)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="editar" *ngIf="clienteSeleccionado">
+    <h3>Editar Cliente</h3>
+    <form>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="clienteSeleccionado.nombre" name="nombre" required>
   
-    <div class="editar">
-      <h3>Editar Cliente</h3>
-      <form #formulario>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" [(ngModel)]="clienteSeleccionado.apellido" name="apellido" required>
   
-        <label for="correo">Correo Electrónico:</label>
-        <input type="email" id="correo" [(ngModel)]="correo" name="correo" required>
+      <label for="correo">Correo Electrónico:</label>
+      <input type="email" id="correo" [(ngModel)]="clienteSeleccionado.email" name="correo" required>
   
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" [(ngModel)]="telefono" name="telefono">
+      <button type="submit" (click)="actualizarCliente()">Guardar</button>
+    </form>
+  </div>
   
-        <button type="submit"  (click)="guardarCliente()">Guardar</button>
-      </form>
-    </div>
-  </div>  
+</div>
