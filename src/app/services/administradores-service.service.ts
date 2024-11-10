@@ -78,8 +78,27 @@ export class AdministradoresServiceService {
     const contratosFiltrados = this.listaContratos.filter((contrato: any) => contrato.cliente.email === email);
     return contratosFiltrados;  
   }
+  actualizarContratosCliente(email: string, nuevosDatos: Partial<Persona>): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaContratos = this.cargarContratos();
+      
+      const contratosCliente = this.listaContratos.filter((contrato: any) => contrato.cliente.email === email);
   
-
+      if (contratosCliente.length > 0) {
+        contratosCliente.forEach((contrato: any) => {
+          contrato.cliente = { 
+            ...contrato.cliente, 
+            ...nuevosDatos 
+          };
+        });
+  
+        localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
+        return true;
+      }
+    }
+    return false;
+  }
+  
   agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaEspacios.push(espacio);

@@ -6,6 +6,7 @@
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Correo Electrónico</th>
+        <th>Telefono</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -14,28 +15,28 @@
         <td>{{ cliente.nombre }}</td>
         <td>{{ cliente.apellido }}</td>
         <td>{{ cliente.email }}</td>
+        <td>{{ cliente.numeroTelefonico}}</td>
         <td>
-          <button (click)="editarCliente(cliente)">Editar</button>
+          <button (click)="seleccionarCliente(cliente.email)">Seleccionar</button>
           <button (click)="eliminarCliente(cliente)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <div class="editar" *ngIf="clienteSeleccionado">
-    <h3>Editar Cliente</h3>
-    <form>
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" [(ngModel)]="clienteSeleccionado.nombre" name="nombre" required>
-  
-      <label for="apellido">Apellido:</label>
-      <input type="text" id="apellido" [(ngModel)]="clienteSeleccionado.apellido" name="apellido" required>
-  
-      <label for="correo">Correo Electrónico:</label>
-      <input type="email" id="correo" [(ngModel)]="clienteSeleccionado.email" name="correo" required>
-  
-      <button type="submit" (click)="actualizarCliente()">Guardar</button>
-    </form>
-  </div>
-  
+  <h3>Editar Cliente</h3>
+  <form>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
+
+    <label for="numeroTelefonico">Telefono:</label>
+    <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
+
+    <button type="submit" (click)="actualizarCliente()">Actualizar</button>
+  </form>
+
+
 </div>

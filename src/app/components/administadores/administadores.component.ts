@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { TarifasComponent } from '../../pages/tarifas/tarifas.component';
@@ -7,6 +7,7 @@ import { ContratosComponent } from '../../pages/contratos/contratos.component';
 import { ListaUsuariosComponent } from '../../pages/lista-usuarios/lista-usuarios.component';
 import { GestionEspaciosComponent } from '../../pages/gestion-espacios/gestion-espacios.component';
 import { CommonModule } from '@angular/common';
+import { AdministradoresServiceService } from '../../services/administradores-service.service';
 
 @Component({
   selector: 'app-administadores',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './administadores.component.html',
   styleUrl: './administadores.component.scss'
 })
-export class AdministadoresComponent {
+export class AdministadoresComponent implements OnInit{
   authServicio = inject(AuthentificServiceService)
   router = inject(Router)
   isSize = false
@@ -28,7 +29,8 @@ export class AdministadoresComponent {
   agrandar(){
     this.isSize = !this.isSize;
   }
-  
+  user=''
+  email=''
   espacios: boolean = false
   contratos: boolean = false
   tarifas: boolean = false
@@ -36,7 +38,11 @@ export class AdministadoresComponent {
   clientes: boolean = false
 
   seccionabierta: string = ''; 
-
+  constructor(private loginS:AuthentificServiceService,private adminS:AdministradoresServiceService){}
+  ngOnInit(): void {
+    this.email=this.loginS.getUserEmail()
+    this.user=this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
+  }
   abrirSeccion(seccion: string) {
     this.seccionabierta = this.seccionabierta === seccion ? '' : seccion; 
   }

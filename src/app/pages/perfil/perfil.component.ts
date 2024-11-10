@@ -16,6 +16,7 @@ export class PerfilComponent implements OnInit{
   nombre=''
   apellido=''
   correo:string =''
+  telefono=''
   contrato=''
   contratos:any = []
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
@@ -23,6 +24,7 @@ export class PerfilComponent implements OnInit{
     this.correo = this.correoS.getUserEmail()
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
     this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
+    this.telefono =this.userS.buscarUsuarioPorEmail(this.correo)?.numeroTelefonico || ''
     this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.nombreE || ''
     this.contratos=this.contratoS.buscarListaContratosPorEmail(this.correo)
   }

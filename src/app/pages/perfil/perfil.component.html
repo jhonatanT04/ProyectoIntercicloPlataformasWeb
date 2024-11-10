@@ -1,32 +1,33 @@
 <div>
-    <h2>Mis Datos</h2>
-    <p><strong>Nombre: {{nombre}}</strong></p>
-    <p><strong>Apellido: {{apellido}}</strong></p>
-    <p><strong>Correo Electronico: {{correo}}</strong></p>
-    <p><strong>Contrato: {{contrato}}</strong></p>
-    <div *ngIf="contratos && contratos.length > 0">
-        <p><strong>Contratos:</strong></p>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Nombre del Espacio</th>
-              <th>Duración</th>
-              <th>Tarifa</th>
-              <th>Placa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let contrato of contratos">
-              <td>{{ contrato.nombreE }}</td>
-              <td>{{ contrato.duracion }} meses</td>
-              <td>{{ contrato.tarifa }}</td>
-              <td>{{ contrato.placa }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="contratos.length === 0">
-        <p>No tienes contratos registrados.</p>
-      </div>
-    <button routerLink="/pages/actualizar">Actualizar Perfil</button>
+  <h2>Mis Datos</h2>
+  <p><strong>Nombre: {{nombre}}</strong></p>
+  <p><strong>Apellido: {{apellido}}</strong></p>
+  <p><strong>Correo Electronico: {{correo}}</strong></p>
+  <p><strong>Telefono: {{telefono}}</strong></p>
+  <p><strong>Contrato: {{contrato}}</strong></p>
+  <div *ngIf="contratos && contratos.length > 0">
+    <p><strong>Contratos:</strong></p>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre del Espacio</th>
+          <th>Duración</th>
+          <th>Tarifa</th>
+          <th>Placa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of contratos">
+          <td>{{ contrato.nombreE }}</td>
+          <td>{{ contrato.duracion }} meses</td>
+          <td>{{ contrato.tarifa }}</td>
+          <td>{{ contrato.placa }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="contratos.length === 0">
+    <p>No tienes contratos registrados.</p>
+  </div>
+  <button routerLink="/pages/actualizar">Actualizar Perfil</button>
 </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
+import { AdministradoresServiceService } from '../../services/administradores-service.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -14,14 +15,15 @@ import { Persona } from '../../models/persona';
 export class ListaUsuariosComponent implements OnInit{
   clientes: Persona[] = []
   nombre=''
+  apellido = ''
   correo=''
-  telefono=''
-  clienteSeleccionado: Persona | null = null
+  numeroTelefonico=''
+  clienteSeleccionado = false
 
   ngOnInit(): void {
     this.cargarClientes() 
   }
-  constructor(private clienteS:UsuariosServiceService){}
+  constructor(private clienteS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
 
   cargarClientes(){
     this.clientes = this.clienteS.cargarUsuario() 
@@ -35,12 +37,32 @@ export class ListaUsuariosComponent implements OnInit{
 
   }
 
-  editarCliente(cliente: Persona) {
-    this.clienteSeleccionado = { ...cliente }; 
+  seleccionarCliente(email: string) {
+    this.clienteSeleccionado = true
+    const cliente = this.clientes.find(cli => cli.email === email);
+    if (cliente) {
+      this.nombre = cliente.nombre;
+      this.apellido = cliente.apellido
+      this.correo = cliente.email
+      this.numeroTelefonico = cliente.numeroTelefonico 
+    }
   }
-  actualizarCliente(){
-    this.clienteS.buscarUsuarioPorEmail(this.correo)
-
-    //this.clienteS.actualizarUsuario(this.correo);
+  
+  actualizarCliente() {
+    const nuevosDatos: Partial<Persona> = {
+      nombre: this.nombre,
+      apellido: this.apellido,
+      numeroTelefonico: this.numeroTelefonico
+    };
+    const actualizado = this.clienteS.actualizarUsuario(this.correo, nuevosDatos);
+    this.contratoS.actualizarContratosCliente(this.correo,nuevosDatos)
+    this.cargarClientes() 
+    if (actualizado) {
+      console.log('Cliente actualizado correctamente');
+      this.cargarClientes(); 
+    } else {
+      console.log('Error: Cliente no encontrado');
+    }
   }
+  
 }

@@ -1,15 +1,16 @@
 <div class="actualizar-perfil">
     <h2>Actualizar Perfil</h2>
     <form>
+        <p><strong>{{email}}</strong></p>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
 
         <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required>
+        <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
 
-        <label for="correo">Correo Electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
+        <label for="numeroTelefonico">Telefono:</label>
+        <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
 
-        <button type="submit">Guardar Cambios</button>
+        <button type="submit" (click)="actualizar()">Actualizar</button>
     </form>
 </div>
