@@ -80,6 +80,7 @@ export class LoginComponent implements OnInit{
       if(resr){
         
         console.log("Primera vez")
+        this.router.navigate(['components/registro-google']);
       }else{
         this.router.navigate(['/pages/perfil'])
       }
