@@ -22,15 +22,10 @@ export class AuthentificServiceService {
     return signInWithEmailAndPassword(this.getAuth(), usuario.email, usuario.password)
       .then(async (userCredential) => {
         this.userEmail = usuario.email;
-        const listaAdministradores = JSON.parse(localStorage.getItem('listAdm') || '[]') as Persona[];
-        const listaUsuarios = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
+        const listaAdministradores = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
         const usuarioAdmin = listaAdministradores.find(admin => admin.email === usuario.email && admin.rolAdministrativo === true);
         if (usuarioAdmin) {
           return usuarioAdmin;
-        }
-        const usuarioCliente = listaUsuarios.find(user => user.email === usuario.email);
-        if (usuarioCliente) {
-          return usuarioCliente;
         }
         return null;
       });

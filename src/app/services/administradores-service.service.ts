@@ -24,7 +24,7 @@ export class AdministradoresServiceService {
 
   cargarAdmi(): Persona[] {
     if (isPlatformBrowser(this.platformId)) {
-      const storedList = localStorage.getItem('listAdm');
+      const storedList = localStorage.getItem('listUser');
       if (!storedList || JSON.parse(storedList).length === 0) {
         const administradorPorDefecto = new Persona(
           'admin@example.com',
@@ -39,7 +39,7 @@ export class AdministradoresServiceService {
           true
         );
         this.listaAdministradores = [administradorPorDefecto];
-        localStorage.setItem('listAdm', JSON.stringify(this.listaAdministradores));
+        localStorage.setItem('listUser', JSON.stringify(this.listaAdministradores));
       } else {
         this.listaAdministradores = JSON.parse(storedList);
       }
@@ -50,7 +50,7 @@ export class AdministradoresServiceService {
   nuevoAdmi(adminstrador: Persona) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaAdministradores.push(adminstrador);
-      localStorage.setItem('listAdm', JSON.stringify(this.listaAdministradores));
+      localStorage.setItem('listUser', JSON.stringify(this.listaAdministradores));
     }
   }
 
@@ -59,7 +59,7 @@ export class AdministradoresServiceService {
       const index = this.listaAdministradores.indexOf(adminstrador);
       if (index !== -1) {
         this.listaAdministradores.splice(index, 1);
-        localStorage.setItem('listAdm', JSON.stringify(this.listaAdministradores));
+        localStorage.setItem('listUser', JSON.stringify(this.listaAdministradores));
       }
     }
   }
