@@ -85,7 +85,12 @@
             
         </nav>
     </div>
-
+    <div class="hader-container">
+        <div class="perfil">
+            Hola, {{user}}
+            <img  src="{{authServicio.getURLimagen()}}" alt="">
+        </div>
+    </div>
     <div *ngIf="seccionAbierta('espacios')" class="contenido-espacios">
         <app-gestion-espacios></app-gestion-espacios>
     </div>

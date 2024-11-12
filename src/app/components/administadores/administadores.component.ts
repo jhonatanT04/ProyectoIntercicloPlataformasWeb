@@ -21,7 +21,7 @@ export class AdministadoresComponent implements OnInit{
   router = inject(Router)
   isSize = false
   cerrarSeccion(){
-    
+
     this.authServicio.logout().then(()=>
     this.router.navigate(['pages/login']))
     .catch(error => console.log(error))
@@ -31,6 +31,8 @@ export class AdministadoresComponent implements OnInit{
   }
   user=''
   email=''
+  
+
   espacios: boolean = false
   contratos: boolean = false
   tarifas: boolean = false
@@ -40,6 +42,7 @@ export class AdministadoresComponent implements OnInit{
   seccionabierta: string = ''; 
   constructor(private loginS:AuthentificServiceService,private adminS:AdministradoresServiceService){}
   ngOnInit(): void {
+    console.log(this.authServicio.getURLimagen())
     this.email=this.loginS.getUserEmail()
     this.user=this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
   }
@@ -49,5 +52,8 @@ export class AdministadoresComponent implements OnInit{
 
   seccionAbierta(seccion: string): boolean {
     return this.seccionabierta === seccion;
+  }
+  selectImagen(){
+    return this.authServicio.getURLimagen()
   }
 }

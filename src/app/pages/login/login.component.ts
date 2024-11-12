@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
     this.loginService.loginGoogle().then(resr =>{
       console.log(resr)
       if(resr){
-        this.loginService.deleteCuentaPerma()
+        
         console.log("Primera vez")
       }else{
         this.router.navigate(['/pages/administrador'])
