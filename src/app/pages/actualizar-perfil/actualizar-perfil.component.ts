@@ -16,7 +16,7 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 export class ActualizarPerfilComponent implements OnInit{
   perfilForm!: FormGroup;
   ngOnInit(): void {
-    this.email = this.loginS.getUserEmail();
+    this.email = this.loginS.getInfo()?.email || '';
     const user = this.userS.buscarUsuarioPorEmail(this.email);
     
     this.nombre = user?.nombre || '';

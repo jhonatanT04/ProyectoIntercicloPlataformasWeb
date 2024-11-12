@@ -24,7 +24,7 @@ export class PerfilComponent implements OnInit{
   ActualizarPerfil = false
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
   ngOnInit(): void {
-    this.correo = this.correoS.getUserEmail()
+    this.correo = this.correoS.getInfo()?.email || ''
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
     this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
     this.telefono =this.userS.buscarUsuarioPorEmail(this.correo)?.numeroTelefonico || ''
