@@ -40,8 +40,8 @@ export class AuthentificServiceService {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
       const isNewUser = additionalUserInfo?.isNewUser;
-      const userName = user.displayName;
-      return { isNewUser, userName,additionalUserInfo };
+      
+      return  isNewUser 
     }).catch((error) => {
       console.error('Error al iniciar sesión con Google:', error);
       return null;

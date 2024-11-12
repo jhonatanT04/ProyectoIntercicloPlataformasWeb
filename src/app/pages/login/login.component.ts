@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit{
     this.loginService.loginGoogle().then(resr =>{
       console.log(resr)
       if(resr){
-        
         console.log("Primera vez")
         this.router.navigate(['components/registro-google']);
       }else{

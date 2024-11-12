@@ -90,9 +90,9 @@ export class UsuariosComponent {
     this.loginService.loginGoogle().then((response) => {
       if (response) {
         
-        const { isNewUser, userName,additionalUserInfo } = response;
-        console.log(additionalUserInfo)
-        console.log('Nombre del usuario:', userName);
+        const  isNewUser = response;
+        
+        
         console.log('New User :', isNewUser);
         if (isNewUser) {
           this.router.navigate(['components/registro-google']);
