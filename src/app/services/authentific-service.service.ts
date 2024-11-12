@@ -53,10 +53,11 @@ export class AuthentificServiceService {
     });
   }
   getInfo() {
-    console.log(getAuth().currentUser)
     return getAuth().currentUser
   }
-  
+  getURLimagen(){
+    return getAuth().currentUser?.photoURL
+  }
   private userEmail: string = '';
   getUserEmail() {
     return this.userEmail;
