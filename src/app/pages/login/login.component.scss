@@ -140,4 +140,75 @@ a{
     flex-direction: column;
     align-items: center; 
 }
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Espacio entre las alertas */
+}
 
+.alert-danger,
+.alert-danger-info {
+
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    width: 300px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
+}
+
+.alert-danger,
+.alert-danger-info {
+    background-color: #dc3545;
+    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
+}
+
+.alert-danger .icon {
+    width: 30px;
+    margin-right: 10px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    99% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-1000px);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-danger-info .icon {
+    width: 15px;
+    margin-right: 10px;
+}

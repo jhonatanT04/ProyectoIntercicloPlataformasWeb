@@ -36,9 +36,9 @@ export class UsuariosComponent {
 
 
   showDangerAlert = false;
-  showDangerAlertInfor = false;
+  
   onSubmit() {
-    this.form.markAllAsTouched();
+    this.form.markAllAsTouched(); 
     if (this.form.valid) {
       const per = new Persona(
         this.form.get('email')?.value || ' ',

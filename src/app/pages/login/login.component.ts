@@ -4,12 +4,13 @@ import { AuthentificServiceService } from '../../services/authentific-service.se
 import {FormGroup,FormControl, Validators, ReactiveFormsModule} from '@angular/forms'
 import { User } from '../../models/user';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule],
+  imports: [RouterModule,ReactiveFormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -36,7 +37,41 @@ export class LoginComponent implements OnInit{
             this.router.navigate(['/pages/perfil']);       
           }
         })
-        .catch(error => console.log(error));
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+  
+          switch (errorCode) {
+              case "auth/user-not-found":
+                this.alertError("No existe una cuenta con este correo.");
+                  break;
+              case "auth/wrong-password":
+                this.alertError("Contraseña incorrecta.");
+                  break;
+              case "auth/invalid-email":
+                this.alertError("Correo electrónico inválido.");
+                  break;
+              case "auth/invalid-login-credentials":
+                  this.alertError("Correo electrónico o contraseña inválido.");
+                  break
+              case "auth/user-disabled":
+                this.alertError("La cuenta ha sido deshabilitada.");
+                  break;
+              case "auth/too-many-requests":
+                this.alertError("Demasiados intentos. Intente de nuevo en unos minutos.");
+                  break;
+              case "auth/network-request-failed":
+                this.alertError("Error de red. Verifique su conexión.");
+                  break;
+              case "auth/operation-not-allowed":
+                this.alertError("Inicio de sesión con correo electrónico no habilitado.");
+                  break;
+              default:
+                this.alertError("Error desconocido: " + errorMessage);
+          }
+      });
+    }else{
+      this.alertError("Complete los campos.")
     }
   }
   onGoogle(){
@@ -46,10 +81,9 @@ export class LoginComponent implements OnInit{
         
         console.log("Primera vez")
       }else{
-        this.router.navigate(['/pages/administrador'])
+        this.router.navigate(['/pages/perfil'])
       }
       
-
     })
   }
   
@@ -61,5 +95,15 @@ export class LoginComponent implements OnInit{
     this.visible = !this.visible;
     this.changetype = !this.changetype;
     
+  }
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
   }
 }
