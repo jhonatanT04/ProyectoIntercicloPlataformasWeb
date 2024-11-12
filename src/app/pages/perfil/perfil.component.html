@@ -1,32 +1,33 @@
 <div class="contenedor-perfil">
-  <h2>Mis Datos</h2>
-  <p><strong>Nombre: {{nombre}}</strong></p>
-  <p><strong>Apellido: {{apellido}}</strong></p>
-  <p><strong>Correo Electronico: {{correo}}</strong></p>
-  <p><strong>Telefono: {{telefono}}</strong></p>
-  <p><strong>Contratos:</strong></p>
-  <table *ngIf="contratos && contratos.length > 0" border="1">
-    <thead>
-      <tr>
-        <th>Nombre del Espacio</th>
-        <th>Duración</th>
-        <th>Tarifa</th>
-        <th>Placa</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let contrato of contratos">
-        <td>{{ contrato.nombreE }}</td>
-        <td>{{ contrato.duracion }} meses</td>
-        <td>{{ contrato.tarifa }}</td>
-        <td>{{ contrato.placa }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p *ngIf="contratos.length === 0">No tienes contratos registrados.</p>
+  <div class="card-client">
+    <h2>Mis Datos</h2>
+    <p class="cliente">{{nombre}} {{apellido}}
+      <span>Correo Electronico: {{correo}}</span>
+      <span>Telefono: {{telefono}}</span>
+      <span>Contratos:</span>
+    </p>
+    <table *ngIf="contratos && contratos.length > 0" border="1">
+      <thead>
+        <tr>
+          <th>Nombre del Espacio</th>
+          <th>Duración</th>
+          <th>Tarifa</th>
+          <th>Placa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of contratos">
+          <td>{{ contrato.nombreE }}</td>
+          <td>{{ contrato.duracion }} meses</td>
+          <td>{{ contrato.tarifa }}</td>
+          <td>{{ contrato.placa }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="contratos.length === 0">No tienes contratos registrados.</p>
 
-  <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
-
+    <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
+  </div>
   <div *ngIf="ActualizarPerfil" class="modal">
     <div class="contenido-modal">
       <span class="close" (click)="actualizar(false)">&times;</span>

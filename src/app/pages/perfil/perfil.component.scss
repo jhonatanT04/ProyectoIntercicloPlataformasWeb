@@ -1,39 +1,61 @@
 .contenedor-perfil {
     background-color: rgb(134, 134, 139);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
     padding: 20px;
 }
 
 .contenedor-perfil h2 {
-    color: rgb(0, 86, 173);
+    color: #00ACE6;
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 20px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-family: 'Arial', sans-serif;
 }
 
-.contenedor-perfil p {
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 10px 0;
-    color: #5885bc;
-    font-family: 'Arial', sans-serif;
-    font-size: 20px;
+.card-client {
+    background: #1E1E1E;
+    width: 20rem;
+    padding: 25px;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Poppins", sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contenedor-perfil strong {
-    color: #ffffff;
+.card-client:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
+}
+
+.cliente {
+    color: #FFFFFF;
     font-weight: 600;
-    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    margin-top: 15px;
+}
+
+.cliente span {
+    color: #A9A9A9;
+    font-weight: 400;
+    font-size: 16px;
+    display: block;
+    margin-top: 5px;
 }
 
 .tabla-contratos {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -42,22 +64,18 @@
 .tabla-contratos td {
     padding: 12px;
     text-align: center;
+    font-size: 18px;
 }
 
 .tabla-contratos th {
-    background-color: rgb(0, 86, 173);
-    color: white;
-    font-size: 20px;
+    background-color: #00ACE6;
+    color: #FFFFFF;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-family: 'Arial', sans-serif;
 }
 
 .tabla-contratos td {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: white;
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -71,7 +89,6 @@
     font-size: 20px;
     font-weight: bold;
     margin-top: 30px;
-    font-family: 'Arial', sans-serif;
 }
 
 .modal {
@@ -88,13 +105,12 @@
 }
 
 .contenido-modal {
-    background-color: rgb(134, 134, 139);
+    background-color: #1E1E1E;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 100%;
-    font-family: 'Arial', sans-serif;
 }
 
 .cerrar {
@@ -115,14 +131,12 @@ button {
     border-radius: 10px;
     cursor: pointer;
     font-size: 20px;
-    display: block;
-    margin: 40px auto;
-    width: 240px;
+    margin-top: 20px;
+    width: 100%;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Arial', sans-serif;
 }
 
 button:hover {
-    background-color: #707070;
+    background-color: #45A070;
     transform: translateY(-5px);
 }

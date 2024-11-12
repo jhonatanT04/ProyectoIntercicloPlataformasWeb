@@ -3,27 +3,42 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { Persona } from '../../models/persona';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 
 @Component({
   selector: 'app-actualizar-perfil',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './actualizar-perfil.component.html',
   styleUrl: './actualizar-perfil.component.scss'
 })
 export class ActualizarPerfilComponent implements OnInit{
+  perfilForm!: FormGroup;
   ngOnInit(): void {
-    this.email = this.loginS.getUserEmail()
-    this.nombre = this.userS.buscarUsuarioPorEmail(this.email)?.nombre || ''
-    this.apellido = this.userS.buscarUsuarioPorEmail(this.email)?.apellido || ''
-    this.direccion = this.userS.buscarUsuarioPorEmail(this.email)?.direccion || ''
-    this.pais = this.userS.buscarUsuarioPorEmail(this.email)?.pais || ''
-    this.ciudad = this.userS.buscarUsuarioPorEmail(this.email)?.ciudad || ''
-    this.codigo = this.userS.buscarUsuarioPorEmail(this.email)?.codigo || ''
-    this.contra = this.userS.buscarUsuarioPorEmail(this.email)?.password || ''
-    this.numeroTelefonico = this.userS.buscarUsuarioPorEmail(this.email)?.numeroTelefonico || ''
+    this.email = this.loginS.getUserEmail();
+    const user = this.userS.buscarUsuarioPorEmail(this.email);
+    
+    this.nombre = user?.nombre || '';
+    this.apellido = user?.apellido || '';
+    this.direccion = user?.direccion || '';
+    this.pais = user?.pais || '';
+    this.ciudad = user?.ciudad || '';
+    this.codigo = user?.codigo || '';
+    this.contra = user?.password || '';
+    this.numeroTelefonico = user?.numeroTelefonico || '';
+    this.email = user?.email || ''
+    this.contra = user?.password || ''
+
+    this.perfilForm = new FormGroup({
+      nombre: new FormControl(this.nombre, Validators.required),
+      apellido: new FormControl(this.apellido, Validators.required),
+      numeroTelefonico: new FormControl(this.numeroTelefonico, Validators.required),
+      direccion: new FormControl(this.direccion, Validators.required),
+      pais: new FormControl(this.pais, Validators.required),
+      ciudad: new FormControl(this.ciudad, Validators.required),
+      codigo: new FormControl(this.codigo, Validators.required),
+    });
   }
   constructor(private userS:UsuariosServiceService,private loginS:AuthentificServiceService,private contratoS:AdministradoresServiceService){}
 
@@ -37,26 +52,27 @@ export class ActualizarPerfilComponent implements OnInit{
   pais=''
   ciudad=''
   codigo=''
+  
 
-  actualizar(){
-    const nuevosDatos: Partial<Persona> = {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      numeroTelefonico: this.numeroTelefonico,
-      direccion: this.direccion,
-      pais:this.pais,
-      ciudad:this.ciudad,
-      codigo:this.codigo
-    };
-    const actualizado = this.userS.actualizarUsuario(this.email, nuevosDatos);
-    this.contratoS.actualizarContratosCliente(this.email,nuevosDatos)
-    this.nombre=''
-    this.apellido=''
-    this.numeroTelefonico=''
-    this.direccion=''
-    this.pais=''
-    this.codigo=''
-    this.ciudad=''
-    this.actualizado.emit
+  actualizar() {
+    if (this.perfilForm.valid) {
+      const nuevosDatos: Partial<Persona> = {
+        nombre: this.perfilForm.get('nombre')?.value,
+        apellido: this.perfilForm.get('apellido')?.value,
+        numeroTelefonico: this.perfilForm.get('numeroTelefonico')?.value,
+        direccion: this.perfilForm.get('direccion')?.value,
+        pais: this.perfilForm.get('pais')?.value,
+        ciudad: this.perfilForm.get('ciudad')?.value,
+        codigo: this.perfilForm.get('codigo')?.value,
+      };
+      
+      this.userS.actualizarUsuario(this.email, nuevosDatos);
+      this.contratoS.actualizarContratosCliente(this.email, nuevosDatos);
+
+      this.perfilForm.reset();
+      this.actualizado.emit();
+    } else {
+      this.perfilForm.markAllAsTouched();
+    }
   }
 }

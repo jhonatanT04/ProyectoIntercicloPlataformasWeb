@@ -1,33 +1,54 @@
 <div class="actualizar-perfil">
     <h2>Actualizar Perfil</h2>
-    <form>
+    <form [formGroup]="perfilForm" >
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
+        <input type="text" id="nombre" formControlName="nombre">
+        <div *ngIf="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched" class="error-message">
+            El nombre es obligatorio.
+        </div>
 
         <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
+        <input type="text" id="apellido" formControlName="apellido">
+        <div *ngIf="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched" class="error-message">
+            El apellido es obligatorio.
+        </div>
 
         <label for="numeroTelefonico">Telefono:</label>
-        <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
+        <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico">
+        <div *ngIf="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched" class="error-message">
+            El teléfono es obligatorio.
+        </div>
 
         <label for="direccion">Direccion:</label>
-        <input type="text" id="direccion" [(ngModel)]="direccion" name="direccion" required>
-
-        <label for="pais">Pais:</label>
-        <input type="text" id="pais" [(ngModel)]="pais" name="pais" required>
+        <input type="text" id="direccion" formControlName="direccion">
+        <div *ngIf="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched" class="error-message">
+            La dirección es obligatoria.
+        </div>
         
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" [(ngModel)]="ciudad" name="ciudad" required>
-
         <label for="email">Correo Electronico:</label>
         <input type="email" id="email" [(ngModel)]="email" name="email" disabled>
 
         <label for="contra">Contraseña:</label>
         <input type="text" id="contra" [(ngModel)]="contra" name="contra" disabled>
 
-        <label for="codigo">Codigo:</label>
-        <input type="text" id="codigo" [(ngModel)]="codigo" name="codigo" required>
+        <label for="pais">Pais:</label>
+        <input type="text" id="pais" formControlName="pais">
+        <div *ngIf="perfilForm.get('pais')?.hasError('required') && perfilForm.get('pais')?.touched" class="error-message">
+            El país es obligatorio.
+        </div>
+        
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" formControlName="ciudad">
+        <div *ngIf="perfilForm.get('ciudad')?.hasError('required') && perfilForm.get('ciudad')?.touched" class="error-message">
+            La ciudad es obligatoria.
+        </div>
 
-        <button type="submit" (click)="actualizar()">Actualizar</button>
+        <label for="codigo">Codigo:</label>
+        <input type="text" id="codigo" formControlName="codigo">
+        <div *ngIf="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched" class="error-message">
+            El código es obligatorio.
+        </div>
+
+        <button type="submit" [disabled]="perfilForm.invalid" (click)="actualizar()">Actualizar</button>
     </form>
 </div>
