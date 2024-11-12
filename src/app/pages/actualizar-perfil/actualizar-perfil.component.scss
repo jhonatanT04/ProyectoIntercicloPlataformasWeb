@@ -1,13 +1,16 @@
 .actualizar-perfil {
-    background-color: #F2EABC;
+    background-color: black; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .actualizar-perfil h2 {
-    color: #194756;
+    color: rgb(0, 86, 173); 
     margin-bottom: 20px;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
 }
 
 .actualizar-perfil form {
@@ -17,20 +20,25 @@
 
 .actualizar-perfil label {
     margin-bottom: 5px;
-    color: #194756;
+    color: #5885bc; 
 }
 
 .actualizar-perfil input[type="text"],
 .actualizar-perfil input[type="email"] {
     padding: 10px;
     margin-bottom: 15px;
-    border: 2px solid #080000;
+    border: 2px solid transparent;
     border-radius: 5px;
+    background-color: rgba(156, 156, 156, 0.376); 
     font-size: 16px;
 }
 
+.actualizar-perfil input:focus {
+    outline: 2px solid #527299; 
+}
+
 .actualizar-perfil button {
-    background-color: #54736E;
+    background-color: #707070; 
     color: #FFFFFF;
     padding: 10px;
     border: none;
@@ -41,5 +49,5 @@
 }
 
 .actualizar-perfil button:hover {
-    background-color: #FF3B58;
+    background-color: #58bc82; 
 }
