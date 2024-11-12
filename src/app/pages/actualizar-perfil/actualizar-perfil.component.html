@@ -1,7 +1,6 @@
 <div class="actualizar-perfil">
     <h2>Actualizar Perfil</h2>
     <form>
-        <p><strong>{{email}}</strong></p>
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
 
@@ -10,6 +9,24 @@
 
         <label for="numeroTelefonico">Telefono:</label>
         <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
+
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" [(ngModel)]="direccion" name="direccion" required>
+
+        <label for="pais">Pais:</label>
+        <input type="text" id="pais" [(ngModel)]="pais" name="pais" required>
+        
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" [(ngModel)]="ciudad" name="ciudad" required>
+
+        <label for="email">Correo Electronico:</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" disabled>
+
+        <label for="contra">Contraseña:</label>
+        <input type="text" id="contra" [(ngModel)]="contra" name="contra" disabled>
+
+        <label for="codigo">Codigo:</label>
+        <input type="text" id="codigo" [(ngModel)]="codigo" name="codigo" required>
 
         <button type="submit" (click)="actualizar()">Actualizar</button>
     </form>
