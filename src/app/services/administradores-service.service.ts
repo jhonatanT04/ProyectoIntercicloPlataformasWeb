@@ -65,6 +65,7 @@ export class AdministradoresServiceService {
   }
 
   buscarAdminPorEmail(email: string): Persona | null {
+    this.cargarAdmi()
     const admin = this.listaAdministradores.find(adm => adm.email === email);
     return admin ? admin : null;
   }
@@ -212,4 +213,6 @@ export class AdministradoresServiceService {
     return this.listaHorarios;
   }
   
+  
+
 }

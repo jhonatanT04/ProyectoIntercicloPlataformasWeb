@@ -6,6 +6,7 @@ import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
+import { error } from 'node:console';
 
 
 
@@ -36,9 +37,9 @@ export class UsuariosComponent {
 
 
   showDangerAlert = false;
-  
+
   onSubmit() {
-    this.form.markAllAsTouched(); 
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       const per = new Persona(
         this.form.get('email')?.value || ' ',
@@ -84,22 +85,27 @@ export class UsuariosComponent {
       this.alertError("Complete los campos.")
     }
   }
-
-
   onGoogle() {
     this.loginService.loginGoogle().then((response) => {
       if (response) {
-        
-        const  isNewUser = response;
-        
-        
+        const isNewUser = response.isNewUser;
+        const user = response.usuarioAdmin
         console.log('New User :', isNewUser);
         if (isNewUser) {
           this.router.navigate(['components/registro-google']);
-          
         } else {
-          this.router.navigate(['/pages/administrador']);
+          this.alertWarning('Ya existe un usuario asociado con este correo electronico')
         }
+      }
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      switch (errorCode) {
+        case 'auth/popup-closed-by-user':
+          this.alertError("Error al iniciar con google.")
+          break;
+        default:
+          this.alertError("Error desconocido:" + errorMessage)
       }
     });
   }
@@ -111,7 +117,7 @@ export class UsuariosComponent {
       return field1Value === field2Value ? null : { fieldsMismatch: true };
     };
   }
-  
+
   textError = ''
   alertError(error: string) {
     setTimeout(() => {
@@ -120,5 +126,16 @@ export class UsuariosComponent {
     }, 4);
     this.textError = ''
     this.showDangerAlert = false;
+  }
+
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error:string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
   }
 }

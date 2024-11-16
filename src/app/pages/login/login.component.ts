@@ -26,9 +26,10 @@ export class LoginComponent implements OnInit{
   ngOnInit(): void {
     this.admin.cargarAdmi() 
   }
-  onSubmit() {
+  iniciarSecion() {
     if (this.form.valid) {
       const usuario = this.form.value as User;
+      
       this.loginService.login(usuario)
         .then(persona => {
           if (persona?.rolAdministrativo) {
@@ -76,25 +77,35 @@ export class LoginComponent implements OnInit{
   }
   onGoogle(){
     this.loginService.loginGoogle().then(resr =>{
-      console.log(resr)
-      if(resr){
-        console.log("Primera vez")
+      const newUser = resr.isNewUser
+      const persona = resr.usuarioAdmin
+      if(newUser){
         this.router.navigate(['components/registro-google']);
       }else{
-        this.router.navigate(['/pages/perfil'])
+        if(persona?.rolAdministrativo===true){
+          this.router.navigate(['/pages/administrador'])
+        }else{
+          this.router.navigate(['/pages/perfil'])
+        }
       }
-      
-    })
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      switch (errorCode) {
+        case 'auth/popup-closed-by-user':
+          this.alertError("Error al iniciar con google.")
+          break;
+        default:
+          this.alertError("Error desconocido:" + errorMessage)
+      }
+    });
   }
-  
-
   visible:boolean = true;
   changetype:boolean =true;
   
   viewpass(){
     this.visible = !this.visible;
     this.changetype = !this.changetype;
-    
   }
   showDangerAlert = false;
   textError = ''

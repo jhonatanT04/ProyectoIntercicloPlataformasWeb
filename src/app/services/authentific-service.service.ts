@@ -33,26 +33,20 @@ export class AuthentificServiceService {
 
 
   loginGoogle() {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-
-    return signInWithPopup(auth, provider).then((result) => {
+    return signInWithPopup(getAuth(), new GoogleAuthProvider()).then((result) => {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
       const isNewUser = additionalUserInfo?.isNewUser;
+      const listaAdministradores = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
+      const usuarioAdmin = listaAdministradores.find(admin => admin.email === this.getInfo()?.email)
       
-      return  isNewUser 
-    }).catch((error) => {
-      console.error('Error al iniciar sesión con Google:', error);
-      return null;
-    });
+      return  {isNewUser,usuarioAdmin }
+    })
   }
   getInfo() {
     return getAuth().currentUser
   }
-  getURLimagen(){
-    return getAuth().currentUser?.photoURL
-  }
+  
   private userEmail: string = '';
   getUserEmail() {
     return this.userEmail;

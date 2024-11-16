@@ -144,8 +144,7 @@ button:hover {
     /* Espacio entre las alertas */
 }
 
-.alert-danger,
-.alert-danger-info {
+.alert-danger {
 
     display: flex;
     align-items: center;
@@ -154,15 +153,11 @@ button:hover {
     color: white;
     border-radius: 5px;
     font-weight: bold;
+    background-color: #dc3545;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
 
-.alert-danger,
-.alert-danger-info {
-    background-color: #dc3545;
-    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
-}
 
 .alert-danger .icon {
     width: 30px;
@@ -202,7 +197,20 @@ button:hover {
     }
 }
 
-.alert-danger-info .icon {
-    width: 15px;
+.alert-warnin{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    width: 390px;
+    color: white !important;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #d5a30e;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
+}
+.alert-warnin .icon {
+    width: 30px;
     margin-right: 10px;
 }

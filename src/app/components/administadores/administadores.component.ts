@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { TarifasComponent } from '../../pages/tarifas/tarifas.component';
@@ -8,52 +8,125 @@ import { ListaUsuariosComponent } from '../../pages/lista-usuarios/lista-usuario
 import { GestionEspaciosComponent } from '../../pages/gestion-espacios/gestion-espacios.component';
 import { CommonModule } from '@angular/common';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { UsuariosServiceService } from '../../services/usuarios-service.service';
+import { Persona } from '../../models/persona';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-administadores',
   standalone: true,
-  imports: [RouterModule,TarifasComponent,HorariosComponent,ContratosComponent,ListaUsuariosComponent,GestionEspaciosComponent,CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, TarifasComponent, HorariosComponent, ContratosComponent, ListaUsuariosComponent, GestionEspaciosComponent, CommonModule, FormsModule],
   templateUrl: './administadores.component.html',
   styleUrl: './administadores.component.scss'
 })
-export class AdministadoresComponent implements OnInit{
+export class AdministadoresComponent implements OnInit {
   authServicio = inject(AuthentificServiceService)
   router = inject(Router)
   isSize = false
-  cerrarSeccion(){
+  isPerfil = false
+  adminS = inject(AdministradoresServiceService)
+  userS = inject(UsuariosServiceService)
+  name = ''
+  email = 'supermercadobasedatos@gmail.com'
+  cdRef=inject(ChangeDetectorRef)
 
-    this.authServicio.logout().then(()=>
-    this.router.navigate(['pages/login']))
-    .catch(error => console.log(error))
+  ngOnInit(): void {
+    //this.email = this.authServicio.getInfo()?.email || '';
+    this.name = this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
+    this.actualizarPerfil()
+    
   }
-  agrandar(){
+
+  
+
+  cerrarSeccion() {
+    this.authServicio.logout().then(() =>
+      this.router.navigate(['pages/login'])
+    ).catch(error => console.log(error))
+
+  }
+  agrandar() {
     this.isSize = !this.isSize;
   }
-  user=''
-  email=''
-  
+
 
   espacios: boolean = false
   contratos: boolean = false
   tarifas: boolean = false
   horarios: boolean = false
   clientes: boolean = false
+  seccionabierta: string = '';
 
-  seccionabierta: string = ''; 
-  constructor(private loginS:AuthentificServiceService,private adminS:AdministradoresServiceService){}
-  ngOnInit(): void {
-    console.log(this.authServicio.getURLimagen())
-    this.email=this.loginS.getUserEmail()
-    this.user=this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
-  }
   abrirSeccion(seccion: string) {
-    this.seccionabierta = this.seccionabierta === seccion ? '' : seccion; 
+    this.seccionabierta = this.seccionabierta === seccion ? '' : seccion;
   }
 
   seccionAbierta(seccion: string): boolean {
     return this.seccionabierta === seccion;
   }
-  selectImagen(){
-    return this.authServicio.getURLimagen()
+  imgView = true
+  getImgServicie() {
+    if (this.authServicio.getInfo()?.photoURL !== null && this.authServicio.getInfo()?.photoURL !== undefined) {
+      return this.authServicio.getInfo()?.photoURL
+    } else {
+      this.imgView = false
+      return null
+    }
   }
+  menuAnimationClass = '';
+
+  accionPerfil() {
+    if (this.isPerfil) {
+      this.menuAnimationClass = 'menu-exit';
+      setTimeout(() => {
+        this.isPerfil = false;
+        this.menuAnimationClass = '';
+      }, 300);
+    } else {
+      this.isPerfil = true;
+      this.menuAnimationClass = 'menu-enter';
+    }
+  }
+  perfilDatosView = false
+  redireccionarPerfil() {
+    this.perfilDatosView = !this.perfilDatosView;
+  }
+  editPerfil = false
+  editarPerfil() {
+    console.log(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico)
+    this.editPerfil = !this.editPerfil
+  }
+  confirmacionEdit = false
+  setConfirmacionEdit() {
+    this.confirmacionEdit = !this.confirmacionEdit
+  }
+  formAdmin = new FormGroup({
+    
+    name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
+    lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
+    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required]),
+    addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
+    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required]),
+    country: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.pais, [Validators.required]),
+    city: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.ciudad, [Validators.required]),
+  })
+  
+  
+
+  actualizarPerfil() {
+    const per = new Persona(
+      this.email,
+      '',
+      this.formAdmin.get('name')?.value || ' ',
+      this.formAdmin.get('lastName')?.value || ' ',
+      this.formAdmin.get('numberPhone')?.value || ' ',
+      this.formAdmin.get('addres')?.value || ' ',
+      this.formAdmin.get('codeZip')?.value || ' ',
+      this.formAdmin.get('country')?.value || ' ',
+      this.formAdmin.get('city')?.value || ' ',
+      true
+    );
+    this.userS.actualizarUsuario(this.email, per);
+  }
+    
 }
