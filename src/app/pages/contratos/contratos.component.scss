@@ -23,6 +23,7 @@
 
 .gestion-contratos input[type="text"],
 .gestion-contratos input[type="number"],
+.gestion-contratos input[type="date"],
 .gestion-contratos select {
     padding: 10px;
     margin-bottom: 15px;
@@ -294,7 +295,6 @@ tr:hover .menu-button {
     cursor: pointer;
 }
 
-/* Título del formulario */
 .popup-content-profile-edit h4 {
     font-size: 1.4em;
     color: var(--white);
@@ -312,10 +312,10 @@ tr:hover .menu-button {
     text-align: left;
 }
 
-.popup-content-profile-edit .description input[type="text"] {
-    width: 90%;
-    padding: 8px 10px;
-    margin-top: 5px;
+.popup-content-profile-edit .description input[type="text"], 
+.popup-content-profile-edit .description input[type="date"]{
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #555555;
     border-radius: 5px;
     background: var(--gray);

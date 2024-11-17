@@ -57,7 +57,7 @@
                     <label for="espacio">Espacio:</label>
                     <select id="espacio" formControlName="espacio">
                         <option value="" disabled selected>Seleccione un espacio</option>
-                        <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}</option>
+                        <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}} {{espacio.tipo}}</option>
                     </select>
                     <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
                         class="error-message">
@@ -86,6 +86,24 @@
                     <div *ngIf="contratoForm.get('placa')?.hasError('pattern') && contratoForm.get('placa')?.touched"
                         class="error-message">
                         Formato de placa inválido. Ejemplo: AAA-0000.
+                    </div>
+
+                    <label for="fechaInicio">Fecha de Inicio:</label>
+                    <input type="date" id="fechaInicio" formControlName="fechaInicio">
+                    <div *ngIf="contratoForm.get('fechaInicio')?.hasError('required') && contratoForm.get('fechaInicio')?.touched"
+                        class="error-message">
+                        Ingrese la fecha de inicio.
+                    </div>
+
+                    <label for="fechaFin">Fecha de Fin:</label>
+                    <input type="date" id="fechaFin" formControlName="fechaFin">
+                    <div *ngIf="contratoForm.get('fechaFin')?.hasError('required') && contratoForm.get('fechaFin')?.touched"
+                        class="error-message">
+                        Ingrese la fecha de fin.
+                    </div>
+
+                    <div *ngIf="contratoForm.hasError('fechaInvalida') && contratoForm.touched" class="error-message">
+                        La fecha de fin debe ser posterior a la fecha de inicio.
                     </div>
 
                     <div class="btns">
