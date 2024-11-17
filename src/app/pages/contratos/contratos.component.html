@@ -1,9 +1,9 @@
 <div class="gestion-contratos">
     <h2>Gestión de Contratos de Arriendo</h2>
 
-    <button (click)="contrato()">Agregar Contrato</button>
+    <button class="btnA" (click)="contrato()">Agregar Contrato</button>
 
-    <table *ngIf="contratos.length > 0" border="1">
+    <table *ngIf="contratos.length > 0">
         <thead>
             <tr>
                 <th>Cliente</th>
@@ -13,7 +13,7 @@
                 <th>Tarifa</th>
                 <th>Placa</th>
                 <th>Nombre Administrador</th>
-                <th></th>
+                <th class="puntos"></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <td>{{ contrato.nombreA }}</td>
                 <td class="acciones">
                     <div class="menu-container">
-                        <button class="menu-button" (click)="toggleMenu(i)">...</button>
+                        <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
                         <div class="menu-options" *ngIf="menuVisibleIndex === i">
                             <button (click)="eliminarContrato(contrato)">Eliminar</button>
                         </div>

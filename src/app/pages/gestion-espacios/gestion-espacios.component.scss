@@ -1,38 +1,29 @@
 .gestion-espacios {
-    background-color: #f0f7ee;
+    background-color: var(--white); 
     min-height: 72vh;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px var(--black); 
 }
 
 .gestion-espacios h2 {
-    color: #4f646f;
+    color: var(--gray); 
     margin-bottom: 20px;
-}
-
-.gestion-espacios form {
-    display: grid;
-    flex-direction: column;
-}
-
-.gestion-espacios label {
-    margin-bottom: 5px;
-    color: #4f646f;
 }
 
 .gestion-espacios input[type="text"],
 .gestion-espacios select {
     padding: 10px;
     margin-bottom: 15px;
-    border: 2px solid #080000;
+    border: 2px solid var(--black);
+    background-color: var(--gray); 
     border-radius: 5px;
     font-size: 16px;
 }
 
-.gestion-espacios button {
-    background-color: #54736E;
-    color: #FFFFFF;
+.gestion-espacios .btnA {
+    background-color: var(--green);
+    color: var(--white); 
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -41,8 +32,8 @@
     transition: background-color 0.3s;
 }
 
-.gestion-espacios button:hover {
-    background-color: #FF3B58;
+.gestion-espacios .btnA:hover {
+    background-color: var(--red); 
 }
 
 .gestion-espacios ul {
@@ -54,18 +45,17 @@
     margin-top: 10px;
 }
 
-.gestion-espacios li button {
-    background-color: #FF3B58;
+.gestion-espacios button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    color: #4f646f;
+    color: var(--gray); 
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .gestion-espacios li button:hover {
-    background-color: #54736E;
+    background-color: var(--gray); 
 }
 
 input.error,
@@ -82,25 +72,56 @@ select.error {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 20px;
+    border: 1px solid var(--gray); 
+    border-radius: 10px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
     text-align: left;
-    padding: 8px;
-    color: #4f646f;
+    padding: 12px 15px; 
+    color: var(--gray);
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
 }
 
 th {
-    background-color: #4caf50;
-    color: #4f646f;
+    background-color: var(--black);
+    color: var(--white); 
+    font-weight: bold;
+    text-transform: uppercase; 
+    border-bottom: 2px solid var(--gray); 
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--white); 
 }
+
+.puntos{
+    width: 50px;
+}
+tr:nth-child(odd) {
+    background-color: #ffffff; 
+}
+
+td {
+    border-bottom: 1px solid #e0e0e0; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+td:hover {
+    color: var(--white);
+}
+
+tr:hover {
+    background-color: #f1f1f1; 
+}
+
 
 .acciones {
     position: relative;
@@ -116,7 +137,7 @@ tr:nth-child(even) {
     border: none;
     font-size: 1.2em;
     cursor: pointer;
-    background-color: #f0f7ee;
+    background-color: var(--white);
 }
 
 .menu-button {
@@ -136,8 +157,8 @@ tr:hover .menu-button {
     position: absolute;
     top: 20px;
     right: 0;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--white); 
+    box-shadow: 0 4px 8px var(--black); 
     border-radius: 5px;
     padding: 5px;
     z-index: 10;
@@ -150,11 +171,11 @@ tr:hover .menu-button {
     text-align: left;
     width: 100%;
     cursor: pointer;
-    color: #333;
+    color: var(--black); 
 }
 
 .menu-options button:hover {
-    color: #333;
+    color: var(--black);
 }
 
 .popup-overlay-profile {
@@ -190,8 +211,8 @@ tr:hover .menu-button {
     padding: 30px;
     border-radius: 12px;
     border: none;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    color: #ffffff;
+    box-shadow: 0 8px 16px  rgba(0, 0, 0, 0.5);
+    color: var(--white);
     font-family: Arial, sans-serif;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -200,10 +221,10 @@ tr:hover .menu-button {
 .popup-content-profile .header {
     display: grid;
     align-items: center;
-    background: #333333;
+    background: var(--gray);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 8px  rgba(0, 0, 0, 0.5);
     text-align: center;
 }
 
@@ -221,7 +242,7 @@ tr:hover .menu-button {
 
 .popup-content-profile .details {
     margin-left: 15px;
-    color: #e0e0e0;
+    color: var(--white);
 }
 
 .details .name {
@@ -234,7 +255,7 @@ tr:hover .menu-button {
 .popup-content-profile .description {
     margin: 20px 0;
     font-size: 0.95em;
-    color: #cccc;
+    color: var(--white);
     font-weight: bolder;
 }
 
@@ -247,8 +268,8 @@ tr:hover .menu-button {
 .popup-content-profile .btns .btn {
     height: 35px;
     width: 100%;
-    background: #555555;
-    color: #ffffff;
+    background: var(--gray);
+    color: var(--white);
     border: none;
     border-radius: 25px;
     font-size: 0.9em;
@@ -262,7 +283,7 @@ tr:hover .menu-button {
 /* Título del formulario */
 .popup-content-profile-edit h4 {
     font-size: 1.4em;
-    color: #ffffff;
+    color: var(--white);
     margin-bottom: 20px;
     text-align: center;
 }
@@ -270,10 +291,11 @@ tr:hover .menu-button {
 .popup-content-profile-edit .description label {
     font-family: sans-serif;
     font-size: 0.9em;
-    color: #1769a0;
+    color: var(--white);
     display: block;
     font-weight: bolder;
     margin-top: 10px;
+    text-align: left;
 }
 
 .popup-content-profile-edit .description input[type="text"] {
@@ -282,8 +304,8 @@ tr:hover .menu-button {
     margin-top: 5px;
     border: 1px solid #555555;
     border-radius: 5px;
-    background: #333333;
-    color: #ffffff;
+    background: var(--gray);
+    color: var(--white);
     font-size: 0.9em;
 }
 
@@ -293,11 +315,15 @@ tr:hover .menu-button {
 
 .btns .btn{
     margin-right: 8px;
-    background: #555555;
-    color: #ffffff;
+    background: var(--gray);
+    color: var(--white);
     border: none;
     border-radius: 25px;
     font-size: 0.9em;
+}
+
+.btns .btn:hover{
+    background-color: var(--red);
 }
 
 .btns .btn-1,

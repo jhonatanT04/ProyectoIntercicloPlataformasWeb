@@ -33,6 +33,9 @@ export class HorariosComponent implements OnInit {
       const horario = new Horario(this.dia,this.horaApertura,this.horaCierre);
       this.horarioS.agrgarHorario(new Horario(this.horarioForm.get('dia')?.value||' ',this.horarioForm.get('horaApertura')?.value||' ',this.horarioForm.get('horaCierre')?.value||' '));  
       this.cargarHorario();
+      this.dia=''
+      this.horaApertura=''
+      this.horaCierre=''
     } else {
       this.horarioForm.markAllAsTouched();
     }

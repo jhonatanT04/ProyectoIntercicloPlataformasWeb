@@ -1,13 +1,13 @@
 <div class="gestion-tarifas">
   <h2>Gestión de Tarifas</h2>
-  <button (click)="tarifass()">Agregar Tarifa</button>
+  <button class="btnA" (click)="tarifass()">Agregar Tarifa</button>
 
-  <table border="1">
+  <table>
     <thead>
       <tr>
         <th>Tipo de Espacio</th>
         <th>Costo por Hora</th>
-        <th>Acciones</th>
+        <th class="puntos">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
         <td>{{ tarifa.costo }}$ por hora</td>
         <td class="acciones">
           <div class="menu-container">
-            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
               <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
             </div>
