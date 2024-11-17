@@ -46,4 +46,15 @@ export class HorariosComponent implements OnInit {
   cargarHorario() {
     this.horarios = this.horarioS.cargarHorario()
   }
+
+  horarioMostrar=false
+  horario(){
+    this.horarioMostrar = !this.horarioMostrar
+  }
+
+  menuVisibleIndex: number | null = null;
+  
+  toggleMenu(index: number) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
 }

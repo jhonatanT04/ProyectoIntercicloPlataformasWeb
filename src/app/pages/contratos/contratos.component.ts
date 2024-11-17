@@ -113,4 +113,16 @@ export class ContratosComponent implements OnInit {
     this.contratoS.eliminarContrato(contrato)
     this.cargarContratos()
   }
+
+  agregaContrato = false
+  contrato(){
+    this.agregaContrato = !this.agregaContrato
+  }
+
+  menuVisibleIndex: number | null = null;
+  
+  toggleMenu(index: number) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
+
 }

@@ -1,54 +1,7 @@
 <div class="gestion-contratos">
     <h2>Gestión de Contratos de Arriendo</h2>
-    <form [formGroup]="contratoForm">
-        <label for="cliente">Nombre del Cliente:</label>
-        <select id="cliente" formControlName="cliente"
-            [class.ng-invalid.ng-touched]="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched">
-            <option value="" disabled selected>Seleccione un cliente</option>
-            <option *ngFor="let cliente of clientes"  [value]="cliente.email">{{cliente.nombre}}  {{cliente.apellido}}  {{cliente.email}}
-            </option>
-        </select>
-        <div *ngIf="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched"
-            class="error-message">
-            Seleccione un cliente.
-        </div>
 
-        <label for="espacio">Espacio:</label>
-        <select id="espacio" formControlName="espacio">
-            <option value="" disabled selected>Seleccione un espacio</option>
-            <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}</option>
-        </select>
-        <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
-            class="error-message">
-            Seleccione un espacio.
-        </div>
-
-        <label for="duracion">Duración (meses):</label>
-        <input type="number" id="duracion" formControlName="duracion">
-        <div *ngIf="contratoForm.get('duracion')?.hasError('required') && contratoForm.get('duracion')?.touched"
-            class="error-message">
-            Ingrese una duración válida mayor a 0.
-        </div>
-
-        <label for="tarifa">Tarifa:</label>
-        <select id="tarifa" formControlName="tarifa">
-            <option value="" disabled selected>Seleccione una tarifa</option>
-            <option *ngFor="let tarifa of tarifas" [value]="tarifa.costo">{{tarifa.costo}}</option>
-        </select>
-        <div *ngIf="contratoForm.get('tarifa')?.hasError('required') && contratoForm.get('tarifa')?.touched"
-            class="error-message">
-            Seleccione una tarifa.
-        </div>
-
-        <label for="placa">Placa:</label>
-        <input type="text" id="placa" formControlName="placa" placeholder="AAA-0000">
-        <div *ngIf="contratoForm.get('placa')?.hasError('pattern') && contratoForm.get('placa')?.touched"
-            class="error-message">
-            Formato de placa inválido. Ejemplo: AAA-0000.
-        </div>
-
-        <button type="submit" (click)="agregarContrato()">Agregar Contrato</button>
-    </form>
+    <button (click)="contrato()">Agregar Contrato</button>
 
     <table *ngIf="contratos.length > 0" border="1">
         <thead>
@@ -60,11 +13,11 @@
                 <th>Tarifa</th>
                 <th>Placa</th>
                 <th>Nombre Administrador</th>
-                <th>Acciones</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let contrato of contratos">
+            <tr *ngFor="let contrato of contratos; let i = index">
                 <td>{{ contrato.cliente.nombre }}</td>
                 <td>{{ contrato.cliente.email}}</td>
                 <td>{{ contrato.nombreE }}</td>
@@ -72,12 +25,80 @@
                 <td>{{ contrato.tarifa }}</td>
                 <td>{{ contrato.placa }}</td>
                 <td>{{ contrato.nombreA }}</td>
-                <td><button (click)="eliminarContrato(contrato)">Eliminar</button></td>
+                <td class="acciones">
+                    <div class="menu-container">
+                        <button class="menu-button" (click)="toggleMenu(i)">...</button>
+                        <div class="menu-options" *ngIf="menuVisibleIndex === i">
+                            <button (click)="eliminarContrato(contrato)">Eliminar</button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
+
+    <div *ngIf="agregaContrato" class="popup-overlay-profile">
+        <div class="popup-content-profile-edit">
+            <div class="description">
+                <form [formGroup]="contratoForm">
+                    <label for="cliente">Nombre del Cliente:</label>
+                    <select id="cliente" formControlName="cliente"
+                        [class.ng-invalid.ng-touched]="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched">
+                        <option value="" disabled selected>Seleccione un cliente</option>
+                        <option *ngFor="let cliente of clientes" [value]="cliente.email">{{cliente.nombre}}
+                            {{cliente.apellido}} {{cliente.email}}
+                        </option>
+                    </select>
+                    <div *ngIf="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched"
+                        class="error-message">
+                        Seleccione un cliente.
+                    </div>
+
+                    <label for="espacio">Espacio:</label>
+                    <select id="espacio" formControlName="espacio">
+                        <option value="" disabled selected>Seleccione un espacio</option>
+                        <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}</option>
+                    </select>
+                    <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
+                        class="error-message">
+                        Seleccione un espacio.
+                    </div>
+
+                    <label for="duracion">Duración (meses):</label>
+                    <input type="number" id="duracion" formControlName="duracion">
+                    <div *ngIf="contratoForm.get('duracion')?.hasError('required') && contratoForm.get('duracion')?.touched"
+                        class="error-message">
+                        Ingrese una duración válida mayor a 0.
+                    </div>
+
+                    <label for="tarifa">Tarifa:</label>
+                    <select id="tarifa" formControlName="tarifa">
+                        <option value="" disabled selected>Seleccione una tarifa</option>
+                        <option *ngFor="let tarifa of tarifas" [value]="tarifa.costo">{{tarifa.costo}}</option>
+                    </select>
+                    <div *ngIf="contratoForm.get('tarifa')?.hasError('required') && contratoForm.get('tarifa')?.touched"
+                        class="error-message">
+                        Seleccione una tarifa.
+                    </div>
+
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" formControlName="placa" placeholder="AAA-0000">
+                    <div *ngIf="contratoForm.get('placa')?.hasError('pattern') && contratoForm.get('placa')?.touched"
+                        class="error-message">
+                        Formato de placa inválido. Ejemplo: AAA-0000.
+                    </div>
+
+                    <div class="btns">
+                        <button class="btn" type="submit" (click)="agregarContrato()">Agregar</button>
+                        <button class="btn" (click)="contrato()">Cerrar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
     <div *ngIf="contratos.length === 0">No hay contratos registrados.</div>
     <div *ngIf="email1">
         <p>Correo del usuario: {{ email1 }}</p>
-      </div>      
+    </div>
 </div>

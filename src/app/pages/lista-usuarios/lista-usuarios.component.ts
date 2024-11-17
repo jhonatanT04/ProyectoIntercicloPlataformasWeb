@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
@@ -8,7 +8,7 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,ReactiveFormsModule],
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.scss'
 })
@@ -20,6 +20,11 @@ export class ListaUsuariosComponent implements OnInit{
   numeroTelefonico=''
   clienteSeleccionado = false
 
+  editarForm = new FormGroup({
+    nombre: new FormControl('',[Validators.required]),
+    apellido: new FormControl('',[Validators.required]),
+    numeroTelefonico: new FormControl('',[Validators.required])
+  })
   ngOnInit(): void {
     this.cargarClientes() 
   }
@@ -64,5 +69,14 @@ export class ListaUsuariosComponent implements OnInit{
       console.log('Error: Cliente no encontrado');
     }
   }
+  editarF = false
+  editarrF(){
+    this.editarF = !this.editarF
+  }
+
+  menuVisibleIndex: number | null = null;
   
+  toggleMenu(index: number) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
 }

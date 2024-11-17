@@ -49,4 +49,14 @@ export class TarifasComponent implements OnInit{
   cargarTarifa(){
     this.tarifas = this.tarifaS.cargarTarifa()
   }
+
+  menuVisibleIndex: number | null = null;
+
+  toggleMenu(index: number) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
+  tarifasAgregar=false
+  tarifass(){
+    this.tarifasAgregar = !this.tarifasAgregar
+  }
 }

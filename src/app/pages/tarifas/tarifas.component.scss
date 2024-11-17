@@ -1,5 +1,6 @@
 .gestion-tarifas {
     background-color: #F2EABC;
+    min-height: 72vh;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -71,4 +72,305 @@
     color: red;
     font-size: 0.9em;
     margin-top: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.acciones {
+    position: relative;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+tr:hover .menu-button {
+    opacity: 1;
+}
+
+.menu-options {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 10;
+}
+
+.menu-options button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    color: #333;
+}
+
+.menu-options button:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.popup-overlay-profile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+// .popup-content-profile {
+//     background: #000000;
+//     padding: 20px;
+//     border-radius: 8px;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+//     max-width: 400px;
+//     width: 90%;
+//     text-align: center;
+// }
+
+
+/* Contenedor datos perfil principal */
+.popup-content-profile,
+.popup-content-profile-edit {
+    position: fixed;
+    background: #1c1c1c;
+    padding: 30px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Cabecera */
+.popup-content-profile .header {
+    display: grid;
+    align-items: center;
+    background: #333333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+
+.header .img {
+    height: 45px;
+    width: 45px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #ffffff;
+}
+
+
+.popup-content-profile .details {
+    margin-left: 15px;
+    color: #e0e0e0;
+}
+
+.details .name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.popup-content-profile .description {
+    margin: 20px 0;
+    font-size: 0.95em;
+    color: #cccc;
+    font-weight: bolder;
+}
+
+
+.popup-content-profile .btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-content-profile .btns .btn {
+    height: 35px;
+    width: 100%;
+    background: #555555;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+/* Título del formulario */
+.popup-content-profile-edit h4 {
+    font-size: 1.4em;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.popup-content-profile-edit .description label {
+    font-family: sans-serif;
+    font-size: 0.9em;
+    color: #1769a0;
+    display: block;
+    font-weight: bolder;
+    margin-top: 10px;
+}
+
+.popup-content-profile-edit .description input[type="text"] {
+    width: 90%;
+    padding: 8px 10px;
+    margin-top: 5px;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    background: #333333;
+    color: #ffffff;
+    font-size: 0.9em;
+}
+
+.popup-content-profile-edit .description input[type="text"]+br {
+    display: none;
+}
+
+.btns .btn{
+    margin-right: 8px;
+    background: #555555;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-size: 0.9em;
+}
+
+.btns .btn-1,
+.btns .btn-2 {
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+
+    .gestion-tarifas form {
+        flex-direction: column;
+    }
+
+    .gestion-tarifas label {
+        font-size: 14px;
+    }
+
+    .gestion-tarifas input[type="text"],
+    .gestion-tarifas input[type="number"],
+    .gestion-tarifas select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .gestion-tarifas button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .menu-options {
+        width: 100%;
+        right: auto;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .gestion-tarifas h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .gestion-tarifas input[type="text"],
+    .gestion-tarifas input[type="number"],
+    .gestion-tarifas select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .gestion-tarifas button {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .menu-button {
+        font-size: 1em;
+    }
+
+    .menu-options button {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 4px;
+    }
 }

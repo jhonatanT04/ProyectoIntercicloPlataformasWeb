@@ -1,46 +1,64 @@
 <div class="gestion-espacios">
-    <h2>Gestión de Espacios</h2>
-    <form [formGroup]="espacioForm">
-      <label for="nombre">Nombre del Espacio:</label>
-      <input type="text" id="nombre" formControlName="nombre" required>
-      <div *ngIf="espacioForm.get('nombre')?.hasError('required') && espacioForm.get('nombre')?.touched" class="error-message">
-        Ingrese un nombre para el espacio.
+  <h2>Gestión de Espacios</h2>
+
+  <button type="button" (click)="espacio()">Agregar Espacio</button>
+
+  <table *ngIf="espacios.length > 0">
+    <thead>
+      <tr>
+        <th>Nombre del Espacio</th>
+        <th>Tipo de Espacio</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let espacio of espacios; let i = index">
+        <td>{{ espacio.nombre }}</td>
+        <td>{{ espacio.tipo }}</td>
+        <td class="acciones">
+          <div class="menu-container">
+            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="eliminarEspacio(espacio)">Eliminar</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="espaciosMostrar" class="popup-overlay-profile">
+    <div class="popup-content-profile-edit">
+      <div class="description">
+        <form [formGroup]="espacioForm">
+          <label for="nombre">Nombre del Espacio:</label>
+          <input type="text" id="nombre" formControlName="nombre" required>
+          <div *ngIf="espacioForm.get('nombre')?.hasError('required') && espacioForm.get('nombre')?.touched"
+            class="error-message">
+            Ingrese un nombre para el espacio.
+          </div>
+
+          <label for="tipo">Tipo de Espacio:</label>
+          <select id="tipo" formControlName="tipo" required>
+            <option value="" disabled selected>Seleccione un tipo de espacio</option>
+            <option value="auto">Auto</option>
+            <option value="moto">Moto</option>
+          </select>
+          <div *ngIf="espacioForm.get('tipo')?.hasError('required') && espacioForm.get('tipo')?.touched"
+            class="error-message">
+            Seleccione un tipo de espacio.
+          </div>
+
+          <div class="btns">
+            <button class="btn" (click)="agregarEspacio()">Agregar</button>
+            <button class="btn" (click)="espacio()">Cerrar</button>
+          </div>
+
+        </form>
       </div>
-  
-      <label for="tipo">Tipo de Espacio:</label>
-      <select id="tipo" formControlName="tipo" required>
-        <option value="" disabled selected>Seleccione un tipo de espacio</option>
-        <option value="auto">Auto</option>  
-        <option value="moto">Moto</option>
-      </select>
-      <div *ngIf="espacioForm.get('tipo')?.hasError('required') && espacioForm.get('tipo')?.touched" class="error-message">
-        Seleccione un tipo de espacio.
-      </div>
-  
-      <button type="button" (click)="agregarEspacio()">Agregar Espacio</button>
-    </form>
-  
-    <table *ngIf="espacios.length > 0" border="1">
-      <thead>
-        <tr>
-          <th>Nombre del Espacio</th>
-          <th>Tipo de Espacio</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let espacio of espacios">
-          <td>{{ espacio.nombre }}</td>
-          <td>{{ espacio.tipo }}</td>
-          <td>
-            <button (click)="eliminarEspacio(espacio)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <div *ngIf="espacios.length === 0">
-      No hay espacios registrados.
     </div>
   </div>
-  
+  <div *ngIf="espacios.length === 0">
+    No hay espacios registrados.
+  </div>
+</div>

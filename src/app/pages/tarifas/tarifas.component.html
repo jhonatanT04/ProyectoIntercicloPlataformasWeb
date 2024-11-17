@@ -1,23 +1,6 @@
 <div class="gestion-tarifas">
   <h2>Gestión de Tarifas</h2>
-  <form [formGroup]="tarifaForm">
-    <label for="tipo">Tipo de Espacio:</label>
-    <select id="tipo" formControlName="tipo">
-      <option value="auto">Auto</option>
-      <option value="moto">Moto</option>
-    </select>
-    <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched" class="error-message">
-      Por favor selecciona un tipo de espacio.
-    </div>
-
-    <label for="costo">Costo por Hora:</label>
-    <input type="number" id="costo" formControlName="costo" min="0">
-    <div *ngIf="tarifaForm.get('costo')?.hasError('required') && tarifaForm.get('costo')?.touched" class="error-message">
-      El costo por hora es obligatorio.
-    </div>
-
-    <button type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
-  </form>
+  <button (click)="tarifass()">Agregar Tarifa</button>
 
   <table border="1">
     <thead>
@@ -28,14 +11,48 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tarifa of tarifas">
+      <tr *ngFor="let tarifa of tarifas; let i = index">
         <td>{{ tarifa.tipo }}</td>
         <td>{{ tarifa.costo }}$ por hora</td>
-        <td>
-          <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
+        <td class="acciones">
+          <div class="menu-container">
+            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
-  
+
+  <div class="popup-overlay-profile" *ngIf="tarifasAgregar">
+    <div class="popup-content-profile-edit">
+      <form [formGroup]="tarifaForm">
+        <div class="description">
+          <label for="tipo">Tipo de Espacio:</label>
+          <select id="tipo" formControlName="tipo">
+            <option value="auto">Auto</option>
+            <option value="moto">Moto</option>
+          </select>
+          <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched"
+            class="error-message">
+            Por favor selecciona un tipo de espacio.
+          </div>
+
+          <label for="costo">Costo por Hora:</label>
+          <input type="number" id="costo" formControlName="costo" min="0">
+          <div *ngIf="tarifaForm.get('costo')?.hasError('required') && tarifaForm.get('costo')?.touched"
+            class="error-message">
+            El costo por hora es obligatorio.
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="btn" type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
+          <button class="btn" (click)="tarifass()">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

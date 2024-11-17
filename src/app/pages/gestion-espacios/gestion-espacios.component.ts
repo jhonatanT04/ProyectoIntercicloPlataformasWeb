@@ -18,6 +18,7 @@ export class GestionEspaciosComponent implements OnInit{
   nombre= ''
   estado= ''
   espacios:any =[]
+  espaciosMostrar = false
 
   espacioForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
@@ -45,6 +46,15 @@ export class GestionEspaciosComponent implements OnInit{
     } else {
       this.espacioForm.markAllAsTouched();
     }
+  }
+  menuVisibleIndex: number | null = null;
+  
+  toggleMenu(index: number) {
+    this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
+
+  espacio(){
+    this.espaciosMostrar = !this.espaciosMostrar
   }
   eliminarEspacio(espacio:any){
     this.espacioS.eliminarEspacio(espacio)

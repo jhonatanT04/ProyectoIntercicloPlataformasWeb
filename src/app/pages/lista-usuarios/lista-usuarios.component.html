@@ -7,36 +7,61 @@
         <th>Apellido</th>
         <th>Correo Electrónico</th>
         <th>Telefono</th>
-        <th>Acciones</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cliente of clientes">
+      <tr *ngFor="let cliente of clientes ;let i = index">
         <td>{{ cliente.nombre }}</td>
         <td>{{ cliente.apellido }}</td>
         <td>{{ cliente.email }}</td>
         <td>{{ cliente.numeroTelefonico}}</td>
-        <td>
-          <button (click)="seleccionarCliente(cliente.email)">Seleccionar</button>
-          <button (click)="eliminarCliente(cliente)">Eliminar</button>
+        <td class="acciones">
+          <div class="menu-container">
+            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="seleccionarCliente(cliente.email)" (click)="editarrF()">Editar</button>
+              <button (click)="eliminarCliente(cliente)">Eliminar</button>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <h3>Editar Cliente</h3>
-  <form>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
+  <div *ngIf="editarF" class="popup-overlay-profile">
+    <div class="popup-content-profile-edit">
+      <div class="description">
+        <h3>Editar Cliente</h3>
+        <form [formGroup]="editarForm">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
+          <div *ngIf="editarForm.get('nombre')?.hasError('required') && editarForm.get('nombre')?.touched"
+            class="error-message">
+            Ingrese un nombre para el espacio.
+          </div>
 
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
+          <div *ngIf="editarForm.get('apellido')?.hasError('required') && editarForm.get('apellido')?.touched"
+            class="error-message">
+            Ingrese un apellido para el espacio.
+          </div>
+          <label for="numeroTelefonico">Telefono:</label>
+          <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
+          <div
+            *ngIf="editarForm.get('numeroTelefonico')?.hasError('required') && editarForm.get('numeroTelefonico')?.touched"
+            class="error-message">
+            Ingrese un nombre para el espacio.
+          </div>
 
-    <label for="numeroTelefonico">Telefono:</label>
-    <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
-
-    <button type="submit" (click)="actualizarCliente()">Actualizar</button>
-  </form>
-
+          <div class="btns">
+            <button class="btn" type="submit" (click)="actualizarCliente()">Actualizar</button>
+            <button class="btn" (click)="editarrF()">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 </div>
