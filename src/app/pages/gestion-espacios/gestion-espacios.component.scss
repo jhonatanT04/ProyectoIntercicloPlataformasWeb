@@ -1,5 +1,5 @@
 .gestion-espacios {
-    background-color: #F2EABC;
+    background-color: #f0f7ee;
     min-height: 72vh;
     padding: 20px;
     border-radius: 10px;
@@ -7,7 +7,7 @@
 }
 
 .gestion-espacios h2 {
-    color: #194756;
+    color: #4f646f;
     margin-bottom: 20px;
 }
 
@@ -18,7 +18,7 @@
 
 .gestion-espacios label {
     margin-bottom: 5px;
-    color: #194756;
+    color: #4f646f;
 }
 
 .gestion-espacios input[type="text"],
@@ -59,7 +59,7 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    color: #FFFFFF;
+    color: #4f646f;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -90,11 +90,12 @@ th,
 td {
     text-align: left;
     padding: 8px;
+    color: #4f646f;
 }
 
 th {
     background-color: #4caf50;
-    color: white;
+    color: #4f646f;
 }
 
 tr:nth-child(even) {
@@ -115,6 +116,7 @@ tr:nth-child(even) {
     border: none;
     font-size: 1.2em;
     cursor: pointer;
+    background-color: #f0f7ee;
 }
 
 .menu-button {
@@ -152,8 +154,7 @@ tr:hover .menu-button {
 }
 
 .menu-options button:hover {
-    background-color: #f44336;
-    color: white;
+    color: #333;
 }
 
 .popup-overlay-profile {
