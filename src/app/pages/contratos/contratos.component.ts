@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Contrato } from '../../models/contrato';
@@ -28,14 +28,20 @@ export class ContratosComponent implements OnInit {
   duracion = 0
   tarifa = 0
   placa = ''
+  fechaInicio = ''
+  fechaFin = ''
+  fechaInvalida: boolean = false
 
   contratoForm = new FormGroup({
     cliente: new FormControl('', [Validators.required]),
     espacio: new FormControl('', [Validators.required]),
     duracion: new FormControl('', [Validators.required, Validators.min(1)]),
     tarifa: new FormControl('', [Validators.required]),
-    placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')])
-  });
+    placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')]),
+    fechaInicio: new FormControl('', [Validators.required]),
+    fechaFin: new FormControl('', [Validators.required]),
+  },{validators: this.validarFechas('fechaInicio','fechaFin')}
+  );
   constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService) { }
   ngOnInit(): void {
     this.cargarContratos()
@@ -44,6 +50,20 @@ export class ContratosComponent implements OnInit {
     this.cargarTarifas()
     this.email1 = this.login.getUserEmail()
   }
+
+  validarFechas(fieldInicio: string, fieldFin: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const fechaInicio = formGroup.get(fieldInicio)?.value;
+      const fechaFin = formGroup.get(fieldFin)?.value;
+
+      if (fechaInicio && fechaFin && new Date(fechaInicio) >= new Date(fechaFin)) {
+        return { fechaInvalida: true }; 
+      }
+
+      return null; 
+    }
+  }
+
 
   cargarClientes() {
     this.clientes = this.clienteS.cargarUsuario()
@@ -98,14 +118,18 @@ export class ContratosComponent implements OnInit {
           tarifa,
           this.contratoForm.get('placa')?.value || '',
           nombre,
+          new Date(this.contratoForm.get('fechaInicio')?.value || ''),
+          new Date(this.contratoForm.get('fechaFin')?.value || '')
         );
 
         this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
         this.cargarContratos();
         this.contratoForm.reset()
+        this.alertError("Se ingreso correctamente")
       }
     } else {
       this.contratoForm.markAllAsTouched();
+      this.alertError("No se insegro corecctamente")
     }
   }
 
@@ -115,14 +139,34 @@ export class ContratosComponent implements OnInit {
   }
 
   agregaContrato = false
-  contrato(){
+  contrato() {
     this.agregaContrato = !this.agregaContrato
   }
 
   menuVisibleIndex: number | null = null;
-  
+
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
+  }
 
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error: string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
+  }
 }

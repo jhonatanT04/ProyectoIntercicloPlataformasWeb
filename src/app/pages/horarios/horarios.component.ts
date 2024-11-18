@@ -30,14 +30,26 @@ export class HorariosComponent implements OnInit {
 
   definirHorario() {
     if (this.horarioForm.valid) {
-      const horario = new Horario(this.dia,this.horaApertura,this.horaCierre);
-      this.horarioS.agrgarHorario(new Horario(this.horarioForm.get('dia')?.value||' ',this.horarioForm.get('horaApertura')?.value||' ',this.horarioForm.get('horaCierre')?.value||' '));  
+      const dia = this.horarioForm.get('dia')?.value || '';
+      const horaApertura = this.horarioForm.get('horaApertura')?.value || '';
+      const horaCierre = this.horarioForm.get('horaCierre')?.value || '';
+  
+      const horario = new Horario(dia, horaApertura, horaCierre);
+  
+      this.horarioS.actualizarHorario(dia, horario);  
+      //this.horarioS.agrgarHorario(horario)
       this.cargarHorario();
+  
+      this.horarioForm.reset();
+      
+      this.horarioMostrar = false;
     } else {
       this.horarioForm.markAllAsTouched();
     }
   }
-
+  
+  clienteseleccionado =false
+  
   eliminarHorario(horario: any) {
     this.horarioS.eliminarHorario(horario)
     this.cargarHorario()
@@ -48,7 +60,7 @@ export class HorariosComponent implements OnInit {
   }
 
   horarioMostrar=false
-  horario(){
+  horarioE(){
     this.horarioMostrar = !this.horarioMostrar
   }
 
@@ -57,4 +69,14 @@ export class HorariosComponent implements OnInit {
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
+
+  seleccionarHorario(dia: string, horaApertura: string, horaCierre: string) {
+    this.horarioForm.setValue({
+      dia: dia,
+      horaApertura: horaApertura,
+      horaCierre: horaCierre,
+    });
+    this.horarioMostrar = true; 
+  }
+  
 }

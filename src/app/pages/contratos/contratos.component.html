@@ -1,9 +1,9 @@
 <div class="gestion-contratos">
     <h2>Gestión de Contratos de Arriendo</h2>
 
-    <button (click)="contrato()">Agregar Contrato</button>
+    <button class="btnA" (click)="contrato()">Agregar Contrato</button>
 
-    <table *ngIf="contratos.length > 0" border="1">
+    <table *ngIf="contratos.length > 0">
         <thead>
             <tr>
                 <th>Cliente</th>
@@ -13,7 +13,7 @@
                 <th>Tarifa</th>
                 <th>Placa</th>
                 <th>Nombre Administrador</th>
-                <th></th>
+                <th class="puntos"></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <td>{{ contrato.nombreA }}</td>
                 <td class="acciones">
                     <div class="menu-container">
-                        <button class="menu-button" (click)="toggleMenu(i)">...</button>
+                        <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
                         <div class="menu-options" *ngIf="menuVisibleIndex === i">
                             <button (click)="eliminarContrato(contrato)">Eliminar</button>
                         </div>
@@ -45,10 +45,13 @@
                     <select id="cliente" formControlName="cliente"
                         [class.ng-invalid.ng-touched]="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched">
                         <option value="" disabled selected>Seleccione un cliente</option>
-                        <option *ngFor="let cliente of clientes" [value]="cliente.email">{{cliente.nombre}}
-                            {{cliente.apellido}} {{cliente.email}}
-                        </option>
+                        <ng-container *ngFor="let cliente of clientes">
+                            <option *ngIf="!cliente.rolAdministrativo" [value]="cliente.email">
+                                {{ cliente.nombre }} {{ cliente.apellido }} ({{ cliente.email }})
+                            </option>
+                        </ng-container>
                     </select>
+
                     <div *ngIf="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched"
                         class="error-message">
                         Seleccione un cliente.
@@ -57,7 +60,8 @@
                     <label for="espacio">Espacio:</label>
                     <select id="espacio" formControlName="espacio">
                         <option value="" disabled selected>Seleccione un espacio</option>
-                        <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}</option>
+                        <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}
+                            {{espacio.tipo}}</option>
                     </select>
                     <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
                         class="error-message">
@@ -88,6 +92,24 @@
                         Formato de placa inválido. Ejemplo: AAA-0000.
                     </div>
 
+                    <label for="fechaInicio">Fecha de Inicio:</label>
+                    <input type="date" id="fechaInicio" formControlName="fechaInicio">
+                    <div *ngIf="contratoForm.get('fechaInicio')?.hasError('required') && contratoForm.get('fechaInicio')?.touched"
+                        class="error-message">
+                        Ingrese la fecha de inicio.
+                    </div>
+
+                    <label for="fechaFin">Fecha de Fin:</label>
+                    <input type="date" id="fechaFin" formControlName="fechaFin">
+                    <div *ngIf="contratoForm.get('fechaFin')?.hasError('required') && contratoForm.get('fechaFin')?.touched"
+                        class="error-message">
+                        Ingrese la fecha de fin.
+                    </div>
+
+                    <div *ngIf="contratoForm.hasError('fechaInvalida') && contratoForm.touched" class="error-message">
+                        La fecha de fin debe ser posterior a la fecha de inicio.
+                    </div>
+
                     <div class="btns">
                         <button class="btn" type="submit" (click)="agregarContrato()">Agregar</button>
                         <button class="btn" (click)="contrato()">Cerrar</button>
@@ -100,5 +122,24 @@
     <div *ngIf="contratos.length === 0">No hay contratos registrados.</div>
     <div *ngIf="email1">
         <p>Correo del usuario: {{ email1 }}</p>
+    </div>
+</div>
+
+<div class="alert-container">
+    <div *ngIf="showDangerAlert" class="alert-danger">
+        <svg viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+                d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+        </svg>
+        {{textError}}
+
+    </div>
+    <div *ngIf="showWarningAlert" class="alert-warnin">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+            fill="#FFFFFF">
+            <path
+                d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z" />
+        </svg>
+        {{textAlert}}
     </div>
 </div>

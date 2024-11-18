@@ -1,14 +1,14 @@
 <div class="gestion-espacios">
   <h2>Gestión de Espacios</h2>
 
-  <button type="button" (click)="espacio()">Agregar Espacio</button>
+  <button class="btnA" type="button" (click)="espacio()">Agregar Espacio</button>
 
   <table *ngIf="espacios.length > 0">
     <thead>
       <tr>
         <th>Nombre del Espacio</th>
         <th>Tipo de Espacio</th>
-        <th></th>
+        <th class="puntos"></th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
         <td>{{ espacio.tipo }}</td>
         <td class="acciones">
           <div class="menu-container">
-            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
               <button (click)="eliminarEspacio(espacio)">Eliminar</button>
             </div>

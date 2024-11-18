@@ -14,11 +14,23 @@ export class AdministradoresServiceService {
   listaEspacios: any = [];
   listaContratos: any = [];
   listaTarifa: any = [];
-  listaHorarios: any = [];
+  listaHorarios: Horario[] = [
+  ];
+  
+  /*listaHorarios: Horario[] = [
+    { dia: 'Lunes', horaA: '08:00', horaC: '17:00' },
+    { dia: 'Martes', horaA: '08:00', horaC: '17:00' },
+    { dia: 'Miércoles', horaA: '08:00', horaC: '17:00' },
+    { dia: 'Jueves', horaA: '08:00', horaC: '17:00' },
+    { dia: 'Viernes', horaA: '08:00', horaC: '17:00' },
+    { dia: 'Sábado', horaA: '09:00', horaC: '13:00' },
+    { dia: 'Domingo', horaA: 'Cerrado', horaC: 'Cerrado' }
+  ];*/
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       this.cargarAdmi();
+      this.cargarHorario()
     }
   }
 
@@ -69,15 +81,15 @@ export class AdministradoresServiceService {
     const admin = this.listaAdministradores.find(adm => adm.email === email);
     return admin ? admin : null;
   }
-  
+
   buscarContratoPorEmail(email: string): Contrato | null {
     const contrato = this.listaContratos.find((contrato: any) => contrato.cliente.email === email);
-    return contrato ? contrato : null; 
+    return contrato ? contrato : null;
   }
 
   buscarListaContratosPorEmail(email: string): Contrato[] {
     const contratosFiltrados = this.listaContratos.filter((contrato: any) => contrato.cliente.email === email);
-    return contratosFiltrados;  
+    return contratosFiltrados;
   }
   actualizarContratosCliente(email: string, nuevosDatos: Partial<Persona>): boolean {
     if (isPlatformBrowser(this.platformId)) {
@@ -85,9 +97,9 @@ export class AdministradoresServiceService {
       const contratosCliente = this.listaContratos.filter((contrato: any) => contrato.cliente.email === email);
       if (contratosCliente.length > 0) {
         contratosCliente.forEach((contrato: any) => {
-          contrato.cliente = { 
-            ...contrato.cliente, 
-            ...nuevosDatos 
+          contrato.cliente = {
+            ...contrato.cliente,
+            ...nuevosDatos
           };
         });
         localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
@@ -96,7 +108,7 @@ export class AdministradoresServiceService {
     }
     return false;
   }
-  
+
   agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaEspacios.push(espacio);
@@ -121,22 +133,22 @@ export class AdministradoresServiceService {
     return this.listaEspacios;
   }
 
-  agregarContrato(contrato:Contrato,nombreE:string) {
+  agregarContrato(contrato: Contrato, nombreE: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaContratos.push(contrato);
       localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
-  
+
       if (!this.listaEspacios || this.listaEspacios.length === 0) {
         this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
       }
-  
+
       const espacio = this.listaEspacios.find((espacio: any) => espacio.nombre === nombreE);
       if (espacio) {
-        espacio.estado = 'O';  
+        espacio.estado = 'O';
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
       }
     }
-  } 
+  }
 
   eliminarContrato(contrato: any) {
     if (isPlatformBrowser(this.platformId)) {
@@ -144,11 +156,11 @@ export class AdministradoresServiceService {
       if (index > -1) {
         this.listaContratos.splice(index, 1);
         localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
-        
+
         if (!this.listaEspacios || this.listaEspacios.length === 0) {
           this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
         }
-  
+
         const espacio = this.listaEspacios.find((e: any) => e.nombre === contrato.nombreE);
         if (espacio) {
           espacio.estado = 'D';
@@ -165,7 +177,7 @@ export class AdministradoresServiceService {
     return this.listaContratos;
   }
 
-  agregarTarifa(tarifa:Tarifa) {
+  agregarTarifa(tarifa: Tarifa) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaTarifa.push(tarifa);
       localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
@@ -189,7 +201,7 @@ export class AdministradoresServiceService {
     return this.listaTarifa;
   }
 
-  agrgarHorario(horario:Horario) {
+  agrgarHorario(horario: Horario) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaHorarios.push(horario);
       localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
@@ -206,13 +218,26 @@ export class AdministradoresServiceService {
     }
   }
 
+  actualizarHorario(dia: string, nuevosDatos: Partial<Horario>): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaHorarios = this.cargarHorario();  
+      const horario = this.listaHorarios.find((h: any) => h.dia === dia);
+      if (horario) {
+        Object.assign(horario, nuevosDatos);
+        localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
+        return true; 
+      }
+    }
+    return false; 
+  }
+  
+
   cargarHorario() {
     if (isPlatformBrowser(this.platformId)) {
       this.listaHorarios = JSON.parse(localStorage.getItem('listHorarios') || '[]');
     }
     return this.listaHorarios;
   }
-  
   
 
 }

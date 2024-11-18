@@ -7,7 +7,7 @@
         <th>Apellido</th>
         <th>Correo Electrónico</th>
         <th>Telefono</th>
-        <th></th>
+        <th class="puntos"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <td>{{ cliente.numeroTelefonico}}</td>
         <td class="acciones">
           <div class="menu-container">
-            <button class="menu-button" (click)="toggleMenu(i)">...</button>
+            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
               <button (click)="seleccionarCliente(cliente.email)" (click)="editarrF()">Editar</button>
               <button (click)="eliminarCliente(cliente)">Eliminar</button>
