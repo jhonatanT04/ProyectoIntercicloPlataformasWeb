@@ -4,17 +4,62 @@
             <img src="logoPK.png" alt="logo"> Parqueadero UPS
         </h2>
         <div class="botns">
-            <button routerLink="/pages/login">Iniciar Sesión</button>
-            <button routerLink="/pages/login">Crear cuenta</button>
+            <button routerLink="/pages/login" class="login-bnt">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+                Iniciar Sesión
+            </button>
+            <button routerLink="/pages/usuarios" class="registrar-bnt">
+                <svg class="icon-plus" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+                </svg>
+                Crear cuenta
+            </button>
+
         </div>
     </header>
-    <div class="contet-container">
-        a
+    <div class="content-container">
+        <section class="about-us">
+            <h2>Sobre Nosotros</h2>
+            <p>
+                En <strong>Parqueadero UPS</strong>, ofrecemos un servicio confiable y seguro para el estacionamiento de
+                tu vehículo.
+                Nuestro objetivo es garantizar la tranquilidad y satisfacción de nuestros clientes, con tarifas
+                accesibles y un ambiente protegido.
+            </p>
+        </section>
+
+        <section class="services">
+            <h2>Servicios</h2>
+            <ul>
+                <li>Estacionamiento por horas, días y mensualidades.</li>
+                <li>Espacios exclusivos para motocicletas y bicicletas.</li>
+                <li>Monitoreo 24/7 con cámaras de seguridad.</li>
+                <li>Carga de vehículos eléctricos.</li>
+                <li>Zona de espera cómoda y con WiFi gratuito.</li>
+            </ul>
+        </section>
+
+        <section class="location">
+            <h2>Ubicación</h2>
+            <p>
+                Nos encontramos en un lugar estratégico, cerca del centro de la ciudad, con fácil acceso a las
+                principales avenidas.
+            </p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2858.8536180405567!2d-78.9901548!3d-2.8870739!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2sec!4v1731886740409!5m2!1ses-419!2sec" 
+                style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
     </div>
+
     <div class="contact-card">
         <div class="text-card">
             <h3>Contactos</h3>
-            <p>Email: contactomiweb.com</p>
+            <p>Email: contacto&#64;parqueaderoUPS.com</p>
             <p>Teléfono: +123 456 7890</p>
         </div>
         <div class="social-icons">
