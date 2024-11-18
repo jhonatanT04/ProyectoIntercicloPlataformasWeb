@@ -1,7 +1,7 @@
 <div class="horario-parqueadero">
   <h2>Definir Horario de Trabajo</h2>
 
-  <button class="btnA" (click)="horario()">Agregar Horario</button>
+  <button class="btnA" (click)="horarioE()">Agregar Horario</button>
 
   <table>
     <thead>
@@ -21,6 +21,7 @@
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="horarioE()">Editar</button>
               <button (click)="eliminarHorario(horario)">Eliminar</button>
             </div>
           </div>
@@ -64,7 +65,7 @@
           
           <div class="btns">
             <button class="btn" type="submit" (click)="definirHorario()">Definir Horario</button>
-            <button class="btn" (click)="horario()">Cerrar</button>
+            <button class="btn" (click)="horarioE()">Cerrar</button>
           </div>
         </form>
       </div>
