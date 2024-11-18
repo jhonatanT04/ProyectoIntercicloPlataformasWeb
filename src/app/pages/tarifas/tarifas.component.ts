@@ -36,6 +36,7 @@ export class TarifasComponent implements OnInit{
       this.tarifaS.agregarTarifa(nuevaTarifa);
       this.cargarTarifa();
       this.tarifaForm.reset();  
+      this.alertError('Se agrego correctamente')
     } else {
       this.tarifaForm.markAllAsTouched(); 
     }
@@ -58,5 +59,27 @@ export class TarifasComponent implements OnInit{
   tarifasAgregar=false
   tarifass(){
     this.tarifasAgregar = !this.tarifasAgregar
+  }
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
+  }
+
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error: string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
   }
 }

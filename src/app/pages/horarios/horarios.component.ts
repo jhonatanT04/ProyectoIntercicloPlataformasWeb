@@ -43,6 +43,7 @@ export class HorariosComponent implements OnInit {
       this.horarioForm.reset();
       
       this.horarioMostrar = false;
+      this.alertError('Se actualizo correctamente') 
     } else {
       this.horarioForm.markAllAsTouched();
     }
@@ -77,6 +78,28 @@ export class HorariosComponent implements OnInit {
       horaCierre: horaCierre,
     });
     this.horarioMostrar = true; 
+  }
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
+  }
+
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error: string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
   }
   
 }

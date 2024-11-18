@@ -114,6 +114,7 @@ export class AdministradoresServiceService {
       this.listaEspacios.push(espacio);
       localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
     }
+    this.cargarEspacios() 
   }
 
   eliminarEspacio(espacio: any) {
@@ -124,6 +125,7 @@ export class AdministradoresServiceService {
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
       }
     }
+    this.cargarEspacios() 
   }
 
   cargarEspacios() {
@@ -148,6 +150,7 @@ export class AdministradoresServiceService {
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
       }
     }
+    this.cargarContratos()
   }
 
   eliminarContrato(contrato: any) {
@@ -166,6 +169,7 @@ export class AdministradoresServiceService {
           espacio.estado = 'D';
           localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
         }
+        this.cargarContratos() 
       }
     }
   }
