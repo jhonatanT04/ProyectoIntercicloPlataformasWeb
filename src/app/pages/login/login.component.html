@@ -1,50 +1,96 @@
 <div class="conteiner">
     <div class="hader-main">
         <h2>
+            <img src="logoPK.png" alt="logo">
             Parqueadero UPS
         </h2>
     </div>
-    <form [formGroup]="form">
-        <div class="login-container">
+    <form [formGroup]="form" class="login-container">
 
-            <div class="login-container-tittle">
-                <h2>Iniciar Sesión</h2>
-            </div>
-            <p>Ingrese sus credenciales para continuar :).</p>
-            <label for="email">Correo electrónico</label><br>
-            <input id="email" placeholder="example.com" formControlName="email" class="input-field"><br>
-
-            <label for="password">Contraseña</label><br>
-
-            <input matInput [type]="changetype?'password':'text'" id="password" formControlName="password"
-                class="input-field" placeholder="Contraseña">
-
-
-            <svg (click)="viewpass()" [class.icon-not]="!visible" class="icon-view" xmlns="http://www.w3.org/2000/svg"
-                height="24px" viewBox="0 -960 960 960" width="24px" fill="#666666">
-                <path
-                    d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
-            </svg>
-            <svg (click)="viewpass()" [class.icon-not]="visible" class="icon-not-view"
-                xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#666666">
-                <path
-                    d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z" />
-            </svg>
-            <div class="botones-centrados">
-                <button type="submit" class="registrarse-button" (click)="iniciarSecion()">
-                    Iniciar Sesión
-                </button>
-                <button type="submit" (click)="onGoogle()" class="google-button">
-                    Iniciar con Google
-                </button>
-                <a href="/pages/usuarios">Registrarse</a>
-            </div>
-
+        <div class="login-container-tittle">
+            <h2>Iniciar Sesión</h2>
         </div>
+        <p>Ingrese sus credenciales para continuar :).</p>
+        <label for="email">Correo electrónico</label><br>
+        <input id="email" placeholder="example.com" formControlName="email" class="input-field"><br>
+
+        <label for="password">Contraseña</label><br>
+
+        <input matInput [type]="changetype?'password':'text'" id="password" formControlName="password"
+            class="input-field" placeholder="Contraseña">
+
+
+        <svg (click)="viewpass()" [class.icon-not]="!visible" class="icon-view" xmlns="http://www.w3.org/2000/svg"
+            height="24px" viewBox="0 -960 960 960" width="24px" fill="#666666">
+            <path
+                d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
+        </svg>
+        <svg (click)="viewpass()" [class.icon-not]="visible" class="icon-not-view" xmlns="http://www.w3.org/2000/svg"
+            height="24px" viewBox="0 -960 960 960" width="24px" fill="#666666">
+            <path
+                d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z" />
+        </svg>
+        <div class="botones-centrados">
+            <button type="submit" class="registrarse-button" (click)="iniciarSecion()">
+                Iniciar Sesión
+            </button>
+            <button type="submit" (click)="onGoogle()" class="google-button">
+                <svg class="iconGoogle" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"
+                    viewBox="0 0 256 262">
+                    <path fill="#4285F4"
+                        d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027">
+                    </path>
+                    <path fill="#34A853"
+                        d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1">
+                    </path>
+                    <path fill="#FBBC05"
+                        d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782">
+                    </path>
+                    <path fill="#EB4335"
+                        d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251">
+                    </path>
+                </svg>
+                Iniciar con Google
+            </button>
+            <a href="/pages/usuarios">Registrarse</a>
+        </div>
+
+
     </form>
 
-    <div class="contactos">
-
+    <div class="contact-card">
+        <div class="text-card">
+            <h3>Contactos</h3>
+            <p>Email: contacto&#64;parqueaderoUPS.com</p>
+            <p>Teléfono: +123 456 7890</p>
+        </div>
+        <div class="social-icons">
+            <h3>Redes Sociales</h3>
+            <a href="https://facebook.com" target="_blank" title="Facebook">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                </svg>
+                facebook
+            </a>
+            <a href="https://twitter.com" target="_blank" title="Twitter">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z" />
+                </svg>
+                x
+            </a>
+            <a href="https://instagram.com" target="_blank" title="Instagram">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                </svg>
+                instagram
+            </a>
+        </div>
     </div>
 </div>
 

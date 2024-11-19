@@ -1,137 +1,178 @@
 <div class="container">
     <div class="hader-main">
         <h2>
+            <img src="logoPK.png" alt="logo">
             Parqueadero UPS
         </h2>
     </div>
 
-    <form [formGroup]="form">
-        <div class="login-container">
-            <h2>Registrarse</h2>
-            <p>
-                Registrate ahora para tener mas acceso a la app.
-            </p>
-            <div class="column-form">
-                <div class="row-form">
+    <form [formGroup]="form" class="login-container">
 
-                    <label for="name">Nombre</label>
-                    <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched"
-                        class="error-message">
-                        El nombre invalido.
-                    </div>
-                    <input placeholder="Ingrese su nombre" class="input-class"
-                        [class.is-danger]="form.get('name')?.hasError('required') && form.get('name')?.touched"
-                        formControlName="name"><br>
-
-                    <label for="addres">Direccion</label><br>
-                    <div *ngIf="form.get('addres')?.hasError('required') && form.get('addres')?.touched"
-                        class="error-message">
-                        Direccion invalido.
-                    </div>
-                    <input matInput placeholder="Direccion, nombre edificio.etc" formControlName="addres" required
-                        [class.is-danger]="form.get('addres')?.hasError('required') && form.get('addres')?.touched"><br>
-
-
-                    <label for="numberPhone">Numero celular/telefono</label><br>
-                    <div *ngIf="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"
-                        class="error-message">
-                        El numero invalido.
-                    </div>
-                    <input matInput formControlName="numberPhone" required
-                        [class.is-danger]="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"><br>
-
-                    <label for="email">Correo electrónico</label><br>
-                    <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched"
-                        class="error-message">
-                        Ingrese un correo
-                    </div>
-                    <input matInput placeholder="example.com" formControlName="email"
-                        [class.is-danger]="form.get('email')?.hasError('required') && form.get('email')?.touched"><br>
-
-                    <label for="password">Contraseña</label><br>
-                    <input matInput [type]="'password'" formControlName="password"
-                        [class.is-danger]="(form.get('password')?.hasError('minlength'))||(form.get('password')?.hasError('required') && form.get('password')?.touched)||form.hasError('fieldsMismatch')"><br>
-                    <label for="passwordRepit">Repita la contraseña</label><br>
-                    <input matInput [type]="'password'" formControlName="passwordRepit"
-                        [class.is-danger]="(form.get('password')?.hasError('minlength'))||(form.get('password')?.hasError('required') && form.get('password')?.touched)||form.hasError('fieldsMismatch')"><br>
-
-                    <div class="conteiner-error-message-password">
-                        <div *ngIf=" form.get('password')?.hasError('minlength') " class="error-message-password">
-                            La contraseña debe ser mayor a 8 caracteres.
-                        </div>
-                        <div *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched"
-                            class="error-message-password">
-                            Ingrese una contraseña.
-                        </div>
-                        <div *ngIf="form.hasError('fieldsMismatch') " class="error-message-password">
-                            Las contraseñas deben coincidir.
-                        </div>
-                    </div>
-
+        <h2>
+            Registrarse
+        </h2>
+        <p>
+            Registrate ahora para tener mas acceso a la app.
+        </p>
+        <div class="container-register">
+            <div class="item-register">
+                <label for="name">Nombre</label><br>
+                <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched" class="error-message">
+                    El nombre invalido.
                 </div>
-                <div class="row-form">
+                <input placeholder="Ingrese su nombre" class="input-class"
+                    [class.is-danger]="form.get('name')?.hasError('required') && form.get('name')?.touched"
+                    formControlName="name"><br>
+            </div>
 
-                    <label for="lastName">Apellido</label><br>
-                    <div *ngIf="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"
-                        class="error-message">
-                        El apellido es requerido.
+            <div class="item-register">
+                <label for="lastName">Apellido</label><br>
+                <div *ngIf="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"
+                    class="error-message">
+                    El apellido es requerido.
+                </div>
+                <input placeholder="Ingrese su apellido" formControlName="lastName" required
+                    [class.is-danger]="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="codeZip">Numero de cedula </label><br>
+                <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"
+                    class="error-message">
+                    El numero de cedula es invalido.
+                </div>
+                <input matInput formControlName="codeZip" required
+                    [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="numberPhone">Numero celular/telefono</label><br>
+                <div *ngIf="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"
+                    class="error-message">
+                    El numero invalido.
+                </div>
+                <input matInput formControlName="numberPhone" required
+                    [class.is-danger]="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"><br>
+            </div >
+            <div class="item-register">
+                <label for="addres">Direccion</label><br>
+                <div *ngIf="form.get('addres')?.hasError('required') && form.get('addres')?.touched"
+                    class="error-message">
+                    Direccion invalido.
+                </div>
+                <input matInput placeholder="Direccion, nombre edificio.etc" formControlName="addres" required
+                    [class.is-danger]="form.get('addres')?.hasError('required') && form.get('addres')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="country">Pais</label><br>
+                <div *ngIf="form.get('country')?.hasError('required') && form.get('country')?.touched"
+                    class="error-message">
+                    Escoja un Pais
+                </div>
+                <input matInput formControlName="country" placeholder="Seleccione un pais"
+                    [class.is-danger]="form.get('country')?.hasError('required') && form.get('country')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="email">Correo electrónico</label><br>
+                <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched"
+                    class="error-message">
+                    Ingrese un correo
+                </div>
+                <input matInput placeholder="example.com" formControlName="email"
+                    [class.is-danger]="form.get('email')?.hasError('required') && form.get('email')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="city">Ciudad</label><br>
+                <div *ngIf="form.get('city')?.hasError('required') && form.get('city')?.touched" class="error-message">
+                    Escoja una ciudad.
+                </div>
+                <input matInput placeholder="Seleccione una ciudad" formControlName="city"
+                    [class.is-danger]="form.get('city')?.hasError('required') && form.get('city')?.touched"><br>
+            </div>
+            <div class="item-register">
+                <label for="password">Contraseña</label><br>
+                <input matInput [type]="'password'" formControlName="password"
+                    [class.is-danger]="(form.get('password')?.hasError('minlength'))||(form.get('password')?.hasError('required') && form.get('password')?.touched)||form.hasError('fieldsMismatch')"><br>
+                <label for="passwordRepit">Repita la contraseña</label><br>
+                <input matInput [type]="'password'" formControlName="passwordRepit"
+                    [class.is-danger]="(form.get('password')?.hasError('minlength'))||(form.get('password')?.hasError('required') && form.get('password')?.touched)||form.hasError('fieldsMismatch')"><br>
+
+                <div class="conteiner-error-message-password">
+                    <div *ngIf=" form.get('password')?.hasError('minlength') " class="error-message-password">
+                        La contraseña debe ser mayor a 8 caracteres.
                     </div>
-                    <input placeholder="Ingrese su apellido" formControlName="lastName" required
-                        [class.is-danger]="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"><br>
-
-                    <label for="codeZip">Numero de cedula </label><br>
-                    <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"
-                        class="error-message">
-                        El numero de cedula es invalido.
+                    <div *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched"
+                        class="error-message-password">
+                        Ingrese una contraseña.
                     </div>
-                    <input matInput formControlName="codeZip" required
-                        [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"><br>
-
-                    <label for="country">Pais</label><br>
-                    <div *ngIf="form.get('country')?.hasError('required') && form.get('country')?.touched"
-                        class="error-message">
-                        Escoja un Pais
+                    <div *ngIf="form.hasError('fieldsMismatch') " class="error-message-password">
+                        Las contraseñas deben coincidir.
                     </div>
-                    <input matInput formControlName="country" placeholder="Seleccione un pais"
-                        [class.is-danger]="form.get('country')?.hasError('required') && form.get('country')?.touched"><br>
-
-
-                    <label for="city">Ciudad</label><br>
-                    <div *ngIf="form.get('city')?.hasError('required') && form.get('city')?.touched"
-                        class="error-message">
-                        Escoja una ciudad.
-                    </div>
-                    <input matInput placeholder="Seleccione una ciudad" formControlName="city"
-                        [class.is-danger]="form.get('city')?.hasError('required') && form.get('city')?.touched"><br>
                 </div>
             </div>
-            <div class="button-submit">
-                <button type="submit" (click)="onSubmit()">Registrarse</button>
-            </div>
-            <div class="button-submit">
-                <button type="submit" (click)="onGoogle()">
-                    <svg class="iconGoogle" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
-                        <path fill="#4285F4"
-                            d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027">
-                        </path>
-                        <path fill="#34A853"
-                            d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1">
-                        </path>
-                        <path fill="#FBBC05"
-                            d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782">
-                        </path>
-                        <path fill="#EB4335"
-                            d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251">
-                        </path>
-                    </svg>
-                    Iniciar con google
-                </button>
-            </div>
+            
+
+        </div>
+
+        <div class="button-submit">
+            <button type="submit" (click)="onSubmit()">Registrarse</button>
+        </div>
+        <div class="button-submit button-submit-google">
+            <button type="submit" (click)="onGoogle()">
+                <svg class="iconGoogle" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"
+                    viewBox="0 0 256 262">
+                    <path fill="#4285F4"
+                        d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027">
+                    </path>
+                    <path fill="#34A853"
+                        d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1">
+                    </path>
+                    <path fill="#FBBC05"
+                        d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782">
+                    </path>
+                    <path fill="#EB4335"
+                        d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251">
+                    </path>
+                </svg>
+                Iniciar con google
+            </button>
         </div>
     </form>
+    <div class="contact-card">
+        <div class="text-card">
+            <h3>Contactos</h3>
+            <p>Email: contacto&#64;parqueaderoUPS.com</p>
+            <p>Teléfono: +123 456 7890</p>
+        </div>
+        <div class="social-icons">
+            <h3>Redes Sociales</h3>
+            <a href="https://facebook.com" target="_blank" title="Facebook">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                </svg>
+                facebook
+            </a>
+            <a href="https://twitter.com" target="_blank" title="Twitter">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z" />
+                </svg>
+                x
+            </a>
+            <a href="https://instagram.com" target="_blank" title="Instagram">
+                <svg class="img-icons" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                </svg>
+                instagram
+            </a>
+        </div>
+    </div>
 </div>
 
-<div class="alert-container">
+<div class="alert-container" *ngIf="showDangerAlert||showWarningAlert">
     <div *ngIf="showDangerAlert" class="alert-danger">
         <svg viewBox="0 0 24 24" class="icon">
             <path fill="currentColor"
@@ -140,8 +181,12 @@
         {{textError}}
 
     </div>
-    <div *ngIf="showWarningAlert" class="alert-warnin" >
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z"/></svg>
+    <div *ngIf="showWarningAlert" class="alert-warnin">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+            fill="#FFFFFF">
+            <path
+                d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z" />
+        </svg>
         {{textAlert}}
     </div>
 </div>
