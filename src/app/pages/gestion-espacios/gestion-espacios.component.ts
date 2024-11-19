@@ -42,7 +42,8 @@ export class GestionEspaciosComponent implements OnInit{
       );
       this.espacioS.agregarEspacio(nuevoEspacio);
       this.cargarEs();
-      this.espacioForm.reset(); 
+      this.espacioForm.reset();
+      this.alertError('Se agrego correctamente')  
     } else {
       this.espacioForm.markAllAsTouched();
     }
@@ -59,5 +60,27 @@ export class GestionEspaciosComponent implements OnInit{
   eliminarEspacio(espacio:any){
     this.espacioS.eliminarEspacio(espacio)
     this.cargarEs()
+  }
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
+  }
+
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error: string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
   }
 }

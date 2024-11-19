@@ -65,6 +65,7 @@ export class ListaUsuariosComponent implements OnInit{
     if (actualizado) {
       console.log('Cliente actualizado correctamente');
       this.cargarClientes(); 
+      this.alertError('Se actualizo correctamente')
     } else {
       console.log('Error: Cliente no encontrado');
     }
@@ -78,5 +79,27 @@ export class ListaUsuariosComponent implements OnInit{
   
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
+  }
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    setTimeout(() => {
+      this.textError = error
+      this.showDangerAlert = true;
+    }, 4);
+    this.textError = ''
+    this.showDangerAlert = false;
+  }
+
+  textAlert = ''
+  showWarningAlert = false
+  alertWarning(error: string) {
+    setTimeout(() => {
+      this.textAlert = error
+      this.showWarningAlert = true;
+    }, 4);
+    this.textAlert = ''
+    this.showWarningAlert = false;
   }
 }
