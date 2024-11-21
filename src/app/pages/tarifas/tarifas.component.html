@@ -18,6 +18,7 @@
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="tarifass()">Editar</button>
               <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
             </div>
           </div>
@@ -30,14 +31,11 @@
     <div class="popup-content-profile-edit">
       <form [formGroup]="tarifaForm">
         <div class="description">
-          <label for="tipo">Tipo de Espacio:</label>
-          <select id="tipo" formControlName="tipo">
-            <option value="auto">Auto</option>
-            <option value="moto">Moto</option>
-          </select>
-          <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched"
+          <label for="tiempo">Tiempo:</label>
+          <input type="text" id="tiempo" formControlName="tiempo" min="0">
+          <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('tiempo')?.touched"
             class="error-message">
-            Por favor selecciona un tipo de espacio.
+            El tiempo es obligatorio.
           </div>
 
           <label for="costo">Costo por Hora:</label>
@@ -49,7 +47,7 @@
         </div>
 
         <div class="btns">
-          <button class="btn" type="submit" (click)="agregarTarifa()">Definir Tarifa</button>
+          <button class="btn" type="submit" (click)="actualizarTarifa()">Definir Tarifa</button>
           <button class="btn" (click)="tarifass()">Cerrar</button>
         </div>
       </form>

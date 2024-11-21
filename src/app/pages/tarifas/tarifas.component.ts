@@ -17,7 +17,7 @@ export class TarifasComponent implements OnInit{
   costo =0
 
   tarifaForm = new FormGroup({
-    tipo: new FormControl('', [Validators.required]),
+    tiempo: new FormControl('', [Validators.required]),
     costo: new FormControl('', [Validators.required, Validators.min(0)])
   });
   constructor(private  tarifaS:AdministradoresServiceService){}
@@ -30,8 +30,7 @@ export class TarifasComponent implements OnInit{
     if (this.tarifaForm.valid) {
       const costo = parseFloat(this.tarifaForm.get('costo')?.value || '')??0;
       const nuevaTarifa = new Tarifa(
-        this.tarifaForm.get('tipo')?.value || '', costo
-        
+        this.tarifaForm.get('tiempo')?.value || '', costo
       );
       this.tarifaS.agregarTarifa(nuevaTarifa);
       this.cargarTarifa();
@@ -41,6 +40,27 @@ export class TarifasComponent implements OnInit{
       this.tarifaForm.markAllAsTouched(); 
     }
   }
+
+  actualizarTarifa() {
+    if (this.tarifaForm.valid) {
+      const costo = parseFloat(this.tarifaForm.get('costo')?.value || '') ?? 0;
+      const tipo = this.tarifaForm.get('tiempo')?.value || '';
+  
+      const nuevosDatos = new Tarifa(tipo, costo);
+      const actualizacionExitosa = this.tarifaS.actualizarTarifa(tipo, nuevosDatos);
+  
+      if (actualizacionExitosa) {
+        this.cargarTarifa(); 
+        this.tarifaForm.reset();  
+        this.alertError('Tarifa actualizada correctamente'); 
+      } else {
+        this.alertError('No se encontró la tarifa para actualizar');
+      }
+    } else {
+      this.tarifaForm.markAllAsTouched();
+    }
+  }
+  
 
   eliminarTarifa(tarifa:any){
     this.tarifaS.eliminarTarifa(tarifa)

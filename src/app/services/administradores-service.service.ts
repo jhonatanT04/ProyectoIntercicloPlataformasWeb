@@ -273,6 +273,20 @@ export class AdministradoresServiceService {
     return this.listaTarifa;
   }
 
+  actualizarTarifa(tiempo: string, nuevosDatos: Partial<Tarifa>): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaTarifa = this.cargarTarifa();  
+      const tarifa = this.listaTarifa.find((t: any) => t.tiempo === tiempo);
+  
+      if (tarifa) {
+        Object.assign(tarifa, nuevosDatos);
+        localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
+        return true; 
+      }
+    }
+    return false; 
+  }
+  
   agrgarHorario(horario: Horario) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaHorarios.push(horario);
