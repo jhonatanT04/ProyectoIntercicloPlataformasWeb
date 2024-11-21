@@ -34,13 +34,7 @@ export class ListaUsuariosComponent implements OnInit{
     this.clientes = this.clienteS.cargarUsuario() 
   }
 
-  guardarCliente(){
 
-  }
-
-  eliminarCliente(cliente:any){
-
-  }
 
   seleccionarCliente(email: string) {
     this.clienteSeleccionado = true

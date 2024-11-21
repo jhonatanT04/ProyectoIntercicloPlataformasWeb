@@ -7,39 +7,38 @@
         <div class="text-container">
             Hola, {{this.adminS.buscarAdminPorEmail(this.email)?.nombre}}
         </div>
-        
-            <div class="perfil" (click)="accionPerfil()" (click)="getImgServicie()">
-                <!-- <img src="https://lh3.googleusercontent.com/a/ACg8ocJWcK2nVNh7M_jHnD4fFQNgDXFhc6FpoebDLmaO-Ge8wKUGlzU=s96-c" class="icon-profile-img" alt=""> -->
-                <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px"
-                    fill="#FFFFFF">
-                    <path
-                        d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
-                </svg>
-            </div>
-            <div class="opcione-perfil" *ngIf="isPerfil" [ngClass]="menuAnimationClass">
-                <nav class="nav-opc-perfil">
-                    <ul (click)="redireccionarPerfil()" (click)="accionPerfil()" (click)="this.cdRef.detectChanges();">
-                        <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-                            width="20px" fill="#FFFFFF">
-                            <path
-                                d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
-                        </svg>
-                        Cuenta
-                    </ul>
-                    <ul (click)="cerrarSeccion()">
-                        <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
-                            width="20px" fill="#FFFFFF">
-                            <path
-                                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
-                        </svg>
-                        Cerrar sesion
-                    </ul>
-                </nav>
-            </div>
-        
-        
+
+        <div class="perfil" (click)="accionPerfil()" (click)="getImgServicie()">
+            <!-- <img src="https://lh3.googleusercontent.com/a/ACg8ocJWcK2nVNh7M_jHnD4fFQNgDXFhc6FpoebDLmaO-Ge8wKUGlzU=s96-c" class="icon-profile-img" alt=""> -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#FFFFFF">
+                <path
+                    d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+            </svg>
+        </div>
+        <div class="opcione-perfil" *ngIf="isPerfil" [ngClass]="menuAnimationClass">
+            <nav class="nav-opc-perfil">
+                <ul (click)="redireccionarPerfil()" (click)="accionPerfil()" (click)="this.cdRef.detectChanges();">
+                    <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
+                        width="20px" fill="#FFFFFF">
+                        <path
+                            d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+                    </svg>
+                    Cuenta
+                </ul>
+                <ul (click)="cerrarSeccion()">
+                    <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960"
+                        width="20px" fill="#FFFFFF">
+                        <path
+                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
+                    </svg>
+                    Cerrar sesion
+                </ul>
+            </nav>
+        </div>
+
+
         <div *ngIf="perfilDatosView" class="popup-overlay-profile">
-            <div class="popup-content-profile" >
+            <div class="popup-content-profile">
                 <div class="header">
                     <img src="{{authServicio.getInfo()?.photoURL}}" alt="" class="img" *ngIf="imgView">
                     <svg *ngIf="!imgView" class="icon-profile" xmlns="http://www.w3.org/2000/svg" height="34px"
@@ -111,9 +110,9 @@
             </div>
         </div>
     </div>
-    <div class="menu-container" [class.menu-container-select]="isSize" >
+    <div class="menu-container" [class.menu-container-select]="isSize">
         <nav class="nav-container">
-            
+
             <ul class="menu-item">
                 <a class="link-ruta" (click)="abrirSeccion('espacios')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
@@ -184,7 +183,6 @@
                     </div>
                 </a>
             </ul>
-
         </nav>
     </div>
 
@@ -209,5 +207,5 @@
             <app-lista-usuarios></app-lista-usuarios>
         </div>
     </div>
-    
+
 </div>

@@ -9,8 +9,7 @@
         <th>Telefono</th>
         <th class="puntos"></th>
       </tr>
-    </thead>
-    <tbody>
+    </thead>    <tbody>
       <tr *ngFor="let cliente of clientes ;let i = index">
         <td>{{ cliente.nombre }}</td>
         <td>{{ cliente.apellido }}</td>
@@ -21,7 +20,6 @@
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
               <button (click)="seleccionarCliente(cliente.email)" (click)="editarrF()">Editar</button>
-              <button (click)="eliminarCliente(cliente)">Eliminar</button>
             </div>
           </div>
         </td>
