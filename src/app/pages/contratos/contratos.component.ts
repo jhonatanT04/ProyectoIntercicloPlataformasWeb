@@ -80,6 +80,7 @@ export class ContratosComponent implements OnInit {
         this.espaciosF.push(espacio);
       }
     }
+    
   }
 
   cargarContratos() {
@@ -125,7 +126,7 @@ export class ContratosComponent implements OnInit {
         this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
         this.cargarContratos();
         this.contratoForm.reset()
-        this.alertError("Se ingreso correctamente")
+        this.alertConfirm("Se ingreso correctamente")
       }
     } else {
       this.contratoForm.markAllAsTouched();
@@ -159,14 +160,14 @@ export class ContratosComponent implements OnInit {
     this.showDangerAlert = false;
   }
 
-  textAlert = ''
-  showWarningAlert = false
-  alertWarning(error: string) {
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
     setTimeout(() => {
-      this.textAlert = error
-      this.showWarningAlert = true;
+      this.textConfirm = error
+      this.showConfirmAlert = true;
     }, 4);
-    this.textAlert = ''
-    this.showWarningAlert = false;
+    this.textConfirm = ''
+    this.showConfirmAlert = false;
   }
 }

@@ -1,6 +1,7 @@
 <div class="conteiner">
     <div class="hader-container">
-        <h2 class="titulo-hader">
+        <h2 (click)=" this.router.navigate([''])" class="titulo-hader">
+            <img src="logoPK.png" alt="logo">
             Parqueadro UPS
         </h2>
         <div class="text-container">
@@ -38,7 +39,7 @@
         
         
         <div *ngIf="perfilDatosView" class="popup-overlay-profile">
-            <div class="popup-content-profile">
+            <div class="popup-content-profile" >
                 <div class="header">
                     <img src="{{authServicio.getInfo()?.photoURL}}" alt="" class="img" *ngIf="imgView">
                     <svg *ngIf="!imgView" class="icon-profile" xmlns="http://www.w3.org/2000/svg" height="34px"
@@ -214,5 +215,5 @@
             <app-lista-usuarios></app-lista-usuarios>
         </div>
     </div>
-    <div class="contactos-conteiner"></div>
+    
 </div>

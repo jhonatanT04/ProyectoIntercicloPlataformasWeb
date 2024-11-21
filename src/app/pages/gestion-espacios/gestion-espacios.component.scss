@@ -1,8 +1,8 @@
 .gestion-espacios {
     background-color: var(--white); 
-    min-height: 72vh;
+    height: 100%;
     padding: 20px;
-    border-radius: 10px;
+    box-sizing: border-box;
     box-shadow: 0 4px 8px var(--black); 
 }
 
@@ -54,9 +54,7 @@
     transition: background-color 0.3s;
 }
 
-.gestion-espacios li button:hover {
-    background-color: var(--gray); 
-}
+
 
 input.error,
 select.error {
@@ -75,8 +73,8 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    border: 1px solid var(--gray); 
-    border-radius: 10px; 
+    border: none; 
+    border-radius: 6px; 
     overflow: hidden; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -114,13 +112,7 @@ td {
     transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
-td:hover {
-    color: var(--white);
-}
 
-tr:hover {
-    background-color: #f1f1f1; 
-}
 
 
 .acciones {
@@ -133,7 +125,7 @@ tr:hover {
 }
 
 .menu-button {
-    background: none;
+    
     border: none;
     font-size: 1.2em;
     cursor: pointer;
@@ -149,7 +141,7 @@ tr:hover {
     transition: opacity 0.3s ease-in-out;
 }
 
-tr:hover .menu-button {
+tr .menu-button {
     opacity: 1;
 }
 

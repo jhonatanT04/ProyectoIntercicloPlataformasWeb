@@ -1,13 +1,14 @@
 
 .conteiner {
     background-color: var(--white);
-    min-height: 100vh;
+    height: 100vh;
+    width: 100%;
     display: grid;
     grid-template: 
-    "hader-main" 150px
+    "hader-main" 200px
     "login-container" auto
     "contact-card" 250px/
-    1fr ;
+    auto ;
     .hader-main{
         grid-template: hader-main;
     }.login-container{
@@ -24,11 +25,17 @@
     box-sizing: border-box;
     padding: 35px 0 0 20px;
 }
-@media (max-width: 800px) {
+.hader-main h2{
+    cursor: pointer;
+}
+@media (max-width: 768px) {
     .login-container{
         margin: 0;
+        width: 100%;
     }.contact-card{
         height: 310px;
+    }.hader-main{
+        height: 200px;
     }
 }
 @media (min-width: 768px) {
@@ -53,6 +60,7 @@ p {
 
 
 .login-container {
+    
     height: 610px;
     margin: 50px auto;
     background-color: var(--black);

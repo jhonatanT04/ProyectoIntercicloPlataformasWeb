@@ -1,9 +1,8 @@
 .horario-parqueadero {
     background-color: var(--white);
-    min-height: 72vh;
+    height: 90%;
+    box-sizing: border-box;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px var(--black); 
 }
 
 .horario-parqueadero h2 {

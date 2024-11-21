@@ -1,9 +1,8 @@
 .lista-clientes {
   background-color: var(--white);
-  min-height: 72vh;
+  height: 100%;
+  box-sizing: border-box;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px var(--black);
 }
 
 .lista-clientes h2 {
@@ -18,16 +17,16 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 20px;
-  border: 1px solid var(--gray); 
-  border-radius: 10px; 
-  overflow: hidden; 
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
   text-align: left;
-  padding: 12px 15px; 
+  padding: 12px 15px;
   color: var(--gray);
   font-family: 'Arial', sans-serif;
   font-size: 14px;
@@ -35,26 +34,27 @@ td {
 
 th {
   background-color: var(--black);
-  color: var(--white); 
+  color: var(--white);
   font-weight: bold;
-  text-transform: uppercase; 
-  border-bottom: 2px solid var(--gray); 
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gray);
 }
 
 tr:nth-child(even) {
-  background-color: var(--white); 
+  background-color: var(--white);
 }
 
-.puntos{
+.puntos {
   width: 50px;
 }
+
 tr:nth-child(odd) {
-  background-color: #ffffff; 
+  background-color: #ffffff;
 }
 
 td {
-  border-bottom: 1px solid #e0e0e0; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 td:hover {
@@ -62,7 +62,7 @@ td:hover {
 }
 
 tr:hover {
-  background-color: #f1f1f1; 
+  background-color: #f1f1f1;
 }
 
 .acciones {
@@ -266,84 +266,86 @@ tr:hover .menu-button {
   margin-bottom: 15px;
 }
 
-.btns .btn:hover{
+.btns .btn:hover {
   background-color: var(--red);
 }
 
 @media (max-width: 768px) {
 
   .lista-clientes form {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .lista-clientes label {
-      font-size: 14px;
+    font-size: 14px;
   }
 
   .lista-clientes input[type="text"],
   .lista-clientes input[type="number"],
   .lista-clientes select {
-      font-size: 14px;
-      padding: 8px;
+    font-size: 14px;
+    padding: 8px;
   }
 
   .lista-clientes button {
-      font-size: 14px;
-      padding: 8px;
+    font-size: 14px;
+    padding: 8px;
   }
 
   .menu-options {
-      width: 100%;
-      right: auto;
-      padding: 10px;
+    width: 100%;
+    right: auto;
+    padding: 10px;
   }
 }
 
 @media (max-width: 480px) {
 
   .lista-clientes h2 {
-      font-size: 18px;
-      text-align: center;
+    font-size: 18px;
+    text-align: center;
   }
 
   .lista-clientes input[type="text"],
   .lista-clientes input[type="number"],
   .lista-clientes select {
-      font-size: 12px;
-      padding: 6px;
+    font-size: 12px;
+    padding: 6px;
   }
 
   .lista-clientes button {
-      font-size: 12px;
-      padding: 6px;
+    font-size: 12px;
+    padding: 6px;
   }
 
   .menu-button {
-      font-size: 1em;
+    font-size: 1em;
   }
 
   .menu-options button {
-      font-size: 12px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 768px) {
   table {
-      font-size: 14px;
+    font-size: 14px;
   }
 
-  th, td {
-      padding: 6px;
+  th,
+  td {
+    padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
   table {
-      font-size: 12px;
+    font-size: 12px;
   }
 
-  th, td {
-      padding: 4px;
+  th,
+  td {
+    padding: 4px;
   }
 }
 
@@ -366,7 +368,7 @@ tr:hover .menu-button {
   color: white;
   border-radius: 5px;
   font-weight: bold;
-  background-color: var(--green); 
+  background-color: var(--green);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
@@ -377,7 +379,7 @@ tr:hover .menu-button {
   margin-right: 10px;
 }
 
-.alert-warnin{
+.alert-warnin {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -390,6 +392,7 @@ tr:hover .menu-button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
+
 .alert-warnin .icon {
   width: 30px;
   margin-right: 10px;
@@ -397,33 +400,33 @@ tr:hover .menu-button {
 
 @keyframes fadeOut {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
 
   80% {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 
   99% {
-      opacity: 0;
-      transform: translateY(-10px);
+    opacity: 0;
+    transform: translateY(-10px);
   }
 
   100% {
-      opacity: 0;
-      transform: translateY(-1000px);
+    opacity: 0;
+    transform: translateY(-1000px);
   }
 }
 
 @keyframes fadeIn {
   0% {
-      opacity: 0;
-      transform: translateY(-10px);
+    opacity: 0;
+    transform: translateY(-10px);
   }
 
   100% {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -6,14 +6,14 @@
     box-sizing: border-box;
     padding: 35px 0 0 20px;
 }
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .container-register{
         text-align: center;
         display:flex;
         flex-direction: column;
     }.login-container{
         margin: 40px auto;
-        width: 80%;
+        width: 100%;
         height:auto ;
     }.login-container input {
         width: 100%;
@@ -36,6 +36,12 @@
         display: flex;
     }.item-register{
         padding-left: 12px;
+    }.container {
+        display: grid;
+        grid-template: 
+        "hader-main" auto
+        "login-container" auto
+        "contact-card" 250px;
     }
 }
 .container {
@@ -54,6 +60,7 @@ p {
     font-family: sans-serif;
     font-size: 36px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .login-container {

@@ -24,6 +24,7 @@ export class AdministadoresComponent implements OnInit {
   router = inject(Router)
   isSize = false
   isPerfil = false
+
   adminS = inject(AdministradoresServiceService)
   userS = inject(UsuariosServiceService)
   name = ''
@@ -87,6 +88,7 @@ export class AdministadoresComponent implements OnInit {
       this.menuAnimationClass = 'menu-enter';
     }
   }
+
   perfilDatosView = false
   redireccionarPerfil() {
     this.perfilDatosView = !this.perfilDatosView;

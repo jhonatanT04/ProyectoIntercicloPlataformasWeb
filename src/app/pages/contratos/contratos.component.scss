@@ -1,8 +1,9 @@
 .gestion-contratos {
     background-color: var(--white);
-    min-height: 72vh;
+    height: 100%;
+    box-sizing: border-box;
     padding: 20px;
-    border-radius: 10px;
+    width: 100%;
     box-shadow: 0 4px 8px var(--black);
 }
 
@@ -26,13 +27,16 @@
 .gestion-contratos input[type="date"],
 .gestion-contratos select {
     padding: 10px;
-    margin-bottom: 15px;
+    width: 90%;
+    margin-bottom: 10px;
     border: 2px solid var(--black);
     background-color: var(--gray);
     border-radius: 5px;
-    font-size: 16px;
+    
 }
-
+.gestion-contratos select{
+    width: 100%;
+}
 .gestion-contratos .btnA {
     background-color: var(--green);
     color: var(--white);
@@ -71,6 +75,8 @@
 }
 
 .error-message {
+    transform: translateY(-1.2rem);
+    position: absolute;
     color: red;
     font-size: 12px;
     margin-top: 5px;
@@ -130,13 +136,8 @@ td {
     transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
-td:hover {
-    color: var(--white);
-}
 
-tr:hover {
-    background-color: #f1f1f1; 
-}
+
 
 .acciones {
     position: relative;
@@ -164,7 +165,7 @@ tr:hover {
     transition: opacity 0.3s ease-in-out;
 }
 
-tr:hover .menu-button {
+tr .menu-button {
     opacity: 1;
 }
 
@@ -328,6 +329,7 @@ tr:hover .menu-button {
 }
 
 .btns .btn{
+    margin-top: 10px;
     margin-right: 8px;
     background: var(--gray);
     color: var(--white);
@@ -356,21 +358,18 @@ tr:hover .menu-button {
         font-size: 14px;
         padding: 8px;
     }
-
+    .popup-overlay-profile{
+        width: 450px;
+    }
     .gestion-contratos button {
         font-size: 14px;
         padding: 8px;
     }
 
-    .menu-options {
-        width: 100%;
-        right: auto;
-        padding: 10px;
-    }
 }
 
 @media (max-width: 480px) {
-
+    
     .gestion-contratos h2 {
         font-size: 18px;
         text-align: center;
@@ -387,6 +386,10 @@ tr:hover .menu-button {
         font-size: 12px;
         padding: 6px;
     }
+    .popup-content-profile-edit{
+        display: flex;
+        flex-direction: column;
+    }
 
     .menu-button {
         font-size: 1em;
@@ -395,6 +398,7 @@ tr:hover .menu-button {
     .menu-options button {
         font-size: 12px;
     }
+    
 }
 
 @media (max-width: 768px) {
@@ -428,7 +432,7 @@ tr:hover .menu-button {
 }
 
 .alert-danger {
-
+    
     display: flex;
     align-items: center;
     padding: 15px;
@@ -436,18 +440,18 @@ tr:hover .menu-button {
     color: white;
     border-radius: 5px;
     font-weight: bold;
-    background-color: var(--green); 
+    background-color: var(--red); 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
 
 
 .alert-danger .icon {
-    width: 30px;
+    width: 20px;
     margin-right: 10px;
 }
 
-.alert-warnin{
+.alert-conf{
     display: flex;
     align-items: center;
     padding: 15px;
@@ -455,12 +459,12 @@ tr:hover .menu-button {
     color: white !important;
     border-radius: 5px;
     font-weight: bold;
-    background-color: #d5a30e;
+    background-color: var(--green);
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
-.alert-warnin .icon {
+.alert-conf .icon {
     width: 30px;
     margin-right: 10px;
 }
