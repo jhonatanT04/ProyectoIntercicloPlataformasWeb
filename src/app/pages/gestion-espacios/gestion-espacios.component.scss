@@ -54,7 +54,29 @@
     transition: background-color 0.3s;
 }
 
-
+.totales-disponibles {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  
+    label {
+      font-weight: bold;
+    }
+  
+    input {
+      width: 60px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    span {
+      font-size: 1rem;
+      color: #555;
+    }
+  }
+  
 
 input.error,
 select.error {

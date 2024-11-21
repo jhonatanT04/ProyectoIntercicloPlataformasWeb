@@ -9,8 +9,6 @@
                 <th>Cliente</th>
                 <th>Correo Cliente</th>
                 <th>Espacio</th>
-                <th>Duración (meses)</th>
-                <th>Tarifa</th>
                 <th>Placa</th>
                 <th>Nombre Administrador</th>
                 <th class="puntos"></th>
@@ -21,8 +19,6 @@
                 <td>{{ contrato.cliente.nombre }}</td>
                 <td>{{ contrato.cliente.email}}</td>
                 <td>{{ contrato.nombreE }}</td>
-                <td>{{ contrato.duracion }} meses</td>
-                <td>{{ contrato.tarifa }}</td>
                 <td>{{ contrato.placa }}</td>
                 <td>{{ contrato.nombreA }}</td>
                 <td class="acciones">
@@ -68,28 +64,6 @@
                         <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
                             class="error-message">
                             Seleccione un espacio.
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <label for="duracion">Duración (meses):</label>
-                        <input type="number" id="duracion" formControlName="duracion">
-                        <div *ngIf="contratoForm.get('duracion')?.hasError('required') && contratoForm.get('duracion')?.touched"
-                            class="error-message">
-                            Ingrese una duración válida mayor a 0.
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="tarifa">Tarifa:</label>
-                        <select id="tarifa" formControlName="tarifa">
-                            <option value="" disabled selected>Seleccione una tarifa</option>
-                            <option *ngFor="let tarifa of tarifas" [value]="tarifa.costo">{{tarifa.costo}}</option>
-                        </select>
-                        <div *ngIf="contratoForm.get('tarifa')?.hasError('required') && contratoForm.get('tarifa')?.touched"
-                            class="error-message">
-                            Seleccione una tarifa.
                         </div>
                     </div>
 

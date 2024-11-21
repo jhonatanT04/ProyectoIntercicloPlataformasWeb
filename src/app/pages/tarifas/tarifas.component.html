@@ -5,14 +5,14 @@
   <table>
     <thead>
       <tr>
-        <th>Tipo de Espacio</th>
+        <th>Tiempo</th>
         <th>Costo por Hora</th>
         <th class="puntos">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let tarifa of tarifas; let i = index">
-        <td>{{ tarifa.tipo }}</td>
+        <td>{{ tarifa.tiempo }}</td>
         <td>{{ tarifa.costo }}$ por hora</td>
         <td class="acciones">
           <div class="menu-container">

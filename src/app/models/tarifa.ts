@@ -1,9 +1,9 @@
 export class Tarifa {
-    tipo:string
+    tiempo:string
     costo:number
 
-    constructor(tipo:string,costo:number){
-        this.tipo = tipo
+    constructor(tiempo:string,costo:number){
+        this.tiempo = tiempo
         this.costo = costo
     }
 }

@@ -36,13 +36,13 @@
         <form [formGroup]="horarioForm">
           <label for="dia">Día:</label>
           <select id="dia" formControlName="dia">
-            <option value="lunes">Lunes</option>
-            <option value="martes">Martes</option>
-            <option value="miércoles">Miércoles</option>
-            <option value="jueves">Jueves</option>
-            <option value="viernes">Viernes</option>
-            <option value="sábado">Sábado</option>
-            <option value="domingo">Domingo</option>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
           </select>
           <div *ngIf="horarioForm.get('dia')?.hasError('required') && horarioForm.get('dia')?.touched"
             class="error-message">

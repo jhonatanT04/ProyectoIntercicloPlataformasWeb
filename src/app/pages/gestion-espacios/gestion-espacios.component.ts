@@ -8,56 +8,82 @@ import { Espacio } from '../../models/espacio';
 @Component({
   selector: 'app-gestion-espacios',
   standalone: true,
-  imports: [RouterModule,FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [RouterModule, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './gestion-espacios.component.html',
   styleUrl: './gestion-espacios.component.scss'
 })
-export class GestionEspaciosComponent implements OnInit{
+export class GestionEspaciosComponent implements OnInit {
+
+  espaciosTotales: number = 0; 
+  espaciosDisponibles: number = 0; 
 
   tipo = ''
-  nombre= ''
-  estado= ''
-  espacios:any =[]
+  nombre = ''
+  estado = ''
+  espacios: any = []
   espaciosMostrar = false
 
   espacioForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
-    tipo: new FormControl('', [Validators.required])
+    nombre: new FormControl('', [Validators.required])
   });
-  constructor(private espacioS:AdministradoresServiceService){}
+  constructor(private espacioS: AdministradoresServiceService) { }
   ngOnInit(): void {
     this.cargarEs()
   }
 
-  cargarEs(){
+  cargarEs() {
     this.espacios = this.espacioS.cargarEspacios()
+    this.calcularEspaciosDisponibles() 
+    this.cargarEspaciosTotales() 
   }
 
-  agregarEspacio() {
-    if (this.espacioForm.valid) {
-      const nuevoEspacio = new Espacio(
-        this.espacioForm.get('nombre')?.value || '',
-        this.espacioForm.get('tipo')?.value || '',
-        'D' 
-      );
-      this.espacioS.agregarEspacio(nuevoEspacio);
-      this.cargarEs();
-      this.espacioForm.reset();
-      this.alertError('Se agrego correctamente')  
-    } else {
-      this.espacioForm.markAllAsTouched();
-    }
+  calcularEspaciosDisponibles() {
+    this.espaciosDisponibles = this.espacios.filter((espacio: any) => espacio.estado === 'D').length;
+  }  
+
+
+  guardarEspaciosTotales() {
+    localStorage.setItem('espaciosTotales', this.espaciosTotales.toString());
   }
-  menuVisibleIndex: number | null = null;
+
+  cargarEspaciosTotales() {
+    const guardados = localStorage.getItem('espaciosTotales');
+    this.espaciosTotales = guardados ? parseInt(guardados, 10) : 0;
+  }
+
   
+  agregarEspacio() {
+  const totalEspaciosActuales = this.espacios.length; // Espacios actuales en uso (ocupados + disponibles)
+
+  if (totalEspaciosActuales >= this.espaciosTotales) {
+    this.alertError('No se pueden agregar más espacios. Aumente los espacios totales primero.');
+    return;
+  }
+
+  if (this.espacioForm.valid) {
+    const nuevoEspacio = new Espacio(
+      this.espacioForm.get('nombre')?.value || '',
+      'D' 
+    );
+    this.espacioS.agregarEspacio(nuevoEspacio);
+    this.cargarEs();
+    this.espacioForm.reset();
+    this.alertError('Se agregó correctamente');
+  } else {
+    this.espacioForm.markAllAsTouched();
+  }
+}
+
+  menuVisibleIndex: number | null = null;
+
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
 
-  espacio(){
+  espacio() {
     this.espaciosMostrar = !this.espaciosMostrar
   }
-  eliminarEspacio(espacio:any){
+  eliminarEspacio(espacio: any) {
     this.espacioS.eliminarEspacio(espacio)
     this.cargarEs()
   }

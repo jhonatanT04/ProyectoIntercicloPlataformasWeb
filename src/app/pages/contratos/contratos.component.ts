@@ -35,8 +35,6 @@ export class ContratosComponent implements OnInit {
   contratoForm = new FormGroup({
     cliente: new FormControl('', [Validators.required]),
     espacio: new FormControl('', [Validators.required]),
-    duracion: new FormControl('', [Validators.required, Validators.min(1)]),
-    tarifa: new FormControl('', [Validators.required]),
     placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')]),
     fechaInicio: new FormControl('', [Validators.required]),
     fechaFin: new FormControl('', [Validators.required]),
@@ -115,8 +113,6 @@ export class ContratosComponent implements OnInit {
         const contrato = new Contrato(
           cliente,
           this.contratoForm.get('espacio')?.value || '',
-          duracion,
-          tarifa,
           this.contratoForm.get('placa')?.value || '',
           nombre,
           new Date(this.contratoForm.get('fechaInicio')?.value || ''),
