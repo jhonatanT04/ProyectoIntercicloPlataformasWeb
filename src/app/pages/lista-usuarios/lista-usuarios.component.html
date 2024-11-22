@@ -1,31 +1,35 @@
 <div class="lista-clientes">
   <h2>Lista de Clientes</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Correo Electrónico</th>
-        <th>Telefono</th>
-        <th class="puntos"></th>
-      </tr>
-    </thead>    <tbody>
-      <tr *ngFor="let cliente of clientes ;let i = index">
-        <td>{{ cliente.nombre }}</td>
-        <td>{{ cliente.apellido }}</td>
-        <td>{{ cliente.email }}</td>
-        <td>{{ cliente.numeroTelefonico}}</td>
-        <td class="acciones">
-          <div class="menu-container">
-            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
-            <div class="menu-options" *ngIf="menuVisibleIndex === i">
-              <button (click)="seleccionarCliente(cliente.email)" (click)="editarrF()">Editar</button>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo Electrónico</th>
+          <th>Teléfono</th>
+          <th class="puntos"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes; let i = index">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.numeroTelefonico }}</td>
+          <td class="acciones">
+            <div class="menu-container">
+              <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
+              <div class="menu-options" *ngIf="menuVisibleIndex === i">
+                <button (click)="seleccionarCliente(cliente.email); editarrF()">Editar</button>
+              </div>
             </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
 
   <div *ngIf="editarF" class="popup-overlay-profile">
     <div class="popup-content-profile-edit">

@@ -12,20 +12,20 @@
   margin-bottom: 20px;
 }
 
+
 table {
-  width: 10%; 
-  overflow: hidden;
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 20px;
-  border: 1px solid var(--gray);
-  border-radius: 10px;
-  overflow: hidden;
+
+  overflow: auto;
+  border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
+  width: 100%;
   text-align: left;
   padding: 12px 15px;
   color: var(--gray);
@@ -58,12 +58,43 @@ td {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
 
+  thead {
+    display: block; 
+  }
+  tr {
+    display: block;
+    margin: 0;
+    border-radius: 12px;
+  }
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+    
+  }
 
+  td::before {
+    font-weight: bold;
+    text-transform: uppercase;
+    flex-basis: 50%;
+  }
 
+  .acciones {
+    justify-content: center;
+    background-color: rgb(184, 199, 201);
+    width: 100%;
+  }
+  
+}
 
 .acciones {
   position: relative;
+  width: 98%;
 }
 
 .menu-container {
@@ -86,6 +117,7 @@ td {
   opacity: 0;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  width: 100%;
 }
 
 tr .menu-button {
@@ -99,8 +131,6 @@ tr .menu-button {
   background-color: var(--white);
   box-shadow: 0 4px 8px var(--black);
   border-radius: 5px;
-  padding: 5px;
-  z-index: 10;
 }
 
 .menu-options button {
@@ -108,7 +138,6 @@ tr .menu-button {
   border: none;
   padding: 8px 12px;
   text-align: left;
-  width: 100%;
   cursor: pointer;
   color: var(--black);
 }
@@ -290,9 +319,8 @@ tr .menu-button {
   }
 
   .menu-options {
-    width: 100%;
     right: auto;
-    padding: 10px;
+    padding: 4px;
   }
 }
 
