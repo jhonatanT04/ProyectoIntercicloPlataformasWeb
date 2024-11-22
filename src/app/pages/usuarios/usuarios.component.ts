@@ -28,8 +28,6 @@ export class UsuariosComponent {
     numberPhone: new FormControl('', [Validators.required]),
     addres: new FormControl('', [Validators.required]),
     codeZip: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     passwordRepit: new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -49,8 +47,7 @@ export class UsuariosComponent {
         this.form.get('numberPhone')?.value || ' ',
         this.form.get('addres')?.value || ' ',
         this.form.get('codeZip')?.value || ' ',
-        this.form.get('country')?.value || ' ',
-        this.form.get('city')?.value || ' '
+        
       );
       this.servicioUser.nuevoUsuario(per)
       this.loginService.regitrase(new User(this.form.get('email')?.value || ' ', this.form.get('password')?.value || 'ania'))

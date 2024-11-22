@@ -22,8 +22,7 @@ export class ActualizarPerfilComponent implements OnInit{
     this.nombre = user?.nombre || '';
     this.apellido = user?.apellido || '';
     this.direccion = user?.direccion || '';
-    this.pais = user?.pais || '';
-    this.ciudad = user?.ciudad || '';
+    
     this.codigo = user?.codigo || '';
     this.contra = user?.password || '';
     this.numeroTelefonico = user?.numeroTelefonico || '';
@@ -35,8 +34,6 @@ export class ActualizarPerfilComponent implements OnInit{
       apellido: new FormControl(this.apellido, Validators.required),
       numeroTelefonico: new FormControl(this.numeroTelefonico, Validators.required),
       direccion: new FormControl(this.direccion, Validators.required),
-      pais: new FormControl(this.pais, Validators.required),
-      ciudad: new FormControl(this.ciudad, Validators.required),
       codigo: new FormControl(this.codigo, Validators.required),
     });
   }
@@ -49,8 +46,6 @@ export class ActualizarPerfilComponent implements OnInit{
   numeroTelefonico=''
   direccion=''
   contra=''
-  pais=''
-  ciudad=''
   codigo=''
   
 
@@ -61,8 +56,6 @@ export class ActualizarPerfilComponent implements OnInit{
         apellido: this.perfilForm.get('apellido')?.value,
         numeroTelefonico: this.perfilForm.get('numeroTelefonico')?.value,
         direccion: this.perfilForm.get('direccion')?.value,
-        pais: this.perfilForm.get('pais')?.value,
-        ciudad: this.perfilForm.get('ciudad')?.value,
         codigo: this.perfilForm.get('codigo')?.value,
       };
       

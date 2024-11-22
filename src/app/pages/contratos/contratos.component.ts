@@ -105,8 +105,7 @@ export class ContratosComponent implements OnInit {
           per.numeroTelefonico,
           per.direccion,
           per.codigo,
-          per.pais,
-          per.ciudad,
+          
           per.rolAdministrativo
         );
 

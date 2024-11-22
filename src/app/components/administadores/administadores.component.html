@@ -55,9 +55,6 @@
                     <p>Cedula: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.codigo}}</p>
                     <p>Correo eletronico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.email}}</p>
                     <p>Direccion: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.direccion}}</p>
-                    <p>Ubicacion:{{'
-                        '+this.adminS.buscarAdminPorEmail(this.email)?.pais+','+this.adminS.buscarAdminPorEmail(this.email)?.ciudad}}
-                    </p>
                     <p>Numero telefonico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico}}</p>
                 </div>
                 <div class="btns">
@@ -83,13 +80,6 @@
 
                         <label for="cedula">Direccion : </label>
                         <input type="text" id="dir" formControlName="addres"><br />
-
-                        <label for="cedula">pais : </label>
-                        <input type="text" id="pais" formControlName="country"><br />
-
-                        <label for="cedula">Ciudad : </label>
-                        <input type="text" id="ciudad" formControlName="city"><br />
-
                         <label for="cedula">Numero telefonico : </label>
                         <input type="text" id="numeroTelefonico" formControlName="numberPhone"><br />
                     </div>

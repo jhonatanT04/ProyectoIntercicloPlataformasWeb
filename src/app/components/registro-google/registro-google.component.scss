@@ -26,7 +26,24 @@ p {
     font-weight: 600;
 }
 
+@media (max-width: 768px) {
+    .login-container {
+        display: flex;
+        flex-direction: column;
+    }    
+}
+@media (min-width: 768px) {
+    .form-login {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }.login-container input {
+        width: 80&;
+    }
+
+}
+
 .login-container {
+    
     margin: 50px auto auto auto;
     max-width: 800px;
     background-color: #1a1a1a;
@@ -47,24 +64,14 @@ p {
 }
 
 
-
-.column-form {
-    width: 100%;
-    display: flex;
-}
-
-.column-form .row-form {
-    width: 100%;
-    padding: 12px;
-}
-
 .login-container label {
+    
     margin-top: 1rem;
     color: var(--blue);
 }
 
 .login-container input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-bottom: 1rem;
     border: 1px solid transparent;

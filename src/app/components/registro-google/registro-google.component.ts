@@ -26,12 +26,10 @@ export class RegistroGoogleComponent {
 
   form = new FormGroup({
     name: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[0], [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[1], [Validators.required]),
+    lastName: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[1], [Validators.required,Validators.minLength(2)]),
     numberPhone: new FormControl(this.servicioAuthetication.getInfo()?.phoneNumber, [Validators.required]),
     addres: new FormControl('', [Validators.required]),
     codeZip: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
   })
 
   registrarse() {
@@ -45,13 +43,11 @@ export class RegistroGoogleComponent {
         this.form.get('numberPhone')?.value || ' ',
         this.form.get('addres')?.value || ' ',
         this.form.get('codeZip')?.value || ' ',
-        this.form.get('country')?.value || ' ',
-        this.form.get('city')?.value || ' '
+        
       );
       this.servicioUser.nuevoUsuario(per)
       this.router.navigate(['/pages/perfil']);
     } else {
-
       this.alertError("Complete los campos.")
     }
   }

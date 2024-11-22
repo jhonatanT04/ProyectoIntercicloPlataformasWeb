@@ -109,8 +109,7 @@ export class AdministadoresComponent implements OnInit {
     numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required]),
     addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
     codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required]),
-    country: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.pais, [Validators.required]),
-    city: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.ciudad, [Validators.required]),
+    
   })
   
   
@@ -124,8 +123,6 @@ export class AdministadoresComponent implements OnInit {
       this.formAdmin.get('numberPhone')?.value || ' ',
       this.formAdmin.get('addres')?.value || ' ',
       this.formAdmin.get('codeZip')?.value || ' ',
-      this.formAdmin.get('country')?.value || ' ',
-      this.formAdmin.get('city')?.value || ' ',
       true
     );
     this.userS.actualizarUsuario(this.email, per);

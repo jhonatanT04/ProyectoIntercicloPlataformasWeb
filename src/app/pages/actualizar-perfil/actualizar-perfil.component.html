@@ -31,18 +31,6 @@
         <label for="contra">Contraseña:</label>
         <input type="text" id="contra" [(ngModel)]="contra" name="contra" disabled>
 
-        <label for="pais">Pais:</label>
-        <input type="text" id="pais" formControlName="pais">
-        <div *ngIf="perfilForm.get('pais')?.hasError('required') && perfilForm.get('pais')?.touched" class="error-message">
-            El país es obligatorio.
-        </div>
-        
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" formControlName="ciudad">
-        <div *ngIf="perfilForm.get('ciudad')?.hasError('required') && perfilForm.get('ciudad')?.touched" class="error-message">
-            La ciudad es obligatoria.
-        </div>
-
         <label for="codigo">Codigo:</label>
         <input type="text" id="codigo" formControlName="codigo">
         <div *ngIf="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched" class="error-message">

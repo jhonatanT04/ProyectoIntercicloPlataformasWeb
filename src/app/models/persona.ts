@@ -6,8 +6,6 @@ export class Persona extends User{
     numeroTelefonico: string;
     direccion: string;
     codigo: string;
-    pais: string;
-    ciudad: string;
     rolAdministrativo: boolean;
 
     constructor(
@@ -18,8 +16,6 @@ export class Persona extends User{
         numeroTelefonico:string,
         direccion:string,
         codigo:string,
-        pais:string,
-        ciudad:string,
         rolAdministrativo=false
     ){
         super(correo,password);
@@ -28,8 +24,7 @@ export class Persona extends User{
         this.numeroTelefonico = numeroTelefonico;
         this.direccion = direccion;
         this.codigo = codigo;
-        this.pais = pais;
-        this.ciudad = ciudad;
+        
         this.rolAdministrativo = rolAdministrativo;
     }
 }

@@ -61,15 +61,7 @@
                 <input matInput placeholder="Direccion, nombre edificio.etc" formControlName="addres" required
                     [class.is-danger]="form.get('addres')?.hasError('required') && form.get('addres')?.touched"><br>
             </div>
-            <div class="item-register">
-                <label for="country">Pais</label><br>
-                <div *ngIf="form.get('country')?.hasError('required') && form.get('country')?.touched"
-                    class="error-message">
-                    Escoja un Pais
-                </div>
-                <input matInput formControlName="country" placeholder="Seleccione un pais"
-                    [class.is-danger]="form.get('country')?.hasError('required') && form.get('country')?.touched"><br>
-            </div>
+            
             <div class="item-register">
                 <label for="email">Correo electrónico</label><br>
                 <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched"
@@ -79,14 +71,7 @@
                 <input matInput placeholder="example.com" formControlName="email"
                     [class.is-danger]="form.get('email')?.hasError('required') && form.get('email')?.touched"><br>
             </div>
-            <div class="item-register">
-                <label for="city">Ciudad</label><br>
-                <div *ngIf="form.get('city')?.hasError('required') && form.get('city')?.touched" class="error-message">
-                    Escoja una ciudad.
-                </div>
-                <input matInput placeholder="Seleccione una ciudad" formControlName="city"
-                    [class.is-danger]="form.get('city')?.hasError('required') && form.get('city')?.touched"><br>
-            </div>
+            
             <div class="item-register">
                 <label for="password">Contraseña</label><br>
                 <input matInput [type]="'password'" formControlName="password"
