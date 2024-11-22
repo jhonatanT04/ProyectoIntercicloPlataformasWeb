@@ -50,7 +50,7 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
   actualizarCliente() {
-    console.log(this.editarForm.get('name')?.value || ' ',)
+
     if (this.editarForm.valid) {
       const nuevosDatos: Persona = new Persona(
         this.clienteTemp.email,

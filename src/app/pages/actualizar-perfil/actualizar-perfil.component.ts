@@ -65,7 +65,7 @@ export class ActualizarPerfilComponent implements OnInit{
       this.perfilForm.reset();
       this.actualizado.emit();
     } else {
-      this.perfilForm.markAllAsTouched();
+      //Mesaje de error 
     }
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
@@ -22,6 +22,7 @@ export class PerfilComponent implements OnInit{
   contrato=''
   contratos:any = []
   ActualizarPerfil = false
+  router = inject(Router)
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
   ngOnInit(): void {
     this.cargarCli() 

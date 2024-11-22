@@ -5,12 +5,12 @@ import { AuthentificServiceService } from '../services/authentific-service.servi
 export const guardsAuthGuard: CanMatchFn = (route, state) => {
   const router = inject(Router)
   const authServi = inject(AuthentificServiceService)
-  // if(authServi.isAutheticate()){
-  //   return true
-  // }else{
-  //   router.navigate(['pages/login'])
-  //   return true;
-  // }
+  console.log(authServi.isAutheticate())
+  if(authServi.isAutheticate()){
+    return true
+  }else{
+    router.navigate(['pages/login'])
+    return false;
+  }  
   return true
-  
 };

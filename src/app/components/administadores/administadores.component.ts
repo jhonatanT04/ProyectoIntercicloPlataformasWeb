@@ -100,21 +100,24 @@ export class AdministadoresComponent implements OnInit {
   }
   confirmacionEdit = false
   setConfirmacionEdit() {
-    this.confirmacionEdit = !this.confirmacionEdit
+    if (this.formAdmin.valid) {
+      this.confirmacionEdit = !this.confirmacionEdit
+    }else{
+      this.alertError('Complete los campos de manera correcta')
+    }
   }
   formAdmin = new FormGroup({
-    
     name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
-    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required]),
+    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required, Validators.minLength(10)]),
     addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
-    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required]),
-    
+    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required, Validators.minLength(10)]),
   })
   
   
 
   actualizarPerfil() {
+    
     const per = new Persona(
       this.email,
       '',
@@ -126,6 +129,28 @@ export class AdministadoresComponent implements OnInit {
       true
     );
     this.userS.actualizarUsuario(this.email, per);
+    this.alertConfirm('Se actualizo de manera correcta')
   }
-    
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
+    setTimeout(() => {
+      this.textError = ''
+      this.showDangerAlert = false;
+    },5000);
+  }
+
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
+    setTimeout(() => {
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    },5000);
+  }
 }

@@ -23,12 +23,13 @@
     color: #5885bc; 
 }
 
-.actualizar-perfil input[type="text"],
-.actualizar-perfil input[type="email"] {
+.actualizar-perfil input[type="text"] {
+    width: 95%;
     padding: 10px;
     margin-bottom: 15px;
     border: 2px solid transparent;
     border-radius: 5px;
+    
     background-color: rgba(156, 156, 156, 0.376); 
     font-size: 16px;
 }
@@ -38,6 +39,7 @@
 }
 
 .actualizar-perfil button {
+    margin-top: 20px;
     background-color: #707070; 
     color: #FFFFFF;
     padding: 10px;
@@ -51,20 +53,17 @@
 .actualizar-perfil button:hover {
     background-color: #58bc82; 
 }
-
+.actualizar-perfil .items-form{
+    margin: 10px 0;
+}
+.is-danger{
+    border: 2px solid red !important;
+}
 .error-message {
+    transform: translateY(-14px);
+    position: absolute;
     color: red;
+    font-style: italic;
     font-size: 0.9em;
     margin-top: 5px;
-}
-
-input.ng-invalid.ng-touched,
-select.ng-invalid.ng-touched {
-    border: 1px solid red;
-    background-color: #FF3B58
-}
-
-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
 }

@@ -1,142 +1,163 @@
-.contenedor-perfil {
-    background-color: rgb(134, 134, 139);
-    min-height: 100vh;
+.container{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    padding: 20px;
+    height: 100vh;
+    flex-direction: column;
 }
 
-.contenedor-perfil h2 {
-    color: #00ACE6;
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.card-client {
-    background: #1E1E1E;
-    width: 20rem;
-    padding: 25px;
-    border: 3px solid #FFFFFF;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    text-align: center;
-    color: #FFFFFF;
-    font-family: "Poppins", sans-serif;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-client:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.7);
-}
-
-.cliente {
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 20px;
-    margin: 0;
-    margin-top: 15px;
-}
-
-.cliente span {
-    color: #A9A9A9;
-    font-weight: 400;
-    font-size: 16px;
-    display: block;
-    margin-top: 5px;
-}
-
-.tabla-contratos {
+.hader-main {
+    background-color: var(--black);
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border-radius: 8px;
-    overflow: hidden;
+    height: 150px;
+    color: var(--white);
+    box-sizing: border-box;
+    padding: 35px 0 0 20px;
 }
 
-.tabla-contratos th,
-.tabla-contratos td {
-    padding: 12px;
-    text-align: center;
+.container {
+    background-color: var(--white);
+    min-height: 100vh;
+}
+
+p {
+    margin-left: 20px;
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hader-main h2 {
+    cursor: pointer;
+    color: #eee;
+    width: 50%;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+}
+.card-client{
+    width: 450px;
+    height: auto;
+    padding: 32px;
+    border-radius: 12px;
+    margin: auto ;
+    background-color: #1e2023;
+}
+.card-client h2 {
+    background-color:#777;
+    border-radius: 12px;
+    padding: 0 30px;
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.card-client p.cliente {
     font-size: 18px;
+    line-height: 1.6;
+    color: #555;
 }
 
-.tabla-contratos th {
-    background-color: #00ACE6;
-    color: #FFFFFF;
-    text-transform: uppercase;
+.card-client span {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #777;
 }
 
-.tabla-contratos td {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #FFFFFF;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
-.tabla-contratos tr:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
-.mensaje-sin-contratos {
+th {
+    background-color: #2d3e50;
+    color: white;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: var(--green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: all 0.5s;
+}
+.botns{
     text-align: center;
-    color: #FF3B58;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 30px;
+    justify-content: center;
+}
+button:hover {
+    background-color:var(--blue);
 }
 
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .contenido-modal {
-    background-color: #1E1E1E;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
+    width: 450px;
+    position: relative;
 }
 
-.cerrar {
+.close {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 30px;
     font-weight: bold;
+    color: #aaa;
     cursor: pointer;
-    color: #FFFFFF;
 }
 
-button {
-    background-color: #58bc82;
-    color: #FFFFFF;
-    padding: 14px 22px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    margin-top: 20px;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+.close:hover {
+    color: #000;
 }
 
-button:hover {
-    background-color: #45A070;
-    transform: translateY(-5px);
+@media screen and (max-width: 768px) {
+    .hader-main h2 {
+        width: 300px;
+    }    
+    .card-client {
+        width: 90%;
+        padding: 15px;
+        
+    }
+
+    .card-client h2 {
+        font-size: 20px;
+    }
+
+    .card-client p.cliente {
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .modal .contenido-modal {
+        width: 100%;
+    }
 }
+

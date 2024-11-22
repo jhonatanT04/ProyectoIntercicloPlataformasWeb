@@ -1,42 +1,48 @@
 <div class="actualizar-perfil">
     <h2>Actualizar Perfil</h2>
-    <form [formGroup]="perfilForm" >
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" formControlName="nombre">
-        <div *ngIf="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched" class="error-message">
-            El nombre es obligatorio.
+    <form [formGroup]="perfilForm">
+        <div class="items-form">
+            <label for="nombre">Nombre:</label> <br/>
+            <input type="text" id="nombre" formControlName="nombre" [class.is-danger]="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched">
+            <div *ngIf="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched"
+                class="error-message">
+                El nombre es obligatorio.
+            </div>
+        </div>
+        <div class="items-form">
+            <label for="apellido">Apellido:</label><br/>
+            <input type="text" id="apellido" formControlName="apellido" [class.is-danger]="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched">
+            <div *ngIf="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched"
+                class="error-message">
+                El apellido es obligatorio.
+            </div>
+        </div>
+        <div class="items-form"> 
+            <label for="numeroTelefonico">Telefono:</label><br/>
+            <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico"  [class.is-danger]="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched">
+            <div *ngIf="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched"
+                class="error-message">
+                El teléfono es obligatorio.
+            </div>
         </div>
 
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" formControlName="apellido">
-        <div *ngIf="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched" class="error-message">
-            El apellido es obligatorio.
+        <div class="items-form">
+            <label for="direccion">Direccion:</label><br/>
+            <input type="text" id="direccion" formControlName="direccion" [class.is-danger]="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched">
+            <div *ngIf="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched"
+                class="error-message">
+                La dirección es obligatoria.
+            </div>
         </div>
 
-        <label for="numeroTelefonico">Telefono:</label>
-        <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico">
-        <div *ngIf="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched" class="error-message">
-            El teléfono es obligatorio.
+        <div class="items-form">
+            <label for="codigo">Codigo:</label><br/>
+            <input type="text" id="codigo" formControlName="codigo"  [class.is-danger]="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched">
+            <div *ngIf="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched"
+                class="error-message">
+                El código es obligatorio.
+            </div>
         </div>
-
-        <label for="direccion">Direccion:</label>
-        <input type="text" id="direccion" formControlName="direccion">
-        <div *ngIf="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched" class="error-message">
-            La dirección es obligatoria.
-        </div>
-        
-        <label for="email">Correo Electronico:</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" disabled>
-
-        <label for="contra">Contraseña:</label>
-        <input type="text" id="contra" [(ngModel)]="contra" name="contra" disabled>
-
-        <label for="codigo">Codigo:</label>
-        <input type="text" id="codigo" formControlName="codigo">
-        <div *ngIf="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched" class="error-message">
-            El código es obligatorio.
-        </div>
-
         <button type="submit" [disabled]="perfilForm.invalid" (click)="actualizar()">Actualizar</button>
     </form>
 </div>

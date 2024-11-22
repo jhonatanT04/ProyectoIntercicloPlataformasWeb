@@ -1,4 +1,10 @@
-<div class="contenedor-perfil">
+<div class="container">
+  <div class="hader-main">
+    <h2 (click)=" this.router.navigate([''])">
+      <img src="logoPK.png" alt="logo">
+      Parqueadero UPS
+    </h2>
+  </div>
   <div class="card-client">
     <h2>Mis Datos</h2>
     <p class="cliente">{{nombre}} {{apellido}}
@@ -21,13 +27,16 @@
       </tbody>
     </table>
     <p *ngIf="contratos.length === 0">No tienes contratos registrados.</p>
-
-    <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
+    <div class="botns">
+      <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
+    </div>
+    
   </div>
   <div *ngIf="ActualizarPerfil" class="modal">
     <div class="contenido-modal">
       <span class="close" (click)="actualizar(false)">&times;</span>
       <app-actualizar-perfil (actualizado)="actualizar($event)"></app-actualizar-perfil>
     </div>
+    
   </div>
 </div>
