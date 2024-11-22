@@ -15,8 +15,13 @@ export class TarifasComponent implements OnInit{
   tarifas:any =[]
   tipo=''
   costo =0
-
+  tarifasAgregar = false
   tarifaForm = new FormGroup({
+    tiempo: new FormControl('', [Validators.required]),
+    costo: new FormControl('', [Validators.required, Validators.min(0)])
+  });
+
+  tarifaFormA = new FormGroup({
     tiempo: new FormControl('', [Validators.required]),
     costo: new FormControl('', [Validators.required, Validators.min(0)])
   });
@@ -27,17 +32,17 @@ export class TarifasComponent implements OnInit{
   }
 
   agregarTarifa() {
-    if (this.tarifaForm.valid) {
-      const costo = parseFloat(this.tarifaForm.get('costo')?.value || '')??0;
+    if (this.tarifaFormA.valid) {
+      const costo = parseFloat(this.tarifaFormA.get('costo')?.value || '')??0;
       const nuevaTarifa = new Tarifa(
-        this.tarifaForm.get('tiempo')?.value || '', costo
+        this.tarifaFormA.get('tiempo')?.value || '', costo
       );
       this.tarifaS.agregarTarifa(nuevaTarifa);
       this.cargarTarifa();
-      this.tarifaForm.reset();  
+      this.tarifaFormA.reset();  
       this.alertError('Se agrego correctamente')
     } else {
-      this.tarifaForm.markAllAsTouched(); 
+      this.tarifaFormA.markAllAsTouched(); 
     }
   }
 
@@ -76,8 +81,12 @@ export class TarifasComponent implements OnInit{
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
-  tarifasAgregar=false
+  tarifasActualizar=false
   tarifass(){
+    this.tarifasActualizar = !this.tarifasActualizar
+  }
+
+  tarifasA(){
     this.tarifasAgregar = !this.tarifasAgregar
   }
 

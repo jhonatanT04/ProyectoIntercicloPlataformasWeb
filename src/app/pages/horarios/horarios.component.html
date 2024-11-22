@@ -1,7 +1,7 @@
 <div class="horario-parqueadero">
   <h2>Definir Horario de Trabajo</h2>
 
-  <button class="btnA" (click)="horarioE()">Agregar Horario</button>
+  <button class="btnA" (click)="horarioA()">Agregar Horario</button>
 
   <table>
     <thead>
@@ -65,8 +65,51 @@
           </div>
 
           <div class="btns">
-            <button class="btn" type="submit" (click)="definirHorario()">Definir Horario</button>
+            <button class="btn" type="submit" (click)="actualizarHorario()">Definir Horario</button>
             <button class="btn" (click)="horarioE()">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="horarioMostrarA" class="popup-overlay-profile">
+    <div class="popup-content-profile-edit">
+      <div class="description">
+        <form [formGroup]="horarioFormA">
+          <label for="dia">Día:</label>
+          <select id="dia" formControlName="dia">
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
+          <div *ngIf="horarioFormA.get('dia')?.hasError('required') && horarioFormA.get('dia')?.touched"
+            class="error-message">
+            Por favor selecciona un día.
+          </div>
+
+          <label for="horaApertura">Hora de Apertura:</label>
+          <input type="time" id="horaApertura" formControlName="horaApertura"
+            [class.ng-invalid.ng-touched]="horarioFormA.get('horaApertura')?.hasError('required') && horarioFormA.get('horaApertura')?.touched">
+          <div *ngIf="horarioFormA.get('horaApertura')?.hasError('required') && horarioFormA.get('horaApertura')?.touched"
+            class="error-message">
+            La hora de apertura es obligatoria.
+          </div>
+
+          <label for="horaCierre">Hora de Cierre:</label>
+          <input type="time" id="horaCierre" formControlName="horaCierre">
+          <div *ngIf="horarioFormA.get('horaCierre')?.hasError('required') && horarioFormA.get('horaCierre')?.touched"
+            class="error-message">
+            La hora de cierre es obligatoria.
+          </div>
+
+          <div class="btns">
+            <button class="btn" type="submit" (click)="agregarHorario()">Agregar</button>
+            <button class="btn" (click)="horarioA()">Cerrar</button>
           </div>
         </form>
       </div>

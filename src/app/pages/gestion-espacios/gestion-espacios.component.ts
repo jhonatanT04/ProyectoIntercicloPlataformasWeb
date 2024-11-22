@@ -21,11 +21,17 @@ export class GestionEspaciosComponent implements OnInit {
   nombre = ''
   estado = ''
   espacios: any = []
-  espaciosMostrar = false
+  espaciosMostrarActualizar = false
+  espaciosMostrarAgregar = false
 
   espacioSeleccionado: any = null;
 
   espacioForm = new FormGroup({
+    total: new FormControl('', [Validators.required])
+  });
+
+  espacioFormA = new FormGroup({
+    nombre: new FormControl('',[Validators.required]),
     total: new FormControl('', [Validators.required])
   });
   constructor(private espacioS: AdministradoresServiceService) { }
@@ -40,8 +46,9 @@ export class GestionEspaciosComponent implements OnInit {
   }
 
   calcularEspaciosDisponibles() {
-    this.espaciosDisponibles = this.espacios.filter((espacio: any) => espacio.estado === 'D').length;
+    this.espaciosDisponibles = this.espacios.reduce((suma: number, espacio: any) => suma + (espacio.total || 0), 0);
   }
+  
 
 
   guardarEspaciosTotales() {
@@ -56,8 +63,8 @@ export class GestionEspaciosComponent implements OnInit {
   seleccionarEspacio(espacio: any) {
     this.espacioSeleccionado = espacio; // Guardar el espacio seleccionado
     this.espacioForm.patchValue({ total: espacio.total }); // Prellenar el formulario
-    this.espaciosMostrar = true; // Mostrar el formulario
-    this.espacioss() 
+    this.espaciosMostrarActualizar = true; // Mostrar el formulario
+    this.espacioss()
   }
 
 
@@ -65,32 +72,62 @@ export class GestionEspaciosComponent implements OnInit {
     this.seleccionarEspacio(espacio);
     this.espacioss(); // Cambiar la visibilidad del formulario
   }
-  
-  agregarEspacio() {
-    //const totalEspaciosActuales = this.espacios.reduce((total: number, espacio: any) => total + espacio.total, 0);
-    //console.log(totalEspaciosActuales)
-    const totalEspaciosActuales = this.espacios?.length || 0; 
-    if (totalEspaciosActuales >= this.espaciosTotales) {
-      this.alertError('No se pueden agregar más espacios. Aumente los espacios totales primero.');
+
+  actualizarEspacio() {
+    const sumaTotalEspacios = this.espacios
+      .filter((espacio: any) => espacio.nombre !== this.espacioSeleccionado?.nombre)
+      .reduce((total: number, espacio: any) => total + espacio.total, 0);
+
+
+    const nuevoTotal = parseInt(this.espacioForm.get('total')?.value || '') || 0;
+
+    if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
+      this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
       return;
     }
     if (this.espacioForm.valid && this.espacioSeleccionado) {
-      const nuevoTotal = parseInt(this.espacioForm.get('total')?.value || '', 10) || 0;
-
       if (isNaN(nuevoTotal) || nuevoTotal < 0) {
         this.alertError('El total debe ser un número válido y mayor o igual a 0.');
         return;
       }
+
       this.espacioS.actualizarEspacio(this.espacioSeleccionado.nombre, nuevoTotal);
       this.cargarEs();
-      this.espaciosMostrar = false;
+      this.espaciosMostrarActualizar = false;
       this.espacioForm.reset();
-      this.alertError('El total del espacio se actualizó correctamente.');
+      this.alertWarning('El total del espacio se actualizó correctamente.');
     } else {
       this.espacioForm.markAllAsTouched();
       this.alertError('Por favor, complete el formulario correctamente.');
     }
   }
+
+  agregarEspacio() {
+    const sumaTotalEspacios = this.espacios.reduce((total: number, espacio: any) => total + (espacio.total || 0), 0);
+    const nuevoTotal = parseInt(this.espacioFormA.get('total')?.value || '', 10) || 0;
+  
+    if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
+      this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
+      return;
+    }
+  
+    if (this.espacioFormA.valid) {
+      const nombre = this.espacioFormA.get('nombre')?.value || '';
+      const total = parseInt(this.espacioFormA.get('total')?.value || '', 10) || 0;
+  
+      const nuevoE = new Espacio(nombre, 'D', total);
+      this.espacioS.agregarEspacio(nuevoE);
+  
+      this.cargarEs();
+      this.espaciosMostrarActualizar = false;
+      this.espacioFormA.reset();
+      this.alertWarning('El espacio se agregó correctamente.');
+    } else {
+      this.espacioFormA.markAllAsTouched();
+      this.alertError('Por favor, complete el formulario correctamente.');
+    }
+  }
+  
 
 
   menuVisibleIndex: number | null = null;
@@ -100,7 +137,11 @@ export class GestionEspaciosComponent implements OnInit {
   }
 
   espacioss() {
-    this.espaciosMostrar = !this.espaciosMostrar
+    this.espaciosMostrarActualizar = !this.espaciosMostrarActualizar
+  }
+
+  mostrarA(){
+    this.espaciosMostrarAgregar =!this.espaciosMostrarAgregar
   }
   eliminarEspacio(espacio: any) {
     this.espacioS.eliminarEspacio(espacio)

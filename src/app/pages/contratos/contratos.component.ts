@@ -143,6 +143,7 @@ export class ContratosComponent implements OnInit {
 
   agregaContrato = false
   contrato() {
+    this.contratoForm.reset() 
     this.agregaContrato = !this.agregaContrato
   }
 
@@ -158,8 +159,6 @@ export class ContratosComponent implements OnInit {
       this.textError = error
       this.showDangerAlert = true;
     }, 4);
-    this.textError = ''
-    this.showDangerAlert = false;
   }
 
   textConfirm = ''
@@ -169,7 +168,5 @@ export class ContratosComponent implements OnInit {
       this.textConfirm = error
       this.showConfirmAlert = true;
     }, 4);
-    this.textConfirm = ''
-    this.showConfirmAlert = false;
   }
 }

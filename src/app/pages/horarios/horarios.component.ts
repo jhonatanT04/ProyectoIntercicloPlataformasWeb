@@ -16,8 +16,15 @@ export class HorariosComponent implements OnInit {
   dia = ''
   horaApertura = ''
   horaCierre = ''
+  horarioMostrarA = false
 
   horarioForm = new FormGroup({
+    dia: new FormControl('', [Validators.required]),
+    horaApertura: new FormControl('', [Validators.required]),
+    horaCierre: new FormControl('', [Validators.required])
+  });
+
+  horarioFormA = new FormGroup({
     dia: new FormControl('', [Validators.required]),
     horaApertura: new FormControl('', [Validators.required]),
     horaCierre: new FormControl('', [Validators.required])
@@ -28,7 +35,7 @@ export class HorariosComponent implements OnInit {
     this.cargarHorario()
   }
 
-  definirHorario() {
+  actualizarHorario() {
     if (this.horarioForm.valid) {
       const dia = this.horarioForm.get('dia')?.value || '';
       const horaApertura = this.horarioForm.get('horaApertura')?.value || '';
@@ -48,6 +55,27 @@ export class HorariosComponent implements OnInit {
       this.horarioForm.markAllAsTouched();
     }
   }
+
+  agregarHorario() {
+    if (this.horarioFormA.valid) {
+      const dia = this.horarioFormA.get('dia')?.value || '';
+      const horaApertura = this.horarioFormA.get('horaApertura')?.value || '';
+      const horaCierre = this.horarioFormA.get('horaCierre')?.value || '';
+  
+      const horario = new Horario(dia, horaApertura, horaCierre);
+  
+      this.horarioS.agrgarHorario(horario);   
+      //this.horarioS.agrgarHorario(horario)
+      this.cargarHorario();
+  
+      this.horarioFormA.reset();
+      
+      this.horarioMostrar = false;
+      this.alertError('Se agrego correctamente') 
+    } else {
+      this.horarioFormA.markAllAsTouched();
+    }
+  }
   
   clienteseleccionado =false
   
@@ -63,6 +91,10 @@ export class HorariosComponent implements OnInit {
   horarioMostrar=false
   horarioE(){
     this.horarioMostrar = !this.horarioMostrar
+  }
+
+  horarioA(){
+    this.horarioMostrarA = !this.horarioMostrarA
   }
 
   menuVisibleIndex: number | null = null;

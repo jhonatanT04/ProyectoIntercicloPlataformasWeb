@@ -43,7 +43,7 @@ export class AdministradoresServiceService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       this.cargarAdmi();
-      //this.guardar()
+      this.guardar()
       this.cargarHorario() 
     }
   }
@@ -72,10 +72,22 @@ export class AdministradoresServiceService {
   }
 
   guardar() {
-    localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
-    //localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios))
-    //localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa))
+    const Espacios = localStorage.getItem('listEspacios');
+    if (!Espacios || JSON.parse(Espacios).length === 0) {
+      localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
+    }
+  
+    const Horarios = localStorage.getItem('listHorarios');
+    if (!Horarios || JSON.parse(Horarios).length === 0) {
+      localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
+    }
+  
+    const Tarifas = localStorage.getItem('listTarifas');
+    if (!Tarifas || JSON.parse(Tarifas).length === 0) {
+      localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
+    }
   }
+  
   
   nuevoAdmi(adminstrador: Persona) {
     if (isPlatformBrowser(this.platformId)) {

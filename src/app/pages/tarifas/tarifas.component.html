@@ -1,6 +1,6 @@
 <div class="gestion-tarifas">
   <h2>Gestión de Tarifas</h2>
-  <button class="btnA" (click)="tarifass()">Agregar Tarifa</button>
+  <button class="btnA" (click)="tarifasA()">Agregar Tarifa</button>
 
   <table>
     <thead>
@@ -27,7 +27,7 @@
     </tbody>
   </table>
 
-  <div class="popup-overlay-profile" *ngIf="tarifasAgregar">
+  <div class="popup-overlay-profile" *ngIf="tarifasActualizar">
     <div class="popup-content-profile-edit">
       <form [formGroup]="tarifaForm">
         <div class="description">
@@ -53,7 +53,36 @@
       </form>
     </div>
   </div>
+
+  <div class="popup-overlay-profile" *ngIf="tarifasAgregar">
+    <div class="popup-content-profile-edit">
+      <form [formGroup]="tarifaFormA">
+        <div class="description">
+          <label for="tiempo">Tiempo:</label>
+          <input type="text" id="tiempo" formControlName="tiempo" min="0">
+          <div *ngIf="tarifaFormA.get('tiempo')?.hasError('required') && tarifaFormA.get('tiempo')?.touched"
+            class="error-message">
+            El tiempo es obligatorio.
+          </div>
+
+          <label for="costo">Costo por Hora:</label>
+          <input type="number" id="costo" formControlName="costo" min="0">
+          <div *ngIf="tarifaFormA.get('costo')?.hasError('required') && tarifaFormA.get('costo')?.touched"
+            class="error-message">
+            El costo por hora es obligatorio.
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="btn" type="submit" (click)="agregarTarifa()">Agregar</button>
+          <button class="btn" (click)="tarifasA()">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+
 
 <div class="alert-container">
     <div *ngIf="showDangerAlert" class="alert-danger">
