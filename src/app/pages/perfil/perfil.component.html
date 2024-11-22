@@ -4,22 +4,18 @@
     <p class="cliente">{{nombre}} {{apellido}}
       <span>Correo Electronico: {{correo}}</span>
       <span>Telefono: {{telefono}}</span>
-      <span>Contratos:</span>
+      <span>Contratos: {{contrato}}</span>
     </p>
     <table *ngIf="contratos && contratos.length > 0" border="1">
       <thead>
         <tr>
           <th>Nombre del Espacio</th>
-          <th>Duración</th>
-          <th>Tarifa</th>
           <th>Placa</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let contrato of contratos">
           <td>{{ contrato.nombreE }}</td>
-          <td>{{ contrato.duracion }} meses</td>
-          <td>{{ contrato.tarifa }}</td>
           <td>{{ contrato.placa }}</td>
         </tr>
       </tbody>
