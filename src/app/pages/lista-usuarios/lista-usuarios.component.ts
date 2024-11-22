@@ -8,69 +8,85 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 @Component({
   selector: 'app-lista-usuarios',
   standalone: true,
-  imports: [FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './lista-usuarios.component.html',
   styleUrl: './lista-usuarios.component.scss'
 })
-export class ListaUsuariosComponent implements OnInit{
+export class ListaUsuariosComponent implements OnInit {
   clientes: Persona[] = []
-  nombre=''
-  apellido = ''
-  correo=''
-  numeroTelefonico=''
+  clienteTemp: Persona = new Persona('', '', '', '', '', '', '')
   clienteSeleccionado = false
 
   editarForm = new FormGroup({
-    nombre: new FormControl('',[Validators.required]),
-    apellido: new FormControl('',[Validators.required]),
-    numeroTelefonico: new FormControl('',[Validators.required])
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    lastName: new FormControl('', [Validators.required]),
+    numberPhone: new FormControl('', [Validators.required]),
+    addres: new FormControl('', [Validators.required]),
+    codeZip: new FormControl('', [Validators.required]),
   })
   ngOnInit(): void {
-    this.cargarClientes() 
+    this.cargarClientes()
   }
-  constructor(private clienteS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
+  constructor(private clienteS: UsuariosServiceService, private contratoS: AdministradoresServiceService) { }
 
-  cargarClientes(){
-    this.clientes = this.clienteS.cargarUsuario() 
+  cargarClientes() {
+    this.clientes = this.clienteS.cargarUsuario()
   }
-
 
 
   seleccionarCliente(email: string) {
     this.clienteSeleccionado = true
     const cliente = this.clientes.find(cli => cli.email === email);
     if (cliente) {
-      this.nombre = cliente.nombre;
-      this.apellido = cliente.apellido
-      this.correo = cliente.email
-      this.numeroTelefonico = cliente.numeroTelefonico 
+      this.clienteTemp = cliente
+      this.editarForm = new FormGroup({
+        name: new FormControl(this.clienteTemp.nombre || '', [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl(this.clienteTemp.apellido || '', [Validators.required]),
+        numberPhone: new FormControl(this.clienteTemp.numeroTelefonico || '', [Validators.required]),
+        addres: new FormControl(this.clienteTemp.direccion || '', [Validators.required]),
+        codeZip: new FormControl(this.clienteTemp.codigo || '', [Validators.required]),
+      })
     }
   }
-  
+
   actualizarCliente() {
-    const nuevosDatos: Partial<Persona> = {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      numeroTelefonico: this.numeroTelefonico
-    };
-    const actualizado = this.clienteS.actualizarUsuario(this.correo, nuevosDatos);
-    this.contratoS.actualizarContratosCliente(this.correo,nuevosDatos)
-    this.cargarClientes() 
-    if (actualizado) {
-      console.log('Cliente actualizado correctamente');
-      this.cargarClientes(); 
-      this.alertError('Se actualizo correctamente')
+    console.log(this.editarForm.get('name')?.value || ' ',)
+    if (this.editarForm.valid) {
+      const nuevosDatos: Persona = new Persona(
+        this.clienteTemp.email,
+        '',
+        this.editarForm.get('name')?.value || ' ',
+        this.editarForm.get('lastName')?.value || ' ',
+        this.editarForm.get('numberPhone')?.value || ' ',
+        this.editarForm.get('addres')?.value || ' ',
+        this.editarForm.get('codeZip')?.value || ' ',
+        this.clienteTemp.rolAdministrativo
+      );
+      if (!this.editarForm.pristine) {
+        console.log("diferentes")
+        const actualizado = this.clienteS.actualizarUsuario(this.clienteTemp.email, nuevosDatos);
+        this.contratoS.actualizarContratosCliente(this.clienteTemp.email, nuevosDatos)
+        this.cargarClientes()
+        if (actualizado) {
+          console.log('Cliente actualizado correctamente');
+          this.cargarClientes();
+          this.alertConfirm('Se actualizo correctamente')
+        } else {
+          this.alertError('Error: Cliente no encontrado')
+        }
+      }
+      this.editarrF();
     } else {
-      console.log('Error: Cliente no encontrado');
+      this.alertError('Complete los campos')
     }
   }
   editarF = false
-  editarrF(){
+  editarrF() {
     this.editarF = !this.editarF
   }
 
   menuVisibleIndex: number | null = null;
-  
+
   toggleMenu(index: number) {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
@@ -78,22 +94,23 @@ export class ListaUsuariosComponent implements OnInit{
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
     setTimeout(() => {
-      this.textError = error
-      this.showDangerAlert = true;
-    }, 4);
-    this.textError = ''
-    this.showDangerAlert = false;
+      this.textError = ''
+      this.showDangerAlert = false;
+    },5000);
   }
 
-  textAlert = ''
-  showWarningAlert = false
-  alertWarning(error: string) {
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
     setTimeout(() => {
-      this.textAlert = error
-      this.showWarningAlert = true;
-    }, 4);
-    this.textAlert = ''
-    this.showWarningAlert = false;
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    },5000);
   }
 }

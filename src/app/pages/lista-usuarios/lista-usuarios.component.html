@@ -18,12 +18,12 @@
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.numeroTelefonico }}</td>
-          <td>{{ cliente.rolAdministrativo ? 'Admin' : 'Cliente' }}</td> 
+          <td>{{ cliente.rolAdministrativo ? 'Admin' : 'Cliente' }}</td>
           <td class="acciones">
             <div class="menu-container">
               <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
               <div class="menu-options" *ngIf="menuVisibleIndex === i">
-                <button (click)="seleccionarCliente(cliente.email); editarrF()">Editar</button>
+                <button (click)="seleccionarCliente(cliente.email); editarrF();toggleMenu(i)">Editar</button>
               </div>
             </div>
           </td>
@@ -31,32 +31,54 @@
       </tbody>
     </table>
   </div>
-  
+
 
   <div *ngIf="editarF" class="popup-overlay-profile">
     <div class="popup-content-profile-edit">
       <div class="description">
         <h3>Editar Cliente</h3>
         <form [formGroup]="editarForm">
-          <label for="nombre">Nombre:</label>
-          <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" required>
-          <div *ngIf="editarForm.get('nombre')?.hasError('required') && editarForm.get('nombre')?.touched"
-            class="error-message">
-            Ingrese un nombre para el espacio.
+          <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required formControlName="name">
+            <div *ngIf="editarForm.get('name')?.hasError('name') && editarForm.get('name')?.touched"
+              class="error-message">
+              Nombre invalido.
+            </div>
           </div>
 
-          <label for="apellido">Apellido:</label>
-          <input type="text" id="apellido" [(ngModel)]="apellido" name="apellido" required>
-          <div *ngIf="editarForm.get('apellido')?.hasError('required') && editarForm.get('apellido')?.touched"
-            class="error-message">
-            Ingrese un apellido para el espacio.
+          <div>
+            <label for="lastName">Apellido:</label>
+            <input type="text" id="lastName" name="lastName" required formControlName="lastName">
+            <div *ngIf="editarForm.get('lastName')?.hasError('required') && editarForm.get('lastName')?.touched"
+              class="error-message">
+              Apellido invalido.
+            </div>
           </div>
-          <label for="numeroTelefonico">Telefono:</label>
-          <input type="text" id="numeroTelefonico" [(ngModel)]="numeroTelefonico" name="numeroTelefonico" required>
-          <div
-            *ngIf="editarForm.get('numeroTelefonico')?.hasError('required') && editarForm.get('numeroTelefonico')?.touched"
-            class="error-message">
-            Ingrese un nombre para el espacio.
+          <div>
+            <label for="numberPhone">Telefono:</label>
+            <input type="text" id="numberPhone" name="numberPhone" required formControlName="numberPhone">
+            <div *ngIf="editarForm.get('numberPhone')?.hasError('required') && editarForm.get('numberPhone')?.touched"
+              class="error-message">
+              Telefono invalido.
+            </div>
+          </div>
+
+          <div>
+            <label for="codeZip">Cedula:</label>
+            <input type="text" id="codeZip" name="codeZip" required formControlName="codeZip">
+            <div *ngIf="editarForm.get('codeZip')?.hasError('required') && editarForm.get('codeZip')?.touched"
+              class="error-message">
+              Cedula invalido.
+            </div>
+          </div>
+          <div>
+            <label for="addres">Direccion:</label>
+            <input type="text" id="addres" name="addres" required formControlName="addres">
+            <div *ngIf="editarForm.get('addres')?.hasError('required') && editarForm.get('addres')?.touched"
+              class="error-message">
+              Direccion invalido.
+            </div>
           </div>
 
           <div class="btns">
@@ -66,25 +88,27 @@
         </form>
       </div>
     </div>
+    <div class="alert-container"  *ngIf="showDangerAlert">
+      <div *ngIf="showDangerAlert" class="alert-danger">
+        <svg viewBox="0 0 24 24" class="icon">
+          <path fill="currentColor"
+            d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+        </svg>
+        {{textError}}
+      </div>
+    </div>
   </div>
 
 </div>
 
 <div class="alert-container">
-  <div *ngIf="showDangerAlert" class="alert-danger">
-      <svg viewBox="0 0 24 24" class="icon">
-          <path fill="currentColor"
-              d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
-      </svg>
-      {{textError}}
+  <div *ngIf="showConfirmAlert" class="alert-conf">
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25"
+        height="25" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+        <path
+            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+    </svg>
+    {{textConfirm}}
+</div>
 
-  </div>
-  <div *ngIf="showWarningAlert" class="alert-warnin">
-      <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-          fill="#FFFFFF">
-          <path
-              d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z" />
-      </svg>
-      {{textAlert}}
-  </div>
 </div>

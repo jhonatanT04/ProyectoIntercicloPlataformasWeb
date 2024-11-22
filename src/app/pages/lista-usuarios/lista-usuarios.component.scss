@@ -64,18 +64,20 @@ td {
   }
 
   thead {
-    display: block; 
+    display: block;
   }
+
   tr {
     display: block;
     margin: 0;
     border-radius: 12px;
   }
+
   td {
     display: flex;
     justify-content: space-between;
     padding: 8px 5px;
-    
+
   }
 
   td::before {
@@ -89,7 +91,7 @@ td {
     background-color: rgb(184, 199, 201);
     width: 100%;
   }
-  
+
 }
 
 .acciones {
@@ -174,6 +176,7 @@ tr .menu-button {
 /* Contenedor datos perfil principal */
 .popup-content-profile,
 .popup-content-profile-edit {
+  width: 400px;
   position: fixed;
   background: #1c1c1c;
   padding: 30px;
@@ -186,15 +189,6 @@ tr .menu-button {
 }
 
 /* Cabecera */
-.popup-content-profile .header {
-  display: grid;
-  align-items: center;
-  background: var(--gray);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  text-align: center;
-}
 
 
 .header .img {
@@ -244,7 +238,7 @@ tr .menu-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s;
+  transition: background 0.5s;
   cursor: pointer;
 }
 
@@ -282,18 +276,26 @@ tr .menu-button {
 
 
 .btns .btn {
-  margin-right: 8px;
+  margin-top: 10px;
   background: var(--gray);
   color: var(--white);
   border: 2px solid var(--black);
   border-radius: 25px;
   font-size: 0.9em;
   padding: 10px;
-  margin-bottom: 15px;
+
 }
 
 .btns .btn:hover {
   background-color: var(--red);
+}
+
+.error-message {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(255, 0, 0, 0.687);
+  transform: translateY(2.3rem);
+  position: absolute;
 }
 
 @media (max-width: 768px) {
@@ -321,6 +323,10 @@ tr .menu-button {
   .menu-options {
     right: auto;
     padding: 4px;
+  }
+
+  .popup-content-profile-edit {
+    width: 70%;
   }
 }
 
@@ -371,7 +377,9 @@ tr .menu-button {
   th,
   td {
     padding: 4px;
+
   }
+
 }
 
 .alert-container {
@@ -393,7 +401,7 @@ tr .menu-button {
   color: white;
   border-radius: 5px;
   font-weight: bold;
-  background-color: var(--green);
+  background-color: var(--red);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
@@ -404,7 +412,7 @@ tr .menu-button {
   margin-right: 10px;
 }
 
-.alert-warnin {
+.alert-conf {
   display: flex;
   align-items: center;
   padding: 15px;
@@ -412,13 +420,13 @@ tr .menu-button {
   color: white !important;
   border-radius: 5px;
   font-weight: bold;
-  background-color: #d5a30e;
+  background-color: var(--green);
   color: #333;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
 
-.alert-warnin .icon {
+.alert-conf .icon {
   width: 30px;
   margin-right: 10px;
 }
