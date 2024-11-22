@@ -8,13 +8,14 @@
   </div>
   
 
-  <button class="btnA" type="button" (click)="espacio()">Agregar Espacio</button>
+  <button class="btnA" type="button" (click)="espacioss()">Agregar Espacio</button>
 
   <table *ngIf="espacios.length > 0">
     <thead>
       <tr>
         <th>Nombre del Espacio</th>
         <th>Estado</th>
+        <th>Total</th>
         <th class="puntos"></th>
       </tr>
     </thead>
@@ -22,10 +23,12 @@
       <tr *ngFor="let espacio of espacios; let i = index">
         <td>{{ espacio.nombre }}</td>
         <td>{{ espacio.estado }}</td>
+        <td>{{espacio.total}}</td>
         <td class="acciones">
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="editarEspacio(espacio)">Editar</button>
               <button (click)="eliminarEspacio(espacio)">Eliminar</button>
             </div>
           </div>
@@ -38,16 +41,16 @@
     <div class="popup-content-profile-edit">
       <div class="description">
         <form [formGroup]="espacioForm">
-          <label for="nombre">Nombre del Espacio:</label>
-          <input type="text" id="nombre" formControlName="nombre" required>
-          <div *ngIf="espacioForm.get('nombre')?.hasError('required') && espacioForm.get('nombre')?.touched"
+          <label for="total">Total de espacios:</label>
+          <input type="number" id="total" formControlName="total" required>
+          <div *ngIf="espacioForm.get('total')?.hasError('required') && espacioForm.get('total')?.touched"
             class="error-message">
-            Ingrese un nombre para el espacio.
+            Ingrese un numero de espacios.
           </div>
 
           <div class="btns">
-            <button class="btn" (click)="agregarEspacio()">Agregar</button>
-            <button class="btn" (click)="espacio()">Cerrar</button>
+            <button class="btn" (click)="agregarEspacio()">Actualizar</button>
+            <button class="btn" (click)="espacioss()">Cerrar</button>
           </div>
 
         </form>

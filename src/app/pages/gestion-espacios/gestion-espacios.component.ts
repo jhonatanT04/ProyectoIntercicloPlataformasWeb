@@ -14,8 +14,8 @@ import { Espacio } from '../../models/espacio';
 })
 export class GestionEspaciosComponent implements OnInit {
 
-  espaciosTotales: number = 0; 
-  espaciosDisponibles: number = 0; 
+  espaciosTotales: number = 0;
+  espaciosDisponibles: number = 0;
 
   tipo = ''
   nombre = ''
@@ -23,8 +23,10 @@ export class GestionEspaciosComponent implements OnInit {
   espacios: any = []
   espaciosMostrar = false
 
+  espacioSeleccionado: any = null;
+
   espacioForm = new FormGroup({
-    nombre: new FormControl('', [Validators.required])
+    total: new FormControl('', [Validators.required])
   });
   constructor(private espacioS: AdministradoresServiceService) { }
   ngOnInit(): void {
@@ -33,13 +35,13 @@ export class GestionEspaciosComponent implements OnInit {
 
   cargarEs() {
     this.espacios = this.espacioS.cargarEspacios()
-    this.calcularEspaciosDisponibles() 
-    this.cargarEspaciosTotales() 
+    this.calcularEspaciosDisponibles()
+    this.cargarEspaciosTotales()
   }
 
   calcularEspaciosDisponibles() {
     this.espaciosDisponibles = this.espacios.filter((espacio: any) => espacio.estado === 'D').length;
-  }  
+  }
 
 
   guardarEspaciosTotales() {
@@ -51,28 +53,45 @@ export class GestionEspaciosComponent implements OnInit {
     this.espaciosTotales = guardados ? parseInt(guardados, 10) : 0;
   }
 
+  seleccionarEspacio(espacio: any) {
+    this.espacioSeleccionado = espacio; // Guardar el espacio seleccionado
+    this.espacioForm.patchValue({ total: espacio.total }); // Prellenar el formulario
+    this.espaciosMostrar = true; // Mostrar el formulario
+    this.espacioss() 
+  }
+
+
+  editarEspacio(espacio: any) {
+    this.seleccionarEspacio(espacio);
+    this.espacioss(); // Cambiar la visibilidad del formulario
+  }
   
   agregarEspacio() {
-  const totalEspaciosActuales = this.espacios.length; // Espacios actuales en uso (ocupados + disponibles)
+    //const totalEspaciosActuales = this.espacios.reduce((total: number, espacio: any) => total + espacio.total, 0);
+    //console.log(totalEspaciosActuales)
+    const totalEspaciosActuales = this.espacios?.length || 0; 
+    if (totalEspaciosActuales >= this.espaciosTotales) {
+      this.alertError('No se pueden agregar más espacios. Aumente los espacios totales primero.');
+      return;
+    }
+    if (this.espacioForm.valid && this.espacioSeleccionado) {
+      const nuevoTotal = parseInt(this.espacioForm.get('total')?.value || '', 10) || 0;
 
-  if (totalEspaciosActuales >= this.espaciosTotales) {
-    this.alertError('No se pueden agregar más espacios. Aumente los espacios totales primero.');
-    return;
+      if (isNaN(nuevoTotal) || nuevoTotal < 0) {
+        this.alertError('El total debe ser un número válido y mayor o igual a 0.');
+        return;
+      }
+      this.espacioS.actualizarEspacio(this.espacioSeleccionado.nombre, nuevoTotal);
+      this.cargarEs();
+      this.espaciosMostrar = false;
+      this.espacioForm.reset();
+      this.alertError('El total del espacio se actualizó correctamente.');
+    } else {
+      this.espacioForm.markAllAsTouched();
+      this.alertError('Por favor, complete el formulario correctamente.');
+    }
   }
 
-  if (this.espacioForm.valid) {
-    const nuevoEspacio = new Espacio(
-      this.espacioForm.get('nombre')?.value || '',
-      'D' 
-    );
-    this.espacioS.agregarEspacio(nuevoEspacio);
-    this.cargarEs();
-    this.espacioForm.reset();
-    this.alertError('Se agregó correctamente');
-  } else {
-    this.espacioForm.markAllAsTouched();
-  }
-}
 
   menuVisibleIndex: number | null = null;
 
@@ -80,7 +99,7 @@ export class GestionEspaciosComponent implements OnInit {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
 
-  espacio() {
+  espacioss() {
     this.espaciosMostrar = !this.espaciosMostrar
   }
   eliminarEspacio(espacio: any) {

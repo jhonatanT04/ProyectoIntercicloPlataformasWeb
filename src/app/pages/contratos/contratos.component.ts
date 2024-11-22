@@ -91,11 +91,8 @@ export class ContratosComponent implements OnInit {
 
   agregarContrato() {
     if (this.contratoForm.valid) {
-      const duracion = parseFloat(this.contratoForm.get('duracion')?.value || '') ?? 0;
-      const tarifa = parseFloat(this.contratoForm.get('tarifa')?.value || '') ?? 0;
       const nombre = this.contratoS.buscarAdminPorEmail(this.email1 || '')?.nombre || '';
       const per = this.userS.buscarUsuarioPorEmail(this.contratoForm.get('cliente')?.value || '');
-
       if (per) {
         const cliente = new Persona(
           per.email,
@@ -105,10 +102,8 @@ export class ContratosComponent implements OnInit {
           per.numeroTelefonico,
           per.direccion,
           per.codigo,
-          
           per.rolAdministrativo
         );
-
         const contrato = new Contrato(
           cliente,
           this.contratoForm.get('espacio')?.value || '',
@@ -117,17 +112,29 @@ export class ContratosComponent implements OnInit {
           new Date(this.contratoForm.get('fechaInicio')?.value || ''),
           new Date(this.contratoForm.get('fechaFin')?.value || '')
         );
-
-        this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
-        this.cargarContratos();
-        this.contratoForm.reset()
-        this.alertConfirm("Se ingreso correctamente")
+        const espacioSeleccionado = this.espacios.find(
+          (e: any) => e.nombre === this.contratoForm.get('espacio')?.value
+        );
+        if (espacioSeleccionado && espacioSeleccionado.total > 0) {
+          espacioSeleccionado.total -= 1;
+          this.contratoS.actualizarEspacio(espacioSeleccionado.nombre, espacioSeleccionado.total);
+          this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
+          this.cargarContratos();
+          this.filtrarEspacios();
+          this.contratoForm.reset();
+  
+          this.alertConfirm("Contrato agregado correctamente.");
+        } else {
+          this.alertError("No hay espacios disponibles en el seleccionado.");
+        }
       }
     } else {
       this.contratoForm.markAllAsTouched();
-      this.alertError("No se insegro corecctamente")
+      this.alertError("No se ingresó correctamente.");
     }
   }
+  
+  
 
   eliminarContrato(contrato: any) {
     this.contratoS.eliminarContrato(contrato)

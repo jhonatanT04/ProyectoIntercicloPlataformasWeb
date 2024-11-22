@@ -11,7 +11,7 @@
     margin-bottom: 20px;
 }
 
-.gestion-espacios input[type="text"],
+.gestion-espacios input[type="number"],
 .gestion-espacios select {
     padding: 10px;
     margin-bottom: 15px;
@@ -312,7 +312,7 @@ tr .menu-button {
     text-align: left;
 }
 
-.popup-content-profile-edit .description input[type="text"] {
+.popup-content-profile-edit .description input[type="number"] {
     width: 90%;
     padding: 8px 10px;
     margin-top: 5px;
@@ -323,7 +323,7 @@ tr .menu-button {
     font-size: 0.9em;
 }
 
-.popup-content-profile-edit .description input[type="text"]+br {
+.popup-content-profile-edit .description input[type="number"]+br {
     display: none;
 }
 

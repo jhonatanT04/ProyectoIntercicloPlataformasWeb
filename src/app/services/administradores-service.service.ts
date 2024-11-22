@@ -12,56 +12,8 @@ export class AdministradoresServiceService {
 
   listaAdministradores: Persona[] = [];
   listaEspacios: Espacio[] = [
-    { nombre: 'Espacio 1', estado: 'D' },
-    { nombre: 'Espacio 2', estado: 'D' },
-    { nombre: 'Espacio 3', estado: 'D' },
-    { nombre: 'Espacio 4', estado: 'D' },
-    { nombre: 'Espacio 5', estado: 'D' },
-    { nombre: 'Espacio 6', estado: 'D' },
-    { nombre: 'Espacio 7', estado: 'D' },
-    { nombre: 'Espacio 8', estado: 'D' },
-    { nombre: 'Espacio 9', estado: 'D' },
-    { nombre: 'Espacio 10', estado: 'D' },
-    { nombre: 'Espacio 11', estado: 'D' },
-    { nombre: 'Espacio 12', estado: 'D' },
-    { nombre: 'Espacio 13', estado: 'D' },
-    { nombre: 'Espacio 14', estado: 'D' },
-    { nombre: 'Espacio 15', estado: 'D' },
-    { nombre: 'Espacio 16', estado: 'D' },
-    { nombre: 'Espacio 17', estado: 'D' },
-    { nombre: 'Espacio 18', estado: 'D' },
-    { nombre: 'Espacio 19', estado: 'D' },
-    { nombre: 'Espacio 20', estado: 'D' },
-    { nombre: 'Espacio 21', estado: 'D' },
-    { nombre: 'Espacio 22', estado: 'D' },
-    { nombre: 'Espacio 23', estado: 'D' },
-    { nombre: 'Espacio 24', estado: 'D' },
-    { nombre: 'Espacio 25', estado: 'D' },
-    { nombre: 'Espacio 26', estado: 'D' },
-    { nombre: 'Espacio 27', estado: 'D' },
-    { nombre: 'Espacio 28', estado: 'D' },
-    { nombre: 'Espacio 29', estado: 'D' },
-    { nombre: 'Espacio 30', estado: 'D' },
-    { nombre: 'Espacio 31', estado: 'D' },
-    { nombre: 'Espacio 32', estado: 'D' },
-    { nombre: 'Espacio 33', estado: 'D' },
-    { nombre: 'Espacio 34', estado: 'D' },
-    { nombre: 'Espacio 35', estado: 'D' },
-    { nombre: 'Espacio 36', estado: 'D' },
-    { nombre: 'Espacio 37', estado: 'D' },
-    { nombre: 'Espacio 38', estado: 'D' },
-    { nombre: 'Espacio 39', estado: 'D' },
-    { nombre: 'Espacio 40', estado: 'D' },
-    { nombre: 'Espacio 41', estado: 'D' },
-    { nombre: 'Espacio 42', estado: 'D' },
-    { nombre: 'Espacio 43', estado: 'D' },
-    { nombre: 'Espacio 44', estado: 'D' },
-    { nombre: 'Espacio 45', estado: 'D' },
-    { nombre: 'Espacio 46', estado: 'D' },
-    { nombre: 'Espacio 47', estado: 'D' },
-    { nombre: 'Espacio 48', estado: 'D' },
-    { nombre: 'Espacio 49', estado: 'D' },
-    { nombre: 'Espacio 50', estado: 'D' }
+    { nombre: 'Auto', estado: 'D',total: 30},
+    { nombre: 'Moto', estado: 'D',total: 20}
   ];
   
   listaContratos: any = [];
@@ -121,8 +73,8 @@ export class AdministradoresServiceService {
 
   guardar() {
     localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
-    localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios))
-    localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa))
+    //localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios))
+    //localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa))
   }
   
   nuevoAdmi(adminstrador: Persona) {
@@ -201,12 +153,31 @@ export class AdministradoresServiceService {
     return this.listaEspacios;
   }
 
+  actualizarEspacio(nombre: string, nuevoTotal: number) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaEspacios = this.cargarEspacios(); 
+      const espacio = this.listaEspacios.find((e: any) => e.nombre === nombre);
+  
+      if (espacio) {
+        espacio.total = nuevoTotal;
+  
+        if (nuevoTotal === 0) {
+          espacio.estado = "O"; 
+        } else if (nuevoTotal > 0) {
+          espacio.estado = "D"; 
+        }
+  
+        localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
+      }
+    }
+  } 
+  
   agregarContrato(contrato: Contrato, nombreE: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaContratos.push(contrato);
       localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
 
-      if (!this.listaEspacios || this.listaEspacios.length === 0) {
+      /*if (!this.listaEspacios || this.listaEspacios.length === 0) {
         this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
       }
 
@@ -214,7 +185,7 @@ export class AdministradoresServiceService {
       if (espacio) {
         espacio.estado = 'O';
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
-      }
+      }*/
     }
     this.cargarContratos()
   }

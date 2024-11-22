@@ -59,7 +59,7 @@
                         <select id="espacio" formControlName="espacio">
                             <option value="" disabled selected>Seleccione un espacio</option>
                             <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}
-                                {{espacio.tipo}}</option>
+                                {{espacio.total}}</option>
                         </select>
                         <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
                             class="error-message">

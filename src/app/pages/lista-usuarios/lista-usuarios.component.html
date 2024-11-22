@@ -8,6 +8,7 @@
           <th>Apellido</th>
           <th>Correo Electrónico</th>
           <th>Teléfono</th>
+          <th>Rol</th>
           <th class="puntos"></th>
         </tr>
       </thead>
@@ -17,6 +18,7 @@
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.numeroTelefonico }}</td>
+          <td>{{ cliente.rolAdministrativo ? 'Admin' : 'Cliente' }}</td> 
           <td class="acciones">
             <div class="menu-container">
               <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
