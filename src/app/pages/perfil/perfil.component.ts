@@ -46,4 +46,11 @@ export class PerfilComponent implements OnInit{
     this.ActualizarPerfil = false
     this.cargarCli()
   }
+
+  cerrarSeccion() {
+    this.correoS.logout().then(() =>
+      this.router.navigate(['pages/login'])
+    ).catch(error => console.log(error))
+
+  }
 }

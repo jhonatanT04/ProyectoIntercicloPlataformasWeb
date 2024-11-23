@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -32,16 +32,28 @@ p {
     font-size: 36px;
     font-weight: 600;
 }
-.card-client{
+
+.card-client {
     width: 450px;
     height: auto;
     padding: 32px;
     border-radius: 12px;
-    margin: auto ;
+    margin: auto;
     background-color: #1e2023;
 }
+
+.card-client svg.icon-perfil {
+    background-color: #2d3e50;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    display: block;
+    padding: 15px;
+}
+
 .card-client h2 {
-    background-color:#777;
+    background-color: #777;
     border-radius: 12px;
     padding: 0 30px;
     font-size: 26px;
@@ -66,23 +78,39 @@ table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
+    background-color: var(--gray);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 th,
 td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #2d3e50;
+    border: none;
+    background-color: #2b2e33;
     color: white;
 }
 
-tbody tr:hover {
-    background-color: #f2f2f2;
+th {
+    background-color: var(--black);
+    color: var(--white);
+    font-weight: bold;
 }
+
+tbody tr:hover {
+    background-color: var(--white);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--white);
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--white);
+}
+
 
 button {
     padding: 10px 20px;
@@ -95,12 +123,14 @@ button {
     margin-top: 20px;
     transition: all 0.5s;
 }
-.botns{
+
+.botns {
     text-align: center;
     justify-content: center;
 }
+
 button:hover {
-    background-color:var(--blue);
+    background-color: var(--blue);
 }
 
 .modal {
@@ -137,11 +167,12 @@ button:hover {
 @media screen and (max-width: 768px) {
     .hader-main h2 {
         width: 300px;
-    }    
+    }
+
     .card-client {
         width: 90%;
         padding: 15px;
-        
+
     }
 
     .card-client h2 {
@@ -160,4 +191,3 @@ button:hover {
         width: 100%;
     }
 }
-

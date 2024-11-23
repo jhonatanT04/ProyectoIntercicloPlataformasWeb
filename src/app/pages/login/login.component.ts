@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.admin.cargarAdmi() 
+    this.admin.cargarContratos() 
   }
   iniciarSecion() {
     if (this.form.valid) {
