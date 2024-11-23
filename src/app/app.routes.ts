@@ -16,11 +16,14 @@ import { RegistroGoogleComponent } from './components/registro-google/registro-g
 export const routes: Routes = [
     {
         path: 'pages/usuarios',
-        component: UsuariosComponent
+        component: UsuariosComponent,
+        
     },
     {
         path: 'components/registro-google',
-        component: RegistroGoogleComponent
+        canActivate:[guardsAuthGuard],
+        loadComponent:()=>import('./components/registro-google/registro-google.component')
+        .then(comp=> comp.RegistroGoogleComponent),
     },
     // {
     //     path: 'pages/administrador',

@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit{
   iniciarSecion() {
     if (this.form.valid) {
       const usuario = this.form.value as User;
-      
       this.loginService.login(usuario)
         .then(persona => {
+          console.log(persona)
           if (persona?.rolAdministrativo) {
             this.router.navigate(['/pages/administrador']);  
           } else {
@@ -86,7 +86,13 @@ export class LoginComponent implements OnInit{
         if(persona?.rolAdministrativo===true){
           this.router.navigate(['/pages/administrador'])
         }else{
-          this.router.navigate(['/pages/perfil'])
+          console.log(persona)
+          if(persona){
+            this.router.navigate(['/pages/perfil'])
+          }else{
+            this.router.navigate(['/components/registro-google'])
+          }
+
         }
       }
     }).catch((error) => {

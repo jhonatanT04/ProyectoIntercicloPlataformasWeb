@@ -27,7 +27,6 @@ export class PerfilComponent implements OnInit{
   ngOnInit(): void {
     this.cargarCli() 
   }
-
   cargarCli(){
     this.correo = this.correoS.getInfo()?.email || ''
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''

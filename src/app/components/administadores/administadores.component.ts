@@ -28,14 +28,12 @@ export class AdministadoresComponent implements OnInit {
   adminS = inject(AdministradoresServiceService)
   userS = inject(UsuariosServiceService)
   name = ''
-  email = 'supermercadobasedatos@gmail.com'
+  email = ''
   cdRef=inject(ChangeDetectorRef)
 
   ngOnInit(): void {
-    //this.email = this.authServicio.getInfo()?.email || '';
+    this.email = this.authServicio.getInfo()?.email || '';
     this.name = this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
-    this.actualizarPerfil()
-    
   }
 
   
@@ -44,7 +42,6 @@ export class AdministadoresComponent implements OnInit {
     this.authServicio.logout().then(() =>
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
-
   }
   agrandar() {
     this.isSize = !this.isSize;
@@ -92,6 +89,13 @@ export class AdministadoresComponent implements OnInit {
   perfilDatosView = false
   redireccionarPerfil() {
     this.perfilDatosView = !this.perfilDatosView;
+    this.formAdmin = new FormGroup({
+      name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
+      numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required, Validators.minLength(10)]),
+      addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
+      codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required, Validators.minLength(10)]),
+    })
   }
   editPerfil = false
   editarPerfil() {
