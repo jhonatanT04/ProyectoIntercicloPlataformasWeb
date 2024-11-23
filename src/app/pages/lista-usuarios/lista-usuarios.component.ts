@@ -24,6 +24,10 @@ export class ListaUsuariosComponent implements OnInit {
     addres: new FormControl('', [Validators.required]),
     codeZip: new FormControl('', [Validators.required]),
   })
+
+  editarFormR = new FormGroup({
+    rol: new FormControl('', [Validators.required])
+  })
   ngOnInit(): void {
     this.cargarClientes()
   }
@@ -48,6 +52,18 @@ export class ListaUsuariosComponent implements OnInit {
       })
     }
   }
+
+  seleccionarClienteRol(email: string) {
+    this.clienteSeleccionado = true;
+    const cliente = this.clientes.find(cli => cli.email === email);
+    if (cliente) {
+      this.clienteTemp = cliente;
+      this.editarFormR = new FormGroup({
+        rol: new FormControl(this.clienteTemp.rolAdministrativo.toString(), [Validators.required])
+      });
+    }
+  }
+
 
   actualizarCliente() {
 
@@ -80,6 +96,27 @@ export class ListaUsuariosComponent implements OnInit {
       this.alertError('Complete los campos')
     }
   }
+  editarR = false
+  editarrR() {
+    this.editarR = !this.editarR
+  }
+  actualizarRol() {
+    if (this.editarFormR.valid) {
+      const rolA = this.editarFormR.get('rol')?.value;
+      const rolBooleano = rolA === 'true';  
+
+      const actualizado = this.clienteS.actualizarUsuarioRol(this.clienteTemp.email, rolBooleano);
+      if (actualizado) {
+        this.alertConfirm('Rol actualizado correctamente');
+        this.cargarClientes()
+        this.editarrR()
+      } else {
+        this.alertError('Error: Cliente no encontrado');
+      }
+    }
+  }
+
+
   editarF = false
   editarrF() {
     this.editarF = !this.editarF
@@ -99,7 +136,7 @@ export class ListaUsuariosComponent implements OnInit {
     setTimeout(() => {
       this.textError = ''
       this.showDangerAlert = false;
-    },5000);
+    }, 5000);
   }
 
 
@@ -111,6 +148,6 @@ export class ListaUsuariosComponent implements OnInit {
     setTimeout(() => {
       this.textConfirm = ''
       this.showConfirmAlert = false;
-    },5000);
+    }, 5000);
   }
 }

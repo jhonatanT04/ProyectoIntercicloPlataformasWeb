@@ -212,16 +212,18 @@ export class AdministradoresServiceService {
         if (!this.listaEspacios || this.listaEspacios.length === 0) {
           this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
         }
-
+  
         const espacio = this.listaEspacios.find((e: any) => e.nombre === contrato.nombreE);
         if (espacio) {
+          espacio.total = (espacio.total || 0) + 1;
           espacio.estado = 'D';
           localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
         }
-        this.cargarContratos() 
+        this.cargarContratos();
       }
     }
   }
+  
 
   cargarContratos() {
     if (isPlatformBrowser(this.platformId)) {

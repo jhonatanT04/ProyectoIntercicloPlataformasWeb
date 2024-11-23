@@ -97,9 +97,9 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    border: 1px solid var(--gray); 
-    border-radius: 10px; 
-    overflow: hidden; 
+    border: none; 
+    border-radius: 6px; 
+    overflow: visible; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -149,7 +149,7 @@ td {
 }
 
 .menu-button {
-    background: none;
+    
     border: none;
     font-size: 1.2em;
     cursor: pointer;
@@ -173,8 +173,8 @@ tr .menu-button {
     position: absolute;
     top: 20px;
     right: 0;
-    background-color: var(--white);
-    box-shadow: 0 4px 8px var(--black);
+    background-color: var(--white); 
+    box-shadow: 0 4px 8px var(--black); 
     border-radius: 5px;
     padding: 5px;
     z-index: 10;
@@ -187,7 +187,7 @@ tr .menu-button {
     text-align: left;
     width: 100%;
     cursor: pointer;
-    color: var(--black);
+    color: var(--black); 
 }
 
 .menu-options button:hover {

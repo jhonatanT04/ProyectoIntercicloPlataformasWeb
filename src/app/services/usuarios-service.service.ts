@@ -69,5 +69,21 @@ export class UsuariosServiceService {
     }
     return false;
   }
+
+  actualizarUsuarioRol(email: string, nuevoRol: boolean): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaUsuarios = this.cargarUsuario();
+      const index = this.listaUsuarios.findIndex(usuario => usuario.email === email);
+      
+      if (index !== -1) {
+        this.listaUsuarios[index].rolAdministrativo = nuevoRol; 
+        localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios));
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  
   
 }

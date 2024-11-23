@@ -23,6 +23,7 @@
             <div class="menu-container">
               <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
               <div class="menu-options" *ngIf="menuVisibleIndex === i">
+                <button (click)="editarrR(); seleccionarClienteRol(cliente.email)">Rol</button>
                 <button (click)="seleccionarCliente(cliente.email); editarrF();toggleMenu(i)">Editar</button>
               </div>
             </div>
@@ -88,7 +89,43 @@
         </form>
       </div>
     </div>
-    <div class="alert-container"  *ngIf="showDangerAlert">
+    <div class="alert-container" *ngIf="showDangerAlert">
+      <div *ngIf="showDangerAlert" class="alert-danger">
+        <svg viewBox="0 0 24 24" class="icon">
+          <path fill="currentColor"
+            d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+        </svg>
+        {{textError}}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="editarR" class="popup-overlay-profile">
+    <div class="popup-content-profile-edit">
+      <div class="description">
+        <h3>Editar Cliente</h3>
+        <form [formGroup]="editarFormR">
+
+          <div>
+            <label for="rol">Rol:</label>
+            <select id="rol" formControlName="rol">
+              <option value="" disabled selected>Seleccione un rol</option>
+              <option value="true">Administrador</option>
+              <option value="false">Cliente</option>
+            </select>
+            <div *ngIf="editarFormR.get('rol')?.hasError('required') && editarFormR.get('rol')?.touched" class="error-message">
+              Seleccione un rol.
+            </div>
+          </div>
+    
+          <div class="btns">
+            <button class="btn" type="submit" (click)="actualizarRol()">Actualizar Rol</button>
+            <button class="btn" (click)="editarrR()">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="alert-container" *ngIf="showDangerAlert">
       <div *ngIf="showDangerAlert" class="alert-danger">
         <svg viewBox="0 0 24 24" class="icon">
           <path fill="currentColor"
@@ -103,12 +140,12 @@
 
 <div class="alert-container">
   <div *ngIf="showConfirmAlert" class="alert-conf">
-    <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25"
-        height="25" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-        <path
-            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25" height="25" fill="currentColor"
+      class="bi bi-check-lg" viewBox="0 0 16 16">
+      <path
+        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
     </svg>
     {{textConfirm}}
-</div>
+  </div>
 
 </div>

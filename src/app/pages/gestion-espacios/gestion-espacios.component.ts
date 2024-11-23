@@ -36,9 +36,13 @@ export class GestionEspaciosComponent implements OnInit {
   });
   constructor(private espacioS: AdministradoresServiceService) { }
   ngOnInit(): void {
-    this.cargarEs()
+    this.cargarEspaciosTotales(); 
+    if (this.espaciosTotales === 0) {
+      this.espaciosTotales = 50;
+      this.guardarEspaciosTotales(); 
+    }
+    this.cargarEs();
   }
-
   cargarEs() {
     this.espacios = this.espacioS.cargarEspacios()
     this.calcularEspaciosDisponibles()
@@ -144,10 +148,18 @@ export class GestionEspaciosComponent implements OnInit {
     this.espaciosMostrarAgregar =!this.espaciosMostrarAgregar
   }
   eliminarEspacio(espacio: any) {
-    this.espacioS.eliminarEspacio(espacio)
-    this.cargarEs()
+      const listaContratos = this.espacioS.cargarContratos();
+      const espacioAsociado = listaContratos.some((contrato: any) => contrato.espacio.id === espacio.id);
+  
+      if (espacioAsociado) {
+        this.alertError('No se puede eliminar el espacio porque está asociado a un contrato.');
+      } else {
+        this.espacioS.eliminarEspacio(espacio);
+        this.cargarEs();
+      }
+    
   }
-
+  
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {

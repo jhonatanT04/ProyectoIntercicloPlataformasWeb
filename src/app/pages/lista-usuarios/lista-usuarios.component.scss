@@ -259,7 +259,8 @@ tr .menu-button {
   text-align: left;
 }
 
-.popup-content-profile-edit .description input[type="text"] {
+.popup-content-profile-edit .description input[type="text"],
+.popup-content-profile-edit .description select {
   width: 90%;
   padding: 8px 10px;
   margin-top: 5px;
@@ -270,7 +271,8 @@ tr .menu-button {
   font-size: 0.9em;
 }
 
-.popup-content-profile-edit .description input[type="text"]+br {
+.popup-content-profile-edit .description input[type="text"]+br,
+.popup-content-profile-edit .description select+br {
   display: none;
 }
 
