@@ -46,8 +46,10 @@
 
 .totales-disponibles {
     display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
     align-items: center;
-    gap: 1.5rem; 
+    gap: 1rem; 
     margin-bottom: 1.5rem; 
     padding: 15px; 
     background-color: #f9f9f9; 
@@ -63,11 +65,12 @@ label.totales {
 
 .totales-disponibles .total {
     background-color: white;
-    width: 90px; 
+    width: 100%; 
+    max-width: 90px; 
     padding: 8px 12px;
-    font-size: 1.1rem;
-    border:none;
-    border-bottom: 1px solid var(--gray) ;
+    font-size: 1rem; 
+    border: none;
+    border-bottom: 1px solid var(--gray);
     border-radius: 6px;
     transition: border-color 0.3s, box-shadow 0.3s ease;
 }
@@ -99,6 +102,41 @@ span.total-s {
     color: var(--gray); 
     font-style: normal; 
 }
+
+@media (max-width: 768px) {
+    .totales-disponibles {
+        flex-direction: column; 
+        gap: 0.8rem; 
+    }
+
+    .totales-disponibles .total,
+    button.total-b {
+        width: 50%; 
+        font-size: 0.9rem; 
+    }
+
+    label.totales {
+        font-size: 1rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    .totales-disponibles {
+        padding: 10px; 
+        gap: 0.5rem;
+    }
+
+    .totales-disponibles .total,
+    button.total-b {
+        font-size: 0.8rem; 
+        padding: 6px 10px; 
+    }
+
+    label.totales {
+        font-size: 0.9rem; 
+    }
+}
+
 
 input.error,
 select.error {
@@ -156,9 +194,6 @@ td {
     border-bottom: 1px solid #e0e0e0;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
-
 
 .acciones {
     position: relative;
