@@ -137,7 +137,40 @@ td {
 }
 
 
-
+@media (max-width: 768px) {
+    table {
+      width: 100%;
+    }
+  
+    thead {
+      display: block;
+    }
+  
+    tr {
+      display: block;
+      margin: 0;
+      border-radius: 12px;
+    }
+  
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 5px;
+  
+    }
+  
+    td::before {
+      font-weight: bold;
+      text-transform: uppercase;
+      flex-basis: 50%;
+    }
+  
+    .acciones {
+      justify-content: center;
+      background-color: rgb(184, 199, 201);
+    }
+  
+  }
 
 .acciones {
     position: relative;
