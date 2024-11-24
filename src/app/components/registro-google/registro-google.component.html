@@ -35,12 +35,12 @@
 
                 <div>
                     <label for="numberPhone">Numero celular/telefono</label><br>
-                    <div *ngIf="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"
+                    <div *ngIf="(form.get('numberPhone')?.hasError('pattern'))||(form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched)"
                         class="error-message">
                         El numero invalido.
                     </div>
                     <input matInput formControlName="numberPhone" required
-                        [class.is-danger]="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"><br>
+                        [class.is-danger]="(form.get('numberPhone')?.hasError('pattern'))||(form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched)"><br>
                 </div>
 
                 <div>
@@ -54,12 +54,12 @@
                 </div>
                 <div>
                     <label for="codeZip">Numero de cedula </label><br>
-                    <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"
+                    <div *ngIf="(form.get('codeZip')?.hasError('pattern'))||(form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched)"
                         class="error-message">
                         El numero de cedula es invalido.
                     </div>
                     <input matInput formControlName="codeZip" required
-                        [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"><br>
+                        [class.is-danger]="(form.get('codeZip')?.hasError('pattern'))||(form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched)"><br>
                 </div>
             </div>
 

@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit{
         if(persona?.rolAdministrativo===true){
           this.router.navigate(['/pages/administrador'])
         }else{
-          console.log(persona)
           if(persona){
             this.router.navigate(['/pages/perfil'])
           }else{

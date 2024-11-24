@@ -14,15 +14,15 @@
             <input type="text" id="apellido" formControlName="apellido" [class.is-danger]="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched">
             <div *ngIf="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched"
                 class="error-message">
-                El apellido es obligatorio.
+                El apellido es inválido.
             </div>
         </div>
         <div class="items-form"> 
             <label for="numeroTelefonico">Telefono:</label><br/>
             <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico"  [class.is-danger]="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched">
-            <div *ngIf="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched"
+            <div *ngIf="(perfilForm.get('numeroTelefonico')?.hasError('pattern'))||perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched"
                 class="error-message">
-                El teléfono es obligatorio.
+                El teléfono es invalido.
             </div>
         </div>
 
@@ -38,9 +38,9 @@
         <div class="items-form">
             <label for="codigo">Codigo:</label><br/>
             <input type="text" id="codigo" formControlName="codigo"  [class.is-danger]="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched">
-            <div *ngIf="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched"
+            <div *ngIf="(perfilForm.get('codigo')?.hasError('pattern'))||perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched"
                 class="error-message">
-                El código es obligatorio.
+                El código es inválido.
             </div>
         </div>
         <button type="submit" [disabled]="perfilForm.invalid" (click)="actualizar()">Actualizar</button>

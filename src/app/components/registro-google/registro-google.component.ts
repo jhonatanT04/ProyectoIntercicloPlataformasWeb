@@ -26,10 +26,10 @@ export class RegistroGoogleComponent {
 
   form = new FormGroup({
     name: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[0], [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[1], [Validators.required,Validators.minLength(2)]),
-    numberPhone: new FormControl(this.servicioAuthetication.getInfo()?.phoneNumber, [Validators.required]),
+    lastName: new FormControl(this.servicioAuthetication.getInfo()?.displayName?.split(" ")[1], [Validators.required,Validators.minLength(2)],),
+    numberPhone: new FormControl(this.servicioAuthetication.getInfo()?.phoneNumber, [Validators.required,Validators.pattern(/^\d{10}$/)]),
     addres: new FormControl('', [Validators.required]),
-    codeZip: new FormControl('', [Validators.required]),
+    codeZip: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
   })
 
   registrarse() {

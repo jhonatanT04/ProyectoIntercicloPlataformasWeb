@@ -12,13 +12,13 @@
             Registrarse
         </h2>
         <p>
-            Registrate ahora para tener mas acceso a la app.
+            Registrate ahora para tener más acceso a la app.
         </p>
         <div class="container-register">
             <div class="item-register">
                 <label for="name">Nombre</label><br>
                 <div *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched" class="error-message">
-                    El nombre invalido.
+                    El nombre inválido.
                 </div>
                 <input placeholder="Ingrese su nombre" class="input-class"
                     [class.is-danger]="form.get('name')?.hasError('required') && form.get('name')?.touched"
@@ -29,34 +29,34 @@
                 <label for="lastName">Apellido</label><br>
                 <div *ngIf="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"
                     class="error-message">
-                    El apellido es requerido.
+                    El apellido es inválido.
                 </div>
                 <input placeholder="Ingrese su apellido" formControlName="lastName" required
                     [class.is-danger]="form.get('lastName')?.hasError('required') && form.get('lastName')?.touched"><br>
             </div>
             <div class="item-register">
                 <label for="codeZip">Numero de cedula </label><br>
-                <div *ngIf="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"
+                <div *ngIf="(form.get('codeZip')?.hasError('pattern'))||(form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched)"
                     class="error-message">
-                    El numero de cedula es invalido.
+                    El numero de cedula es inválido.
                 </div>
                 <input matInput formControlName="codeZip" required
-                    [class.is-danger]="form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched"><br>
+                    [class.is-danger]="(form.get('codeZip')?.hasError('required') && form.get('codeZip')?.touched )||form.get('codeZip')?.hasError('pattern')"><br>
             </div>
             <div class="item-register">
                 <label for="numberPhone">Numero celular/telefono</label><br>
-                <div *ngIf="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"
+                <div *ngIf="(form.get('numberPhone')?.hasError('pattern'))||(form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched)"
                     class="error-message">
-                    El numero invalido.
+                    El número es inválido.
                 </div>
                 <input matInput formControlName="numberPhone" required
-                    [class.is-danger]="form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched"><br>
+                    [class.is-danger]="(form.get('numberPhone')?.hasError('required') && form.get('numberPhone')?.touched )||form.get('numberPhone')?.hasError('pattern')"><br>
             </div >
             <div class="item-register">
                 <label for="addres">Direccion</label><br>
                 <div *ngIf="form.get('addres')?.hasError('required') && form.get('addres')?.touched"
                     class="error-message">
-                    Direccion invalido.
+                    Direccion inválido.
                 </div>
                 <input matInput placeholder="Direccion, nombre edificio.etc" formControlName="addres" required
                     [class.is-danger]="form.get('addres')?.hasError('required') && form.get('addres')?.touched"><br>

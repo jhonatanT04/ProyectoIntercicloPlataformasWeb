@@ -25,9 +25,9 @@ export class UsuariosComponent {
   form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl('', [Validators.required]),
-    numberPhone: new FormControl('', [Validators.required]),
+    numberPhone: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
     addres: new FormControl('', [Validators.required]),
-    codeZip: new FormControl('', [Validators.required]),
+    codeZip: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     passwordRepit: new FormControl('', [Validators.required, Validators.minLength(8)])

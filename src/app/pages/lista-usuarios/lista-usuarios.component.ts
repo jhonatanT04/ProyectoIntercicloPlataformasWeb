@@ -20,9 +20,9 @@ export class ListaUsuariosComponent implements OnInit {
   editarForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl('', [Validators.required]),
-    numberPhone: new FormControl('', [Validators.required]),
+    numberPhone: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
     addres: new FormControl('', [Validators.required]),
-    codeZip: new FormControl('', [Validators.required]),
+    codeZip: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
   })
 
   editarFormR = new FormGroup({

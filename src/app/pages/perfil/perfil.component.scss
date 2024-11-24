@@ -186,10 +186,11 @@ button:hover {
     font-weight: bold;
     color: #aaa;
     cursor: pointer;
+    transition: all 0.5s;
 }
 
 .close:hover {
-    color: #000;
+    color: var(--red);
 }
 
 @media screen and (max-width: 768px) {

@@ -32,9 +32,9 @@ export class ActualizarPerfilComponent implements OnInit{
     this.perfilForm = new FormGroup({
       nombre: new FormControl(this.nombre, Validators.required),
       apellido: new FormControl(this.apellido, Validators.required),
-      numeroTelefonico: new FormControl(this.numeroTelefonico, Validators.required),
+      numeroTelefonico: new FormControl(this.numeroTelefonico, [Validators.required,Validators.pattern(/^\d{10}$/)]),
       direccion: new FormControl(this.direccion, Validators.required),
-      codigo: new FormControl(this.codigo, Validators.required),
+      codigo: new FormControl(this.codigo, [Validators.required,Validators.pattern(/^\d{10}$/)]),
     });
   }
   constructor(private userS:UsuariosServiceService,private loginS:AuthentificServiceService,private contratoS:AdministradoresServiceService){}
