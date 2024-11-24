@@ -50,7 +50,7 @@ export class HorariosComponent implements OnInit {
       this.horarioForm.reset();
       
       this.horarioMostrar = false;
-      this.alertError('Se actualizo correctamente') 
+      this.alertConfirm('Se actualizo correctamente') 
     } else {
       this.horarioForm.markAllAsTouched();
     }
@@ -71,7 +71,7 @@ export class HorariosComponent implements OnInit {
       this.horarioFormA.reset();
       
       this.horarioMostrar = false;
-      this.alertError('Se agrego correctamente') 
+      this.alertConfirm('Se agrego correctamente') 
     } else {
       this.horarioFormA.markAllAsTouched();
     }
@@ -115,23 +115,24 @@ export class HorariosComponent implements OnInit {
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
     setTimeout(() => {
-      this.textError = error
-      this.showDangerAlert = true;
-    }, 4);
-    this.textError = ''
-    this.showDangerAlert = false;
+      this.textError = ''
+      this.showDangerAlert = false;
+    }, 5000);
   }
 
-  textAlert = ''
-  showWarningAlert = false
-  alertWarning(error: string) {
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
     setTimeout(() => {
-      this.textAlert = error
-      this.showWarningAlert = true;
-    }, 4);
-    this.textAlert = ''
-    this.showWarningAlert = false;
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    }, 5000);
   }
   
 }

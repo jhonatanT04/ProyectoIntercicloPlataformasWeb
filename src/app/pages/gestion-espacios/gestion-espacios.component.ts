@@ -99,7 +99,7 @@ export class GestionEspaciosComponent implements OnInit {
       this.cargarEs();
       this.espaciosMostrarActualizar = false;
       this.espacioForm.reset();
-      this.alertWarning('El total del espacio se actualizó correctamente.');
+      this.alertConfirm('El total del espacio se actualizó correctamente.');
     } else {
       this.espacioForm.markAllAsTouched();
       this.alertError('Por favor, complete el formulario correctamente.');
@@ -125,7 +125,7 @@ export class GestionEspaciosComponent implements OnInit {
       this.cargarEs();
       this.espaciosMostrarActualizar = false;
       this.espacioFormA.reset();
-      this.alertWarning('El espacio se agregó correctamente.');
+      this.alertConfirm('El espacio se agregó correctamente.');
     } else {
       this.espacioFormA.markAllAsTouched();
       this.alertError('Por favor, complete el formulario correctamente.');
@@ -149,7 +149,7 @@ export class GestionEspaciosComponent implements OnInit {
   }
   eliminarEspacio(espacio: any) {
       const listaContratos = this.espacioS.cargarContratos();
-      const espacioAsociado = listaContratos.some((contrato: any) => contrato.espacio.id === espacio.id);
+      const espacioAsociado = listaContratos.some((contrato: any) => contrato.nombreE === espacio.nombre);
   
       if (espacioAsociado) {
         this.alertError('No se puede eliminar el espacio porque está asociado a un contrato.');
@@ -163,22 +163,23 @@ export class GestionEspaciosComponent implements OnInit {
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
     setTimeout(() => {
-      this.textError = error
-      this.showDangerAlert = true;
-    }, 4);
-    this.textError = ''
-    this.showDangerAlert = false;
+      this.textError = ''
+      this.showDangerAlert = false;
+    }, 5000);
   }
 
-  textAlert = ''
-  showWarningAlert = false
-  alertWarning(error: string) {
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
     setTimeout(() => {
-      this.textAlert = error
-      this.showWarningAlert = true;
-    }, 4);
-    this.textAlert = ''
-    this.showWarningAlert = false;
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    }, 5000);
   }
 }

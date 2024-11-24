@@ -6,7 +6,7 @@
 }
 
 .horario-parqueadero h2 {
-    color: var(--gray); 
+    color: var(--gray);
     margin-bottom: 20px;
 }
 
@@ -24,14 +24,14 @@
 .horario-parqueadero input[type="time"] {
     padding: 10px;
     margin-bottom: 15px;
-    border: 2px solid var(--black); 
+    border: 2px solid var(--black);
     border-radius: 5px;
     font-size: 16px;
 }
 
 .horario-parqueadero .btnA {
     background-color: var(--green);
-    color: var(--white); 
+    color: var(--white);
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -41,7 +41,7 @@
 }
 
 .horario-parqueadero .btnA:hover {
-    background-color: var(--red); 
+    background-color: var(--red);
 }
 
 .horario-parqueadero ul {
@@ -57,13 +57,13 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    color: var(--gray); 
+    color: var(--gray);
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .horario-parqueadero li button:hover {
-    background-color: var(--gray); 
+    background-color: var(--gray);
 }
 
 .error-message {
@@ -88,16 +88,16 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    border: none; 
-    border-radius: 6px; 
-    overflow: visible; 
+    border: none;
+    border-radius: 6px;
+    overflow: visible;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
     text-align: left;
-    padding: 12px 15px; 
+    padding: 12px 15px;
     color: var(--gray);
     font-family: 'Arial', sans-serif;
     font-size: 14px;
@@ -105,26 +105,27 @@ td {
 
 th {
     background-color: var(--black);
-    color: var(--white); 
+    color: var(--white);
     font-weight: bold;
-    text-transform: uppercase; 
-    border-bottom: 2px solid var(--gray); 
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gray);
 }
 
 tr:nth-child(even) {
-    background-color: var(--white); 
+    background-color: var(--white);
 }
 
-.puntos{
+.puntos {
     width: 50px;
 }
+
 tr:nth-child(odd) {
-    background-color: #ffffff; 
+    background-color: #ffffff;
 }
 
 td {
-    border-bottom: 1px solid #e0e0e0; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -140,7 +141,7 @@ td {
 }
 
 .menu-button {
-    
+
     border: none;
     font-size: 1.2em;
     cursor: pointer;
@@ -164,8 +165,8 @@ tr .menu-button {
     position: absolute;
     top: 20px;
     right: 0;
-    background-color: var(--white); 
-    box-shadow: 0 4px 8px var(--black); 
+    background-color: var(--white);
+    box-shadow: 0 4px 8px var(--black);
     border-radius: 5px;
     padding: 5px;
     z-index: 10;
@@ -178,7 +179,7 @@ tr .menu-button {
     text-align: left;
     width: 100%;
     cursor: pointer;
-    color: var(--black); 
+    color: var(--black);
 }
 
 .menu-options button:hover {
@@ -329,7 +330,7 @@ tr .menu-button {
     font-size: 0.9em;
 }
 
-.btns .btn:hover{
+.btns .btn:hover {
     background-color: var(--red);
 }
 
@@ -395,7 +396,8 @@ tr .menu-button {
         font-size: 14px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 6px;
     }
 }
@@ -405,7 +407,8 @@ tr .menu-button {
         font-size: 12px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 4px;
     }
 }
@@ -429,7 +432,7 @@ tr .menu-button {
     color: white;
     border-radius: 5px;
     font-weight: bold;
-    background-color: var(--green); 
+    background-color: var(--red);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
@@ -440,7 +443,7 @@ tr .menu-button {
     margin-right: 10px;
 }
 
-.alert-warnin{
+.alert-conf {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -448,12 +451,13 @@ tr .menu-button {
     color: white !important;
     border-radius: 5px;
     font-weight: bold;
-    background-color: #d5a30e;
+    background-color: var(--green);
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
-.alert-warnin .icon {
+
+.alert-conf .icon {
     width: 30px;
     margin-right: 10px;
 }

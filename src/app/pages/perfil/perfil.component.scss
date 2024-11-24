@@ -77,6 +77,16 @@ p {
     font-size: 26px;
     margin-bottom: 20px;
     color: var(--white);
+    text-align: center;
+}
+
+.card-client h3 {
+    border-radius: 12px;
+    padding: 0 30px;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--white);
+    text-align: center;
 }
 
 .card-client p.cliente {

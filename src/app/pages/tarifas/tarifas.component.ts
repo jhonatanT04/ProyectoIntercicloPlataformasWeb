@@ -40,7 +40,7 @@ export class TarifasComponent implements OnInit{
       this.tarifaS.agregarTarifa(nuevaTarifa);
       this.cargarTarifa();
       this.tarifaFormA.reset();  
-      this.alertError('Se agrego correctamente')
+      this.alertConfirm('Se agrego correctamente')
     } else {
       this.tarifaFormA.markAllAsTouched(); 
     }
@@ -57,7 +57,7 @@ export class TarifasComponent implements OnInit{
       if (actualizacionExitosa) {
         this.cargarTarifa(); 
         this.tarifaForm.reset();  
-        this.alertError('Tarifa actualizada correctamente'); 
+        this.alertConfirm('Tarifa actualizada correctamente'); 
       } else {
         this.alertError('No se encontró la tarifa para actualizar');
       }
@@ -93,22 +93,23 @@ export class TarifasComponent implements OnInit{
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
     setTimeout(() => {
-      this.textError = error
-      this.showDangerAlert = true;
-    }, 4);
-    this.textError = ''
-    this.showDangerAlert = false;
+      this.textError = ''
+      this.showDangerAlert = false;
+    }, 5000);
   }
 
-  textAlert = ''
-  showWarningAlert = false
-  alertWarning(error: string) {
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
     setTimeout(() => {
-      this.textAlert = error
-      this.showWarningAlert = true;
-    }, 4);
-    this.textAlert = ''
-    this.showWarningAlert = false;
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    }, 5000);
   }
 }

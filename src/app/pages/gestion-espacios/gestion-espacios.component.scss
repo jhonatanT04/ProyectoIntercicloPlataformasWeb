@@ -46,29 +46,29 @@
 
 .totales-disponibles {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between; 
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem; 
-    margin-bottom: 1.5rem; 
-    padding: 15px; 
-    background-color: #f9f9f9; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 label.totales {
     font-weight: bold;
     font-size: 1.1rem;
-    color: var(--black); 
+    color: var(--black);
 }
 
 .totales-disponibles .total {
     background-color: white;
-    width: 100%; 
-    max-width: 90px; 
+    width: 100%;
+    max-width: 90px;
     padding: 8px 12px;
-    font-size: 1rem; 
+    font-size: 1rem;
     border: none;
     border-bottom: 1px solid var(--gray);
     border-radius: 6px;
@@ -76,16 +76,16 @@ label.totales {
 }
 
 input.total:focus {
-    border-color: var(--green); 
-    box-shadow: 0 0 6px var(--green); 
-    outline: none; 
+    border-color: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    outline: none;
 }
 
 button.total-b {
     color: var(--white);
     padding: 8px 16px;
     font-size: 1rem;
-    background-color: var(--green); 
+    background-color: var(--green);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -93,47 +93,47 @@ button.total-b {
 }
 
 button.total-b:hover {
-    background-color: var(--red); 
-    transform: scale(1.05); 
+    background-color: var(--red);
+    transform: scale(1.05);
 }
 
 span.total-s {
     font-size: 1.1rem;
-    color: var(--gray); 
-    font-style: normal; 
+    color: var(--gray);
+    font-style: normal;
 }
 
 @media (max-width: 768px) {
     .totales-disponibles {
-        flex-direction: column; 
-        gap: 0.8rem; 
+        flex-direction: column;
+        gap: 0.8rem;
     }
 
     .totales-disponibles .total,
     button.total-b {
-        width: 50%; 
-        font-size: 0.9rem; 
+        width: 50%;
+        font-size: 0.9rem;
     }
 
     label.totales {
-        font-size: 1rem; 
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     .totales-disponibles {
-        padding: 10px; 
+        padding: 10px;
         gap: 0.5rem;
     }
 
     .totales-disponibles .total,
     button.total-b {
-        font-size: 0.8rem; 
-        padding: 6px 10px; 
+        font-size: 0.8rem;
+        padding: 6px 10px;
     }
 
     label.totales {
-        font-size: 0.9rem; 
+        font-size: 0.9rem;
     }
 }
 
@@ -504,7 +504,7 @@ tr .menu-button {
     color: white;
     border-radius: 5px;
     font-weight: bold;
-    background-color: var(--green);
+    background-color: var(--red);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
@@ -515,7 +515,7 @@ tr .menu-button {
     margin-right: 10px;
 }
 
-.alert-warnin {
+.alert-conf {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -523,13 +523,13 @@ tr .menu-button {
     color: white !important;
     border-radius: 5px;
     font-weight: bold;
-    background-color: #d5a30e;
+    background-color: var(--green);
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
 
-.alert-warnin .icon {
+.alert-conf .icon {
     width: 30px;
     margin-right: 10px;
 }
