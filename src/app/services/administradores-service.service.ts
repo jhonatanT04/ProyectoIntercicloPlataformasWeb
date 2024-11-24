@@ -57,9 +57,9 @@ export class AdministradoresServiceService {
           'admin123',
           'Admin',
           'Principal',
-          '123456789',
+          '0923456789',
           '123 Calle Falsa',
-          'ADM001',
+          '0123456789',
           true
         );
         this.listaAdministradores = [administradorPorDefecto];
