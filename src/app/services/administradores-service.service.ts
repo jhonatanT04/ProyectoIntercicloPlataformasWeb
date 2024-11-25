@@ -12,10 +12,10 @@ export class AdministradoresServiceService {
 
   listaAdministradores: Persona[] = [];
   listaEspacios: Espacio[] = [
-    { nombre: 'Auto', estado: 'D',total: 30},
-    { nombre: 'Moto', estado: 'D',total: 20}
+    { nombre: 'Auto', estado: 'D', total: 30 },
+    { nombre: 'Moto', estado: 'D', total: 20 }
   ];
-  
+
   listaContratos: any = [];
   listaTarifa: any = [
     { tiempo: '30 minutos', costo: 0.50 },
@@ -26,10 +26,10 @@ export class AdministradoresServiceService {
     { tiempo: 'Día completo (12 horas)', costo: 8.00 },
     { tiempo: 'Mensual', costo: 40.00 }
   ];
-  
+
   //listaHorarios: Horario[] = [
   //];
-  
+
   listaHorarios: Horario[] = [
     { dia: 'Lunes', horaA: '08:00', horaC: '17:00' },
     { dia: 'Martes', horaA: '08:00', horaC: '17:00' },
@@ -44,7 +44,7 @@ export class AdministradoresServiceService {
     if (isPlatformBrowser(this.platformId)) {
       this.cargarAdmi();
       this.guardar()
-      this.cargarHorario() 
+      this.cargarHorario()
     }
   }
 
@@ -71,24 +71,25 @@ export class AdministradoresServiceService {
     return this.listaAdministradores;
   }
 
+  // Guarda listas iniciales de espacios, horarios y tarifas en el almacenamiento local.
   guardar() {
     const Espacios = localStorage.getItem('listEspacios');
     if (!Espacios || JSON.parse(Espacios).length === 0) {
       localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
     }
-  
+
     const Horarios = localStorage.getItem('listHorarios');
     if (!Horarios || JSON.parse(Horarios).length === 0) {
       localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
     }
-  
+
     const Tarifas = localStorage.getItem('listTarifas');
     if (!Tarifas || JSON.parse(Tarifas).length === 0) {
       localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
     }
   }
-  
-  
+
+  // Agrega un nuevo administrador.
   nuevoAdmi(adminstrador: Persona) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaAdministradores.push(adminstrador);
@@ -96,6 +97,7 @@ export class AdministradoresServiceService {
     }
   }
 
+  // Elimina un administrador.
   eliminarAdmi(adminstrador: Persona) {
     if (isPlatformBrowser(this.platformId)) {
       const index = this.listaAdministradores.indexOf(adminstrador);
@@ -106,6 +108,7 @@ export class AdministradoresServiceService {
     }
   }
 
+  // Busca un administrador por su correo electrónico.
   buscarAdminPorEmail(email: string): Persona | null {
     this.cargarAdmi()
     const admin = this.listaAdministradores.find(adm => adm.email === email);
@@ -139,14 +142,16 @@ export class AdministradoresServiceService {
     return false;
   }
 
+  // Agrega un espacio nuevo.
   agregarEspacio(espacio: Espacio) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaEspacios.push(espacio);
       localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
     }
-    this.cargarEspacios() 
+    this.cargarEspacios()
   }
 
+  // Elimina un espacio existente.
   eliminarEspacio(espacio: any) {
     if (isPlatformBrowser(this.platformId)) {
       const index = this.listaEspacios.indexOf(espacio);
@@ -155,7 +160,7 @@ export class AdministradoresServiceService {
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
       }
     }
-    this.cargarEspacios() 
+    this.cargarEspacios()
   }
 
   cargarEspacios() {
@@ -165,25 +170,27 @@ export class AdministradoresServiceService {
     return this.listaEspacios;
   }
 
+  // Actualiza el estado de un espacio
   actualizarEspacio(nombre: string, nuevoTotal: number) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaEspacios = this.cargarEspacios(); 
+      this.listaEspacios = this.cargarEspacios();
       const espacio = this.listaEspacios.find((e: any) => e.nombre === nombre);
-  
+
       if (espacio) {
         espacio.total = nuevoTotal;
-  
+
         if (nuevoTotal === 0) {
-          espacio.estado = "O"; 
+          espacio.estado = "O";
         } else if (nuevoTotal > 0) {
-          espacio.estado = "D"; 
+          espacio.estado = "D";
         }
-  
+
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
       }
     }
-  } 
-  
+  }
+
+  // Agrega un nuevo contrato a la lista
   agregarContrato(contrato: Contrato, nombreE: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaContratos.push(contrato);
@@ -202,6 +209,7 @@ export class AdministradoresServiceService {
     this.cargarContratos()
   }
 
+  // Elimina un contrato específico
   eliminarContrato(contrato: any) {
     if (isPlatformBrowser(this.platformId)) {
       const index = this.listaContratos.indexOf(contrato);
@@ -212,7 +220,7 @@ export class AdministradoresServiceService {
         if (!this.listaEspacios || this.listaEspacios.length === 0) {
           this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
         }
-  
+
         const espacio = this.listaEspacios.find((e: any) => e.nombre === contrato.nombreE);
         if (espacio) {
           espacio.total = (espacio.total || 0) + 1;
@@ -223,8 +231,8 @@ export class AdministradoresServiceService {
       }
     }
   }
-  
 
+  // Carga la lista de contratos desde el almacenamiento local
   cargarContratos() {
     if (isPlatformBrowser(this.platformId)) {
       this.listaContratos = JSON.parse(localStorage.getItem('listContratos') || '[]');
@@ -258,18 +266,20 @@ export class AdministradoresServiceService {
 
   actualizarTarifa(tiempo: string, nuevosDatos: Partial<Tarifa>): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaTarifa = this.cargarTarifa();  
+      this.listaTarifa = this.cargarTarifa();
       const tarifa = this.listaTarifa.find((t: any) => t.tiempo === tiempo);
-  
+
       if (tarifa) {
         Object.assign(tarifa, nuevosDatos);
         localStorage.setItem('listTarifas', JSON.stringify(this.listaTarifa));
-        return true; 
+        return true;
       }
     }
-    return false; 
+    return false;
   }
-  
+
+
+
   agrgarHorario(horario: Horario) {
     if (isPlatformBrowser(this.platformId)) {
       this.listaHorarios.push(horario);
@@ -289,24 +299,24 @@ export class AdministradoresServiceService {
 
   actualizarHorario(dia: string, nuevosDatos: Partial<Horario>): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaHorarios = this.cargarHorario();  
+      this.listaHorarios = this.cargarHorario();
       const horario = this.listaHorarios.find((h: any) => h.dia === dia);
       if (horario) {
         Object.assign(horario, nuevosDatos);
         localStorage.setItem('listHorarios', JSON.stringify(this.listaHorarios));
-        return true; 
+        return true;
       }
     }
-    return false; 
+    return false;
   }
-  
 
+  // Carga los horarios desde el almacenamiento local
   cargarHorario() {
     if (isPlatformBrowser(this.platformId)) {
       this.listaHorarios = JSON.parse(localStorage.getItem('listHorarios') || '[]');
     }
     return this.listaHorarios;
   }
-  
+
 
 }
