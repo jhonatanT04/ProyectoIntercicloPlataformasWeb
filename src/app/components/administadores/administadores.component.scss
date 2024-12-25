@@ -67,7 +67,7 @@
 
     .popup-content-profile {
         width: 300px;
-        height: 350px;
+        height: 300px;
     }
 
     .popup-content-profile .header {
@@ -428,6 +428,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    overflow: hidden;
 }
 
 
@@ -454,6 +455,8 @@
     color: #ffffff;
     font-family: Arial, sans-serif;
     animation: fadeIn 0.3s ease-in-out;
+    max-height: 80%;
+    overflow-y: auto;
 }
 
 /* Cabecera */

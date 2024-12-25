@@ -171,11 +171,14 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .contenido-modal {
     width: 450px;
     position: relative;
+    max-height: 90%;
+    overflow-y: auto;
 }
 
 .close {
@@ -196,8 +199,11 @@ button:hover {
 @media screen and (max-width: 768px) {
     .hader-main h2 {
         width: 300px;
+        font-size: 20px;
     }
-
+    .hader-main p {
+        font-size: 15px;
+    }
     .card-client {
         width: 90%;
         padding: 15px;

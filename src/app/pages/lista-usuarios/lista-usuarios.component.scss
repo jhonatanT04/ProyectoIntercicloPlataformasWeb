@@ -156,6 +156,7 @@ tr .menu-button {
 }
 
 .popup-overlay-profile {
+  overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
@@ -193,6 +194,8 @@ tr .menu-button {
   color: var(--white);
   font-family: Arial, sans-serif;
   animation: fadeIn 0.3s ease-in-out;
+  max-height: 70%;
+  overflow-y: auto;
 }
 
 /* Cabecera */

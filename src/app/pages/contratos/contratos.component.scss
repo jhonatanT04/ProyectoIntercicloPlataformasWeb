@@ -229,30 +229,19 @@ tr .menu-button {
 
 .popup-overlay-profile {
     position: fixed;
+    overflow: hidden;
     top: 0;
     left: 0;
-    width: 100%;
+    min-width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center ;
     z-index: 1000;
+    padding: auto;
 }
 
-
-// .popup-content-profile {
-//     background: #000000;
-//     padding: 20px;
-//     border-radius: 8px;
-//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-//     max-width: 400px;
-//     width: 90%;
-//     text-align: center;
-// }
-
-
-/* Contenedor datos perfil principal */
 .popup-content-profile,
 .popup-content-profile-edit {
     position: fixed;
@@ -264,9 +253,11 @@ tr .menu-button {
     color: var(--white);
     font-family: Arial, sans-serif;
     animation: fadeIn 0.3s ease-in-out;
+    max-height: 80%;
+    overflow-y: auto;
 }
 
-/* Cabecera */
+
 .popup-content-profile .header {
     display: grid;
     align-items: center;
