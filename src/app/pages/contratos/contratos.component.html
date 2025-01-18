@@ -96,7 +96,28 @@
                         </div>
                     </div>
 
-
+                    <div>
+                        <label for="tarifa">Tarifa:</label>
+                        <select
+                          id="tarifa"
+                          formControlName="tarifa"
+                          [class.ng-invalid]="contratoForm.get('tarifa')?.hasError('required') && contratoForm.get('tarifa')?.touched"
+                          [class.ng-touched]="contratoForm.get('tarifa')?.touched"
+                        >
+                          <option value="" disabled selected>Seleccione una tarifa</option>
+                          <option *ngFor="let tarifa of tarifas" [value]="tarifa.tiempo">
+                            {{ tarifa.tiempo }} - {{ tarifa.costo | currency }}
+                          </option>
+                        </select>
+                      
+                        <div
+                          *ngIf="contratoForm.get('tarifa')?.hasError('required') && contratoForm.get('tarifa')?.touched"
+                          class="error-message"
+                        >
+                          Seleccione una tarifa.
+                        </div>
+                      </div>
+                      
 
                     <div class="btns">
                         <button class="btn" type="submit" (click)="agregarContrato()">Agregar</button>

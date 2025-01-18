@@ -6,6 +6,7 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 import { Contrato } from '../../models/contrato';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { Persona } from '../../models/persona';
+import { Tarifa } from '../../models/tarifa';
 
 @Component({
   selector: 'app-contratos',
@@ -38,7 +39,8 @@ export class ContratosComponent implements OnInit {
     placa: new FormControl('', [Validators.required, Validators.pattern('^[A-Z]{3}-\\d{4}$')]),
     fechaInicio: new FormControl('', [Validators.required]),
     fechaFin: new FormControl('', [Validators.required]),
-  },{validators: this.validarFechas('fechaInicio','fechaFin')}
+    tarifa: new FormControl('', [Validators.required]),
+  },{validators: this.validarFechas('fechaInicio','fechaFin')},
   );
   constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService) { }
   ngOnInit(): void {
@@ -93,7 +95,8 @@ export class ContratosComponent implements OnInit {
     if (this.contratoForm.valid) {
       const nombre = this.contratoS.buscarAdminPorEmail(this.email1 || '')?.nombre || '';
       const per = this.userS.buscarUsuarioPorEmail(this.contratoForm.get('cliente')?.value || '');
-      if (per) {
+      const tar = this.contratoS.buscarTarifaPorTiempo(this.contratoForm.get('tarifa')?.value || '');
+      if (per && tar) {
         const cliente = new Persona(
           per.email,
           per.password,
@@ -104,20 +107,26 @@ export class ContratosComponent implements OnInit {
           per.codigo,
           per.rolAdministrativo
         );
+        
+        const tarifa = new Tarifa(
+          tar.tiempo,
+          tar.costo
+        );
         const contrato = new Contrato(
           cliente,
           this.contratoForm.get('espacio')?.value || '',
           this.contratoForm.get('placa')?.value || '',
           nombre,
           new Date(this.contratoForm.get('fechaInicio')?.value || ''),
-          new Date(this.contratoForm.get('fechaFin')?.value || '')
+          new Date(this.contratoForm.get('fechaFin')?.value || ''),
+          tarifa
         );
         const espacioSeleccionado = this.espacios.find(
           (e: any) => e.nombre === this.contratoForm.get('espacio')?.value
         );
         if (espacioSeleccionado && espacioSeleccionado.total > 0) {
           espacioSeleccionado.total -= 1;
-          this.contratoS.actualizarEspacio(espacioSeleccionado.nombre, espacioSeleccionado.total);
+          this.contratoS.actualizarEspacio(espacioSeleccionado.nombre);
           this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
           this.cargarContratos();
           this.filtrarEspacios();

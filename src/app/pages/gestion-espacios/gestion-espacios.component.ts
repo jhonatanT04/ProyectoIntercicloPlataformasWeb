@@ -50,10 +50,11 @@ export class GestionEspaciosComponent implements OnInit {
   }
 
   calcularEspaciosDisponibles() {
-    this.espaciosDisponibles = this.espacios.reduce((suma: number, espacio: any) => suma + (espacio.total || 0), 0);
+    this.espaciosDisponibles = this.espacios
+      .filter((espacio: any) => espacio.estado === 'D') // Filtrar espacios con estado 'D'
+      .length; // Contar la cantidad de espacios disponibles
   }
   
-
 
   guardarEspaciosTotales() {
     localStorage.setItem('espaciosTotales', this.espaciosTotales.toString());
@@ -95,7 +96,7 @@ export class GestionEspaciosComponent implements OnInit {
         return;
       }
 
-      this.espacioS.actualizarEspacio(this.espacioSeleccionado.nombre, nuevoTotal);
+      this.espacioS.actualizarEspacio(this.espacioSeleccionado.nombre);
       this.cargarEs();
       this.espaciosMostrarActualizar = false;
       this.espacioForm.reset();
@@ -119,7 +120,7 @@ export class GestionEspaciosComponent implements OnInit {
       const nombre = this.espacioFormA.get('nombre')?.value || '';
       const total = parseInt(this.espacioFormA.get('total')?.value || '', 10) || 0;
   
-      const nuevoE = new Espacio(nombre, 'D', total);
+      const nuevoE = new Espacio(nombre, 'D');
       this.espacioS.agregarEspacio(nuevoE);
   
       this.cargarEs();

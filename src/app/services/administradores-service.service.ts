@@ -12,9 +12,38 @@ export class AdministradoresServiceService {
 
   listaAdministradores: Persona[] = [];
   listaEspacios: Espacio[] = [
-    { nombre: 'Auto', estado: 'D', total: 30 },
-    { nombre: 'Moto', estado: 'D', total: 20 }
+    { nombre: 'Espacio1', estado: 'D' },
+    { nombre: 'Espacio2', estado: 'D' },
+    { nombre: 'Espacio3', estado: 'D' },
+    { nombre: 'Espacio4', estado: 'D' },
+    { nombre: 'Espacio5', estado: 'D' },
+    { nombre: 'Espacio6', estado: 'D' },
+    { nombre: 'Espacio7', estado: 'D' },
+    { nombre: 'Espacio8', estado: 'D' },
+    { nombre: 'Espacio9', estado: 'D' },
+    { nombre: 'Espacio10', estado: 'D' },
+    { nombre: 'Espacio11', estado: 'D' },
+    { nombre: 'Espacio12', estado: 'D' },
+    { nombre: 'Espacio13', estado: 'D' },
+    { nombre: 'Espacio14', estado: 'D' },
+    { nombre: 'Espacio15', estado: 'D' },
+    { nombre: 'Espacio16', estado: 'D' },
+    { nombre: 'Espacio17', estado: 'D' },
+    { nombre: 'Espacio18', estado: 'D' },
+    { nombre: 'Espacio19', estado: 'D' },
+    { nombre: 'Espacio20', estado: 'D' },
+    { nombre: 'Espacio21', estado: 'D' },
+    { nombre: 'Espacio22', estado: 'D' },
+    { nombre: 'Espacio23', estado: 'D' },
+    { nombre: 'Espacio24', estado: 'D' },
+    { nombre: 'Espacio25', estado: 'D' },
+    { nombre: 'Espacio26', estado: 'D' },
+    { nombre: 'Espacio27', estado: 'D' },
+    { nombre: 'Espacio28', estado: 'D' },
+    { nombre: 'Espacio29', estado: 'D' },
+    { nombre: 'Espacio30', estado: 'D' }
   ];
+  
 
   listaContratos: any = [];
   listaTarifa: any = [
@@ -171,24 +200,19 @@ export class AdministradoresServiceService {
   }
 
   // Actualiza el estado de un espacio
-  actualizarEspacio(nombre: string, nuevoTotal: number) {
+  actualizarEspacio(nombre: string) {
     if (isPlatformBrowser(this.platformId)) {
-      this.listaEspacios = this.cargarEspacios();
-      const espacio = this.listaEspacios.find((e: any) => e.nombre === nombre);
+        this.listaEspacios = this.cargarEspacios();
+        const espacio = this.listaEspacios.find((e: any) => e.nombre === nombre);
 
-      if (espacio) {
-        espacio.total = nuevoTotal;
+        if (espacio) {
+            espacio.estado = espacio.estado === "O" ? "D" : "O";
 
-        if (nuevoTotal === 0) {
-          espacio.estado = "O";
-        } else if (nuevoTotal > 0) {
-          espacio.estado = "D";
+            localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
         }
-
-        localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
-      }
     }
-  }
+}
+
 
   // Agrega un nuevo contrato a la lista
   agregarContrato(contrato: Contrato, nombreE: string) {
@@ -196,7 +220,7 @@ export class AdministradoresServiceService {
       this.listaContratos.push(contrato);
       localStorage.setItem('listContratos', JSON.stringify(this.listaContratos));
 
-      /*if (!this.listaEspacios || this.listaEspacios.length === 0) {
+      if (!this.listaEspacios || this.listaEspacios.length === 0) {
         this.listaEspacios = JSON.parse(localStorage.getItem('listEspacios') || '[]');
       }
 
@@ -204,7 +228,7 @@ export class AdministradoresServiceService {
       if (espacio) {
         espacio.estado = 'O';
         localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
-      }*/
+      }
     }
     this.cargarContratos()
   }
@@ -223,7 +247,6 @@ export class AdministradoresServiceService {
 
         const espacio = this.listaEspacios.find((e: any) => e.nombre === contrato.nombreE);
         if (espacio) {
-          espacio.total = (espacio.total || 0) + 1;
           espacio.estado = 'D';
           localStorage.setItem('listEspacios', JSON.stringify(this.listaEspacios));
         }
@@ -279,6 +302,15 @@ export class AdministradoresServiceService {
   }
 
 
+  buscarTarifaPorTiempo(tiempo: string): Tarifa | null {
+    if (isPlatformBrowser(this.platformId)) {
+      this.listaTarifa = this.cargarTarifa(); // Asegurarse de cargar las tarifas desde el almacenamiento
+      const tarifaEncontrada = this.listaTarifa.find((t: any) => t.tiempo === tiempo);
+      return tarifaEncontrada || null; // Retorna la tarifa encontrada o null si no existe
+    }
+    return null; // Si no está en el entorno del navegador, retorna null
+  }
+  
 
   agrgarHorario(horario: Horario) {
     if (isPlatformBrowser(this.platformId)) {
