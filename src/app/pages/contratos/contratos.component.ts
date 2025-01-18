@@ -124,7 +124,7 @@ export class ContratosComponent implements OnInit {
         const espacioSeleccionado = this.espacios.find(
           (e: any) => e.nombre === this.contratoForm.get('espacio')?.value
         );
-        if (espacioSeleccionado && espacioSeleccionado.total > 0) {
+        if (espacioSeleccionado && espacioSeleccionado.estado === 'D') {
           espacioSeleccionado.total -= 1;
           this.contratoS.actualizarEspacio(espacioSeleccionado.nombre);
           this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');

@@ -11,32 +11,42 @@
 
   <button class="btnA" type="button" (click)="mostrarA()">Agregar Espacio</button>
 
-  <table *ngIf="espacios.length > 0">
-    <thead>
-      <tr>
-        <th>Nombre del Espacio</th>
-        <th>Estado</th>
-        <th>Total</th>
-        <th class="puntos"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let espacio of espacios; let i = index">
-        <td>{{ espacio.nombre }}</td>
-        <td>{{ espacio.estado }}</td>
-        <td>{{espacio.total}}</td>
-        <td class="acciones">
-          <div class="menu-container">
-            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
-            <div class="menu-options" *ngIf="menuVisibleIndex === i">
-              <button (click)="editarEspacio(espacio)">Editar</button>
-              <button (click)="eliminarEspacio(espacio)">Eliminar</button>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="espacios.length > 0" class="espacios-grid">
+    <div *ngFor="let espacio of espacios; let i = index" class="espacio-card" 
+         [ngClass]="{'disponible': espacio.estado === 'D', 'reservado': espacio.estado === 'R', 'ocupado':espacio.estado === 'O'}">
+      <div class="espacio-info">
+        <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+      </div>
+      <!--div class="acciones">
+        <button (click)="toggleMenu(i)">⋯</button>
+        <div class="menu-options" *ngIf="menuVisibleIndex === i">
+          <button (click)="editarEspacio(espacio)">Editar</button>
+          <button (click)="eliminarEspacio(espacio)">Eliminar</button>
+        </div>
+      </div-->
+    </div>
+  </div>
+
+  <div class="estado-separado">
+    <!-- Icono y texto para "Disponible" -->
+    <div class="estado-item estado-disponible">
+      <span class="icono">✔️</span>
+      <span>Disponible</span>
+    </div>
+  
+    <!-- Icono y texto para "Reservado" -->
+    <div class="estado-item estado-reservado">
+      <span class="icono">🔒</span>
+      <span>Reservado</span>
+    </div>
+  
+    <!-- Icono y texto para "Ocupado" -->
+    <div class="estado-item estado-ocupado">
+      <span class="icono">❌</span>
+      <span>Ocupado</span>
+    </div>
+  </div>
+  
 
   <div class="alert-container" *ngIf="showDangerAlert">
     <div *ngIf="showDangerAlert" class="alert-danger">

@@ -566,3 +566,162 @@ tr .menu-button {
         transform: translateY(0);
     }
 }
+
+/* Contenedor principal del grid */
+.espacios-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px; 
+    padding: 8px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    margin: 16px 0; 
+    max-width: 90%; 
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+/* Estilo para cada tarjeta de espacio */
+.espacio-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px; 
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    padding: 8px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Efecto hover para las tarjetas */
+.espacio-card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); 
+}
+
+/* Estilo para el estado disponible */
+.espacio-card.disponible {
+    background-color: var(--blue2); 
+    border-color: var(--blue2); 
+}
+
+/* Estilo para el estado reservado */
+.espacio-card.reservado {
+    background-color: var(--blue); 
+    border-color: var(--blue); 
+}
+
+/* Estilo para el estado ocupado */
+.espacio-card.ocupado {
+    background-color: var(--gray); 
+    border-color: var(--gray); 
+}
+
+/* Información del espacio */
+.espacio-info {
+    padding: 8px; 
+    background-color: transparent;
+    border-bottom: 2px solid #e0e0e0;
+    border-radius: 4px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center; 
+}
+
+/* Títulos de la información del espacio */
+.espacio-info h4 {
+    margin: 0;
+    font-size: 1em; 
+    color: #333;
+    font-weight: 600;
+}
+
+/* Estilo de los iconos de estado */
+.estado-separado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; 
+    padding: 8px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Estilos para hacer todo responsive */
+@media screen and (max-width: 600px) {
+    .espacios-grid {
+        grid-template-columns: 1fr; 
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .espacio-card {
+        padding: 6px; 
+    }
+
+    .espacio-info h4 {
+        font-size: 0.9em; 
+    }
+
+    .estado-separado {
+        font-size: 0.8em; 
+    }
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////
+
+
+
+/* Contenedor principal para los estados */
+.estado-separado {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  /* Contenedor para cada estado */
+  .estado-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Estado disponible */
+  .estado-disponible {
+    background-color: var(--blue2); 
+    color: white;
+  }
+  
+  /* Estado reservado */
+  .estado-reservado {
+    background-color: var(--blue); 
+    color: white;
+  }
+  
+  /* Estado ocupado */
+  .estado-ocupado {
+    background-color: var(--gray); 
+    color: white;
+  }
+  
+  /* Estilo para los iconos */
+  .icono {
+    font-size: 1.3em;
+  }
+  
+  
+  
+  
