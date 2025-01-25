@@ -4,6 +4,8 @@ import { Espacio } from '../models/espacio';
 import { Contrato } from '../models/contrato';
 import { Tarifa } from '../models/tarifa';
 import { Horario } from '../models/horario';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +71,7 @@ export class AdministradoresServiceService {
     { dia: 'Domingo', horaA: 'Cerrado', horaC: 'Cerrado' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
       this.cargarAdmi();
       this.guardar()
@@ -98,6 +100,12 @@ export class AdministradoresServiceService {
       }
     }
     return this.listaAdministradores;
+  }
+
+  private apiUrl = 'http://localhost:8080/demo65/rs/personas'; // Cambia esta URL según la ruta del servicio REST
+
+  getExample(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/1`);
   }
 
   // Guarda listas iniciales de espacios, horarios y tarifas en el almacenamiento local.

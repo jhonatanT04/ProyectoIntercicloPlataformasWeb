@@ -27,8 +27,18 @@ export class TarifasComponent implements OnInit{
   });
   constructor(private  tarifaS:AdministradoresServiceService){}
 
+  data: any;
+
   ngOnInit(): void {
     this.cargarTarifa()
+    this.tarifaS.getExample().subscribe(
+      (response) => {
+        this.data = response; // Maneja la respuesta del servidor
+      },
+      (error) => {
+        console.error('Error al conectar con el servidor:', error);
+      }
+    );
   }
 
   agregarTarifa() {
