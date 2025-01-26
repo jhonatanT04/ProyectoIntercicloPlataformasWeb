@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="car-container">
+    <div class="contratos-container">
       <table border="1">
         <thead>
           <tr *ngIf="contratos.length !== 0">
@@ -59,9 +59,7 @@
           </tr>
         </tbody>
       </table>
-      <button class="btn-newContrato">
-        Nuevo ticket
-      </button>
+
     </div>
     <div class="ticket-container">
       <table>
@@ -105,28 +103,50 @@
   </div>
   <div class="container-newTicket" *ngIf="newTickt">
     <div class="target-container-newTicket">
-      <h2>Nuevo Ticket</h2>
-      <!-- <div class="form">
-        <label for="placa">Placa</label>
-        <input type="text" id="placa" name="placa" [(ngModel)]="placa">
-        <label for="espacio">Espacio</label>
-        <select name="espacio" id="espacio" [(ngModel)]="espacio">
-          <option value="1">Espacio 1</option>
-          <option value="2">Espacio 2</option>
-          <option value="3">Espacio 3</option>
-          <option value="4">Espacio 4</option>
-          <option value="5">Espacio 5</option>
-        </select>
-        <button (click)="guardarTicket()">Guardar</button>
-      </div> -->
+      <h3 *ngIf="newTickt&&!selectHoraIngreso">Seleccione un espacio</h3>
+      <p *ngIf="newTickt&&!selectHoraIngreso">Para continuar</p>
+      <button (click)="abrirNewTicket()" class="btn-exit-ticket">
+        <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0,0,256,256">
+          <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M7,4c-0.25587,0 -0.51203,0.09747 -0.70703,0.29297l-2,2c-0.391,0.391 -0.391,1.02406 0,1.41406l7.29297,7.29297l-7.29297,7.29297c-0.391,0.391 -0.391,1.02406 0,1.41406l2,2c0.391,0.391 1.02406,0.391 1.41406,0l7.29297,-7.29297l7.29297,7.29297c0.39,0.391 1.02406,0.391 1.41406,0l2,-2c0.391,-0.391 0.391,-1.02406 0,-1.41406l-7.29297,-7.29297l7.29297,-7.29297c0.391,-0.39 0.391,-1.02406 0,-1.41406l-2,-2c-0.391,-0.391 -1.02406,-0.391 -1.41406,0l-7.29297,7.29297l-7.29297,-7.29297c-0.1955,-0.1955 -0.45116,-0.29297 -0.70703,-0.29297z"></path></g></g>
+          </svg>
+      </button>
+      
+      <div class="espacios-grid" *ngIf="newTickt&&!selectHoraIngreso">
+        <div *ngFor="let espacio of espacios; let i = index">
+          <div class="espacio-card" *ngIf="espacio.estado!=='D'"[ngClass]="{'reservado': espacio.estado === 'R', 'ocupado': espacio.estado === 'O'}">
+            <div class="espacio-info" >
+              <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+            </div>
+          </div>
+          <div class="espacio-card" (click)="selecionarEspacio(espacio)" *ngIf="espacio.estado==='D' " [ngClass]="{'disponible': espacio.estado === 'D'} " [class.select]="espacio === espacioSeleccionado">
+            <div class="espacio-info" >
+              <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="next-ticket-select" *ngIf="selectEspacio&&!selectHoraIngreso" (click)="selectHoraTicket()" >
+          Continuara
+        </button>
+        <button class="next-ticket-notSelect" (click)="selectHoraTicket()" *ngIf="!selectEspacio">
+          Continuar
+        </button>
+      </div>
+      <div class="container-time" *ngIf="selectHoraIngreso">
 
+        <h3>Ingrese la hora de entrada</h3>
+        <div class="espacio-seleccionado">
+          <div class="espacio-info" >
+            <h4>{{espacioSeleccionado?.nombre }}</h4>
+          </div>
+        </div>
+        
+        <input class="input-clock" type="time" [(ngModel)]="horaIngreso" name="horaIngreso" id="horaIngreso" required>  
+        <!-- <p *ngIf="selectHoraIngreso&& validarHoraIngreso()">aa</p> -->
+        <button class="crear-ticket invalido" *ngIf="selectHoraIngreso&&validarHoraIngreso()">Crear ticket</button>
+        <button class="crear-ticket valido" *ngIf="selectHoraIngreso&&!validarHoraIngreso()">Crear ticket</button>
+      </div>
     </div>
   </div>
-  <div *ngIf="ActualizarPerfil" class="modal">
-    <div class="contenido-modal">
-      <span class="close" (click)="actualizar(false)">&times;</span>
-      <app-actualizar-perfil (actualizado)="actualizar($event)"></app-actualizar-perfil>
-    </div>
-  </div>
-
 </div>

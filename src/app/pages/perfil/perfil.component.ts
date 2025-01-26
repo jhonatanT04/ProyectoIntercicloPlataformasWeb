@@ -6,6 +6,7 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 import { CommonModule } from '@angular/common';
 import { ActualizarPerfilComponent } from '../actualizar-perfil/actualizar-perfil.component';
 import { FormsModule } from '@angular/forms';
+import { Espacio } from '../../models/espacio';
 
 @Component({
   selector: 'app-perfil',
@@ -21,14 +22,20 @@ export class PerfilComponent implements OnInit{
   telefono=''
   contrato=''
   contratos:any = []
+  espacios: any = []
   ActualizarPerfil = false
   newTickt = true
+  espacioSeleccionado: Espacio | null = null
+  selectEspacio = false
+  selectHoraIngreso = false
+  horaIngreso = ''  
   router = inject(Router)
-  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
+  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService,private espacioS: AdministradoresServiceService){}
   ngOnInit(): void {
     this.cargarCli() 
   }
   cargarCli(){
+    this.espacios = this.espacioS.cargarEspacios()
     this.correo = this.correoS.getInfo()?.email || ''
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
     this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
@@ -43,6 +50,12 @@ export class PerfilComponent implements OnInit{
   }
   abrirNewTicket(): void {
     this.newTickt = !this.newTickt;
+    if (!this.newTickt) {
+      this.selectEspacio = false
+      this.espacioSeleccionado = null
+      this.selectHoraIngreso = false
+      this.horaIngreso = ''  
+    }
   }
   actualizar(ActualizarPerfil:boolean): void {
     ActualizarPerfil = false;
@@ -55,8 +68,26 @@ export class PerfilComponent implements OnInit{
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
   }
-
-  guardarTicket(){
-    
+  selecionarEspacio(espacio:Espacio) {
+    console.log(espacio)
+    this.espacioSeleccionado = espacio
+    this.selectEspacio = true
+  }  
+  selectHoraTicket(){
+    this.selectHoraIngreso = !this.selectHoraIngreso
   }
+  validarHoraIngreso(){   
+    if(this.horaIngreso === ''){
+      return false
+    }
+    return true
+  }
+  crearTicket(){
+    if(this.espacioSeleccionado !== null && this.horaIngreso !== ''){
+      this.espacioSeleccionado.estado = 'O'
+      //this.espacioSeleccionado.horaIngreso = this.horaIngreso
+      this.espacioS.actualizarEspacio(this.espacios)
+      this.abrirNewTicket()
+    }
+  } 
 }
