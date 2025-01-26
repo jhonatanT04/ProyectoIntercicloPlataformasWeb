@@ -22,6 +22,7 @@ export class PerfilComponent implements OnInit{
   contrato=''
   contratos:any = []
   ActualizarPerfil = false
+  newTickt = true
   router = inject(Router)
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService){}
   ngOnInit(): void {
@@ -34,12 +35,15 @@ export class PerfilComponent implements OnInit{
     this.telefono =this.userS.buscarUsuarioPorEmail(this.correo)?.numeroTelefonico || ''
     this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.nombreE || ''
     this.contratos=this.contratoS.buscarListaContratosPorEmail(this.correo)
+    
   }
 
   abrirActualizarPerfil(): void {
     this.ActualizarPerfil = true;
   }
-
+  abrirNewTicket(): void {
+    this.newTickt = !this.newTickt;
+  }
   actualizar(ActualizarPerfil:boolean): void {
     ActualizarPerfil = false;
     this.ActualizarPerfil = false
@@ -50,6 +54,9 @@ export class PerfilComponent implements OnInit{
     this.correoS.logout().then(() =>
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
+  }
 
+  guardarTicket(){
+    
   }
 }

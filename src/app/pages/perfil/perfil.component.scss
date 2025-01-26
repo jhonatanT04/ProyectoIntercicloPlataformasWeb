@@ -20,6 +20,31 @@
     min-height: 100vh;
 }
 
+.container-cuerpo {
+    display: grid;
+    grid-template-areas:
+        "card-client ticket-container"
+        "card-client car-container";
+    grid-template-columns: 450px auto;
+    grid-template-rows: 400px 400px;
+    gap: 20px;
+}
+
+
+
+.car-container {
+    grid-area: car-container;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.ticket-container {
+    grid-area: ticket-container;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
 p {
     margin-left: 20px;
     font-size: 14.5px;
@@ -33,30 +58,35 @@ p {
     font-size: 36px;
     font-weight: 600;
 }
-.hader-main p svg{
+
+.hader-main p svg {
     transform: translateY(5px);
     transition: all 0.5s;
 }
+
 .hader-main p {
     margin-right: 25px;
-    padding:0  20px;
+    padding: 0 20px;
     cursor: pointer;
     width: auto;
     border-radius: 12px;
     height: 30px;
     transition: all 0.5s;
 }
-.hader-main p:hover  {
+
+.hader-main p:hover {
     background-color: #555;
     border-radius: 12px;
 }
 
 .card-client {
-    width: 450px;
-    height: auto;
+    grid-area: card-client;
+    
+    align-items: center;
     padding: 32px;
     border-radius: 12px;
-    margin: auto;
+    margin: 10px;
+    width: 400px;
     background-color: #1e2023;
 }
 
@@ -69,7 +99,9 @@ p {
     display: block;
     padding: 15px;
 }
-
+.datos{
+    margin-top: 30%;
+}
 .card-client h2 {
     background-color: #777;
     border-radius: 12px;
@@ -201,9 +233,11 @@ button:hover {
         width: 300px;
         font-size: 20px;
     }
+
     .hader-main p {
         font-size: 15px;
     }
+
     .card-client {
         width: 90%;
         padding: 15px;
@@ -212,8 +246,11 @@ button:hover {
 
     .card-client h2 {
         font-size: 20px;
+        
     }
-
+    .datos{
+        margin-top: 10px;
+    }
     .card-client p.cliente {
         font-size: 16px;
     }
@@ -225,4 +262,31 @@ button:hover {
     .modal .contenido-modal {
         width: 100%;
     }
+
+    .botns button {
+        margin-left: auto;
+    }
+    .container-cuerpo {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.container-newTicket{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.target-container-newTicket{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--black);
+    padding: 20px;
 }

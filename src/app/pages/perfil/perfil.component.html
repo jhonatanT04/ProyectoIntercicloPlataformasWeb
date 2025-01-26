@@ -14,44 +14,119 @@
       Cerrar sesion
     </p>
   </div>
-  <div class="card-client">
-    <h3>Mis Datos</h3>
-    <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
-      fill="#FFFFFF">
-      <path
-        d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
-    </svg>
-    <h2>{{nombre}} {{apellido}}</h2>
-    <p class="cliente">
-      <span>Correo Electronico: {{correo}}</span>
-      <span>Telefono: {{telefono}}</span>
-      <span>Contratos: {{contrato}}</span>
-    </p>
-    <table *ngIf="contratos && contratos.length > 0" border="1">
-      <thead>
-        <tr>
-          <th>Nombre del Espacio</th>
-          <th>Placa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let contrato of contratos">
-          <td>{{ contrato.nombreE }}</td>
-          <td>{{ contrato.placa }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="contratos.length === 0">No tienes contratos registrados.</p>
-    <div class="botns">
-      <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
+  <div class="container-cuerpo">
+    <div class="card-client">
+      <div class="datos">
+        <h3>Mis Datos</h3>
+        <svg class="icon-perfil" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+          fill="#FFFFFF">
+          <path
+            d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+        </svg>
+        <h2>{{nombre}} {{apellido}}</h2>
+        <p class="cliente">
+          <span>Correo Electronico: {{correo}}</span>
+          <span>Telefono: {{telefono}}</span>
+          <span>Contratos: {{contrato}}</span>
+        </p>
+        <div class="botns">
+          <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
+        </div>
+      </div>
     </div>
+    <div class="car-container">
+      <table border="1">
+        <thead>
+          <tr *ngIf="contratos.length !== 0">
+            <th>Nombre del Espacio</th>
+            <th>Placa</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de fin</th>
+            <th>Tarifa</th>
 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contrato of contratos">
+            <td>{{ contrato.nombreE }}</td>
+            <td>{{ contrato.placa }}</td>
+            <td>{{ contrato.fechaInicio }}</td>
+            <td>{{ contrato.fechaFin }}</td>
+            <td>{{ contrato.tarifa.costo }}</td>
+          </tr>
+          <tr *ngIf="contratos.length === 0">
+            <td>No tienes contratos registrados.</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn-newContrato">
+        Nuevo ticket
+      </button>
+    </div>
+    <div class="ticket-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Placa</th>
+            <th>Fecha de Ingreso</th>
+            <th>Fecha de Salida</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>ABC-123</td>
+            <td>2025-01-01 08:00</td>
+            <td>2025-01-01 10:00</td>
+            <td>$10.00</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>XYZ-789</td>
+            <td>2025-01-02 09:30</td>
+            <td>2025-01-02 11:00</td>
+            <td>$12.50</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>LMN-456</td>
+            <td>2025-01-03 07:45</td>
+            <td>2025-01-03 09:15</td>
+            <td>$8.75</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn-newTicket" (click)="abrirNewTicket()">
+        Nuevo ticket
+      </button>
+    </div>
+  </div>
+  <div class="container-newTicket" *ngIf="newTickt">
+    <div class="target-container-newTicket">
+      <h2>Nuevo Ticket</h2>
+      <!-- <div class="form">
+        <label for="placa">Placa</label>
+        <input type="text" id="placa" name="placa" [(ngModel)]="placa">
+        <label for="espacio">Espacio</label>
+        <select name="espacio" id="espacio" [(ngModel)]="espacio">
+          <option value="1">Espacio 1</option>
+          <option value="2">Espacio 2</option>
+          <option value="3">Espacio 3</option>
+          <option value="4">Espacio 4</option>
+          <option value="5">Espacio 5</option>
+        </select>
+        <button (click)="guardarTicket()">Guardar</button>
+      </div> -->
+
+    </div>
   </div>
   <div *ngIf="ActualizarPerfil" class="modal">
     <div class="contenido-modal">
       <span class="close" (click)="actualizar(false)">&times;</span>
       <app-actualizar-perfil (actualizado)="actualizar($event)"></app-actualizar-perfil>
     </div>
-
   </div>
+
 </div>
