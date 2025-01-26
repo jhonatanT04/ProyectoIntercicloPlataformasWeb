@@ -11,11 +11,12 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RegistroComponent } from "../registro/registro.component";
 
 @Component({
   selector: 'app-administadores',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, TarifasComponent, HorariosComponent, ContratosComponent, ListaUsuariosComponent, GestionEspaciosComponent, CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, RouterModule, TarifasComponent, HorariosComponent, ContratosComponent, ListaUsuariosComponent, GestionEspaciosComponent, CommonModule, FormsModule, RegistroComponent],
   templateUrl: './administadores.component.html',
   styleUrl: './administadores.component.scss'
 })
@@ -53,6 +54,7 @@ export class AdministadoresComponent implements OnInit {
   tarifas: boolean = false
   horarios: boolean = false
   clientes: boolean = false
+  historial: boolean = false
   seccionabierta: string = '';
 
   abrirSeccion(seccion: string) {

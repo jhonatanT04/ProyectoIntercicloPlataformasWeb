@@ -6,6 +6,7 @@ import { Tarifa } from '../models/tarifa';
 import { Horario } from '../models/horario';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Registro } from '../models/registro';
 
 @Injectable({
   providedIn: 'root'
@@ -62,13 +63,13 @@ export class AdministradoresServiceService {
   //];
 
   listaHorarios: Horario[] = [
-    { dia: 'Lunes', horaA: '08:00', horaC: '17:00' },
-    { dia: 'Martes', horaA: '08:00', horaC: '17:00' },
-    { dia: 'Miércoles', horaA: '08:00', horaC: '17:00' },
-    { dia: 'Jueves', horaA: '08:00', horaC: '17:00' },
-    { dia: 'Viernes', horaA: '08:00', horaC: '17:00' },
-    { dia: 'Sábado', horaA: '09:00', horaC: '13:00' },
-    { dia: 'Domingo', horaA: 'Cerrado', horaC: 'Cerrado' }
+    { id: 1,dia: 'Lunes', horaA: '08:00', horaC: '17:00' },
+    { id: 1,dia: 'Martes', horaA: '08:00', horaC: '17:00' },
+    { id: 1,dia: 'Miércoles', horaA: '08:00', horaC: '17:00' },
+    { id: 1,dia: 'Jueves', horaA: '08:00', horaC: '17:00' },
+    { id: 1,dia: 'Viernes', horaA: '08:00', horaC: '17:00' },
+    { id: 1,dia: 'Sábado', horaA: '09:00', horaC: '13:00' },
+    { id: 1,dia: 'Domingo', horaA: 'Cerrado', horaC: 'Cerrado' }
   ];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private http: HttpClient) {
@@ -102,10 +103,31 @@ export class AdministradoresServiceService {
     return this.listaAdministradores;
   }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/personas'; // Cambia esta URL según la ruta del servicio REST
+  private apiUrl = 'http://localhost:8080/demo65/rs/registros'; // Cambia esta URL según la ruta del servicio REST
 
   getExample(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/1`);
+  }
+
+  registrarIngreso(registro: Registro): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}`, {
+      placa: registro.placa,
+      fechaIngreso: registro.fechaIngreso
+    });
+  }
+
+  // Registrar salida con fechaIngreso y fechaSalida
+  registrarSalida(registro: Registro): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}`, {
+      placa: registro.placa,
+      fechaIngreso: registro.fechaIngreso,
+      fechaSalida: registro.fechaSalida
+    });
+  }
+
+  // Obtener historial filtrado por día, semana o mes
+  obtenerHistorial(periodo: 'dia' | 'semana' | 'mes'): Observable<Registro[]> {
+    return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`);
   }
 
   // Guarda listas iniciales de espacios, horarios y tarifas en el almacenamiento local.

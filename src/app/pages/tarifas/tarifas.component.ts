@@ -34,6 +34,7 @@ export class TarifasComponent implements OnInit{
     this.tarifaS.getExample().subscribe(
       (response) => {
         this.data = response; // Maneja la respuesta del servidor
+        console.log(this.data);
       },
       (error) => {
         console.error('Error al conectar con el servidor:', error);

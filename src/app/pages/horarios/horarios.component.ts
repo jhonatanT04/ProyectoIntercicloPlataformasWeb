@@ -41,9 +41,9 @@ export class HorariosComponent implements OnInit {
       const horaApertura = this.horarioForm.get('horaApertura')?.value || '';
       const horaCierre = this.horarioForm.get('horaCierre')?.value || '';
   
-      const horario = new Horario(dia, horaApertura, horaCierre);
+      //const horario = new Horario(dia, horaApertura, horaCierre);
   
-      this.horarioS.actualizarHorario(dia, horario);  
+      //this.horarioS.actualizarHorario(dia, horario);  
       //this.horarioS.agrgarHorario(horario)
       this.cargarHorario();
   
@@ -62,9 +62,9 @@ export class HorariosComponent implements OnInit {
       const horaApertura = this.horarioFormA.get('horaApertura')?.value || '';
       const horaCierre = this.horarioFormA.get('horaCierre')?.value || '';
   
-      const horario = new Horario(dia, horaApertura, horaCierre);
+      //const horario = new Horario(id: 1,dia, horaApertura, horaCierre);
   
-      this.horarioS.agrgarHorario(horario);   
+      //this.horarioS.agrgarHorario(horario);   
       //this.horarioS.agrgarHorario(horario)
       this.cargarHorario();
   
