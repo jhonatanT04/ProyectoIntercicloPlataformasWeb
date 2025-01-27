@@ -24,11 +24,12 @@ export class PerfilComponent implements OnInit{
   contratos:any = []
   espacios: any = []
   ActualizarPerfil = false
-  newTickt = true
+  newTickt = false
   espacioSeleccionado: Espacio | null = null
   selectEspacio = false
   selectHoraIngreso = false
   horaIngreso = ''  
+  placa= ''
   router = inject(Router)
   constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService,private espacioS: AdministradoresServiceService){}
   ngOnInit(): void {

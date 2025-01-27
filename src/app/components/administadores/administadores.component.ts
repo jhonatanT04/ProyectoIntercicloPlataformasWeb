@@ -23,9 +23,9 @@ import { RegistroComponent } from "../registro/registro.component";
 export class AdministadoresComponent implements OnInit {
   authServicio = inject(AuthentificServiceService)
   router = inject(Router)
-  isSize = false
+  
   isPerfil = false
-
+  menuMovil = false 
   adminS = inject(AdministradoresServiceService)
   userS = inject(UsuariosServiceService)
   name = ''
@@ -44,10 +44,10 @@ export class AdministadoresComponent implements OnInit {
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
   }
-  agrandar() {
-    this.isSize = !this.isSize;
+  
+  desplegarMenuMovil() {
+    this.menuMovil = !this.menuMovil
   }
-
 
   espacios: boolean = false
   contratos: boolean = false

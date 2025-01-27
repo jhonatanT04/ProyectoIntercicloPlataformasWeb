@@ -401,7 +401,7 @@ tbody tr:nth-child(odd) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: var(--green);
+    background: var(--blue);
 }
 .espacio-info {
     padding: 8px;
@@ -492,32 +492,42 @@ tbody tr:nth-child(odd) {
 
 .input-clock {
     margin: 30px;
-    width: 100%;
+    width: 75%;
     max-width: 300px;
     padding: 10px 15px;
     font-size: 16px;
     font-family: 'Arial', sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
-    border: 2px solid #ddd;
+    color: white;
+    background-color: var(--gray);
+    border:1px solid transparent;
     border-radius: 8px;
     transition: all 0.3s ease;
 }
 
-.input-clock:focus {
+.input-clock:hover {
     outline: none;
-    border-color: #4caf50;
-    background-color: #fff;
+    border:1px solid var(--blue);
+    background-color: var(--gray);
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
 }
-
-.input-clock:hover {
-    border-color: #999;
+.input-placa{
+    margin: 30px;
+    width: 75%;
+    max-width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    background-color: var(--gray);
+    border:1px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
-
-.input-clock:disabled {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #ddd;
-    cursor: not-allowed;
+.input-placa{
+    border:1px solid var(--blue);
+    background-color: var(--gray);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+}
+.input-placa::placeholder{
+    color: rgb(201, 201, 201);
 }

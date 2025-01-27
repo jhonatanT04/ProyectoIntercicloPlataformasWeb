@@ -27,7 +27,6 @@
         <p class="cliente">
           <span>Correo Electronico: {{correo}}</span>
           <span>Telefono: {{telefono}}</span>
-          <span>Contratos: {{contrato}}</span>
         </p>
         <div class="botns">
           <button (click)="ActualizarPerfil = true">Actualizar Perfil</button>
@@ -129,7 +128,7 @@
         <button class="next-ticket-select" *ngIf="selectEspacio&&!selectHoraIngreso" (click)="selectHoraTicket()" >
           Continuara
         </button>
-        <button class="next-ticket-notSelect" (click)="selectHoraTicket()" *ngIf="!selectEspacio">
+        <button class="next-ticket-notSelect" *ngIf="!selectEspacio&&!selectHoraIngreso">
           Continuar
         </button>
       </div>
@@ -144,9 +143,22 @@
         
         <input class="input-clock" type="time" [(ngModel)]="horaIngreso" name="horaIngreso" id="horaIngreso" required>  
         <!-- <p *ngIf="selectHoraIngreso&& validarHoraIngreso()">aa</p> -->
-        <button class="crear-ticket invalido" *ngIf="selectHoraIngreso&&validarHoraIngreso()">Crear ticket</button>
-        <button class="crear-ticket valido" *ngIf="selectHoraIngreso&&!validarHoraIngreso()">Crear ticket</button>
+        <input class="input-placa" type="text" [(ngModel)]="placa" name="horaIngreso" id="horaIngreso" placeholder="eje. ANIA-123" required>  
+        <button class="crear-ticket invalido" (click)="crearTicket()" *ngIf="selectHoraIngreso&&validarHoraIngreso()"  >Crear ticket</button>
+        <button class="crear-ticket valido" *ngIf="selectHoraIngreso&&!validarHoraIngreso()" >Crear ticket</button>
       </div>
     </div>
   </div>
+  <div *ngIf="ActualizarPerfil" class="modal">
+    <div class="contenido-modal">
+      <span class="close" (click)="actualizar(false)">&times;</span>
+      <app-actualizar-perfil (actualizado)="actualizar($event)"></app-actualizar-perfil>
+    </div>
+
+  </div>
 </div>
+
+
+
+
+
