@@ -40,7 +40,7 @@ export class PerfilComponent implements OnInit{
     this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
     this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
     this.telefono =this.userS.buscarUsuarioPorEmail(this.correo)?.numeroTelefonico || ''
-    this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.nombreE || ''
+    this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.espacio.nombreEspacio || ''
     this.contratos=this.contratoS.buscarListaContratosPorEmail(this.correo)
     
   }

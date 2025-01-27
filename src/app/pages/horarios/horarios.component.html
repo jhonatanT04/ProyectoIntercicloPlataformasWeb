@@ -15,8 +15,8 @@
     <tbody>
       <tr *ngFor="let horario of horarios; let i = index">
         <td>{{ horario.dia }}</td>
-        <td>{{ horario.horaA }}</td>
-        <td>{{ horario.horaC }}</td>
+        <td>{{ horario.horaApertura }}</td>
+        <td>{{ horario.horaCierre }}</td>
         <td class="acciones">
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>

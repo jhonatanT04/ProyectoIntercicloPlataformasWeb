@@ -15,37 +15,37 @@ export class AdministradoresServiceService {
 
   listaAdministradores: Persona[] = [];
   listaEspacios: Espacio[] = [
-    { nombre: 'Espacio1', estado: 'D' },
-    { nombre: 'Espacio2', estado: 'D' },
-    { nombre: 'Espacio3', estado: 'D' },
-    { nombre: 'Espacio4', estado: 'D' },
-    { nombre: 'Espacio5', estado: 'D' },
-    { nombre: 'Espacio6', estado: 'D' },
-    { nombre: 'Espacio7', estado: 'D' },
-    { nombre: 'Espacio8', estado: 'D' },
-    { nombre: 'Espacio9', estado: 'D' },
-    { nombre: 'Espacio10', estado: 'D' },
-    { nombre: 'Espacio11', estado: 'D' },
-    { nombre: 'Espacio12', estado: 'D' },
-    { nombre: 'Espacio13', estado: 'D' },
-    { nombre: 'Espacio14', estado: 'D' },
-    { nombre: 'Espacio15', estado: 'D' },
-    { nombre: 'Espacio16', estado: 'D' },
-    { nombre: 'Espacio17', estado: 'D' },
-    { nombre: 'Espacio18', estado: 'D' },
-    { nombre: 'Espacio19', estado: 'D' },
-    { nombre: 'Espacio20', estado: 'D' },
-    { nombre: 'Espacio21', estado: 'D' },
-    { nombre: 'Espacio22', estado: 'D' },
-    { nombre: 'Espacio23', estado: 'D' },
-    { nombre: 'Espacio24', estado: 'D' },
-    { nombre: 'Espacio25', estado: 'D' },
-    { nombre: 'Espacio26', estado: 'D' },
-    { nombre: 'Espacio27', estado: 'D' },
-    { nombre: 'Espacio28', estado: 'D' },
-    { nombre: 'Espacio29', estado: 'D' },
-    { nombre: 'Espacio30', estado: 'D' }
-  ];
+    { id:1,nombreEspacio: 'Espacio1', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio2', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio3', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio4', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio5', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio6', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio7', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio8', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio9', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio10', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio11', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio12', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio13', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio14', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio15', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio16', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio17', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio18', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio19', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio20', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio21', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio22', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio23', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio24', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio25', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio26', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio27', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio28', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio29', estado: 'D' },
+    { id:1,nombreEspacio: 'Espacio30', estado: 'D' }
+  ]
   
 
   listaContratos: any = [];
@@ -63,13 +63,13 @@ export class AdministradoresServiceService {
   //];
 
   listaHorarios: Horario[] = [
-    { id: 1,dia: 'Lunes', horaA: '08:00', horaC: '17:00' },
-    { id: 1,dia: 'Martes', horaA: '08:00', horaC: '17:00' },
-    { id: 1,dia: 'Miércoles', horaA: '08:00', horaC: '17:00' },
-    { id: 1,dia: 'Jueves', horaA: '08:00', horaC: '17:00' },
-    { id: 1,dia: 'Viernes', horaA: '08:00', horaC: '17:00' },
-    { id: 1,dia: 'Sábado', horaA: '09:00', horaC: '13:00' },
-    { id: 1,dia: 'Domingo', horaA: 'Cerrado', horaC: 'Cerrado' }
+    { id: 1,dia: 'Lunes', horaApertura: '08:00', horaCierre: '17:00' },
+    { id: 1,dia: 'Martes', horaApertura: '08:00', horaCierre: '17:00' },
+    { id: 1,dia: 'Miércoles', horaApertura: '08:00', horaCierre: '17:00' },
+    { id: 1,dia: 'Jueves', horaApertura: '08:00', horaCierre: '17:00' },
+    { id: 1,dia: 'Viernes', horaApertura: '08:00', horaCierre: '17:00' },
+    { id: 1,dia: 'Sábado', horaApertura: '09:00', horaCierre: '13:00' },
+    { id: 1,dia: 'Domingo', horaApertura: 'Cerrado', horaCierre: 'Cerrado' }
   ];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private http: HttpClient) {
@@ -103,7 +103,7 @@ export class AdministradoresServiceService {
     return this.listaAdministradores;
   }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/registros'; // Cambia esta URL según la ruta del servicio REST
+  private apiUrl = 'http://localhost:8080/demo65/rs/registros';
 
   getExample(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/1`);
@@ -116,7 +116,6 @@ export class AdministradoresServiceService {
     });
   }
 
-  // Registrar salida con fechaIngreso y fechaSalida
   registrarSalida(registro: Registro): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}`, {
       placa: registro.placa,
@@ -125,7 +124,6 @@ export class AdministradoresServiceService {
     });
   }
 
-  // Obtener historial filtrado por día, semana o mes
   obtenerHistorial(periodo: 'dia' | 'semana' | 'mes'): Observable<Registro[]> {
     return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`);
   }

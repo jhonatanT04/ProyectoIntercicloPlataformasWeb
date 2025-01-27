@@ -1,13 +1,15 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Persona } from '../models/persona';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosServiceService {
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
       // Este bloque se ejecuta solo en el navegador.
     }
@@ -91,5 +93,27 @@ export class UsuariosServiceService {
       }
     }
     return false;
+  }
+
+  private apiUrl = 'http://localhost:8080/demo65/rs/personas'; // URL base del backend para personas
+
+  // Crear una persona
+  createPersona(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(this.apiUrl, persona);
+  }
+
+  // Actualizar una persona
+  updatePersona(persona: Persona): Observable<void> {
+    return this.http.put<void>(this.apiUrl, persona);
+  }
+
+  // Obtener una persona por ID
+  getPersonaById(id: number): Observable<Persona> {
+    return this.http.get<Persona>(`${this.apiUrl}/${id}`);
+  }
+
+  // Eliminar una persona por ID
+  deletePersona(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

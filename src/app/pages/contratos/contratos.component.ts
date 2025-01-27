@@ -7,6 +7,10 @@ import { Contrato } from '../../models/contrato';
 import { AuthentificServiceService } from '../../services/authentific-service.service';
 import { Persona } from '../../models/persona';
 import { Tarifa } from '../../models/tarifa';
+import { ContratoService } from '../../services/contrato.service';
+import { TarifasService } from '../../services/tarifas.service';
+import { EspacioService } from '../../services/espacio.service';
+import { Espacio } from '../../models/espacio';
 
 @Component({
   selector: 'app-contratos',
@@ -17,11 +21,11 @@ import { Tarifa } from '../../models/tarifa';
 })
 export class ContratosComponent implements OnInit {
 
-  espacios: any = []
-  espaciosF: any = []
-  contratos: any = []
+  espacios: Espacio[] = []
+  espaciosF: Espacio[] = []
+  contratos: Contrato[] = []
   clientes: any = []
-  tarifas: any = []
+  tarifas: Tarifa[] = []
 
   email1: string = '';
   cliente = ''
@@ -42,7 +46,7 @@ export class ContratosComponent implements OnInit {
     tarifa: new FormControl('', [Validators.required]),
   },{validators: this.validarFechas('fechaInicio','fechaFin')},
   );
-  constructor(private contratoS: AdministradoresServiceService, private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService) { }
+  constructor(private contratoS: ContratoService, private Contrato: AdministradoresServiceService,private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService,private tarifaS: TarifasService, private espacioS: EspacioService) { }
   ngOnInit(): void {
     this.cargarContratos()
     this.cargarEspacios()
@@ -69,7 +73,12 @@ export class ContratosComponent implements OnInit {
     this.clientes = this.clienteS.cargarUsuario()
   }
   cargarEspacios() {
-    this.espacios = this.contratoS.cargarEspacios()
+    this.espacioS.listEspacios().subscribe(
+      (data) => {
+        this.espacios = data;
+      },
+      (error) => this.alertError('Error al cargar los espacios.')
+    );
     this.filtrarEspacios()
   }
 
@@ -83,73 +92,92 @@ export class ContratosComponent implements OnInit {
     
   }
 
-  cargarContratos() {
-    this.contratos = this.contratoS.cargarContratos()
+  cargarContratos(): void {
+    this.contratoS.getContratos().subscribe(
+      (data) => (this.contratos = data),
+      (error) => this.alertError('Error al cargar los contratos.')
+    );
   }
 
   cargarTarifas() {
-    this.tarifas = this.contratoS.cargarTarifa()
+    this.tarifaS.listTarifas().subscribe(
+      (data) => (this.tarifas = data),
+      (error) => this.alertError('Error al cargar las tarifas.')
+    );
   }
 
-  agregarContrato() {
+  agregarContrato(): void {
     if (this.contratoForm.valid) {
-      const nombre = this.contratoS.buscarAdminPorEmail(this.email1 || '')?.nombre || '';
-      const per = this.userS.buscarUsuarioPorEmail(this.contratoForm.get('cliente')?.value || '');
-      const tar = this.contratoS.buscarTarifaPorTiempo(this.contratoForm.get('tarifa')?.value || '');
-      if (per && tar) {
-        const cliente = new Persona(
-          per.email,
-          per.password,
-          per.nombre,
-          per.apellido,
-          per.numeroTelefonico,
-          per.direccion,
-          per.codigo,
-          per.rolAdministrativo
-        );
-        
-        const tarifa = new Tarifa(
-          tar.tiempo,
-          tar.costo
-        );
-        const contrato = new Contrato(
-          cliente,
-          this.contratoForm.get('espacio')?.value || '',
-          this.contratoForm.get('placa')?.value || '',
-          nombre,
-          new Date(this.contratoForm.get('fechaInicio')?.value || ''),
-          new Date(this.contratoForm.get('fechaFin')?.value || ''),
-          tarifa
-        );
-        const espacioSeleccionado = this.espacios.find(
-          (e: any) => e.nombre === this.contratoForm.get('espacio')?.value
-        );
-        if (espacioSeleccionado && espacioSeleccionado.estado === 'D') {
-          espacioSeleccionado.total -= 1;
-          this.contratoS.actualizarEspacio(espacioSeleccionado.nombre);
-          this.contratoS.agregarContrato(contrato, this.contratoForm.get('espacio')?.value || '');
-          this.cargarContratos();
-          this.filtrarEspacios();
-          this.contratoForm.reset();
+      const clienteEmail = this.contratoForm.get('cliente')?.value || '';
+      const tarifaId = this.contratoForm.get('tarifa')?.value || '';
+      const espacioNombre = this.contratoForm.get('espacio')?.value || '';
   
-          this.alertConfirm("Contrato agregado correctamente.");
-        } else {
-          this.alertError("No hay espacios disponibles en el seleccionado.");
+      let usuario = null;
+      let tarifa = null;
+      let espacio = null;
+  
+      for (let c of this.clientes) {
+        if (c.email === clienteEmail) {
+          usuario = c;
+          break;
         }
+      }
+  
+      for (let t of this.tarifas) {
+        if (t.id === +tarifaId) {
+          tarifa = t;
+          break;
+        }
+      }
+  
+      for (let e of this.espacios) {
+        if (e.nombreEspacio === espacioNombre) {
+          espacio = e;
+          break;
+        }
+      }
+  
+      if (usuario && tarifa && espacio) {
+        const contrato: Contrato = {
+          id: 0, 
+          usuario,
+          espacio, 
+          placa: this.contratoForm.get('placa')?.value || '',
+          fechaInicio: new Date(this.contratoForm.get('fechaInicio')?.value || ''),
+          fechaFin: new Date(this.contratoForm.get('fechaFin')?.value || ''),
+          tarifa,
+        };
+  
+        this.contratoS.createContrato(contrato).subscribe(
+          () => {
+            this.cargarContratos();
+            this.filtrarEspacios();
+            this.contratoForm.reset();
+            this.alertConfirm('Contrato agregado correctamente.');
+          },
+          (error) => this.alertError('Error al agregar el contrato.')
+        );
+      } else {
+        this.alertError('Cliente, tarifa, o espacio no válidos.');
       }
     } else {
       this.contratoForm.markAllAsTouched();
-      this.alertError("No se ingresó correctamente.");
+      this.alertError('Formulario inválido. Por favor revisa los campos.');
     }
   }
   
-  
-
-  eliminarContrato(contrato: any) {
-    this.contratoS.eliminarContrato(contrato)
-    this.cargarContratos()
+  eliminarContrato(contrato: Contrato): void {
+    if (contrato.id) {
+      this.contratoS.deleteContrato(contrato.id).subscribe(
+        () => {
+          this.cargarContratos();
+          this.alertConfirm('Contrato eliminado correctamente.');
+        },
+        (error) => this.alertError('Error al eliminar el contrato.')
+      );
+    }
   }
-
+  
   agregaContrato = false
   contrato() {
     this.contratoForm.reset() 

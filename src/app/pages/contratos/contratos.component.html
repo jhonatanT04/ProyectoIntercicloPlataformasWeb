@@ -16,11 +16,10 @@
         </thead>
         <tbody>
             <tr *ngFor="let contrato of contratos; let i = index">
-                <td>{{ contrato.cliente.nombre }}</td>
-                <td>{{ contrato.cliente.email}}</td>
-                <td>{{ contrato.nombreE }}</td>
+                <td>{{ contrato.usuario.nombre }}</td>
+                <td>{{ contrato.usuario.email}}</td>
+                <td>{{ contrato.espacio.nombreEspacio }}</td>
                 <td>{{ contrato.placa }}</td>
-                <td>{{ contrato.nombreA }}</td>
                 <td class="acciones">
                     <div class="menu-container">
                         <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
@@ -58,8 +57,8 @@
                         <label for="espacio">Espacio:</label>
                         <select id="espacio" formControlName="espacio">
                             <option value="" disabled selected>Seleccione un espacio</option>
-                            <option *ngFor="let espacio of espaciosF" [value]="espacio.nombre">{{espacio.nombre}}
-                                {{espacio.total}}</option>
+                            <option *ngFor="let espacio of espaciosF" [value]="espacio.nombreEspacio">{{espacio.nombreEspacio}}
+                                {{espacio.estado}}</option>
                         </select>
                         <div *ngIf="contratoForm.get('espacio')?.hasError('required') && contratoForm.get('espacio')?.touched"
                             class="error-message">

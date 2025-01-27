@@ -15,7 +15,7 @@
     <div *ngFor="let espacio of espacios; let i = index" class="espacio-card" 
          [ngClass]="{'disponible': espacio.estado === 'D', 'reservado': espacio.estado === 'R', 'ocupado':espacio.estado === 'O'}">
       <div class="espacio-info">
-        <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+        <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}</h4>
       </div>
       <!--div class="acciones">
         <button (click)="toggleMenu(i)">⋯</button>
@@ -96,13 +96,6 @@
           <label for="nombre">Nombre del espacio:</label>
           <input type="text" id="nombre" formControlName="nombre" required>
           <div *ngIf="espacioFormA.get('nombre')?.hasError('required') && espacioFormA.get('nombre')?.touched"
-            class="error-message">
-            Ingrese un numero de espacios.
-          </div>
-
-          <label for="total">Total de espacios:</label>
-          <input type="number" id="total" formControlName="total" required>
-          <div *ngIf="espacioFormA.get('total')?.hasError('required') && espacioFormA.get('total')?.touched"
             class="error-message">
             Ingrese un numero de espacios.
           </div>

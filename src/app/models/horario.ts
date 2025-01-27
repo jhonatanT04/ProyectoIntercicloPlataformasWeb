@@ -1,13 +1,13 @@
 export class Horario {
-    id:number
-    dia:string
-    horaA:string
-    horaC:string
+  id: number;
+  dia: string;
+  horaApertura: string; 
+  horaCierre: string; 
 
-    constructor(id:number,dia:string,horaA:string,horaC:string){
-        this.id = id
-        this.dia = dia
-        this.horaA = horaA
-        this.horaC = horaC
-    }
+  constructor(id: number, dia: string, horaApertura: string, horaCierre: string) {
+    this.id = id;
+    this.dia = dia;
+    this.horaApertura = horaApertura;
+    this.horaCierre = horaCierre;
+  }
 }

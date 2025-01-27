@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { Espacio } from '../../models/espacio';
+import { EspacioService } from '../../services/espacio.service';
 
 @Component({
   selector: 'app-gestion-espacios',
@@ -16,171 +17,162 @@ export class GestionEspaciosComponent implements OnInit {
 
   espaciosTotales: number = 0;
   espaciosDisponibles: number = 0;
-
-  tipo = ''
-  nombre = ''
-  estado = ''
-  espacios: any = []
-  espaciosMostrarActualizar = false
-  espaciosMostrarAgregar = false
-
-  espacioSeleccionado: any = null;
+  espacios: Espacio[] = [];
+  espaciosMostrarActualizar = false;
+  espaciosMostrarAgregar = false;
+  espacioSeleccionado: Espacio | null = null;
 
   espacioForm = new FormGroup({
-    total: new FormControl('', [Validators.required])
+    estado: new FormControl('', [Validators.required])
   });
 
   espacioFormA = new FormGroup({
-    nombre: new FormControl('',[Validators.required]),
-    total: new FormControl('', [Validators.required])
+    nombre: new FormControl('', [Validators.required])
   });
-  constructor(private espacioS: AdministradoresServiceService) { }
+
+  constructor(private espacioS: EspacioService) {}
+
   ngOnInit(): void {
-    this.cargarEspaciosTotales(); 
+    this.cargarEspaciosTotales();
     if (this.espaciosTotales === 0) {
-      this.espaciosTotales = 50;
-      this.guardarEspaciosTotales(); 
+      this.espaciosTotales = 50; // Set default total spaces
+      this.guardarEspaciosTotales();
     }
-    this.cargarEs();
-  }
-  cargarEs() {
-    this.espacios = this.espacioS.cargarEspacios()
-    this.calcularEspaciosDisponibles()
-    this.cargarEspaciosTotales()
+    this.cargarEspacios();
   }
 
-  calcularEspaciosDisponibles() {
-    this.espaciosDisponibles = this.espacios
-      .filter((espacio: any) => espacio.estado === 'D') // Filtrar espacios con estado 'D'
-      .length; // Contar la cantidad de espacios disponibles
+  cargarEspacios(): void {
+    this.espacioS.listEspacios().subscribe(
+      (data) => {
+        this.espacios = data;
+        this.calcularEspaciosDisponibles();
+      },
+      (error) => this.alertError('Error al cargar los espacios.')
+    );
   }
-  
 
-  guardarEspaciosTotales() {
+  calcularEspaciosDisponibles(): void {
+    this.espaciosDisponibles = this.espacios.filter((espacio) => espacio.estado === 'D').length;
+  }
+
+  guardarEspaciosTotales(): void {
     localStorage.setItem('espaciosTotales', this.espaciosTotales.toString());
   }
 
-  cargarEspaciosTotales() {
+  cargarEspaciosTotales(): void {
     const guardados = localStorage.getItem('espaciosTotales');
     this.espaciosTotales = guardados ? parseInt(guardados, 10) : 0;
   }
 
   seleccionarEspacio(espacio: any) {
-    this.espacioSeleccionado = espacio; // Guardar el espacio seleccionado
-    this.espacioForm.patchValue({ total: espacio.total }); // Prellenar el formulario
-    this.espaciosMostrarActualizar = true; // Mostrar el formulario
+    this.espacioSeleccionado = espacio; 
+    this.espacioForm.patchValue({ estado:   espacio.estado }); 
+    this.espaciosMostrarActualizar = true; 
     this.espacioss()
   }
 
-
-  editarEspacio(espacio: any) {
-    this.seleccionarEspacio(espacio);
-    this.espacioss(); // Cambiar la visibilidad del formulario
-  }
-
-  actualizarEspacio() {
-    const sumaTotalEspacios = this.espacios
-      .filter((espacio: any) => espacio.nombre !== this.espacioSeleccionado?.nombre)
-      .reduce((total: number, espacio: any) => total + espacio.total, 0);
-
-
-    const nuevoTotal = parseInt(this.espacioForm.get('total')?.value || '') || 0;
-
-    if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
-      this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
-      return;
-    }
+  actualizarEspacio(): void {
     if (this.espacioForm.valid && this.espacioSeleccionado) {
-      if (isNaN(nuevoTotal) || nuevoTotal < 0) {
-        this.alertError('El total debe ser un número válido y mayor o igual a 0.');
+      const nuevoTotal = parseInt(this.espacioForm.get('total')?.value || '0', 10);
+      const sumaTotalEspacios = this.espacios
+        .filter((espacio) => espacio.id !== this.espacioSeleccionado?.id)
+        .reduce((total, espacio) => total + espacio.id, 0); 
+
+      if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
+        this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
         return;
       }
 
-      this.espacioS.actualizarEspacio(this.espacioSeleccionado.nombre);
-      this.cargarEs();
-      this.espaciosMostrarActualizar = false;
-      this.espacioForm.reset();
-      this.alertConfirm('El total del espacio se actualizó correctamente.');
+      this.espacioSeleccionado.id = nuevoTotal;
+      this.espacioS.updateEspacio(this.espacioSeleccionado.id, this.espacioSeleccionado).subscribe(
+        () => {
+          this.cargarEspacios();
+          this.espaciosMostrarActualizar = false;
+          this.espacioForm.reset();
+          this.alertConfirm('El espacio se actualizó correctamente.');
+        },
+        (error) => this.alertError('Error al actualizar el espacio.')
+      );
     } else {
       this.espacioForm.markAllAsTouched();
       this.alertError('Por favor, complete el formulario correctamente.');
     }
   }
 
-  agregarEspacio() {
-    const sumaTotalEspacios = this.espacios.reduce((total: number, espacio: any) => total + (espacio.total || 0), 0);
-    const nuevoTotal = parseInt(this.espacioFormA.get('total')?.value || '', 10) || 0;
-  
+  agregarEspacio(): void {
+    const sumaTotalEspacios = this.espacios.reduce((total, espacio) => total + espacio.id, 0);
+    const nuevoTotal = parseInt(this.espacioFormA.get('total')?.value || '0', 10);
+
     if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
       this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
       return;
     }
-  
+
     if (this.espacioFormA.valid) {
       const nombre = this.espacioFormA.get('nombre')?.value || '';
-      const total = parseInt(this.espacioFormA.get('total')?.value || '', 10) || 0;
-  
-      const nuevoE = new Espacio(nombre, 'D');
-      this.espacioS.agregarEspacio(nuevoE);
-  
-      this.cargarEs();
-      this.espaciosMostrarActualizar = false;
-      this.espacioFormA.reset();
-      this.alertConfirm('El espacio se agregó correctamente.');
+      const nuevoEspacio = new Espacio (
+        0, 
+        nombre,
+        'D'
+      );
+
+      this.espacioS.createEspacio(nuevoEspacio).subscribe(
+        () => {
+          this.cargarEspacios();
+          this.espaciosMostrarAgregar = false;
+          this.espacioFormA.reset();
+          this.alertConfirm('El espacio se agregó correctamente.');
+        },
+        (error) => this.alertError('Error al agregar el espacio.')
+      );
     } else {
       this.espacioFormA.markAllAsTouched();
       this.alertError('Por favor, complete el formulario correctamente.');
     }
   }
-  
 
+  eliminarEspacio(espacio: Espacio): void {
+    this.espacioS.deleteEspacio(espacio.id).subscribe(
+      () => {
+        this.cargarEspacios();
+        this.alertConfirm('Espacio eliminado correctamente.');
+      },
+      (error) => this.alertError('Error al eliminar el espacio.')
+    );
+  }
 
   menuVisibleIndex: number | null = null;
-
-  toggleMenu(index: number) {
+  toggleMenu(index: number): void {
     this.menuVisibleIndex = this.menuVisibleIndex === index ? null : index;
   }
 
-  espacioss() {
-    this.espaciosMostrarActualizar = !this.espaciosMostrarActualizar
+  espacioss(): void {
+    this.espaciosMostrarActualizar = !this.espaciosMostrarActualizar;
   }
 
-  mostrarA(){
-    this.espaciosMostrarAgregar =!this.espaciosMostrarAgregar
+  mostrarA(): void {
+    this.espaciosMostrarAgregar = !this.espaciosMostrarAgregar;
   }
-  eliminarEspacio(espacio: any) {
-      const listaContratos = this.espacioS.cargarContratos();
-      const espacioAsociado = listaContratos.some((contrato: any) => contrato.nombreE === espacio.nombre);
-  
-      if (espacioAsociado) {
-        this.alertError('No se puede eliminar el espacio porque está asociado a un contrato.');
-      } else {
-        this.espacioS.eliminarEspacio(espacio);
-        this.cargarEs();
-      }
-    
-  }
-  
+
   showDangerAlert = false;
-  textError = ''
-  alertError(error: string) {
+  textError = '';
+  alertError(error: string): void {
     this.showDangerAlert = true;
-    this.textError = error
+    this.textError = error;
     setTimeout(() => {
-      this.textError = ''
       this.showDangerAlert = false;
+      this.textError = '';
     }, 5000);
   }
 
-
-  textConfirm = ''
-  showConfirmAlert = false
-  alertConfirm(error: string) {
+  showConfirmAlert = false;
+  textConfirm = '';
+  alertConfirm(message: string): void {
     this.showConfirmAlert = true;
-    this.textConfirm = error
+    this.textConfirm = message;
     setTimeout(() => {
-      this.textConfirm = ''
       this.showConfirmAlert = false;
+      this.textConfirm = '';
     }, 5000);
   }
 }
