@@ -16,8 +16,8 @@ export class EspacioService {
     return this.http.post<Espacio>(this.apiUrl, espacio);
   }
 
-  updateEspacio(id: number, espacio: Espacio): Observable<Espacio> {
-    return this.http.put<Espacio>(`${this.apiUrl}/${id}`, espacio);
+  updateEspacio(espacio: Espacio): Observable<Espacio> {
+    return this.http.put<Espacio>(`${this.apiUrl}`, espacio);
   }
 
   getEspacioById(id: number): Observable<Espacio> {

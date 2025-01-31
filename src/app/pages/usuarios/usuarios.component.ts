@@ -38,50 +38,40 @@ export class UsuariosComponent {
 
   onSubmit() {
     this.form.markAllAsTouched();
+
     if (this.form.valid) {
-      const per = new Persona(
-        this.form.get('email')?.value || ' ',
-        this.form.get('password')?.value || ' ',
-        this.form.get('name')?.value || ' ',
-        this.form.get('lastName')?.value || ' ',
-        this.form.get('numberPhone')?.value || ' ',
-        this.form.get('addres')?.value || ' ',
-        this.form.get('codeZip')?.value || ' ',
-        
+      const persona = new Persona(
+        0,
+        this.form.get('email')?.value || '',
+        this.form.get('password')?.value || '',
+        this.form.get('name')?.value || '',
+        this.form.get('lastName')?.value || '',
+        this.form.get('numberPhone')?.value || '',
+        this.form.get('addres')?.value || '',
+        this.form.get('codeZip')?.value || '',
+        false,  
+        undefined  
       );
-      this.servicioUser.nuevoUsuario(per)
-      this.loginService.regitrase(new User(this.form.get('email')?.value || ' ', this.form.get('password')?.value || 'ania'))
-        .then(resr => {
-          this.router.navigate(['pages/login'])
-        }).catch((error) => {
 
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          switch (errorCode) {
-            case 'auth/email-already-in-use':
-              this.alertError("El correo ya está registrado.")
-              break;
-            case 'auth/invalid-email':
-              this.alertError("Formato de correo inválido.")
-              break;
-            case 'auth/weak-password':
-              this.alertError(" La contraseña es demasiado débil.")
-              break;
-            case 'auth/operation-not-allowed':
-              this.alertError("La creación de cuentas con correo y contraseña está deshabilitada.")
-              break;
-            case 'auth/too-many-requests':
-              this.alertError("Demasiados intentos. Por favor, intenta más tarde.")
-              break;
-            default:
-              this.alertError("Error desconocido:" + errorMessage)
-          }
-        });
+      this.servicioUser.createPersona(persona).subscribe({
+        next: () => {
+          this.loginService.regitrase(new User(this.form.get('email')?.value || '', this.form.get('password')?.value || ''))
+            .then(() => {
+              this.router.navigate(['pages/login']);
+            })
+            .catch((error) => {
+              this.handleAuthError(error);
+            });
+        },
+        error: () => {
+          this.alertError("Error al registrar el usuario en la base de datos.");
+        }
+      });
     } else {
-      this.alertError("Complete los campos.")
+      this.alertError("Complete los campos correctamente.");
     }
   }
+
   onGoogle() {
     this.loginService.loginGoogle().then((response) => {
       if (response) {
@@ -113,6 +103,34 @@ export class UsuariosComponent {
       const field2Value = formGroup.get(field2)?.value;
       return field1Value === field2Value ? null : { fieldsMismatch: true };
     };
+  }
+
+  handleAuthError(error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    switch (errorCode) {
+      case 'auth/email-already-in-use':
+        this.alertError("El correo ya está registrado.");
+        break;
+      case 'auth/invalid-email':
+        this.alertError("Formato de correo inválido.");
+        break;
+      case 'auth/weak-password':
+        this.alertError("La contraseña es demasiado débil.");
+        break;
+      case 'auth/operation-not-allowed':
+        this.alertError("La creación de cuentas con correo y contraseña está deshabilitada.");
+        break;
+      case 'auth/too-many-requests':
+        this.alertError("Demasiados intentos. Por favor, intenta más tarde.");
+        break;
+      case 'auth/popup-closed-by-user':
+        this.alertError("Error al iniciar con Google.");
+        break;
+      default:
+        this.alertError("Error desconocido: " + errorMessage);
+    }
   }
 
   textError = ''

@@ -87,7 +87,7 @@ export class UsuariosServiceService {
       this.listaUsuarios = this.cargarUsuario();
       const index = this.listaUsuarios.findIndex(usuario => usuario.email === email);
       if (index !== -1) {
-        this.listaUsuarios[index].rolAdministrativo = nuevoRol;
+        this.listaUsuarios[index].rol = nuevoRol;
         localStorage.setItem('listUser', JSON.stringify(this.listaUsuarios));
         return true;
       }
@@ -97,22 +97,25 @@ export class UsuariosServiceService {
 
   private apiUrl = 'http://localhost:8080/demo65/rs/personas'; // URL base del backend para personas
 
-  // Crear una persona
   createPersona(persona: Persona): Observable<Persona> {
     return this.http.post<Persona>(this.apiUrl, persona);
   }
-
-  // Actualizar una persona
   updatePersona(persona: Persona): Observable<void> {
     return this.http.put<void>(this.apiUrl, persona);
   }
 
-  // Obtener una persona por ID
   getPersonaById(id: number): Observable<Persona> {
     return this.http.get<Persona>(`${this.apiUrl}/${id}`);
   }
 
-  // Eliminar una persona por ID
+  getPersonas(): Observable<Persona[]> {
+    return this.http.get<Persona[]>(`${this.apiUrl}`);
+  }
+
+  getPersonaByEmail(email: string): Observable<Persona> {
+    return this.http.get<Persona>(`${this.apiUrl}/buscarid/${email}`);
+  }
+
   deletePersona(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

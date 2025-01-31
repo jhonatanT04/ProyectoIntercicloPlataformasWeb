@@ -14,9 +14,12 @@ import { HorariosService } from '../../services/horarios.service';
 })
 export class HorariosComponent implements OnInit {
   horarios: any[] = [];
+  horariosNormales: Horario[] = [];
+  horariosEspeciales: Horario[] = [];
   dia = '';
   horaApertura = '';
   horaCierre = '';
+  horarioMostrarE = false;
   horarioMostrarA = false;
   horarioMostrar = false;
 
@@ -32,6 +35,12 @@ export class HorariosComponent implements OnInit {
     horaCierre: new FormControl('', [Validators.required])
   });
 
+  horarioEspecialForm = new FormGroup({
+    fechaEspecial: new FormControl('', [Validators.required]),
+    horaApertura: new FormControl('', [Validators.required]),
+    horaCierre: new FormControl('', [Validators.required])
+  });
+
   constructor(private horarioS: HorariosService) {}
 
   ngOnInit(): void {
@@ -43,8 +52,10 @@ export class HorariosComponent implements OnInit {
       const horario: Horario = {
         id: this.horarios.find(h => h.dia === this.horarioForm.get('dia')?.value)?.id, 
         dia: this.horarioForm.get('dia')?.value || '',
+        fechaEspecial:null,
         horaApertura: this.horarioForm.get('horaApertura')?.value || '',
-        horaCierre: this.horarioForm.get('horaCierre')?.value || ''
+        horaCierre: this.horarioForm.get('horaCierre')?.value || '',
+        tipoHorario: "Normal"
       };
   
       if (horario.id !== undefined) {
@@ -65,8 +76,6 @@ export class HorariosComponent implements OnInit {
     }
   }
   
-
-
   agregarHorario(): void {
     if (this.horarioFormA.valid) {
       const dia = this.horarioFormA.get('dia')?.value || '';
@@ -76,8 +85,10 @@ export class HorariosComponent implements OnInit {
       const horario = new Horario (
         0,
         dia,
+        null,
         horaApertura,
-        horaCierre
+        horaCierre,
+        "Normal"
       );
   
       this.horarioS.createHorario(horario).subscribe(
@@ -91,6 +102,38 @@ export class HorariosComponent implements OnInit {
       );
     } else {
       this.horarioFormA.markAllAsTouched();
+    }
+  }
+  
+  agregarHorarioEspecial(): void {
+    if (this.horarioEspecialForm.valid) {
+      const fechaEspecialStr = this.horarioEspecialForm.get('fechaEspecial')?.value || '';
+      const fechaEspecial = fechaEspecialStr ? new Date(fechaEspecialStr) : null;
+  
+      if (!fechaEspecial) {
+        this.alertError("Debe seleccionar una fecha especial.");
+        return;
+      }
+  
+      const horario: Horario = {
+        id: 0, 
+        dia: null, 
+        fechaEspecial: fechaEspecial,
+        horaApertura: this.horarioEspecialForm.get('horaApertura')?.value || '',
+        horaCierre: this.horarioEspecialForm.get('horaCierre')?.value || '',
+        tipoHorario: "Especial"
+      };
+  
+      this.horarioS.createHorarioEspecial(horario).subscribe(
+        () => {
+          this.alertConfirm('Horario especial agregado correctamente.');
+          this.cargarHorario();
+          this.horarioEspecialForm.reset();
+        },
+        (error) => this.alertError('Error agregando el horario especial.')
+      );
+    } else {
+      this.horarioEspecialForm.markAllAsTouched();
     }
   }
   
@@ -108,14 +151,16 @@ export class HorariosComponent implements OnInit {
   }
 
   cargarHorario(): void {
-    this.horarioS.getHorarios().subscribe(
-      (data) => (this.horarios = data),
-      (error) => this.alertError('Error cargando los horarios.')
-    );
+    this.horarioS.getHorariosNormales().subscribe(data => this.horariosNormales = data);
+    this.horarioS.getHorariosEspeciales().subscribe(data => this.horariosEspeciales = data);
   }
 
   horarioE(): void {
     this.horarioMostrar = !this.horarioMostrar;
+  }
+
+  horarioEspecial(): void {
+    this.horarioMostrarE = !this.horarioMostrarE;
   }
 
   horarioA(): void {
@@ -129,8 +174,9 @@ export class HorariosComponent implements OnInit {
 
   seleccionarHorario(horario: Horario): void {
     if (horario) {
+      const dia = horario.dia
       this.horarioForm.setValue({
-        dia: horario.dia,
+        dia: null,
         horaApertura: horario.horaApertura,
         horaCierre: horario.horaCierre
       });

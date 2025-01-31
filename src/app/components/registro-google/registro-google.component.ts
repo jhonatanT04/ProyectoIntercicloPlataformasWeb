@@ -32,25 +32,38 @@ export class RegistroGoogleComponent {
     codeZip: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
   })
 
+  constructor(private personaService:UsuariosServiceService){}
+
   registrarse() {
     this.form.markAllAsTouched();
+
     if (this.form.valid) {
-      const per = new Persona(
-        this.servicioAuthetication.getInfo()?.email || ' ',
-        ' ',
-        this.form.get('name')?.value || ' ',
-        this.form.get('lastName')?.value || ' ',
-        this.form.get('numberPhone')?.value || ' ',
-        this.form.get('addres')?.value || ' ',
-        this.form.get('codeZip')?.value || ' ',
-        
+      const persona: Persona = new Persona(
+        0,  
+        this.servicioAuthetication.getInfo()?.email || '',
+        '',
+        this.form.get('name')?.value || '',
+        this.form.get('lastName')?.value || '',
+        this.form.get('numberPhone')?.value || '',
+        this.form.get('address')?.value || '',
+        this.form.get('codeZip')?.value || '',
+        false, 
+        undefined  
       );
-      this.servicioUser.nuevoUsuario(per)
-      this.router.navigate(['/pages/perfil']);
+
+      this.personaService.createPersona(persona).subscribe({
+        next: () => {
+          this.router.navigate(['/pages/perfil']);
+        },
+        error: () => {
+          this.alertError("Error al registrar el usuario.");
+        }
+      });
     } else {
-      this.alertError("Complete los campos.")
+      this.alertError("Complete los campos correctamente.");
     }
   }
+
   alertError(error: string) {
     setTimeout(() => {
       this.textError = error

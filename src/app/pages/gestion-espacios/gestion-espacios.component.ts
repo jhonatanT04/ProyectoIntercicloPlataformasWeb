@@ -84,7 +84,7 @@ export class GestionEspaciosComponent implements OnInit {
       }
 
       this.espacioSeleccionado.id = nuevoTotal;
-      this.espacioS.updateEspacio(this.espacioSeleccionado.id, this.espacioSeleccionado).subscribe(
+      this.espacioS.updateEspacio(this.espacioSeleccionado).subscribe(
         () => {
           this.cargarEspacios();
           this.espaciosMostrarActualizar = false;

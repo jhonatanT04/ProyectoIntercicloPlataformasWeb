@@ -94,14 +94,14 @@ export class AdministadoresComponent implements OnInit {
     this.formAdmin = new FormGroup({
       name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
       lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
-      numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required, Validators.minLength(10)]),
+      numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.telefono, [Validators.required, Validators.minLength(10)]),
       addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
-      codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required, Validators.minLength(10)]),
+      codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.cedula, [Validators.required, Validators.minLength(10)]),
     })
   }
   editPerfil = false
   editarPerfil() {
-    console.log(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico)
+    console.log(this.adminS.buscarAdminPorEmail(this.email)?.telefono)
     this.editPerfil = !this.editPerfil
   }
   confirmacionEdit = false
@@ -115,9 +115,9 @@ export class AdministadoresComponent implements OnInit {
   formAdmin = new FormGroup({
     name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
     lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
-    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico, [Validators.required, Validators.minLength(10)]),
+    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.telefono, [Validators.required, Validators.minLength(10)]),
     addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
-    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.codigo, [Validators.required, Validators.minLength(10)]),
+    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.cedula, [Validators.required, Validators.minLength(10)]),
   })
   
   
@@ -125,6 +125,7 @@ export class AdministadoresComponent implements OnInit {
   actualizarPerfil() {
     
     const per = new Persona(
+      0,
       this.email,
       '',
       this.formAdmin.get('name')?.value || ' ',

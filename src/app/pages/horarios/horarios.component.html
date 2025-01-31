@@ -2,6 +2,7 @@
   <h2>Definir Horario de Trabajo</h2>
 
   <button class="btnA" (click)="horarioA()">Agregar Horario</button>
+  <button class="btnA" (click)="horarioEspecial()">Agregar Horario Especial</button>
 
   <table>
     <thead>
@@ -13,8 +14,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let horario of horarios; let i = index">
+      <tr *ngFor="let horario of horariosNormales; let i = index">
         <td>{{ horario.dia }}</td>
+        <td>{{ horario.horaApertura }}</td>
+        <td>{{ horario.horaCierre }}</td>
+        <td class="acciones">
+          <div class="menu-container">
+            <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
+            <div class="menu-options" *ngIf="menuVisibleIndex === i">
+              <button (click)="horarioE()">Editar</button>
+              <button (click)="eliminarHorario(horario)">Eliminar</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha Especial</th>
+        <th>Hora de Apertura</th>
+        <th>Hora de Cierre</th>
+        <th class="puntos"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let horario of horariosEspeciales; let i = index">
+        <td>{{ horario.fechaEspecial }}</td>
         <td>{{ horario.horaApertura }}</td>
         <td>{{ horario.horaCierre }}</td>
         <td class="acciones">
@@ -119,6 +147,51 @@
           <div class="btns">
             <button class="btn" type="submit" (click)="agregarHorario()">Agregar</button>
             <button class="btn" (click)="horarioA()">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="alert-container" *ngIf="showDangerAlert">
+      <div *ngIf="showDangerAlert" class="alert-danger">
+        <svg viewBox="0 0 24 24" class="icon">
+          <path fill="currentColor"
+            d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+        </svg>
+        {{textError}}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="horarioMostrarE" class="popup-overlay-profile">
+    <div class="popup-content-profile-edit">
+      <div class="description">
+        <form [formGroup]="horarioEspecialForm">
+          <label for="dia">Fecha Especial:</label>
+          <input type="date" id="fechaEspecial" formControlName="fechaEspecial"
+            [class.ng-invalid.ng-touched]="horarioFormA.get('fechaEspecial')?.hasError('required') && horarioFormA.get('fechaEspecial')?.touched">
+          <div *ngIf="horarioFormA.get('fechaEspecial')?.hasError('required') && horarioFormA.get('fechaEspecial')?.touched"
+            class="error-message">
+            Por favor selecciona una fecha.
+          </div>
+
+          <label for="horaApertura">Hora de Apertura:</label>
+          <input type="time" id="horaApertura" formControlName="horaApertura"
+            [class.ng-invalid.ng-touched]="horarioFormA.get('horaApertura')?.hasError('required') && horarioFormA.get('horaApertura')?.touched">
+          <div *ngIf="horarioFormA.get('horaApertura')?.hasError('required') && horarioFormA.get('horaApertura')?.touched"
+            class="error-message">
+            La hora de apertura es obligatoria.
+          </div>
+
+          <label for="horaCierre">Hora de Cierre:</label>
+          <input type="time" id="horaCierre" formControlName="horaCierre">
+          <div *ngIf="horarioFormA.get('horaCierre')?.hasError('required') && horarioFormA.get('horaCierre')?.touched"
+            class="error-message">
+            La hora de cierre es obligatoria.
+          </div>
+
+          <div class="btns">
+            <button class="btn" type="submit" (click)="agregarHorarioEspecial()">Agregar</button>
+            <button class="btn" (click)="horarioEspecial()">Cerrar</button>
           </div>
         </form>
       </div>

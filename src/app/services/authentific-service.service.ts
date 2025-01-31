@@ -28,7 +28,7 @@ export class AuthentificServiceService {
       .then(async (userCredential) => {
         this.userEmail = usuario.email;
         const listaAdministradores = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
-        const usuarioAdmin = listaAdministradores.find(admin => admin.email === usuario.email && admin.rolAdministrativo === true);
+        const usuarioAdmin = listaAdministradores.find(admin => admin.email === usuario.email && admin.rol === true);
         if (usuarioAdmin) {
           return usuarioAdmin;
         }

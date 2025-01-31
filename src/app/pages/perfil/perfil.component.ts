@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { ActualizarPerfilComponent } from '../actualizar-perfil/actualizar-perfil.component';
 import { FormsModule } from '@angular/forms';
 import { Espacio } from '../../models/espacio';
+import { ContratoService } from '../../services/contrato.service';
+import { EspacioService } from '../../services/espacio.service';
 
 @Component({
   selector: 'app-perfil',
@@ -30,20 +32,54 @@ export class PerfilComponent implements OnInit{
   selectHoraIngreso = false
   horaIngreso = ''  
   placa= ''
+  usuarioId: number = 0;
   router = inject(Router)
-  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:AdministradoresServiceService,private espacioS: AdministradoresServiceService){}
+  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:ContratoService,private espacioS: EspacioService){}
   ngOnInit(): void {
-    this.cargarCli() 
+    this.obtenerUsuarioId() 
+    this.cargarCli()
   }
-  cargarCli(){
-    this.espacios = this.espacioS.cargarEspacios()
-    this.correo = this.correoS.getInfo()?.email || ''
-    this.nombre = this.userS.buscarUsuarioPorEmail(this.correo)?.nombre || ''
-    this.apellido = this.userS.buscarUsuarioPorEmail(this.correo)?.apellido || ''
-    this.telefono =this.userS.buscarUsuarioPorEmail(this.correo)?.numeroTelefonico || ''
-    this.contrato= this.contratoS.buscarContratoPorEmail(this.correo)?.espacio.nombreEspacio || ''
-    this.contratos=this.contratoS.buscarListaContratosPorEmail(this.correo)
-    
+
+  obtenerUsuarioId() {
+    this.correo = this.correoS.getInfo()?.email || '';
+
+    this.userS.getPersonaByEmail(this.correo).subscribe({
+      next: (persona) => {
+        if (persona) {
+          this.usuarioId = persona.id;
+          console.log(this.usuarioId)  // Guardamos el ID del usuario
+          this.cargarCli();
+        }
+      },
+      error: () => console.error('Error al obtener el ID del usuario'),
+    });
+  }
+
+  cargarCli() {
+    if (this.usuarioId > 0) {
+      this.userS.getPersonaById(this.usuarioId).subscribe({
+        next: (persona) => {
+          if (persona) {
+            this.nombre = persona.nombre;
+            this.apellido = persona.apellido;
+            this.telefono = persona.telefono;
+          }
+        },
+        error: () => console.error('Error al cargar los datos del usuario'),
+      });
+
+      this.espacioS.listEspacios().subscribe({
+        next: (data) => (this.espacios = data),
+        error: () => console.error('Error al cargar los espacios'),
+      });
+
+      this.contratoS.getContratoByIdPersona(this.usuarioId).subscribe({
+        next: (contratos) => {
+          this.contratos = contratos;
+        },
+        error: () => console.error('Error al cargar los contratos'),
+      });
+    }
   }
 
   abrirActualizarPerfil(): void {
@@ -83,12 +119,18 @@ export class PerfilComponent implements OnInit{
     }
     return true
   }
-  crearTicket(){
-    if(this.espacioSeleccionado !== null && this.horaIngreso !== ''){
-      this.espacioSeleccionado.estado = 'O'
-      //this.espacioSeleccionado.horaIngreso = this.horaIngreso
-      this.espacioS.actualizarEspacio(this.espacios)
-      this.abrirNewTicket()
+  crearTicket() {
+    if (this.espacioSeleccionado !== null && this.horaIngreso !== '') {
+      this.espacioSeleccionado.estado = 'O';
+
+      const nuevoE = new Espacio(this.espacioSeleccionado.id,this.espacioSeleccionado.nombreEspacio,'O');
+      this.espacioS.updateEspacio(nuevoE).subscribe({
+        next: () => {
+          this.abrirNewTicket();
+          this.cargarCli(); 
+        },
+        error: () => console.error('Error al actualizar el espacio'),
+      });
     }
-  } 
+  }
 }

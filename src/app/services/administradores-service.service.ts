@@ -63,13 +63,13 @@ export class AdministradoresServiceService {
   //];
 
   listaHorarios: Horario[] = [
-    { id: 1,dia: 'Lunes', horaApertura: '08:00', horaCierre: '17:00' },
+    /*{ id: 1,dia: 'Lunes', horaApertura: '08:00', horaCierre: '17:00' },
     { id: 1,dia: 'Martes', horaApertura: '08:00', horaCierre: '17:00' },
     { id: 1,dia: 'Miércoles', horaApertura: '08:00', horaCierre: '17:00' },
     { id: 1,dia: 'Jueves', horaApertura: '08:00', horaCierre: '17:00' },
     { id: 1,dia: 'Viernes', horaApertura: '08:00', horaCierre: '17:00' },
     { id: 1,dia: 'Sábado', horaApertura: '09:00', horaCierre: '13:00' },
-    { id: 1,dia: 'Domingo', horaApertura: 'Cerrado', horaCierre: 'Cerrado' }
+    { id: 1,dia: 'Domingo', horaApertura: 'Cerrado', horaCierre: 'Cerrado' }*/
   ];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private http: HttpClient) {
@@ -85,6 +85,7 @@ export class AdministradoresServiceService {
       const storedList = localStorage.getItem('listUser');
       if (!storedList || JSON.parse(storedList).length === 0) {
         const administradorPorDefecto = new Persona(
+          0,
           'admin@example.com',
           'admin123',
           'Admin',
@@ -105,27 +106,20 @@ export class AdministradoresServiceService {
 
   private apiUrl = 'http://localhost:8080/demo65/rs/registros';
 
-  getExample(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/1`);
+  registrarIngreso(registro: Registro): Observable<Registro> {
+    return this.http.post<Registro>(`${this.apiUrl}`, registro);
   }
-
-  registrarIngreso(registro: Registro): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}`, {
-      placa: registro.placa,
-      fechaIngreso: registro.fechaIngreso
-    });
+  
+  registrarSalida(registro: Registro): Observable<Registro> {
+    return this.http.put<Registro>(`${this.apiUrl}`, registro);
   }
-
-  registrarSalida(registro: Registro): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}`, {
-      placa: registro.placa,
-      fechaIngreso: registro.fechaIngreso,
-      fechaSalida: registro.fechaSalida
-    });
-  }
-
+  
   obtenerHistorial(periodo: 'dia' | 'semana' | 'mes'): Observable<Registro[]> {
     return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`);
+  }
+  
+  obtenerVehiculosEnParqueadero(): Observable<Registro[]> {
+    return this.http.get<Registro[]>(`${this.apiUrl}/parqueadero`);
   }
 
   // Guarda listas iniciales de espacios, horarios y tarifas en el almacenamiento local.

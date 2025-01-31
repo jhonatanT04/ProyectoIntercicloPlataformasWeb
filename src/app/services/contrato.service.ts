@@ -28,6 +28,10 @@ export class ContratoService {
     return this.http.get<Contrato>(`${this.apiUrl}/${id}`);
   }
 
+  getContratoByIdPersona(id: number): Observable<Contrato[]> {
+    return this.http.get<Contrato[]>(`${this.apiUrl}/contrato/${id}`);
+  }
+
   deleteContrato(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/deletePersona/${id}`);
   }

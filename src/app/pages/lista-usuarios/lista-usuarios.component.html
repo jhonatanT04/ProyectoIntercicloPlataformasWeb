@@ -17,8 +17,8 @@
           <td>{{ cliente.nombre }}</td>
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.email }}</td>
-          <td>{{ cliente.numeroTelefonico }}</td>
-          <td>{{ cliente.rolAdministrativo ? 'Admin' : 'Cliente' }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>{{ cliente.rol ? 'Admin' : 'Cliente' }}</td>
           <td class="acciones">
             <div class="menu-container">
               <button class="menu-button" (click)="toggleMenu(i)">⋯</button>

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit{
       this.loginService.login(usuario)
         .then(persona => {
           console.log(persona)
-          if (persona?.rolAdministrativo) {
+          if (persona?.rol) {
             this.router.navigate(['/pages/administrador']);  
           } else {
             this.router.navigate(['/pages/perfil']);       
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit{
       if(newUser){
         this.router.navigate(['components/registro-google']);
       }else{
-        if(persona?.rolAdministrativo===true){
+        if(persona?.rol===true){
           this.router.navigate(['/pages/administrador'])
         }else{
           if(persona){

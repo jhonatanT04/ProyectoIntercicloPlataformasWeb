@@ -1,30 +1,36 @@
+import { Contrato } from "./contrato";
 import { User } from "./user";
 
 export class Persona extends User{
+    id:number
     nombre: string;
     apellido: string;
-    numeroTelefonico: string;
+    telefono: string;
     direccion: string;
-    codigo: string;
-    rolAdministrativo: boolean;
+    cedula: string;
+    rol: boolean;
+    listaContratos?:Contrato
 
     constructor(
-        correo:string,
+        id:number,
+        email:string,
         password:string,
         nombre:string,
         apellido:string,
-        numeroTelefonico:string,
+        telefono:string,
         direccion:string,
-        codigo:string,
-        rolAdministrativo=false
+        cedula:string,
+        rol=false,
+        listaContratos?:Contrato
     ){
-        super(correo,password);
+        super(email,password);
+        this.id = id
         this.nombre = nombre;
         this.apellido = apellido;
-        this.numeroTelefonico = numeroTelefonico;
+        this.telefono = telefono;
         this.direccion = direccion;
-        this.codigo = codigo;
-        
-        this.rolAdministrativo = rolAdministrativo;
+        this.cedula = cedula;
+        this.rol = rol;
+        this.listaContratos = listaContratos
     }
 }

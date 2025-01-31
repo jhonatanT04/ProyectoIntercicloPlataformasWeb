@@ -11,6 +11,7 @@ import { ContratoService } from '../../services/contrato.service';
 import { TarifasService } from '../../services/tarifas.service';
 import { EspacioService } from '../../services/espacio.service';
 import { Espacio } from '../../models/espacio';
+import { error } from 'console';
 
 @Component({
   selector: 'app-contratos',
@@ -24,7 +25,7 @@ export class ContratosComponent implements OnInit {
   espacios: Espacio[] = []
   espaciosF: Espacio[] = []
   contratos: Contrato[] = []
-  clientes: any = []
+  clientes: Persona[] = []
   tarifas: Tarifa[] = []
 
   email1: string = '';
@@ -70,7 +71,12 @@ export class ContratosComponent implements OnInit {
 
 
   cargarClientes() {
-    this.clientes = this.clienteS.cargarUsuario()
+    this.clienteS.getPersonas().subscribe(
+      (data) =>{
+        this.clientes = data;
+      },
+      (error) => this.alertError('Error al cargar clientes')
+    )
   }
   cargarEspacios() {
     this.espacioS.listEspacios().subscribe(
@@ -108,63 +114,63 @@ export class ContratosComponent implements OnInit {
 
   agregarContrato(): void {
     if (this.contratoForm.valid) {
-      const clienteEmail = this.contratoForm.get('cliente')?.value || '';
+      const usuarioEmail = this.contratoForm.get('cliente')?.value || '';
       const tarifaId = this.contratoForm.get('tarifa')?.value || '';
       const espacioNombre = this.contratoForm.get('espacio')?.value || '';
   
-      let usuario = null;
-      let tarifa = null;
-      let espacio = null;
-  
-      for (let c of this.clientes) {
-        if (c.email === clienteEmail) {
-          usuario = c;
-          break;
+      this.clienteS.getPersonaByEmail(usuarioEmail).subscribe(usuario => {
+        console.log("Usuario encontrado:", usuario);
+
+        const tarifa = this.tarifas.find(t => t.tiempo === tarifaId);
+        const espacio = this.espacios.find(e => e.nombreEspacio === espacioNombre);
+
+        console.log("Tarifa encontrada:", tarifa);
+        console.log("Espacio encontrado:", espacio);
+
+        if (!usuario || !tarifa || !espacio) {
+          this.alertError('Usuario, tarifa o espacio no válidos.');
+          return;
         }
-      }
   
-      for (let t of this.tarifas) {
-        if (t.id === +tarifaId) {
-          tarifa = t;
-          break;
-        }
-      }
+        const fechaInicio = new Date(this.contratoForm.get('fechaInicio')?.value || '');
+        const fechaFin = new Date(this.contratoForm.get('fechaFin')?.value || '');
   
-      for (let e of this.espacios) {
-        if (e.nombreEspacio === espacioNombre) {
-          espacio = e;
-          break;
-        }
-      }
-  
-      if (usuario && tarifa && espacio) {
         const contrato: Contrato = {
-          id: 0, 
-          usuario,
-          espacio, 
+          id: 0,
+          usuario, 
+          espacio,
           placa: this.contratoForm.get('placa')?.value || '',
-          fechaInicio: new Date(this.contratoForm.get('fechaInicio')?.value || ''),
-          fechaFin: new Date(this.contratoForm.get('fechaFin')?.value || ''),
+          fechaInicio, 
+          fechaFin,  
           tarifa,
         };
   
+        console.log('Contrato a enviar:', contrato); 
+  
+        const enuevo = new Espacio(espacio.id,espacio.nombreEspacio,'R')
+
         this.contratoS.createContrato(contrato).subscribe(
           () => {
+            this.espacioS.updateEspacio(enuevo).subscribe(() => {
+              console.log("Espacio actualizado correctamente.");
+              this.cargarEspacios();
+            });
+  
             this.cargarContratos();
-            this.filtrarEspacios();
             this.contratoForm.reset();
             this.alertConfirm('Contrato agregado correctamente.');
           },
           (error) => this.alertError('Error al agregar el contrato.')
         );
-      } else {
-        this.alertError('Cliente, tarifa, o espacio no válidos.');
-      }
+      }, 
+      (error) => this.alertError('Error al obtener el usuario del backend.'));
     } else {
       this.contratoForm.markAllAsTouched();
-      this.alertError('Formulario inválido. Por favor revisa los campos.');
+      this.alertError('Formulario inválido. Revisa los campos.');
     }
   }
+  
+
   
   eliminarContrato(contrato: Contrato): void {
     if (contrato.id) {

@@ -51,10 +51,10 @@
                     </div>
                 </div>
                 <div class="description">
-                    <p>Cedula: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.codigo}}</p>
+                    <p>Cedula: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.cedula}}</p>
                     <p>Correo eletronico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.email}}</p>
                     <p>Direccion: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.direccion}}</p>
-                    <p>Numero telefonico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.numeroTelefonico}}</p>
+                    <p>Numero telefonico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.telefono}}</p>
                 </div>
                 <div class="btns">
                     <button class="btn btn-1" (click)="redireccionarPerfil()">Cerrar</button>

@@ -31,4 +31,16 @@ export class HorariosService {
   deleteHorario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/deletePersona/${id}`);
   }
+
+  getHorariosNormales(): Observable<Horario[]> {
+    return this.http.get<Horario[]>(`${this.apiUrl}/normales`);
+  }
+
+  getHorariosEspeciales(): Observable<Horario[]> {
+    return this.http.get<Horario[]>(`${this.apiUrl}/especiales`);
+  }
+
+  createHorarioEspecial(horario: Horario): Observable<Horario> {
+    return this.http.post<Horario>(`${this.apiUrl}/especial`, horario);
+  }
 }

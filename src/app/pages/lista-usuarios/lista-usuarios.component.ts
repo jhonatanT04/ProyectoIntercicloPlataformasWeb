@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { UsuariosServiceService } from '../../services/usuarios-service.service';
 import { Persona } from '../../models/persona';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { ContratoService } from '../../services/contrato.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -14,7 +15,7 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 })
 export class ListaUsuariosComponent implements OnInit {
   clientes: Persona[] = []
-  clienteTemp: Persona = new Persona('', '', '', '', '', '', '')
+  clienteTemp: Persona = new Persona(0, '', '', '', '', '', '','')
   clienteSeleccionado = false
 
   editarForm = new FormGroup({
@@ -31,88 +32,99 @@ export class ListaUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarClientes()
   }
-  constructor(private clienteS: UsuariosServiceService, private contratoS: AdministradoresServiceService) { }
+  constructor(private clienteS: UsuariosServiceService, private contratoS: ContratoService) { }
 
-  cargarClientes() {
-    this.clientes = this.clienteS.cargarUsuario()
+  cargarClientes(): void {
+    this.clienteS.getPersonas().subscribe(
+      (data) => {
+        this.clientes = data;
+      },
+      (error) => this.alertError('Error al cargar clientes.')
+    );
   }
 
 
-  seleccionarCliente(email: string) {
-    this.clienteSeleccionado = true
-    const cliente = this.clientes.find(cli => cli.email === email);
-    if (cliente) {
-      this.clienteTemp = cliente
-      this.editarForm = new FormGroup({
-        name: new FormControl(this.clienteTemp.nombre || '', [Validators.required, Validators.minLength(2)]),
-        lastName: new FormControl(this.clienteTemp.apellido || '', [Validators.required]),
-        numberPhone: new FormControl(this.clienteTemp.numeroTelefonico || '', [Validators.required]),
-        addres: new FormControl(this.clienteTemp.direccion || '', [Validators.required]),
-        codeZip: new FormControl(this.clienteTemp.codigo || '', [Validators.required]),
-      })
-    }
-  }
-
-  seleccionarClienteRol(email: string) {
+  seleccionarCliente(email: string): void {
     this.clienteSeleccionado = true;
-    const cliente = this.clientes.find(cli => cli.email === email);
-    if (cliente) {
-      this.clienteTemp = cliente;
-      this.editarFormR = new FormGroup({
-        rol: new FormControl(this.clienteTemp.rolAdministrativo.toString(), [Validators.required])
-      });
-    }
+    this.clienteS.getPersonaByEmail(email).subscribe(
+      (cliente) => {
+        if (cliente) {
+          this.clienteTemp = cliente;
+          this.editarForm.setValue({
+            name: cliente.nombre || '',
+            lastName: cliente.apellido || '',
+            numberPhone: cliente.telefono || '',
+            addres: cliente.direccion || '',
+            codeZip: cliente.cedula || ''
+          });
+        }
+      },
+      (error) => this.alertError('Error al obtener el cliente.')
+    );
+  }
+
+  seleccionarClienteRol(email: string): void {
+    this.clienteSeleccionado = true;
+    this.clienteS.getPersonaByEmail(email).subscribe(
+      (cliente) => {
+        if (cliente) {
+          this.clienteTemp = cliente;
+          this.editarFormR.setValue({
+            rol: cliente.rol.toString()
+          });
+        }
+      },
+      (error) => this.alertError('Error al obtener el cliente.')
+    );
   }
 
 
-  actualizarCliente() {
-
-    if (this.editarForm.valid) {
-      const nuevosDatos: Persona = new Persona(
+  actualizarCliente(): void {
+    if (this.editarForm.valid && this.clienteTemp) {
+      const personaActualizada = new Persona(
+        this.clienteTemp.id,
         this.clienteTemp.email,
-        '',
-        this.editarForm.get('name')?.value || ' ',
-        this.editarForm.get('lastName')?.value || ' ',
-        this.editarForm.get('numberPhone')?.value || ' ',
-        this.editarForm.get('addres')?.value || ' ',
-        this.editarForm.get('codeZip')?.value || ' ',
-        this.clienteTemp.rolAdministrativo
+        this.clienteTemp.password,
+        this.editarForm.get('name')?.value || '',
+        this.editarForm.get('lastName')?.value || '',
+        this.editarForm.get('numberPhone')?.value || '',
+        this.editarForm.get('addres')?.value || '',
+        this.editarForm.get('codeZip')?.value || '',
+        this.clienteTemp.rol,
+        this.clienteTemp.listaContratos
       );
-      if (!this.editarForm.pristine) {
-        console.log("diferentes")
-        const actualizado = this.clienteS.actualizarUsuario(this.clienteTemp.email, nuevosDatos);
-        this.contratoS.actualizarContratosCliente(this.clienteTemp.email, nuevosDatos)
-        this.cargarClientes()
-        if (actualizado) {
-          console.log('Cliente actualizado correctamente');
+
+      this.clienteS.updatePersona(personaActualizada).subscribe(
+        () => {
           this.cargarClientes();
-          this.alertConfirm('Se actualizo correctamente')
-        } else {
-          this.alertError('Error: Cliente no encontrado')
-        }
-      }
-      this.editarrF();
+          this.alertConfirm('Cliente actualizado correctamente.');
+          this.editarrF();
+        },
+        (error) => this.alertError('Error al actualizar el cliente.')
+      );
     } else {
-      this.alertError('Complete los campos')
+      this.alertError('Complete los campos correctamente.');
     }
   }
   editarR = false
   editarrR() {
     this.editarR = !this.editarR
   }
-  actualizarRol() {
-    if (this.editarFormR.valid) {
+  actualizarRol(): void {
+    if (this.editarFormR.valid && this.clienteTemp) {
       const rolA = this.editarFormR.get('rol')?.value;
-      const rolBooleano = rolA === 'true';  
+      const rolBooleano = rolA === 'true';
 
-      const actualizado = this.clienteS.actualizarUsuarioRol(this.clienteTemp.email, rolBooleano);
-      if (actualizado) {
-        this.alertConfirm('Rol actualizado correctamente');
-        this.cargarClientes()
-        this.editarrR()
-      } else {
-        this.alertError('Error: Cliente no encontrado');
-      }
+      this.clienteTemp.rol = rolBooleano;
+
+      this.clienteS.updatePersona(this.clienteTemp).subscribe(
+        () => {
+          this.alertConfirm('Rol actualizado correctamente.');
+          this.cargarClientes();
+          this.editarrR();
+        },
+        (error) => this.alertError('Error al actualizar el rol del cliente.')
+      );
     }
   }
 

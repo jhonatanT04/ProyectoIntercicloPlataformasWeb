@@ -9,60 +9,85 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss'] // Cambié 'styleUrl' a 'styleUrls' (es un array)
+  styleUrls: ['./registro.component.scss'] 
 })
 export class RegistroComponent implements OnInit {
   registroForm: FormGroup;
+  vehiculosEnParqueadero: Registro[] = [];
   historial: Registro[] = [];
 
   constructor(private fb: FormBuilder, private parqueaderoService: AdministradoresServiceService) {
     this.registroForm = this.fb.group({
-      placa: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9-]+$')]], // Validación de placa
-      fechaIngreso: ['', [Validators.required]], // Fecha de ingreso obligatoria
-      fechaSalida: [''] // Fecha de salida opcional
+      placa: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9-]+$')]]
     });
   }
 
   ngOnInit(): void {
-    this.obtenerHistorial('dia'); // Cargar historial inicial por día
+    this.obtenerHistorial('dia'); 
+    this.cargarVehiculosEnParqueadero();
   }
 
-  registrarVehiculo() {
+  agregarVehiculo() {
     if (this.registroForm.valid) {
-      const datos: Registro = {
+      const nuevoVehiculo: Registro = {
+        id: 0,
         placa: this.registroForm.get('placa')?.value || '',
-        fechaIngreso: this.registroForm.get('fechaIngreso')?.value || '',
-        fechaSalida: this.registroForm.get('fechaSalida')?.value || null // Fecha de salida opcional
+        fechaIngreso: new Date(), 
+        fechaSalida: null
       };
-
-      if (!datos.fechaSalida) {
-        // Registrar ingreso
-        this.parqueaderoService.registrarIngreso(datos).subscribe(
-          () => {
-            alert('Ingreso registrado correctamente.');
-            this.obtenerHistorial('dia');
-          },
-          (error) => console.error('Error registrando ingreso:', error)
-        );
-      } else {
-        // Registrar salida
-        this.parqueaderoService.registrarSalida(datos).subscribe(
-          () => {
-            alert('Salida registrada correctamente.');
-            this.obtenerHistorial('dia');
-          },
-          (error) => console.error('Error registrando salida:', error)
-        );
-      }
-    } else {
-      alert('Por favor, complete todos los campos requeridos correctamente.');
+  
+      this.parqueaderoService.registrarIngreso(nuevoVehiculo).subscribe(
+        () => {
+          this.registroForm.reset();
+          this.cargarVehiculosEnParqueadero()
+          console.log('Vehículo registrado correctamente.');
+        },
+        error => {
+          console.error('Error registrando vehículo:', error);
+          alert('Error al registrar el vehículo. Intente de nuevo.');
+        }
+      );
     }
   }
+  
+
+  registrarSalida(vehiculo: Registro) {
+    console.log(vehiculo.id)
+    const salidaVehiculo: Registro = {
+      id: vehiculo.id,
+      placa: vehiculo.placa,  
+      fechaIngreso: vehiculo.fechaIngreso,  
+      fechaSalida: new Date()  
+    };
+  
+    this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
+      () => {
+        this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);
+        
+        this.obtenerHistorial('dia');
+        this.cargarVehiculosEnParqueadero() 
+  
+        console.log('Salida registrada correctamente.');
+      },
+      error => {
+        console.error('Error registrando salida:', error);
+        alert('Error al registrar la salida. Intente de nuevo.');
+      }
+    );
+  }
+  
 
   obtenerHistorial(periodo: 'dia' | 'semana' | 'mes') {
     this.parqueaderoService.obtenerHistorial(periodo).subscribe(
       (data) => (this.historial = data),
       (error) => console.error('Error obteniendo historial:', error)
+    );
+  }
+
+  cargarVehiculosEnParqueadero() {
+    this.parqueaderoService.obtenerVehiculosEnParqueadero().subscribe(
+      (data) => (this.vehiculosEnParqueadero = data),
+      (error) => console.error('Error obteniendo vehículos en parqueadero:', error)
     );
   }
 }

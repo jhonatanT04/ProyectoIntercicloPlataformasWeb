@@ -5,6 +5,7 @@ import { Persona } from '../../models/persona';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
+import { ContratoService } from '../../services/contrato.service';
 
 @Component({
   selector: 'app-actualizar-perfil',
@@ -16,28 +17,41 @@ import { AdministradoresServiceService } from '../../services/administradores-se
 export class ActualizarPerfilComponent implements OnInit{
   perfilForm!: FormGroup;
   ngOnInit(): void {
-    this.email = this.loginS.getInfo()?.email || '';
-    const user = this.userS.buscarUsuarioPorEmail(this.email);
-    
-    this.nombre = user?.nombre || '';
-    this.apellido = user?.apellido || '';
-    this.direccion = user?.direccion || '';
-    
-    this.codigo = user?.codigo || '';
-    this.contra = user?.password || '';
-    this.numeroTelefonico = user?.numeroTelefonico || '';
-    this.email = user?.email || ''
-    this.contra = user?.password || ''
+    this.email = this.loginS.getUserEmail() || '';
 
-    this.perfilForm = new FormGroup({
-      nombre: new FormControl(this.nombre, Validators.required),
-      apellido: new FormControl(this.apellido, Validators.required),
-      numeroTelefonico: new FormControl(this.numeroTelefonico, [Validators.required,Validators.pattern(/^\d{10}$/)]),
-      direccion: new FormControl(this.direccion, Validators.required),
-      codigo: new FormControl(this.codigo, [Validators.required,Validators.pattern(/^\d{10}$/)]),
-    });
+    this.userS.getPersonaByEmail(this.email).subscribe(
+      (user) => {
+        if (user) {
+          this.nombre = user.nombre || '';
+          this.apellido = user.apellido || '';
+          this.direccion = user.direccion || '';
+          this.codigo = user.cedula || '';
+          this.contra = user.password || '';
+          this.numeroTelefonico = user.telefono || '';
+
+          this.perfilForm = new FormGroup({
+            nombre: new FormControl(this.nombre, Validators.required),
+            apellido: new FormControl(this.apellido, Validators.required),
+            numeroTelefonico: new FormControl(this.numeroTelefonico, [
+              Validators.required,
+              Validators.pattern(/^\d{10}$/)
+            ]),
+            direccion: new FormControl(this.direccion, Validators.required),
+            codigo: new FormControl(this.codigo, [
+              Validators.required,
+              Validators.pattern(/^\d{10}$/)
+            ])
+          });
+        } else {
+          console.error('No se encontró el usuario');
+        }
+      },
+      (error) => {
+        console.error('Error al cargar el usuario', error);
+      }
+    );
   }
-  constructor(private userS:UsuariosServiceService,private loginS:AuthentificServiceService,private contratoS:AdministradoresServiceService){}
+  constructor(private userS:UsuariosServiceService,private loginS:AuthentificServiceService,private contratoS:ContratoService){}
 
   @Output() actualizado = new EventEmitter();
   email =''
@@ -49,23 +63,39 @@ export class ActualizarPerfilComponent implements OnInit{
   codigo=''
   
 
-  actualizar() {
+  actualizar(): void {
     if (this.perfilForm.valid) {
-      const nuevosDatos: Partial<Persona> = {
-        nombre: this.perfilForm.get('nombre')?.value,
-        apellido: this.perfilForm.get('apellido')?.value,
-        numeroTelefonico: this.perfilForm.get('numeroTelefonico')?.value,
-        direccion: this.perfilForm.get('direccion')?.value,
-        codigo: this.perfilForm.get('codigo')?.value,
-      };
-      
-      this.userS.actualizarUsuario(this.email, nuevosDatos);
-      this.contratoS.actualizarContratosCliente(this.email, nuevosDatos);
-
-      this.perfilForm.reset();
-      this.actualizado.emit();
+      this.userS.getPersonaByEmail(this.email).subscribe(
+        (persona) => {
+          if (persona) {
+            const personaActualizada = new Persona(
+              persona.id,
+              this.email,
+              this.contra,
+              this.perfilForm.get('nombre')?.value || '',
+              this.perfilForm.get('apellido')?.value || '',
+              this.perfilForm.get('numeroTelefonico')?.value || '',
+              this.perfilForm.get('direccion')?.value || '',
+              this.perfilForm.get('codigo')?.value || '',
+              persona.rol, 
+              persona.listaContratos 
+            );
+              this.userS.updatePersona(personaActualizada).subscribe(
+              () => {
+                console.log('Usuario actualizado correctamente');
+                this.perfilForm.reset() 
+              },
+              (error) => console.error('Error al actualizar el usuario', error)
+            );
+          } else {
+            console.error('No se encontró la persona con el email proporcionado.');
+          }
+        },
+        (error) => console.error('Error al obtener la persona', error)
+      );
     } else {
-      //Mesaje de error 
+      console.warn('Formulario inválido, por favor revisa los campos.');
     }
   }
+  
 }

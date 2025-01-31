@@ -1,73 +1,67 @@
 <div class="contenedor">
-    <h1>Gestión de Parqueadero</h1>
-  
-    <!-- Formulario para ingreso/salida -->
-    <form [formGroup]="registroForm" (ngSubmit)="registrarVehiculo()">
-      <div class="form-group">
-        <label for="placa">Placa del vehículo:</label>
-        <input
-          id="placa"
-          type="text"
-          formControlName="placa"
-          placeholder="Ingrese la placa"
-          required
-          [class.invalid]="registroForm.get('placa')?.invalid && registroForm.get('placa')?.touched"
-        />
-        <div class="error" *ngIf="registroForm.get('placa')?.invalid && registroForm.get('placa')?.touched">
-          La placa es requerida y debe ser válida.
-        </div>
+  <h1>Gestión de Parqueadero</h1>
+
+  <!-- Formulario para ingreso -->
+  <form [formGroup]="registroForm" (ngSubmit)="agregarVehiculo()">
+    <div class="form-group">
+      <label for="placa">Placa del vehículo:</label>
+      <input
+        id="placa"
+        type="text"
+        formControlName="placa"
+        placeholder="Ingrese la placa"
+        required
+      />
+      <div class="error" *ngIf="registroForm.get('placa')?.invalid && registroForm.get('placa')?.touched">
+        La placa es requerida y debe ser válida.
       </div>
-  
-      <div class="form-group">
-        <label for="fechaIngreso">Fecha de Ingreso:</label>
-        <input
-          id="fechaIngreso"
-          type="datetime-local"
-          formControlName="fechaIngreso"
-          required
-          [class.invalid]="registroForm.get('fechaIngreso')?.invalid && registroForm.get('fechaIngreso')?.touched"
-        />
-        <div class="error" *ngIf="registroForm.get('fechaIngreso')?.invalid && registroForm.get('fechaIngreso')?.touched">
-          La fecha de ingreso es requerida.
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="fechaSalida">Fecha de Salida (opcional):</label>
-        <input
-          id="fechaSalida"
-          type="datetime-local"
-          formControlName="fechaSalida"
-          [class.invalid]="registroForm.get('fechaSalida')?.invalid && registroForm.get('fechaSalida')?.touched"
-        />
-      </div>
-  
-      <button type="submit" [disabled]="registroForm.invalid">Registrar</button>
-    </form>
-  
-    <!-- Historial del parqueadero -->
-    <h2>Historial de Parqueo</h2>
-    <div class="filtros">
-      <button (click)="obtenerHistorial('dia')">Por Día</button>
-      <button (click)="obtenerHistorial('semana')">Por Semana</button>
-      <button (click)="obtenerHistorial('mes')">Por Mes</button>
     </div>
-  
-    <table>
-      <thead>
-        <tr>
-          <th>Placa</th>
-          <th>Fecha de Ingreso</th>
-          <th>Fecha de Salida</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let registro of historial">
-          <td>{{ registro.placa }}</td>
-          <td>{{ registro.fechaIngreso | date: 'short' }}</td>
-          <td>{{ registro.fechaSalida ? (registro.fechaSalida | date: 'short') : '---' }}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <button type="submit" [disabled]="registroForm.invalid">Añadir al Parqueadero</button>
+  </form>
+
+  <!-- Vehículos dentro del parqueadero -->
+  <h2>Vehículos en el Parqueadero</h2>
+  <table *ngIf="vehiculosEnParqueadero.length > 0">
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Fecha de Ingreso</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehiculo of vehiculosEnParqueadero">
+        <td>{{ vehiculo.placa }}</td>
+        <td>{{ vehiculo.fechaIngreso | date: 'short' }}</td>
+        <td>
+          <button (click)="registrarSalida(vehiculo)">Salir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Historial de Parqueo</h2>
+  <div class="filtros">
+    <button (click)="obtenerHistorial('dia')">Por Día</button>
+    <button (click)="obtenerHistorial('semana')">Por Semana</button>
+    <button (click)="obtenerHistorial('mes')">Por Mes</button>
   </div>
-  
+
+  <table>
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Fecha de Ingreso</th>
+        <th>Fecha de Salida</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let registro of historial">
+        <td>{{ registro.placa }}</td>
+        <td>{{ registro.fechaIngreso | date: 'short' }}</td>
+        <td>{{ registro.fechaSalida ? (registro.fechaSalida | date: 'short') : '---' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

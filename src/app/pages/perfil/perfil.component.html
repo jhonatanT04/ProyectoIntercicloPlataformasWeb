@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let contrato of contratos">
-            <td>{{ contrato.nombreE }}</td>
+            <td>{{ contrato.espacio.nombreEspacio }}</td>
             <td>{{ contrato.placa }}</td>
             <td>{{ contrato.fechaInicio }}</td>
             <td>{{ contrato.fechaFin }}</td>
@@ -114,7 +114,7 @@
         <div *ngFor="let espacio of espacios; let i = index">
           <div class="espacio-card" *ngIf="espacio.estado!=='D'"[ngClass]="{'reservado': espacio.estado === 'R', 'ocupado': espacio.estado === 'O'}">
             <div class="espacio-info" >
-              <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+              <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}</h4>
             </div>
           </div>
           <div class="espacio-card" (click)="selecionarEspacio(espacio)" *ngIf="espacio.estado==='D' " [ngClass]="{'disponible': espacio.estado === 'D'} " [class.select]="espacio === espacioSeleccionado">
