@@ -24,8 +24,8 @@ export class HorariosService {
     return this.http.post<Horario>(this.apiUrl,horario);
   }
 
-  updateHorario(id: number, horario: Horario): Observable<Horario> {
-    return this.http.put<Horario>(`${this.apiUrl}/${id}`, horario);
+  updateHorario(horario: Horario): Observable<Horario> {
+    return this.http.put<Horario>(`${this.apiUrl}`, horario);
   }
 
   deleteHorario(id: number): Observable<void> {
@@ -38,6 +38,10 @@ export class HorariosService {
 
   getHorariosEspeciales(): Observable<Horario[]> {
     return this.http.get<Horario[]>(`${this.apiUrl}/especiales`);
+  }
+
+  getHorarioDelDia(): Observable<Horario> {
+    return this.http.get<Horario>(`${this.apiUrl}/hoy`);
   }
 
   createHorarioEspecial(horario: Horario): Observable<Horario> {

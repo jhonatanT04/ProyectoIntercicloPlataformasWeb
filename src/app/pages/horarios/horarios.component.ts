@@ -14,8 +14,9 @@ import { HorariosService } from '../../services/horarios.service';
 })
 export class HorariosComponent implements OnInit {
   horarios: any[] = [];
-  horariosNormales: Horario[] = [];
+  horariosNormales: any[] = [];
   horariosEspeciales: Horario[] = [];
+  horarioHoy: Horario | null = null;
   dia = '';
   horaApertura = '';
   horaCierre = '';
@@ -45,12 +46,28 @@ export class HorariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarHorario();
+    this.obtenerHorarioHoy() 
   }
+
+  obtenerHorarioHoy(): void {
+    this.horarioS.getHorarioDelDia().subscribe(
+      data => {
+        if (data.fechaEspecial) {
+          data.fechaEspecial = new Date(data.fechaEspecial);  
+        }
+        this.horarioHoy = data;
+      },
+      error => {
+        console.error('Error obteniendo el horario de hoy:', error);
+      }
+    );
+  }
+  
 
   actualizarHorario(): void {
     if (this.horarioForm.valid) {
       const horario: Horario = {
-        id: this.horarios.find(h => h.dia === this.horarioForm.get('dia')?.value)?.id, 
+        id: this.horariosNormales.find(h => h.dia === this.horarioForm.get('dia')?.value)?.id, 
         dia: this.horarioForm.get('dia')?.value || '',
         fechaEspecial:null,
         horaApertura: this.horarioForm.get('horaApertura')?.value || '',
@@ -59,10 +76,11 @@ export class HorariosComponent implements OnInit {
       };
   
       if (horario.id !== undefined) {
-        this.horarioS.updateHorario(horario.id, horario).subscribe(
+        this.horarioS.updateHorario(horario).subscribe(
           () => {
             this.alertConfirm('Se actualizó correctamente.');
             this.cargarHorario();
+            this.obtenerHorarioHoy();
             this.horarioForm.reset();
             this.horarioMostrar = false;
           },
@@ -95,6 +113,7 @@ export class HorariosComponent implements OnInit {
         () => {
           this.alertConfirm('Se agregó correctamente.');
           this.cargarHorario();
+          this.obtenerHorarioHoy();
           this.horarioFormA.reset();
           this.horarioMostrarA = false;
         },
@@ -128,6 +147,7 @@ export class HorariosComponent implements OnInit {
         () => {
           this.alertConfirm('Horario especial agregado correctamente.');
           this.cargarHorario();
+          this.obtenerHorarioHoy();
           this.horarioEspecialForm.reset();
         },
         (error) => this.alertError('Error agregando el horario especial.')
@@ -144,6 +164,7 @@ export class HorariosComponent implements OnInit {
         () => {
           this.alertConfirm('Se eliminó correctamente.');
           this.cargarHorario();
+          this.obtenerHorarioHoy();
         },
         (error) => this.alertError('Error eliminando el horario.')
       );

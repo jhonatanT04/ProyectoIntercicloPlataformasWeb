@@ -10,6 +10,12 @@
     margin-bottom: 20px;
 }
 
+.horario-parqueadero h3 {
+    color: var(--grey);
+    margin-bottom: 20px;
+    font-family:  "Merriweather", serif;
+}
+
 .horario-parqueadero form {
     display: flex;
     flex-direction: column;
@@ -38,6 +44,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    margin: 10px;
 }
 
 .horario-parqueadero .btnA:hover {

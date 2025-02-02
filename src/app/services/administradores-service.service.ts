@@ -114,7 +114,7 @@ export class AdministradoresServiceService {
     return this.http.put<Registro>(`${this.apiUrl}`, registro);
   }
   
-  obtenerHistorial(periodo: 'dia' | 'semana' | 'mes'): Observable<Registro[]> {
+  obtenerHistorial(periodo: String): Observable<Registro[]> {
     return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`);
   }
   

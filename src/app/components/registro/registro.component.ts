@@ -59,7 +59,7 @@ export class RegistroComponent implements OnInit {
       fechaIngreso: vehiculo.fechaIngreso,  
       fechaSalida: new Date()  
     };
-  
+    console.log(salidaVehiculo.fechaSalida)
     this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
       () => {
         this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);

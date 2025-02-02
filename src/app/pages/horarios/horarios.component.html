@@ -4,6 +4,30 @@
   <button class="btnA" (click)="horarioA()">Agregar Horario</button>
   <button class="btnA" (click)="horarioEspecial()">Agregar Horario Especial</button>
 
+  <div>
+    <h3>Horario de Hoy</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Día</th>
+          <th>Hora de Apertura</th>
+          <th>Hora de Cierre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="horarioHoy">
+          <td>{{ horarioHoy.dia || (horarioHoy.fechaEspecial | date:'EEEE, dd MMM yyyy') }}</td>
+          <td>{{ horarioHoy.horaApertura }}</td>
+          <td>{{ horarioHoy.horaCierre }}</td>
+        </tr>
+        <tr *ngIf="!horarioHoy">
+          <td colspan="3">No hay horario disponible para hoy.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Horarios Normales</h3>
   <table>
     <thead>
       <tr>
@@ -31,6 +55,7 @@
     </tbody>
   </table>
 
+  <h3>Horarios Especiales</h3>
   <table>
     <thead>
       <tr>
