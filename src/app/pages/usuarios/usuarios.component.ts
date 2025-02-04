@@ -38,7 +38,6 @@ export class UsuariosComponent {
 
   onSubmit() {
     this.form.markAllAsTouched();
-
     if (this.form.valid) {
       const persona = new Persona(
         0,
@@ -52,10 +51,10 @@ export class UsuariosComponent {
         false,  
         undefined  
       );
-
       this.servicioUser.createPersona(persona).subscribe({
         next: () => {
-          this.loginService.regitrase(new User(this.form.get('email')?.value || '', this.form.get('password')?.value || ''))
+          this.loginService.regitrase(
+            new User(this.form.get('email')?.value || '', this.form.get('password')?.value || ''))
             .then(() => {
               this.router.navigate(['pages/login']);
             })
@@ -72,11 +71,14 @@ export class UsuariosComponent {
     }
   }
 
+
+
+
   onGoogle() {
     this.loginService.loginGoogle().then((response) => {
       if (response) {
         const isNewUser = response.isNewUser;
-        const user = response.usuarioAdmin
+        const user = response.userXD
         
         if (isNewUser) {
           this.router.navigate(['components/registro-google']);

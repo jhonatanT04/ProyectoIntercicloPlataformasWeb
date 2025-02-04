@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { Persona } from '../models/persona';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { UsuariosServiceService } from './usuarios-service.service';
 
 @Injectable({
@@ -16,20 +16,12 @@ export class AuthentificServiceService {
   getAuth() {
     return getAuth();
   }
+  private userEmail: string = '';
   regitrase(usuario: User) {
     return createUserWithEmailAndPassword(getAuth(), usuario.email, usuario.password);
   }
-  login(usuario: User): Promise<Persona | null> {
+  login(usuario: User) {
     return signInWithEmailAndPassword(this.getAuth(), usuario.email, usuario.password)
-      .then(async (userCredential) => {
-        this.userEmail = usuario.email;
-        this.serverLogin(usuario)
-        const usuarioAdmin = this.serviceUsers.buscarUsuarioPorEmail(usuario.email);
-        if (usuarioAdmin) {
-          return usuarioAdmin;
-        }
-        return null;
-      });
   }
 
   loginGoogle() {
@@ -37,12 +29,11 @@ export class AuthentificServiceService {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
       const isNewUser = additionalUserInfo?.isNewUser;
-      const listaAdministradores = JSON.parse(localStorage.getItem('listUser') || '[]') as Persona[];
-      
-      const usuarioAdmin = listaAdministradores.find(admin => admin.email === this.getInfo()?.email);
+      const userXD = this.serviceUsers.getPersonaByEmail(user?.email || '');
       const uid = user?.uid;
-      console.log(uid);
-      return { isNewUser, usuarioAdmin ,uid};
+      const email = user?.email;
+      console.log(userXD);
+      return { isNewUser, userXD ,uid,email};
     });
   }
 
@@ -50,14 +41,13 @@ export class AuthentificServiceService {
     return getAuth().currentUser;
   }
   
-  private userEmail: string = '';
-
+  
   getUserEmail() {
     return this.userEmail;
   }
   
   logout() {
-    this.deleteToken();
+    //this.deleteToken();
     return signOut(getAuth());
   }
 
@@ -75,33 +65,7 @@ export class AuthentificServiceService {
       });
   }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/auth/login'; 
   
-  serverLogin(credentials: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, credentials);
-  }
-
-  
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);  // Guardamos el token en el localStorage
-  }
-
-  
-  getToken(): string | null {
-    return localStorage.getItem('token');  
-  }
-
-  
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    return token !== null;  
-  }
-
-  
-  deleteToken(): void {
-    localStorage.removeItem('token');   
-  }
-
 
 
 

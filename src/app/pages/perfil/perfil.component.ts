@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Espacio } from '../../models/espacio';
 import { ContratoService } from '../../services/contrato.service';
 import { EspacioService } from '../../services/espacio.service';
+import { JWTService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-perfil',
@@ -34,7 +35,7 @@ export class PerfilComponent implements OnInit{
   placa= ''
   usuarioId: number = 0;
   router = inject(Router)
-  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:ContratoService,private espacioS: EspacioService){}
+  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:ContratoService,private espacioS: EspacioService,private JWTservice:JWTService){}
   ngOnInit(): void {
     this.obtenerUsuarioId() 
     this.cargarCli()
@@ -42,12 +43,11 @@ export class PerfilComponent implements OnInit{
 
   obtenerUsuarioId() {
     this.correo = this.correoS.getInfo()?.email || '';
-    console.log(this.correo)  
     this.userS.getPersonaByEmail(this.correo).subscribe({
       next: (persona) => {
         if (persona) {
           this.usuarioId = persona.id;
-          console.log(this.usuarioId)  // Guardamos el ID del usuario
+          console.log(this.usuarioId) 
           this.cargarCli();
         }
       },
@@ -98,7 +98,9 @@ export class PerfilComponent implements OnInit{
   }
 
   cerrarSeccion() {
+    this.JWTservice.deleteToken(),
     this.correoS.logout().then(() =>
+      
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
   }

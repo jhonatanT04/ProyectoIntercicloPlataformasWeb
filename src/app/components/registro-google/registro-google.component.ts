@@ -36,7 +36,6 @@ export class RegistroGoogleComponent {
 
   registrarse() {
     this.form.markAllAsTouched();
-    console.log("Formulario    "+this.servicioAuthetication.getInfo()?.uid)
     if (this.form.valid) {
       const persona: Persona = new Persona(
         0,  
@@ -50,7 +49,7 @@ export class RegistroGoogleComponent {
         false, 
         undefined  
       );
-
+      
       this.personaService.createPersona(persona).subscribe({
         next: () => {
           this.router.navigate(['/pages/perfil']);

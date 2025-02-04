@@ -12,6 +12,7 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 import { Persona } from '../../models/persona';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RegistroComponent } from "../registro/registro.component";
+import { JWTService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-administadores',
@@ -28,6 +29,8 @@ export class AdministadoresComponent implements OnInit {
   menuMovil = false 
   adminS = inject(AdministradoresServiceService)
   userS = inject(UsuariosServiceService)
+  jwtService = inject(JWTService)
+
   name = ''
   email = ''
   cdRef=inject(ChangeDetectorRef)
@@ -40,6 +43,7 @@ export class AdministadoresComponent implements OnInit {
   
 
   cerrarSeccion() {
+    this.jwtService.deleteToken();
     this.authServicio.logout().then(() =>
       this.router.navigate(['pages/login'])
     ).catch(error => console.log(error))
@@ -135,7 +139,7 @@ export class AdministadoresComponent implements OnInit {
       this.formAdmin.get('codeZip')?.value || ' ',
       true
     );
-    this.userS.actualizarUsuario(this.email, per);
+    //this.userS.updatePersona(this.email, per);
     this.alertConfirm('Se actualizo de manera correcta')
   }
   showDangerAlert = false;

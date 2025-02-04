@@ -5,6 +5,8 @@ import {FormGroup,FormControl, Validators, ReactiveFormsModule} from '@angular/f
 import { User } from '../../models/user';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { CommonModule } from '@angular/common';
+import { JWTService } from '../../services/jwt.service';
+import { UsuariosServiceService } from '../../services/usuarios-service.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
-  constructor(private loginService:AuthentificServiceService, private admin:AdministradoresServiceService){}
+  constructor(private loginService:AuthentificServiceService, private admin:AdministradoresServiceService, private JWTsercice:JWTService,private userService:UsuariosServiceService){}
   router=inject(Router)
 
   form = new FormGroup({
@@ -32,11 +34,19 @@ export class LoginComponent implements OnInit{
       const usuario = this.form.value as User;
       this.loginService.login(usuario)
         .then(persona => {
-          if (persona?.rol) {
-            this.router.navigate(['/pages/administrador']); 
-          } else {
-            this.router.navigate(['/pages/perfil']);
-          }
+          this.JWTsercice.serverLogin(this.form.value).subscribe({
+            next: (a) => {
+              this.userService.getPersonaByEmail(usuario.email).subscribe({
+                next: (a) => {
+                  if (a?.rol) {
+                    this.router.navigate(['/pages/administrador']); 
+                  } else {
+                    this.router.navigate(['/pages/perfil']);
+                  }
+                }
+              })
+            }
+          })
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -78,20 +88,26 @@ export class LoginComponent implements OnInit{
   onGoogle(){
     this.loginService.loginGoogle().then(resr =>{
       const newUser = resr.isNewUser
-      const persona = resr.usuarioAdmin
+      const persona = resr.userXD
       if(newUser){
         this.router.navigate(['components/registro-google']);
       }else{
-        if(persona?.rol===true){
-          this.router.navigate(['/pages/administrador'])
-        }else{
-          if(persona){
-            this.router.navigate(['/pages/perfil'])
-          }else{
-            this.router.navigate(['/components/registro-google'])
+        this.JWTsercice.serverLogin({email: resr.email ,password:resr.uid})
+        this.userService.getPersonaByEmail(resr.email||' ').subscribe({
+          next: (per) => {
+            if(per?.rol){
+              this.router.navigate(['/pages/administrador'])
+            }else{
+              if(persona){
+                this.router.navigate(['/pages/perfil'])
+              }else{
+                this.router.navigate(['/components/registro-google'])
+              }
+  
+            }
           }
-
-        }
+        })
+        
       }
     }).catch((error) => {
       const errorCode = error.code;
