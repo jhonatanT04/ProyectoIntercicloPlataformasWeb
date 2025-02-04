@@ -36,12 +36,12 @@ export class RegistroGoogleComponent {
 
   registrarse() {
     this.form.markAllAsTouched();
-
+    console.log("Formulario    "+this.servicioAuthetication.getInfo()?.uid)
     if (this.form.valid) {
       const persona: Persona = new Persona(
         0,  
         this.servicioAuthetication.getInfo()?.email || '',
-        '',
+        this.servicioAuthetication.getInfo()?.uid || '',
         this.form.get('name')?.value || '',
         this.form.get('lastName')?.value || '',
         this.form.get('numberPhone')?.value || '',

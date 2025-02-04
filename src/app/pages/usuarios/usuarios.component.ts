@@ -77,7 +77,7 @@ export class UsuariosComponent {
       if (response) {
         const isNewUser = response.isNewUser;
         const user = response.usuarioAdmin
-        console.log('New User :', isNewUser);
+        
         if (isNewUser) {
           this.router.navigate(['components/registro-google']);
         } else {

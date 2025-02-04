@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Espacio } from '../models/espacio';
 import { Observable } from 'rxjs';
@@ -29,6 +29,8 @@ export class EspacioService {
   }
 
   listEspacios(): Observable<Espacio[]> {
-    return this.http.get<Espacio[]>(this.apiUrl);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Espacio[]>(this.apiUrl,{headers});
   }
 }

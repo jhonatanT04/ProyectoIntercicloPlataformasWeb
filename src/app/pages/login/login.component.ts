@@ -32,11 +32,10 @@ export class LoginComponent implements OnInit{
       const usuario = this.form.value as User;
       this.loginService.login(usuario)
         .then(persona => {
-          console.log(persona)
           if (persona?.rol) {
-            this.router.navigate(['/pages/administrador']);  
+            this.router.navigate(['/pages/administrador']); 
           } else {
-            this.router.navigate(['/pages/perfil']);       
+            this.router.navigate(['/pages/perfil']);
           }
         })
         .catch((error) => {
@@ -113,6 +112,7 @@ export class LoginComponent implements OnInit{
     this.visible = !this.visible;
     this.changetype = !this.changetype;
   }
+  
   showDangerAlert = false;
   textError = ''
   alertError(error: string) {
@@ -123,4 +123,7 @@ export class LoginComponent implements OnInit{
     this.textError = ''
     this.showDangerAlert = false;
   }
+
+  
+
 }

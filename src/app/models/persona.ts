@@ -31,6 +31,6 @@ export class Persona extends User{
         this.direccion = direccion;
         this.cedula = cedula;
         this.rol = rol;
-        this.listaContratos = listaContratos
+        this.listaContratos = listaContratos;
     }
 }

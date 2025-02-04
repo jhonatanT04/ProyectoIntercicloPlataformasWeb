@@ -1,8 +1,9 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Persona } from '../models/persona';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -96,9 +97,12 @@ export class UsuariosServiceService {
   }
 
   private apiUrl = 'http://localhost:8080/demo65/rs/personas'; // URL base del backend para personas
-
+  
   createPersona(persona: Persona): Observable<Persona> {
-    return this.http.post<Persona>(this.apiUrl, persona);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<Persona>(this.apiUrl, persona, { headers });
   }
   updatePersona(persona: Persona): Observable<void> {
     return this.http.put<void>(this.apiUrl, persona);
@@ -113,8 +117,26 @@ export class UsuariosServiceService {
   }
 
   getPersonaByEmail(email: string): Observable<Persona> {
-    return this.http.get<Persona>(`${this.apiUrl}/buscarid/${email}`);
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+      console.error("Error: No hay token disponible.");
+      return throwError(() => new Error("No hay token de autenticación"));
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.get<Persona>(`${this.apiUrl}/getPersona/${email}`, { headers }).pipe(
+      catchError(error => {
+        console.error("Error al obtener persona:", error);
+        return throwError(() => error);
+      })
+    );
   }
+  
 
   deletePersona(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

@@ -42,7 +42,7 @@ export class PerfilComponent implements OnInit{
 
   obtenerUsuarioId() {
     this.correo = this.correoS.getInfo()?.email || '';
-
+    console.log(this.correo)  
     this.userS.getPersonaByEmail(this.correo).subscribe({
       next: (persona) => {
         if (persona) {
@@ -68,10 +68,7 @@ export class PerfilComponent implements OnInit{
         error: () => console.error('Error al cargar los datos del usuario'),
       });
 
-      this.espacioS.listEspacios().subscribe({
-        next: (data) => (this.espacios = data),
-        error: () => console.error('Error al cargar los espacios'),
-      });
+      console.log(this.espacioS.listEspacios())
 
       this.contratoS.getContratoByIdPersona(this.usuarioId).subscribe({
         next: (contratos) => {
