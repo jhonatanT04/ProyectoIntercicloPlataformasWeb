@@ -12,7 +12,6 @@ export class JWTService {
   private apiUrl = 'http://localhost:8080/demo65/rs/auth/login'; 
   
   serverLogin(credentials: any): Observable<any> {
-    //console.log(credentials)
     return this.http.post<any>(this.apiUrl, credentials).pipe(
       tap(response => {
         if (response.token) {

@@ -88,26 +88,27 @@ export class LoginComponent implements OnInit{
   onGoogle(){
     this.loginService.loginGoogle().then(resr =>{
       const newUser = resr.isNewUser
-      const persona = resr.userXD
       if(newUser){
         this.router.navigate(['components/registro-google']);
       }else{
-        this.JWTsercice.serverLogin({email: resr.email ,password:resr.uid})
-        this.userService.getPersonaByEmail(resr.email||' ').subscribe({
-          next: (per) => {
-            if(per?.rol){
-              this.router.navigate(['/pages/administrador'])
-            }else{
-              if(persona){
-                this.router.navigate(['/pages/perfil'])
-              }else{
-                this.router.navigate(['/components/registro-google'])
+        this.JWTsercice.serverLogin({email: resr.email ,password:resr.uid}).subscribe({
+          next: (a) => {
+            this.userService.getPersonaByEmail(resr.email||' ').subscribe({
+              next: (per) => {
+                if(per?.rol){
+                  this.router.navigate(['/pages/administrador'])
+                }else{
+                  if(per){
+                    this.router.navigate(['/pages/perfil'])
+                  }else{
+                    this.router.navigate(['/components/registro-google'])
+                  }
+      
+                }
               }
-  
-            }
+            })
           }
         })
-        
       }
     }).catch((error) => {
       const errorCode = error.code;

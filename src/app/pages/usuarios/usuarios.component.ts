@@ -78,7 +78,6 @@ export class UsuariosComponent {
     this.loginService.loginGoogle().then((response) => {
       if (response) {
         const isNewUser = response.isNewUser;
-        const user = response.userXD
         
         if (isNewUser) {
           this.router.navigate(['components/registro-google']);

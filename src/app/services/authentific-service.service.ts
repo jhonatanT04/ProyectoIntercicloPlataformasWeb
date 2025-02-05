@@ -29,11 +29,10 @@ export class AuthentificServiceService {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
       const isNewUser = additionalUserInfo?.isNewUser;
-      const userXD = this.serviceUsers.getPersonaByEmail(user?.email || '');
       const uid = user?.uid;
       const email = user?.email;
-      console.log(userXD);
-      return { isNewUser, userXD ,uid,email};
+      
+      return { isNewUser,uid,email};
     });
   }
 

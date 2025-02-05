@@ -6,6 +6,7 @@ import { UsuariosServiceService } from '../../services/usuarios-service.service'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Persona } from '../../models/persona';
+import { JWTService } from '../../services/jwt.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class RegistroGoogleComponent {
     codeZip: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)]),
   })
 
-  constructor(private personaService:UsuariosServiceService){}
+  constructor(private personaService:UsuariosServiceService,private JWTservice:JWTService){}
 
   registrarse() {
     this.form.markAllAsTouched();
@@ -44,15 +45,17 @@ export class RegistroGoogleComponent {
         this.form.get('name')?.value || '',
         this.form.get('lastName')?.value || '',
         this.form.get('numberPhone')?.value || '',
-        this.form.get('address')?.value || '',
+        this.form.get('addres')?.value || '',
         this.form.get('codeZip')?.value || '',
         false, 
         undefined  
       );
-      
       this.personaService.createPersona(persona).subscribe({
         next: () => {
-          this.router.navigate(['/pages/perfil']);
+          this.JWTservice.serverLogin({email: persona.email ,password:persona.password}).subscribe({
+            next: (a)=> this.router.navigate(['/pages/perfil'])
+          })
+          
         },
         error: () => {
           this.alertError("Error al registrar el usuario.");

@@ -47,7 +47,6 @@ export class PerfilComponent implements OnInit{
       next: (persona) => {
         if (persona) {
           this.usuarioId = persona.id;
-          console.log(this.usuarioId) 
           this.cargarCli();
         }
       },
@@ -68,7 +67,6 @@ export class PerfilComponent implements OnInit{
         error: () => console.error('Error al cargar los datos del usuario'),
       });
 
-      console.log(this.espacioS.listEspacios())
 
       this.contratoS.getContratoByIdPersona(this.usuarioId).subscribe({
         next: (contratos) => {
