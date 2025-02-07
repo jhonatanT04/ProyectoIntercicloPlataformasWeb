@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ticket } from '../models/ticket';
+import { EspacioService } from './espacio.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient, private espacioService: EspacioService) { }
 
   private apiUrl = 'http://localhost:8080/demo65/rs/tickets';
 
@@ -17,6 +18,10 @@ export class TicketService {
     return this.http.get<Ticket[]>(this.apiUrl);
   }
 
+  getTicketsporPersona(id:number): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(`${this.apiUrl}/getTicketIDpersona/${id}`);
+  }
+  
   // Obtener un ticket por ID
   getTicketById(id: number): Observable<Ticket> {
     return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
@@ -24,6 +29,11 @@ export class TicketService {
 
   // Crear un nuevo ticket
   createTicket(ticket: Ticket): Observable<Ticket> {
+    ticket.espacio.estado= 'R'
+    this.espacioService.updateEspacio(ticket.espacio).subscribe({
+      next: () => { console.log("Exito") },
+      error: () => console.error('Error al actualizar el espacio'),
+    });
     return this.http.post<Ticket>(this.apiUrl, ticket);
   }
 
@@ -36,4 +46,6 @@ export class TicketService {
   deleteTicket(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  
+
 }

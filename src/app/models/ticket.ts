@@ -1,4 +1,5 @@
 import { Espacio } from "./espacio";
+import { Persona } from "./persona";
 
 export class Ticket {
     id: number;
@@ -6,6 +7,7 @@ export class Ticket {
     fechaIngreso: string;
     fechaSalida: string;
     valorTotal: number;
+    usuario:Persona;
     espacio:Espacio
     constructor(
         id: number,
@@ -13,7 +15,8 @@ export class Ticket {
         fechaIngreso: string,
         fechaSalida: string,
         valorTotal:number,
-        espacio:Espacio
+        espacio:Espacio,
+        usuario:Persona
     ){
         this.id = id;
         this.placa = placa;
@@ -21,5 +24,9 @@ export class Ticket {
         this.fechaSalida = fechaSalida;
         this.valorTotal = valorTotal;
         this.espacio = espacio;
+        this.usuario = usuario;
     }
+
+
+    
 }

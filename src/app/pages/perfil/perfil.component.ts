@@ -10,6 +10,11 @@ import { Espacio } from '../../models/espacio';
 import { ContratoService } from '../../services/contrato.service';
 import { EspacioService } from '../../services/espacio.service';
 import { JWTService } from '../../services/jwt.service';
+import { HorariosService } from '../../services/horarios.service';
+import { Horario } from '../../models/horario';
+import { TicketService } from '../../services/ticket.service';
+import { Ticket } from '../../models/ticket';
+import { Persona } from '../../models/persona';
 
 @Component({
   selector: 'app-perfil',
@@ -25,20 +30,26 @@ export class PerfilComponent implements OnInit{
   telefono=''
   contrato=''
   contratos:any = []
-  espacios: any = []
+  
+  espacios: Espacio[] = []
   ActualizarPerfil = false
   newTickt = false
   espacioSeleccionado: Espacio | null = null
+  horarioDia: Horario | null = null
+  horaActual: string = '';
+  user:any = null
+  
   selectEspacio = false
   selectHoraIngreso = false
   horaIngreso = ''  
   placa= ''
   usuarioId: number = 0;
   router = inject(Router)
-  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:ContratoService,private espacioS: EspacioService,private JWTservice:JWTService){}
+  constructor(private correoS:AuthentificServiceService,private userS:UsuariosServiceService,private contratoS:ContratoService,private espacioS: EspacioService,private JWTservice:JWTService,private horariosService:HorariosService,private ticketService:TicketService){}
   ngOnInit(): void {
     this.obtenerUsuarioId() 
     this.cargarCli()
+    this.cargarTickets()
   }
 
   obtenerUsuarioId() {
@@ -52,6 +63,7 @@ export class PerfilComponent implements OnInit{
       },
       error: () => console.error('Error al obtener el ID del usuario'),
     });
+    
   }
 
   cargarCli() {
@@ -62,6 +74,8 @@ export class PerfilComponent implements OnInit{
             this.nombre = persona.nombre;
             this.apellido = persona.apellido;
             this.telefono = persona.telefono;
+            console.log(persona)
+            this.user = persona;
           }
         },
         error: () => console.error('Error al cargar los datos del usuario'),
@@ -75,12 +89,29 @@ export class PerfilComponent implements OnInit{
         error: () => console.error('Error al cargar los contratos'),
       });
     }
+  } 
+
+  cargarTickets(){
+    this.ticketService.getTicketsporPersona(this.user.id).subscribe({
+      next:(a)=>{
+        return a;
+      }
+    })
   }
+
 
   abrirActualizarPerfil(): void {
     this.ActualizarPerfil = true;
   }
   abrirNewTicket(): void {
+    this.espacioS.listEspacios().subscribe({
+      next: (a)=>{
+        this.espacios = a
+      }
+    })
+    this.horariosService.getHorarioDelDia().subscribe({
+      next:(horario)=> this.horarioDia =  horario
+    })
     this.newTickt = !this.newTickt;
     if (!this.newTickt) {
       this.selectEspacio = false
@@ -103,31 +134,55 @@ export class PerfilComponent implements OnInit{
     ).catch(error => console.log(error))
   }
   selecionarEspacio(espacio:Espacio) {
-    console.log(espacio)
     this.espacioSeleccionado = espacio
     this.selectEspacio = true
   }  
   selectHoraTicket(){
     this.selectHoraIngreso = !this.selectHoraIngreso
   }
-  validarHoraIngreso(){   
-    if(this.horaIngreso === ''){
+  validarHoraIngreso():boolean{
+    
+    if(this.horarioDia && ( this.horaIngreso > this.horarioDia.horaCierre) ){
       return false
+    }else if(this.horarioDia &&(this.horaIngreso < this.horarioDia.horaApertura)){
+      return false
+    }else{
+      return true
     }
-    return true
   }
   crearTicket() {
     if (this.espacioSeleccionado !== null && this.horaIngreso !== '') {
-      this.espacioSeleccionado.estado = 'O';
-
-      const nuevoE = new Espacio(this.espacioSeleccionado.id,this.espacioSeleccionado.nombreEspacio,'O');
-      this.espacioS.updateEspacio(nuevoE).subscribe({
+      
+      const ticket = new Ticket(0,this.placa,this.horaIngreso,'',0,this.espacioSeleccionado,this.user)
+      console.log(ticket)
+      this.ticketService.createTicket(ticket).subscribe({
         next: () => {
           this.abrirNewTicket();
           this.cargarCli(); 
+          
         },
         error: () => console.error('Error al actualizar el espacio'),
-      });
+      
+      })
     }
+  }
+
+  verificarPlaca():boolean {
+    const regex = /^[a-zA-Z]{3}-\d{4}$/; 
+    if (regex.test(this.placa)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  
+
+  obtenerHoraActual() {
+    const ahora = new Date();
+    const horas = ahora.getHours().toString().padStart(2, '0'); 
+    const minutos = ahora.getMinutes().toString().padStart(2, '0'); 
+    this.horaActual = `${horas}:${minutos}`;
+    console.log('Hora del sistema:', this.horaActual);
   }
 }

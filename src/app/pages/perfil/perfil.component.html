@@ -114,12 +114,12 @@
         <div *ngFor="let espacio of espacios; let i = index">
           <div class="espacio-card" *ngIf="espacio.estado!=='D'"[ngClass]="{'reservado': espacio.estado === 'R', 'ocupado': espacio.estado === 'O'}">
             <div class="espacio-info" >
-              <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}</h4>
+              <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio.charAt(0) }}</h4>
             </div>
           </div>
           <div class="espacio-card" (click)="selecionarEspacio(espacio)" *ngIf="espacio.estado==='D' " [ngClass]="{'disponible': espacio.estado === 'D'} " [class.select]="espacio === espacioSeleccionado">
             <div class="espacio-info" >
-              <h4>{{ espacio.nombre.length > 6 ? 'E' + (i + 1) : espacio.nombre }}</h4>
+              <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}</h4>
             </div>
           </div>
         </div>
@@ -134,18 +134,20 @@
       </div>
       <div class="container-time" *ngIf="selectHoraIngreso">
 
-        <h3>Ingrese la hora de entrada</h3>
+        <h2>Ingrese la informacion del Tiket</h2>
         <div class="espacio-seleccionado">
           <div class="espacio-info" >
             <h4>{{espacioSeleccionado?.nombreEspacio }}</h4>
           </div>
         </div>
-        
-        <input class="input-clock" type="time" [(ngModel)]="horaIngreso" name="horaIngreso" id="horaIngreso" required>  
-        <!-- <p *ngIf="selectHoraIngreso&& validarHoraIngreso()">aa</p> -->
-        <input class="input-placa" type="text" [(ngModel)]="placa" name="horaIngreso" id="horaIngreso" placeholder="eje. ANIA-123" required>  
-        <button class="crear-ticket invalido" (click)="crearTicket()" *ngIf="selectHoraIngreso&&validarHoraIngreso()"  >Crear ticket</button>
-        <button class="crear-ticket valido" *ngIf="selectHoraIngreso&&!validarHoraIngreso()" >Crear ticket</button>
+        <p>Ingrese la hora de ingreso</p>
+        <input class="input-clock" type="time" [(ngModel)]="horaIngreso" name="horaIngreso" id="horaIngreso" [class.input-error]="!validarHoraIngreso()&&this.horaIngreso !== ''" required>   
+        <p *ngIf="!validarHoraIngreso()&&this.horaIngreso !== ''" class="error-message">Hora incorrecta, Hora de apertura {{horarioDia?.horaApertura}} ,Hora de cerrar {{horarioDia?.horaCierre}}</p>
+        <p>Ingrese la Placa del vehiculo</p>
+        <input class="input-placa" type="text" [(ngModel)]="placa" name="horaIngreso" id="horaIngreso" placeholder="eje. ANI-1234" required [class.input-error]="!verificarPlaca()&&placa!==''"> 
+        <p *ngIf="!verificarPlaca()&&placa!==''" class="error-message">Ingrese correctamente la placa</p> 
+        <button class="crear-ticket valido" (click)="crearTicket()" *ngIf="selectHoraIngreso && validarHoraIngreso() &&verificarPlaca()" >Crear ticket</button>
+        <button class="crear-ticket invalido" *ngIf="selectHoraIngreso && (!validarHoraIngreso() || !verificarPlaca())">Crear ticket</button>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { Contrato } from "./contrato";
+import { Ticket } from "./ticket";
 import { User } from "./user";
 
 export class Persona extends User{
@@ -9,7 +10,8 @@ export class Persona extends User{
     direccion: string;
     cedula: string;
     rol: boolean;
-    listaContratos?:Contrato
+    listaContratos?:Contrato;
+    listaTickets?:Ticket[]
 
     constructor(
         id:number,
@@ -21,7 +23,8 @@ export class Persona extends User{
         direccion:string,
         cedula:string,
         rol=false,
-        listaContratos?:Contrato
+        listaContratos?:Contrato,
+        listaTickets?:Ticket[]
     ){
         super(email,password);
         this.id = id
@@ -32,5 +35,6 @@ export class Persona extends User{
         this.cedula = cedula;
         this.rol = rol;
         this.listaContratos = listaContratos;
+        this.listaTickets = listaTickets
     }
 }

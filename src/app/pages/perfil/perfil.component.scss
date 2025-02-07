@@ -458,7 +458,7 @@ tbody tr:nth-child(odd) {
     transition: all 0.5s;
 }
 
-.crear-ticket.valido {
+.crear-ticket.invalido {
     padding: 10px 20px;
     background-color: var(--gray);
     color: white;
@@ -470,7 +470,7 @@ tbody tr:nth-child(odd) {
     transition: all 0.5s;
 }
 
-.crear-ticket.invalido {
+.crear-ticket.valido {
     padding: 10px 20px;
     background-color: var(--green);
     color: white;
@@ -485,13 +485,32 @@ tbody tr:nth-child(odd) {
 .container-time{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     margin-top: 20px;
 }
+.container-time h2 {
+    text-align: left;
+    margin: 10px;
+}
+.container-time .espacio-seleccionado {
+    margin: 10px;
+}
+.container-time p{
+    margin-top:20px ;
+    font-size: 20px;
+}
+.error-message{
+    color: red;
+    background-color: transparent;
+    font-style:italic ;
+    font-size: 10px;
+    display: block;
+}
+
 
 .input-clock {
-    margin: 30px;
+    margin: 10px;
     width: 75%;
     max-width: 300px;
     padding: 10px 15px;
@@ -510,8 +529,11 @@ tbody tr:nth-child(odd) {
     background-color: var(--gray);
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
 }
+.input-error{
+    border-color: red !important;
+}
 .input-placa{
-    margin: 30px;
+    margin: 10px;
     width: 75%;
     max-width: 300px;
     padding: 10px 15px;

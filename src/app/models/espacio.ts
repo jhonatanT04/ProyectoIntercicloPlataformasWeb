@@ -7,6 +7,6 @@ export class Espacio {
     constructor(id:number,nombreEspacio:string,estado:string){
         this.id = id
         this.nombreEspacio = nombreEspacio
-        this.estado = estado
+        this.estado =estado
     }
 }
