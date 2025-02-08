@@ -15,13 +15,28 @@ import { ContratoService } from '../../services/contrato.service';
   styleUrl: './actualizar-perfil.component.scss'
 })
 export class ActualizarPerfilComponent implements OnInit{
-  perfilForm!: FormGroup;
-  ngOnInit(): void {
-    this.email = this.loginS.getUserEmail() || '';
+  perfilForm = new FormGroup({
+    nombre: new FormControl('', Validators.required),
+    apellido: new FormControl('', Validators.required),
+    numeroTelefonico: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{10}$/)
+    ]),
+    direccion: new FormControl('', Validators.required),
+    codigo: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{10}$/)
+    ])
+  });
 
+  ngOnInit(): void {
+    
+    this.email = this.loginS.getUserEmail() || '';
+    
     this.userS.getPersonaByEmail(this.email).subscribe(
       (user) => {
         if (user) {
+          
           this.nombre = user.nombre || '';
           this.apellido = user.apellido || '';
           this.direccion = user.direccion || '';

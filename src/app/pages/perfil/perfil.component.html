@@ -42,7 +42,6 @@
             <th>Fecha de inicio</th>
             <th>Fecha de fin</th>
             <th>Tarifa</th>
-
           </tr>
         </thead>
         <tbody>
@@ -63,35 +62,27 @@
     <div class="ticket-container">
       <table>
         <thead>
-          <tr>
-            <th>ID</th>
+          <tr *ngIf="listTicktes.length !== 0">
+            <th>Numero de Ticket</th>
+            <th>Nombre del Espacio</th>
             <th>Placa</th>
             <th>Fecha de Ingreso</th>
             <th>Fecha de Salida</th>
-            <th>Valor Total</th>
+            <th>Valor</th>
+            
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>ABC-123</td>
-            <td>2025-01-01 08:00</td>
-            <td>2025-01-01 10:00</td>
-            <td>$10.00</td>
+          <tr *ngFor="let ticket of listTicktes">
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.espacio.nombreEspacio }}</td>
+            <td>{{ ticket.placa }}</td>
+            <td>{{ ticket.fechaIngreso }}</td>
+            <td>{{ ticket.fechaSalida ? ticket.fechaSalida : "---------" }}</td>
+            <td>{{ ticket.valorTotal ? ticket.valorTotal : "Pendiente" }}</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>XYZ-789</td>
-            <td>2025-01-02 09:30</td>
-            <td>2025-01-02 11:00</td>
-            <td>$12.50</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>LMN-456</td>
-            <td>2025-01-03 07:45</td>
-            <td>2025-01-03 09:15</td>
-            <td>$8.75</td>
+          <tr *ngIf="listTicktes.length === 0">
+            <td>No tienes tickets registrados.</td>
           </tr>
         </tbody>
       </table>
@@ -156,7 +147,6 @@
       <span class="close" (click)="actualizar(false)">&times;</span>
       <app-actualizar-perfil (actualizado)="actualizar($event)"></app-actualizar-perfil>
     </div>
-
   </div>
 </div>
 

@@ -30,10 +30,11 @@ export class PerfilComponent implements OnInit{
   telefono=''
   contrato=''
   contratos:any = []
-  
+  listTicktes:Ticket[] = [] 
   espacios: Espacio[] = []
   ActualizarPerfil = false
   newTickt = false
+  
   espacioSeleccionado: Espacio | null = null
   horarioDia: Horario | null = null
   horaActual: string = '';
@@ -49,7 +50,7 @@ export class PerfilComponent implements OnInit{
   ngOnInit(): void {
     this.obtenerUsuarioId() 
     this.cargarCli()
-    this.cargarTickets()
+    
   }
 
   obtenerUsuarioId() {
@@ -74,8 +75,8 @@ export class PerfilComponent implements OnInit{
             this.nombre = persona.nombre;
             this.apellido = persona.apellido;
             this.telefono = persona.telefono;
-            console.log(persona)
             this.user = persona;
+            this.cargarTickets()
           }
         },
         error: () => console.error('Error al cargar los datos del usuario'),
@@ -94,7 +95,9 @@ export class PerfilComponent implements OnInit{
   cargarTickets(){
     this.ticketService.getTicketsporPersona(this.user.id).subscribe({
       next:(a)=>{
-        return a;
+        console.log()
+        this.listTicktes = a
+        console.log(this.listTicktes)
       }
     })
   }
@@ -152,7 +155,6 @@ export class PerfilComponent implements OnInit{
   }
   crearTicket() {
     if (this.espacioSeleccionado !== null && this.horaIngreso !== '') {
-      
       const ticket = new Ticket(0,this.placa,this.horaIngreso,'',0,this.espacioSeleccionado,this.user)
       console.log(ticket)
       this.ticketService.createTicket(ticket).subscribe({

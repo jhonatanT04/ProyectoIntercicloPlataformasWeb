@@ -143,7 +143,7 @@ table {
     background-color: var(--gray);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    overflow: auto;
 }
 
 th,
@@ -235,7 +235,14 @@ tbody tr:nth-child(odd) {
         width: 300px;
         font-size: 20px;
     }
-
+    .ticket-container{
+        width: 90%;
+        overflow-x: auto;
+    }
+    .contratos-container{
+        width: 90%;
+        overflow-x: auto;
+    }
     .hader-main p {
         font-size: 15px;
     }

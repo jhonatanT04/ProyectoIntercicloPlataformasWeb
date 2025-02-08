@@ -32,11 +32,13 @@
     border: 2px solid var(--black);
     background-color: var(--gray);
     border-radius: 5px;
-    
+
 }
-.gestion-contratos select{
+
+.gestion-contratos select {
     width: 100%;
 }
+
 .gestion-contratos .btnA {
     background-color: var(--green);
     color: var(--white);
@@ -97,16 +99,16 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    border: none; 
-    border-radius: 6px; 
-    overflow: visible; 
+    border: none;
+    border-radius: 6px;
+    overflow: visible;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th,
 td {
     text-align: left;
-    padding: 12px 15px; 
+    padding: 12px 15px;
     color: var(--gray);
     font-family: 'Arial', sans-serif;
     font-size: 14px;
@@ -114,63 +116,64 @@ td {
 
 th {
     background-color: var(--black);
-    color: var(--white); 
+    color: var(--white);
     font-weight: bold;
-    text-transform: uppercase; 
-    border-bottom: 2px solid var(--gray); 
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gray);
 }
 
 tr:nth-child(even) {
-    background-color: var(--white); 
+    background-color: var(--white);
 }
 
-.puntos{
+.puntos {
     width: 50px;
 }
+
 tr:nth-child(odd) {
-    background-color: #ffffff; 
+    background-color: #ffffff;
 }
 
 td {
-    border-bottom: 1px solid #e0e0e0; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
 @media (max-width: 768px) {
     table {
-      width: 100%;
+        width: 100%;
     }
-  
+
     thead {
-      display: block;
+        display: block;
     }
-  
+
     tr {
-      display: block;
-      margin: 0;
-      border-radius: 12px;
+        display: block;
+        margin: 0;
+        border-radius: 12px;
     }
-  
+
     td {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 5px;
-  
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 5px;
+
     }
-  
+
     td::before {
-      font-weight: bold;
-      text-transform: uppercase;
-      flex-basis: 50%;
+        font-weight: bold;
+        text-transform: uppercase;
+        flex-basis: 50%;
     }
-  
+
     .acciones {
-      justify-content: center;
-      background-color: rgb(184, 199, 201);
+        justify-content: center;
+        background-color: rgb(184, 199, 201);
     }
-  
-  }
+
+}
 
 .acciones {
     position: relative;
@@ -182,7 +185,7 @@ td {
 }
 
 .menu-button {
-    
+
     border: none;
     font-size: 1.2em;
     cursor: pointer;
@@ -206,8 +209,8 @@ tr .menu-button {
     position: absolute;
     top: 20px;
     right: 0;
-    background-color: var(--white); 
-    box-shadow: 0 4px 8px var(--black); 
+    background-color: var(--white);
+    box-shadow: 0 4px 8px var(--black);
     border-radius: 5px;
     padding: 5px;
     z-index: 10;
@@ -220,7 +223,7 @@ tr .menu-button {
     text-align: left;
     width: 100%;
     cursor: pointer;
-    color: var(--black); 
+    color: var(--black);
 }
 
 .menu-options button:hover {
@@ -237,7 +240,7 @@ tr .menu-button {
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    justify-content: center ;
+    justify-content: center;
     z-index: 1000;
     padding: auto;
 }
@@ -337,8 +340,8 @@ tr .menu-button {
     text-align: left;
 }
 
-.popup-content-profile-edit .description input[type="text"], 
-.popup-content-profile-edit .description input[type="date"]{
+.popup-content-profile-edit .description input[type="text"],
+.popup-content-profile-edit .description input[type="date"] {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #555555;
@@ -352,7 +355,7 @@ tr .menu-button {
     display: none;
 }
 
-.btns .btn{
+.btns .btn {
     margin-top: 10px;
     margin-right: 8px;
     background: var(--gray);
@@ -362,7 +365,7 @@ tr .menu-button {
     font-size: 0.9em;
 }
 
-.btns .btn:hover{
+.btns .btn:hover {
     background-color: var(--red);
 }
 
@@ -382,9 +385,11 @@ tr .menu-button {
         font-size: 14px;
         padding: 8px;
     }
-    .popup-overlay-profile{
+
+    .popup-overlay-profile {
         width: 450px;
     }
+
     .gestion-contratos button {
         font-size: 14px;
         padding: 8px;
@@ -393,7 +398,7 @@ tr .menu-button {
 }
 
 @media (max-width: 480px) {
-    
+
     .gestion-contratos h2 {
         font-size: 18px;
         text-align: center;
@@ -410,7 +415,8 @@ tr .menu-button {
         font-size: 12px;
         padding: 6px;
     }
-    .popup-content-profile-edit{
+
+    .popup-content-profile-edit {
         display: flex;
         flex-direction: column;
     }
@@ -422,7 +428,7 @@ tr .menu-button {
     .menu-options button {
         font-size: 12px;
     }
-    
+
 }
 
 @media (max-width: 768px) {
@@ -430,7 +436,8 @@ tr .menu-button {
         font-size: 14px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 6px;
     }
 }
@@ -440,7 +447,8 @@ tr .menu-button {
         font-size: 12px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 4px;
     }
 }
@@ -456,7 +464,7 @@ tr .menu-button {
 }
 
 .alert-danger {
-    
+
     display: flex;
     align-items: center;
     padding: 15px;
@@ -464,7 +472,7 @@ tr .menu-button {
     color: white;
     border-radius: 5px;
     font-weight: bold;
-    background-color: var(--red); 
+    background-color: var(--red);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
@@ -475,7 +483,7 @@ tr .menu-button {
     margin-right: 10px;
 }
 
-.alert-conf{
+.alert-conf {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -488,6 +496,7 @@ tr .menu-button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
 }
+
 .alert-conf .icon {
     width: 30px;
     margin-right: 10px;
