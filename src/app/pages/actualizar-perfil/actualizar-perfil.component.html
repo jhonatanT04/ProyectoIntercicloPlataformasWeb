@@ -2,24 +2,27 @@
     <h2>Actualizar Perfil</h2>
     <form [formGroup]="perfilForm">
         <div class="items-form">
-            <label for="nombre">Nombre:</label> <br/>
-            <input type="text" id="nombre" formControlName="nombre" [class.is-danger]="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched">
+            <label for="nombre">Nombre:</label> <br />
+            <input type="text" id="nombre" formControlName="nombre"
+                [class.is-danger]="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched">
             <div *ngIf="perfilForm.get('nombre')?.hasError('required') && perfilForm.get('nombre')?.touched"
                 class="error-message">
                 El nombre es obligatorio.
             </div>
         </div>
         <div class="items-form">
-            <label for="apellido">Apellido:</label><br/>
-            <input type="text" id="apellido" formControlName="apellido" [class.is-danger]="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched">
+            <label for="apellido">Apellido:</label><br />
+            <input type="text" id="apellido" formControlName="apellido"
+                [class.is-danger]="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched">
             <div *ngIf="perfilForm.get('apellido')?.hasError('required') && perfilForm.get('apellido')?.touched"
                 class="error-message">
                 El apellido es inválido.
             </div>
         </div>
-        <div class="items-form"> 
-            <label for="numeroTelefonico">Telefono:</label><br/>
-            <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico"  [class.is-danger]="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched">
+        <div class="items-form">
+            <label for="numeroTelefonico">Telefono:</label><br />
+            <input type="text" id="numeroTelefonico" formControlName="numeroTelefonico"
+                [class.is-danger]="perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched">
             <div *ngIf="(perfilForm.get('numeroTelefonico')?.hasError('pattern'))||perfilForm.get('numeroTelefonico')?.hasError('required') && perfilForm.get('numeroTelefonico')?.touched"
                 class="error-message">
                 El teléfono es invalido.
@@ -27,8 +30,9 @@
         </div>
 
         <div class="items-form">
-            <label for="direccion">Direccion:</label><br/>
-            <input type="text" id="direccion" formControlName="direccion" [class.is-danger]="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched">
+            <label for="direccion">Direccion:</label><br />
+            <input type="text" id="direccion" formControlName="direccion"
+                [class.is-danger]="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched">
             <div *ngIf="perfilForm.get('direccion')?.hasError('required') && perfilForm.get('direccion')?.touched"
                 class="error-message">
                 La dirección es obligatoria.
@@ -36,8 +40,9 @@
         </div>
 
         <div class="items-form">
-            <label for="codigo">Codigo:</label><br/>
-            <input type="text" id="codigo" formControlName="codigo"  [class.is-danger]="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched">
+            <label for="codigo">Codigo:</label><br />
+            <input type="text" id="codigo" formControlName="codigo"
+                [class.is-danger]="perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched">
             <div *ngIf="(perfilForm.get('codigo')?.hasError('pattern'))||perfilForm.get('codigo')?.hasError('required') && perfilForm.get('codigo')?.touched"
                 class="error-message">
                 El código es inválido.
@@ -46,3 +51,23 @@
         <button type="submit" [disabled]="perfilForm.invalid" (click)="actualizar()">Actualizar</button>
     </form>
 </div>
+<div>
+    <div class="alert-container">
+        <div *ngIf="showConfirmAlert" class="alert-conf">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25" height="25"
+                fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path
+                    d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+            </svg>
+            {{textConfirm}}
+        </div>
+        <div class="alert-container" *ngIf="showDangerAlert">
+            <div *ngIf="showDangerAlert" class="alert-danger">
+                <svg viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor"
+                        d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                </svg>
+                {{textError}}
+            </div>
+        </div>
+    </div>

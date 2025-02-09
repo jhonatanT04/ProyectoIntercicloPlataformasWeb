@@ -31,9 +31,7 @@ export class TicketService {
   createTicket(ticket: Ticket): Observable<Ticket> {
     ticket.espacio.estado= 'R'
     this.espacioService.updateEspacio(ticket.espacio).subscribe({
-      next: () => { console.log("Exito") },
-      error: () => console.error('Error al actualizar el espacio'),
-    });
+      });
     return this.http.post<Ticket>(this.apiUrl, ticket);
   }
 

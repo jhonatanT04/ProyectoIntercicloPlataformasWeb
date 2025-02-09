@@ -54,15 +54,15 @@ export class PerfilComponent implements OnInit{
   }
 
   obtenerUsuarioId() {
-    this.correo = this.correoS.getInfo()?.email || '';
-    this.userS.getPersonaByEmail(this.correo).subscribe({
+    
+    this.userS.getPerfil().subscribe({
       next: (persona) => {
         if (persona) {
           this.usuarioId = persona.id;
           this.cargarCli();
         }
       },
-      error: () => console.error('Error al obtener el ID del usuario'),
+      error: () => this.alertError('Error al obtener el ID del usuario'),
     });
     
   }
@@ -76,10 +76,11 @@ export class PerfilComponent implements OnInit{
             this.apellido = persona.apellido;
             this.telefono = persona.telefono;
             this.user = persona;
+            this.correo = persona.email
             this.cargarTickets()
           }
         },
-        error: () => console.error('Error al cargar los datos del usuario'),
+        error: () => this.alertError('Error al cargar los datos del usuario'),
       });
 
 
@@ -87,7 +88,7 @@ export class PerfilComponent implements OnInit{
         next: (contratos) => {
           this.contratos = contratos;
         },
-        error: () => console.error('Error al cargar los contratos'),
+        error: () => this.alertError('Error al cargar los contratos'),
       });
     }
   } 
@@ -96,8 +97,7 @@ export class PerfilComponent implements OnInit{
     this.ticketService.getTicketsporPersona(this.user.id).subscribe({
       next:(a)=>{
         console.log()
-        this.listTicktes = a
-        console.log(this.listTicktes)
+        this.listTicktes = a;
       }
     })
   }
@@ -144,7 +144,6 @@ export class PerfilComponent implements OnInit{
     this.selectHoraIngreso = !this.selectHoraIngreso
   }
   validarHoraIngreso():boolean{
-    
     if(this.horarioDia && ( this.horaIngreso > this.horarioDia.horaCierre) ){
       return false
     }else if(this.horarioDia &&(this.horaIngreso < this.horarioDia.horaApertura)){
@@ -156,15 +155,14 @@ export class PerfilComponent implements OnInit{
   crearTicket() {
     if (this.espacioSeleccionado !== null && this.horaIngreso !== '') {
       const ticket = new Ticket(0,this.placa,this.horaIngreso,'',0,this.espacioSeleccionado,this.user)
-      console.log(ticket)
       this.ticketService.createTicket(ticket).subscribe({
         next: () => {
           this.abrirNewTicket();
           this.cargarCli(); 
-          
+          console.log("Se creo el ticket")
+          this.alertConfirm("Se creo el ticket")
         },
-        error: () => console.error('Error al actualizar el espacio'),
-      
+        error: () => this.alertError('Error al actualizar el espacio'),
       })
     }
   }
@@ -185,6 +183,30 @@ export class PerfilComponent implements OnInit{
     const horas = ahora.getHours().toString().padStart(2, '0'); 
     const minutos = ahora.getMinutes().toString().padStart(2, '0'); 
     this.horaActual = `${horas}:${minutos}`;
-    console.log('Hora del sistema:', this.horaActual);
   }
+
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
+    setTimeout(() => {
+      this.textError = ''
+      this.showDangerAlert = false;
+    },5000);
+  }
+
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
+    setTimeout(() => {
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    },5000);
+  }
+
 }

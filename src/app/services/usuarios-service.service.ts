@@ -39,4 +39,9 @@ export class UsuariosServiceService {
   deletePersona(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  getPerfil(): Observable<Persona> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Persona>(`${this.apiUrl}/getDatosPersonales`, { headers });
+  } 
 }

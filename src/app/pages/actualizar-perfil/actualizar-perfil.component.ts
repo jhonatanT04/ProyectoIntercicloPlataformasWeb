@@ -30,10 +30,10 @@ export class ActualizarPerfilComponent implements OnInit{
   });
 
   ngOnInit(): void {
-    
-    this.email = this.loginS.getUserEmail() || '';
-    
-    this.userS.getPersonaByEmail(this.email).subscribe(
+    this.cargarDatos()
+  }
+  cargarDatos(){
+    this.userS.getPerfil().subscribe(
       (user) => {
         if (user) {
           
@@ -41,7 +41,6 @@ export class ActualizarPerfilComponent implements OnInit{
           this.apellido = user.apellido || '';
           this.direccion = user.direccion || '';
           this.codigo = user.cedula || '';
-          this.contra = user.password || '';
           this.numeroTelefonico = user.telefono || '';
 
           this.perfilForm = new FormGroup({
@@ -64,29 +63,27 @@ export class ActualizarPerfilComponent implements OnInit{
       (error) => {
         console.error('Error al cargar el usuario', error);
       }
-    );
+    )
   }
   constructor(private userS:UsuariosServiceService,private loginS:AuthentificServiceService,private contratoS:ContratoService){}
 
   @Output() actualizado = new EventEmitter();
-  email =''
   nombre=''
   apellido=''
   numeroTelefonico=''
   direccion=''
-  contra=''
   codigo=''
   
 
   actualizar(): void {
     if (this.perfilForm.valid) {
-      this.userS.getPersonaByEmail(this.email).subscribe(
+      this.userS.getPerfil().subscribe(
         (persona) => {
           if (persona) {
             const personaActualizada = new Persona(
               persona.id,
-              this.email,
-              this.contra,
+              persona.email,
+              persona.password,
               this.perfilForm.get('nombre')?.value || '',
               this.perfilForm.get('apellido')?.value || '',
               this.perfilForm.get('numeroTelefonico')?.value || '',
@@ -97,20 +94,44 @@ export class ActualizarPerfilComponent implements OnInit{
             );
               this.userS.updatePersona(personaActualizada).subscribe(
               () => {
-                console.log('Usuario actualizado correctamente');
-                this.perfilForm.reset() 
+                this.cargarDatos() 
+                this.alertConfirm('Se Actualizo la información')
               },
-              (error) => console.error('Error al actualizar el usuario', error)
+              (error) => this.alertError('Error al actualizar el usuario '+ error)
             );
           } else {
-            console.error('No se encontró la persona con el email proporcionado.');
+            this.alertError('No se encontró la persona con el email proporcionado.');
           }
         },
-        (error) => console.error('Error al obtener la persona', error)
+        (error) => this.alertError('Error al obtener la persona '+ error)
       );
     } else {
-      console.warn('Formulario inválido, por favor revisa los campos.');
+      this.alertError('Formulario inválido, por favor revisa los campos.');
     }
   }
   
+
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
+    setTimeout(() => {
+      this.textError = ''
+      this.showDangerAlert = false;
+    },5000);
+  }
+
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
+    setTimeout(() => {
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    },5000);
+  }
 }
