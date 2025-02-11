@@ -5,7 +5,7 @@
             Parqueadro UPS
         </h2>
         <div class="text-container">
-            Hola, {{this.adminS.buscarAdminPorEmail(this.email)?.nombre}}
+            Hola, {{this.administradorData.nombre}}
         </div>
 
         <div class="perfil" (click)="accionPerfil()" (click)="getImgServicie()">
@@ -46,15 +46,15 @@
                             d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
                     </svg>
                     <div class="details">
-                        <p class="name"> {{this.adminS.buscarAdminPorEmail(this.email)?.nombre+'
-                            '+this.adminS.buscarAdminPorEmail(this.email)?.apellido}} </p>
+                        <p class="name"> {{this.administradorData.nombre+'
+                            '+this.administradorData.apellido}} </p>
                     </div>
                 </div>
                 <div class="description">
-                    <p>Cedula: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.cedula}}</p>
-                    <p>Correo eletronico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.email}}</p>
-                    <p>Direccion: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.direccion}}</p>
-                    <p>Numero telefonico: {{' '+this.adminS.buscarAdminPorEmail(this.email)?.telefono}}</p>
+                    <p>Cedula: {{' '+this.administradorData.cedula}}</p>
+                    <p>Correo eletronico: {{' '+this.administradorData.email}}</p>
+                    <p>Direccion: {{' '+this.administradorData.direccion}}</p>
+                    <p>Numero telefonico: {{' '+this.administradorData.telefono}}</p>
                 </div>
                 <div class="btns">
                     <button class="btn btn-1" (click)="redireccionarPerfil()">Cerrar</button>

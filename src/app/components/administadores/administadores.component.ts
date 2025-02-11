@@ -28,19 +28,29 @@ export class AdministadoresComponent implements OnInit {
   isPerfil = false
   menuMovil = false 
   adminS = inject(AdministradoresServiceService)
-  userS = inject(UsuariosServiceService)
   jwtService = inject(JWTService)
+  userService = inject(UsuariosServiceService)
 
-  name = ''
-  email = ''
+  formAdmin = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    lastName: new FormControl('', [Validators.required]),
+    numberPhone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    addres: new FormControl('', [Validators.required]),
+    codeZip: new FormControl('', [Validators.required, Validators.minLength(10)]),
+  })
+  administradorData:any = Persona 
   cdRef=inject(ChangeDetectorRef)
 
   ngOnInit(): void {
-    this.email = this.authServicio.getInfo()?.email || '';
-    this.name = this.adminS.buscarAdminPorEmail(this.email)?.nombre || ''
+    this.cargarDatosAdministrador()
   }
 
-  
+  cargarDatosAdministrador(){
+    this.userService.getPerfil().subscribe(
+      (a)=>
+        this.administradorData = a
+      )
+  }
 
   cerrarSeccion() {
     this.jwtService.deleteToken();
@@ -95,19 +105,23 @@ export class AdministadoresComponent implements OnInit {
   perfilDatosView = false
   redireccionarPerfil() {
     this.perfilDatosView = !this.perfilDatosView;
-    this.formAdmin = new FormGroup({
-      name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
-      lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
-      numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.telefono, [Validators.required, Validators.minLength(10)]),
-      addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
-      codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.cedula, [Validators.required, Validators.minLength(10)]),
-    })
+    this.userService.getPerfil().subscribe(
+      {next:(a)=>
+        this.formAdmin = new FormGroup({
+          name: new FormControl(a.nombre, [Validators.required, Validators.minLength(2)]),
+          lastName: new FormControl(a.apellido, [Validators.required]),
+          numberPhone: new FormControl(a.telefono, [Validators.required, Validators.minLength(10)]),
+          addres: new FormControl(a.direccion, [Validators.required]),
+          codeZip: new FormControl(a.cedula, [Validators.required, Validators.minLength(10)]),
+        })
+      }
+    )
   }
   editPerfil = false
   editarPerfil() {
-    console.log(this.adminS.buscarAdminPorEmail(this.email)?.telefono)
     this.editPerfil = !this.editPerfil
   }
+
   confirmacionEdit = false
   setConfirmacionEdit() {
     if (this.formAdmin.valid) {
@@ -116,22 +130,15 @@ export class AdministadoresComponent implements OnInit {
       this.alertError('Complete los campos de manera correcta')
     }
   }
-  formAdmin = new FormGroup({
-    name: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.nombre, [Validators.required, Validators.minLength(2)]),
-    lastName: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.apellido, [Validators.required]),
-    numberPhone: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.telefono, [Validators.required, Validators.minLength(10)]),
-    addres: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.direccion, [Validators.required]),
-    codeZip: new FormControl(this.adminS.buscarAdminPorEmail(this.email)?.cedula, [Validators.required, Validators.minLength(10)]),
-  })
+  
   
   
 
   actualizarPerfil() {
-    
     const per = new Persona(
-      0,
-      this.email,
-      '',
+      this.administradorData.id,
+      this.administradorData.email,
+      this.administradorData.password,
       this.formAdmin.get('name')?.value || ' ',
       this.formAdmin.get('lastName')?.value || ' ',
       this.formAdmin.get('numberPhone')?.value || ' ',
@@ -139,8 +146,10 @@ export class AdministadoresComponent implements OnInit {
       this.formAdmin.get('codeZip')?.value || ' ',
       true
     );
-    //this.userS.updatePersona(this.email, per);
-    this.alertConfirm('Se actualizo de manera correcta')
+    this.userService.updatePersona(per).subscribe((a)=>{
+      this.alertConfirm('Se actualizo de manera correcta')
+      this.cargarDatosAdministrador()
+    })
   }
   showDangerAlert = false;
   textError = ''

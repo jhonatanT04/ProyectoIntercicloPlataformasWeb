@@ -21,7 +21,7 @@ export class UsuariosServiceService {
   updatePersona(persona: Persona): Observable<void> {
     return this.http.put<void>(this.apiUrl, persona);
   }
-
+  
   getPersonaById(id: number): Observable<Persona> {
     return this.http.get<Persona>(`${this.apiUrl}/${id}`);
   } 
@@ -44,4 +44,9 @@ export class UsuariosServiceService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<Persona>(`${this.apiUrl}/getDatosPersonales`, { headers });
   } 
+  updatePerfil(persona: Persona): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<void>(`${this.apiUrl}/actualizarPerfil`, { headers });
+  }
 }
