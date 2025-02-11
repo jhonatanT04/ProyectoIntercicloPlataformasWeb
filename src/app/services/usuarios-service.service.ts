@@ -29,12 +29,6 @@ export class UsuariosServiceService {
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(`${this.apiUrl}`);
   }
-
-  getPersonaByEmail(email: string): Observable<Persona> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Persona>(`${this.apiUrl}/getPersona/${email}`, { headers });
-  }
   
   deletePersona(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);

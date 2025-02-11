@@ -44,9 +44,9 @@ export class ListaUsuariosComponent implements OnInit {
   }
 
 
-  seleccionarCliente(email: string): void {
+  seleccionarCliente(id: number): void {
     this.clienteSeleccionado = true;
-    this.clienteS.getPersonaByEmail(email).subscribe(
+    this.clienteS.getPersonaById(id).subscribe(
       (cliente) => {
         if (cliente) {
           this.clienteTemp = cliente;
@@ -63,9 +63,9 @@ export class ListaUsuariosComponent implements OnInit {
     );
   }
 
-  seleccionarClienteRol(email: string): void {
+  seleccionarClienteRol(id: number): void {
     this.clienteSeleccionado = true;
-    this.clienteS.getPersonaByEmail(email).subscribe(
+    this.clienteS.getPersonaById(id).subscribe(
       (cliente) => {
         if (cliente) {
           this.clienteTemp = cliente;

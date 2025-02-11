@@ -41,7 +41,7 @@
                             [class.ng-invalid.ng-touched]="contratoForm.get('cliente')?.hasError('required') && contratoForm.get('cliente')?.touched">
                             <option value="" disabled selected>Seleccione un cliente</option>
                             <ng-container *ngFor="let cliente of clientes">
-                                <option *ngIf="!cliente.rol" [value]="cliente.email">
+                                <option *ngIf="!cliente.rol" [value]="cliente.id">
                                     {{ cliente.nombre }} {{ cliente.apellido }} ({{ cliente.email }})
                                 </option>
                             </ng-container>

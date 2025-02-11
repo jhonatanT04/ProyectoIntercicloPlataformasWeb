@@ -23,8 +23,8 @@
             <div class="menu-container">
               <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
               <div class="menu-options" *ngIf="menuVisibleIndex === i">
-                <button (click)="editarrR(); seleccionarClienteRol(cliente.email);toggleMenu(i)">Rol</button>
-                <button (click)="seleccionarCliente(cliente.email); editarrF();toggleMenu(i)">Editar</button>
+                <button (click)="editarrR(); seleccionarClienteRol(cliente.id);toggleMenu(i)">Rol</button>
+                <button (click)="seleccionarCliente(cliente.id); editarrF();toggleMenu(i)">Editar</button>
               </div>
             </div>
           </td>

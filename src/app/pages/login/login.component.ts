@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit{
   })
 
   ngOnInit(): void {
-    this.admin.cargarAdmi() 
-    this.admin.cargarContratos() 
   }
   iniciarSecion() {
     if (this.form.valid) {
@@ -36,7 +34,7 @@ export class LoginComponent implements OnInit{
         .then(persona => {
           this.JWTsercice.serverLogin(this.form.value).subscribe({
             next: (a) => {
-              this.userService.getPersonaByEmail(usuario.email).subscribe({
+              this.userService.getPerfil().subscribe({
                 next: (a) => {
                   if (a?.rol) {
                     this.router.navigate(['/pages/administrador']); 
@@ -93,7 +91,7 @@ export class LoginComponent implements OnInit{
       }else{
         this.JWTsercice.serverLogin({email: resr.email ,password:resr.uid}).subscribe({
           next: (a) => {
-            this.userService.getPersonaByEmail(resr.email||' ').subscribe({
+            this.userService.getPerfil().subscribe({
               next: (per) => {
                 if(per?.rol){
                   this.router.navigate(['/pages/administrador'])

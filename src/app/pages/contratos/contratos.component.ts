@@ -114,11 +114,11 @@ export class ContratosComponent implements OnInit {
 
   agregarContrato(): void {
     if (this.contratoForm.valid) {
-      const usuarioEmail = this.contratoForm.get('cliente')?.value || '';
+      const clienteId = Number(this.contratoForm.get('cliente')?.value); 
       const tarifaId = this.contratoForm.get('tarifa')?.value || '';
       const espacioNombre = this.contratoForm.get('espacio')?.value || '';
   
-      this.clienteS.getPersonaByEmail(usuarioEmail).subscribe(usuario => {
+      this.clienteS.getPersonaById(clienteId).subscribe(usuario => {
         console.log("Usuario encontrado:", usuario);
 
         const tarifa = this.tarifas.find(t => t.tiempo === tarifaId);
@@ -174,15 +174,32 @@ export class ContratosComponent implements OnInit {
   
   eliminarContrato(contrato: Contrato): void {
     if (contrato.id) {
-      this.contratoS.deleteContrato(contrato.id).subscribe(
-        () => {
-          this.cargarContratos();
-          this.alertConfirm('Contrato eliminado correctamente.');
-        },
-        (error) => this.alertError('Error al eliminar el contrato.')
-      );
+        this.contratoS.deleteContrato(contrato.id).subscribe(
+            () => {
+                if (contrato.espacio && contrato.espacio.id) {
+                    const espacioDisponible = new Espacio(
+                        contrato.espacio.id,
+                        contrato.espacio.nombreEspacio,
+                        'D' 
+                    );
+
+                    this.espacioS.updateEspacio(espacioDisponible).subscribe(
+                        () => {
+                            console.log("Espacio actualizado a disponible correctamente.");
+                            this.cargarEspacios();
+                        },
+                        (error) => console.error("Error al actualizar el espacio:", error)
+                    );
+                }
+
+                this.cargarContratos();
+                this.alertConfirm('Contrato eliminado correctamente.');
+            },
+            (error) => this.alertError('Error al eliminar el contrato.')
+        );
     }
-  }
+}
+
   
   agregaContrato = false
   contrato() {
