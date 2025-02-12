@@ -18,7 +18,7 @@ export class AdministradoresServiceService {
     }
   }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/registros';
+  private apiUrl = 'http://localhost:8080/practica/rs/registros';
 
   registrarIngreso(registro: Registro): Observable<Registro> {
     return this.http.post<Registro>(`${this.apiUrl}`, registro);

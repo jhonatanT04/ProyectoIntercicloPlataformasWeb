@@ -11,7 +11,7 @@ export class TicketService {
 
   constructor(private http: HttpClient, private espacioService: EspacioService) { }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/tickets';
+  private apiUrl = 'http://localhost:8080/practica/rs/tickets';
 
   // Obtener todos los tickets
   getTickets(): Observable<Ticket[]> {

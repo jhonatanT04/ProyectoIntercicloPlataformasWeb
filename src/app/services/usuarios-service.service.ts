@@ -13,7 +13,7 @@ export class UsuariosServiceService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
   }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/personas'; 
+  private apiUrl = 'http://localhost:8080/practica/rs/personas'; 
   
   createPersona(persona: Persona): Observable<Persona> {
     return this.http.post<Persona>(this.apiUrl, persona);

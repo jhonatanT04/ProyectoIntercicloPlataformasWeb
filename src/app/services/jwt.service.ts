@@ -9,7 +9,7 @@ export class JWTService {
 
   constructor(private http: HttpClient){}
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/auth/login'; 
+  private apiUrl = 'http://localhost:8080/practica/rs/auth/login'; 
   
   serverLogin(credentials: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, credentials).pipe(

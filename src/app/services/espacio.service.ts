@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class EspacioService {
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/espacios'; 
+  private apiUrl = 'http://localhost:8080/practica/rs/espacios'; 
 
   constructor(private http: HttpClient) {}
 
