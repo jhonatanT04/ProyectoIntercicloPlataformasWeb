@@ -9,8 +9,13 @@ import { Horario } from '../models/horario';
 export class HorariosService {
 
   private apiUrl = 'http://localhost:8080/practica/rs/horarios';
+  private apiUrl1 = 'http://localhost:8080/practica/rs/notificaciones';
 
   constructor(private http: HttpClient) {}
+
+  iniciarNotificaciones(): Observable<any> {
+    return this.http.get(`${this.apiUrl1}/iniciar`);
+  }
 
   getHorarios(): Observable<Horario[]> {
     return this.http.get<Horario[]>(`${this.apiUrl}`);

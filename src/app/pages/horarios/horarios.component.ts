@@ -46,7 +46,19 @@ export class HorariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarHorario();
-    this.obtenerHorarioHoy() 
+    this.obtenerHorarioHoy();
+    this.iniciarNotificaciones(); 
+  }
+
+  iniciarNotificaciones(): void {
+    this.horarioS.iniciarNotificaciones().subscribe(
+      response => {
+        console.log("Notificaciones iniciadas correctamente", response);
+      },
+      error => {
+        console.error("Error iniciando las notificaciones", error);
+      }
+    );
   }
 
   obtenerHorarioHoy(): void {
