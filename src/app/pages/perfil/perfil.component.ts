@@ -42,7 +42,6 @@ export class PerfilComponent implements OnInit{
   
   selectEspacio = false
   selectHoraIngreso = false
-  horaIngreso = ''  
   placa= ''
   usuarioId: number = 0;
   router = inject(Router)
@@ -52,7 +51,8 @@ export class PerfilComponent implements OnInit{
     this.cargarCli()
     
   }
-
+  
+  
   obtenerUsuarioId() {
     
     this.userS.getPerfil().subscribe({
@@ -120,7 +120,7 @@ export class PerfilComponent implements OnInit{
       this.selectEspacio = false
       this.espacioSeleccionado = null
       this.selectHoraIngreso = false
-      this.horaIngreso = ''  
+  
     }
   }
   actualizar(ActualizarPerfil:boolean): void {
@@ -144,29 +144,41 @@ export class PerfilComponent implements OnInit{
     this.selectHoraIngreso = !this.selectHoraIngreso
   }
   validarHoraIngreso():boolean{
-    if(this.horarioDia && ( this.horaIngreso > this.horarioDia.horaCierre) ){
-      return false
-    }else if(this.horarioDia &&(this.horaIngreso < this.horarioDia.horaApertura)){
-      return false
-    }else{
+    if(this.horarioDia && (this.horaActual > this.horarioDia.horaCierre)) {
       return true
+    }else if(this.horarioDia &&(this.horaActual < this.horarioDia.horaApertura)){
+      return true
+    }else{
+      return false
     }
   }
   crearTicket() {
-    if (this.espacioSeleccionado !== null && this.horaIngreso !== '') {
-      const ticket = new Ticket(0,this.placa,this.horaIngreso,'',0,this.espacioSeleccionado,this.user)
-      this.ticketService.createTicket(ticket).subscribe({
+    if (this.espacioSeleccionado !== null ) {
+      console.log(this.espacioSeleccionado)
+      const ticket = new Ticket(0,this.placa,'','',0,this.espacioSeleccionado,this.user)
+      this.ticketService.createTicket(ticket).subscribe(
+        ()=>{
+          this.abrirNewTicket();
+          this.cargarCli(); 
+          this.alertConfirm("Se creo el ticket")
+        },error => {
+              
+          this.alertError(error.error.mensaje)
+        }
+      )
+    
+    }
+  }
+/* 
+this.ticketService.createTicket(ticket).subscribe(
+        {
         next: () => {
           this.abrirNewTicket();
           this.cargarCli(); 
-          console.log("Se creo el ticket")
           this.alertConfirm("Se creo el ticket")
         },
-        error: () => this.alertError('Error al actualizar el espacio'),
-      })
-    }
-  }
-
+        error: (a) => this.alertError('Error al actualizar el espacio'),
+      }*/
   verificarPlaca():boolean {
     const regex = /^[a-zA-Z]{3}-\d{4}$/; 
     if (regex.test(this.placa)) {

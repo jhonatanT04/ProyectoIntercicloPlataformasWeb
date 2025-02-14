@@ -32,6 +32,7 @@ export class RegistroComponent implements OnInit {
       const nuevoVehiculo: Registro = {
         id: 0,
         placa: this.registroForm.get('placa')?.value || '',
+        tipo: " ",
         fechaIngreso: new Date(), 
         fechaSalida: null
       };
@@ -43,7 +44,7 @@ export class RegistroComponent implements OnInit {
           console.log('Vehículo registrado correctamente.');
         },
         error => {
-          console.error('Error registrando vehículo:', error);
+          
           alert('Error al registrar el vehículo. Intente de nuevo.');
         }
       );
@@ -54,12 +55,13 @@ export class RegistroComponent implements OnInit {
   registrarSalida(vehiculo: Registro) {
     console.log(vehiculo.id)
     const salidaVehiculo: Registro = {
-      id: vehiculo.id,
+      id: vehiculo.id,      
       placa: vehiculo.placa,  
+      tipo: " ",
       fechaIngreso: vehiculo.fechaIngreso,  
       fechaSalida: new Date()  
     };
-    console.log(salidaVehiculo.fechaSalida)
+    //console.log(salidaVehiculo.fechaSalida)
     this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
       () => {
         this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);

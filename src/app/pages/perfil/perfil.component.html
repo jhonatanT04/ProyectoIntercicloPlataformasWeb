@@ -131,9 +131,7 @@
             <h4>{{espacioSeleccionado?.nombreEspacio }}</h4>
           </div>
         </div>
-        <p>Ingrese la hora de ingreso</p>
-        <input class="input-clock" type="time" [(ngModel)]="horaIngreso" name="horaIngreso" id="horaIngreso" [class.input-error]="!validarHoraIngreso()&&this.horaIngreso !== ''" required>   
-        <p *ngIf="!validarHoraIngreso()&&this.horaIngreso !== ''" class="error-message">Hora incorrecta, Hora de apertura {{horarioDia?.horaApertura}} ,Hora de cerrar {{horarioDia?.horaCierre}}</p>
+        <p *ngIf="!validarHoraIngreso()" class="error-message">Hora de apertura {{horarioDia?.horaApertura}} ,Hora de cierre {{horarioDia?.horaCierre}}</p>
         <p>Ingrese la Placa del vehiculo</p>
         <input class="input-placa" type="text" [(ngModel)]="placa" name="horaIngreso" id="horaIngreso" placeholder="eje. ANI-1234" required [class.input-error]="!verificarPlaca()&&placa!==''"> 
         <p *ngIf="!verificarPlaca()&&placa!==''" class="error-message">Ingrese correctamente la placa</p> 

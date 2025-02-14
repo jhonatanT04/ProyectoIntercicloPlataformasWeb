@@ -18,10 +18,10 @@ export class TicketService {
     return this.http.get<Ticket[]>(this.apiUrl);
   }
 
-  getTicketsporPersona(id:number): Observable<Ticket[]> {
+  getTicketsporPersona(id: number): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/getTicketIDpersona/${id}`);
   }
-  
+
   // Obtener un ticket por ID
   getTicketById(id: number): Observable<Ticket> {
     return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
@@ -29,9 +29,9 @@ export class TicketService {
 
   // Crear un nuevo ticket
   createTicket(ticket: Ticket): Observable<Ticket> {
-    ticket.espacio.estado= 'R'
-    this.espacioService.updateEspacio(ticket.espacio).subscribe({
-      });
+    // ticket.espacio.estado = 'R'
+    // this.espacioService.updateEspacio(ticket.espacio).subscribe({
+    // });
     return this.http.post<Ticket>(this.apiUrl, ticket);
   }
 
@@ -44,6 +44,6 @@ export class TicketService {
   deleteTicket(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-  
+
 
 }

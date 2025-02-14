@@ -32,19 +32,24 @@ export class LoginComponent implements OnInit{
       const usuario = this.form.value as User;
       this.loginService.login(usuario)
         .then(persona => {
-          this.JWTsercice.serverLogin(this.form.value).subscribe({
-            next: (a) => {
-              this.userService.getPerfil().subscribe({
-                next: (a) => {
+          this.JWTsercice.serverLogin(this.form.value).subscribe(
+          (a)=>{
+              this.userService.getPerfil().subscribe(
+                ()=>{
                   if (a?.rol) {
                     this.router.navigate(['/pages/administrador']); 
                   } else {
                     this.router.navigate(['/pages/perfil']);
                   }
+                },error => {
+                  this.alertError(error)
                 }
-              })
+              )
             }
-          })
+          ,
+        error=>{
+          this.alertError("Error con la conexion con el servidor")
+        })
         })
         .catch((error) => {
           const errorCode = error.code;
