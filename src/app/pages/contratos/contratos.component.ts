@@ -147,7 +147,7 @@ export class ContratosComponent implements OnInit {
   
         console.log('Contrato a enviar:', contrato); 
   
-        const enuevo = new Espacio(espacio.id,espacio.nombreEspacio,'R')
+        const enuevo = new Espacio(espacio.id,espacio.nombreEspacio,'O')
 
         this.contratoS.createContrato(contrato).subscribe(
           () => {

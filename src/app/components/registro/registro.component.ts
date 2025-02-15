@@ -41,11 +41,10 @@ export class RegistroComponent implements OnInit {
         () => {
           this.registroForm.reset();
           this.cargarVehiculosEnParqueadero()
-          console.log('Vehículo registrado correctamente.');
+          this.alertConfirm('Vehículo registrado correctamente.')
         },
         error => {
-          
-          alert('Error al registrar el vehículo. Intente de nuevo.');
+          this.alertError(error.error.mensaje)
         }
       );
     }
@@ -53,27 +52,23 @@ export class RegistroComponent implements OnInit {
   
 
   registrarSalida(vehiculo: Registro) {
-    console.log(vehiculo.id)
     const salidaVehiculo: Registro = {
       id: vehiculo.id,      
       placa: vehiculo.placa,  
       tipo: " ",
       fechaIngreso: vehiculo.fechaIngreso,  
-      fechaSalida: new Date()  
+      fechaSalida: null  
     };
     //console.log(salidaVehiculo.fechaSalida)
     this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
       () => {
         this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);
-        
         this.obtenerHistorial('dia');
         this.cargarVehiculosEnParqueadero() 
-  
-        console.log('Salida registrada correctamente.');
+        this.alertConfirm('Salida registrada correctamente')
       },
       error => {
-        console.error('Error registrando salida:', error);
-        alert('Error al registrar la salida. Intente de nuevo.');
+        this.alertError(error.error.mensaje)
       }
     );
   }
@@ -91,5 +86,29 @@ export class RegistroComponent implements OnInit {
       (data) => (this.vehiculosEnParqueadero = data),
       (error) => console.error('Error obteniendo vehículos en parqueadero:', error)
     );
+  }
+
+
+  showDangerAlert = false;
+  textError = ''
+  alertError(error: string) {
+    this.showDangerAlert = true;
+    this.textError = error
+    setTimeout(() => {
+      this.textError = ''
+      this.showDangerAlert = false;
+    },5000);
+  }
+
+
+  textConfirm = ''
+  showConfirmAlert = false
+  alertConfirm(error: string) {
+    this.showConfirmAlert = true;
+    this.textConfirm = error
+    setTimeout(() => {
+      this.textConfirm = ''
+      this.showConfirmAlert = false;
+    },5000);
   }
 }

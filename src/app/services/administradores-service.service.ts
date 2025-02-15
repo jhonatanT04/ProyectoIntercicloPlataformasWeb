@@ -25,7 +25,7 @@ export class AdministradoresServiceService {
   }
   
   registrarSalida(registro: Registro): Observable<Registro> {
-    return this.http.put<Registro>(`${this.apiUrl}`, registro);
+    return this.http.put<Registro>(`${this.apiUrl}/salidaVehiculo`, registro);
   }
   
   obtenerHistorial(periodo: String): Observable<Registro[]> {
@@ -35,8 +35,4 @@ export class AdministradoresServiceService {
   obtenerVehiculosEnParqueadero(): Observable<Registro[]> {
     return this.http.get<Registro[]>(`${this.apiUrl}/parqueadero`);
   }
-
-  
-
-
 }

@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit{
           this.JWTsercice.serverLogin(this.form.value).subscribe(
           (a)=>{
               this.userService.getPerfil().subscribe(
-                ()=>{
-                  if (a?.rol) {
+                (b)=>{
+                  if (b?.rol) {
                     this.router.navigate(['/pages/administrador']); 
                   } else {
                     this.router.navigate(['/pages/perfil']);

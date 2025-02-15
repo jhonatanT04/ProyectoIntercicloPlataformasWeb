@@ -48,8 +48,8 @@
           <tr *ngFor="let contrato of contratos">
             <td>{{ contrato.espacio.nombreEspacio }}</td>
             <td>{{ contrato.placa }}</td>
-            <td>{{ contrato.fechaInicio }}</td>
-            <td>{{ contrato.fechaFin }}</td>
+            <td>{{ contrato.fechaInicio | date:"dd/MM/yyyy hh:mm:ss"}}</td>
+            <td>{{ contrato.fechaFin  | date:"dd/MM/yyyy hh:mm:ss" }}</td>
             <td>{{ contrato.tarifa.costo }}</td>
           </tr>
           <tr *ngIf="contratos.length === 0">
