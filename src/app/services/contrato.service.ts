@@ -28,6 +28,14 @@ export class ContratoService {
     return this.http.get<Contrato>(`${this.apiUrl}/${id}`);
   }
 
+  actualizarEstadoEspacio(id: number): Observable<Contrato> {
+    return this.http.put<Contrato>(`${this.apiUrl}/reserva/${id}`, null);
+  }
+
+  actualizarEstadoEspacioalEliminar(id: number): Observable<Contrato> {
+    return this.http.put<Contrato>(`${this.apiUrl}/reservaeliminar/${id}`, null);
+  }
+
   getContratoByIdPersona(id: number): Observable<Contrato[]> {
     return this.http.get<Contrato[]>(`${this.apiUrl}/contrato/${id}`);
   }
