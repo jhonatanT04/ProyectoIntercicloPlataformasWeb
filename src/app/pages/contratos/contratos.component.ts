@@ -27,6 +27,7 @@ export class ContratosComponent implements OnInit {
   contratos: Contrato[] = []
   clientes: Persona[] = []
   tarifas: Tarifa[] = []
+  fechaHoy: string = '';
 
   email1: string = '';
   cliente = ''
@@ -50,6 +51,7 @@ export class ContratosComponent implements OnInit {
   );
   constructor(private contratoS: ContratoService, private Contrato: AdministradoresServiceService,private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService,private tarifaS: TarifasService, private espacioS: EspacioService) { }
   ngOnInit(): void {
+    this.fechaHoy = new Date().toISOString().split('T')[0]; 
     this.cargarContratos()
     this.cargarEspacios()
     this.cargarClientes()
@@ -184,8 +186,6 @@ export class ContratosComponent implements OnInit {
         this.alertError('Formulario inválido. Revisa los campos.');
     }
 }
-
-  
 
   
   eliminarContrato(contrato: Contrato): void {

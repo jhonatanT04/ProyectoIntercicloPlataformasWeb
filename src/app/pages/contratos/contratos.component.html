@@ -99,10 +99,25 @@
     
                         <div>
                             <label for="fechaInicio">Fecha de Inicio:</label>
-                            <input type="date" id="fechaInicio" formControlName="fechaInicio">
+                            <input type="date" id="fechaInicio" formControlName="fechaInicio" [min]="fechaHoy">
+                            <div *ngIf="contratoForm.get('fechaInicio')?.hasError('required') && contratoForm.get('fechaInicio')?.touched"
+                                class="error-message">
+                                Ingrese la fecha de inicio.
+                            </div>
+                        
                             <label for="fechaFin">Fecha de Fin:</label>
-                            <input type="date" id="fechaFin" formControlName="fechaFin">
+                            <input type="date" id="fechaFin" formControlName="fechaFin" [min]="contratoForm.get('fechaInicio')?.value">
+                            <div *ngIf="contratoForm.get('fechaFin')?.hasError('required') && contratoForm.get('fechaFin')?.touched"
+                                class="error-message">
+                                Ingrese la fecha de fin.
+                            </div>
+                        
+                            <div *ngIf="contratoForm.hasError('fechaInvalida') && contratoForm.touched"
+                                class="error-message">
+                                La fecha de fin debe ser mayor a la fecha de inicio.
+                            </div>
                         </div>
+                        
     
                         <div>
                             <label for="tarifa">Tarifa:</label>
