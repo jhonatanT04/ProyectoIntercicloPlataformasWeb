@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ticket } from '../models/ticket';
@@ -15,7 +15,9 @@ export class TicketService {
 
   // Obtener todos los tickets
   getTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(this.apiUrl);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Ticket[]>(this.apiUrl, { headers });
   }
 
   getTicketsporPersona(id: number): Observable<Ticket[]> {
@@ -32,7 +34,9 @@ export class TicketService {
     // ticket.espacio.estado = 'R'
     // this.espacioService.updateEspacio(ticket.espacio).subscribe({
     // });
-    return this.http.post<Ticket>(this.apiUrl, ticket);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Ticket>(this.apiUrl, ticket, { headers });
   }
 
   // Actualizar un ticket existente
