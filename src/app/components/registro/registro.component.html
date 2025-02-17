@@ -34,7 +34,7 @@
     <tbody>
       <tr *ngFor="let vehiculo of vehiculosEnParqueadero">
         <td>{{ vehiculo.placa }}</td>
-        <td>{{ vehiculo.tipo }}</td>
+        <td>{{ vehiculo.tipo === 'C' ? 'Contrato' : (vehiculo.tipo==='T'? "Ticket": "  ") }}</td>
         <td>{{ vehiculo.fechaIngreso | date: 'short' }}</td>
         <td>
           <button (click)="registrarSalida(vehiculo)">Salir</button>

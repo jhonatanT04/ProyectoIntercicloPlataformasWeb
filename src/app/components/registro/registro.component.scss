@@ -81,22 +81,24 @@ button:hover {
     background-color: var(--red);
     transform: scale(1.05);
 }
-
 table {
     width: 100%;
-    margin: auto;
-    border-collapse: collapse;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: var(--white);
-    border-radius: 10px;
-    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    overflow: visible;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    text-align: center;
-    padding: 14px 18px;
-    font-size: 16px;
-    color: var(--dark-gray);
+th,
+td {
+    text-align: left;
+    padding: 12px 15px;
+    color: var(--gray);
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
 }
 
 th {
@@ -104,11 +106,26 @@ th {
     color: var(--white);
     font-weight: bold;
     text-transform: uppercase;
+    border-bottom: 2px solid var(--gray);
 }
 
 tr:nth-child(even) {
-    background-color: var(--light-gray);
+    background-color: var(--white);
 }
+
+.puntos {
+    width: 50px;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+td {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 .acciones button {
     background-color: var(--blue);

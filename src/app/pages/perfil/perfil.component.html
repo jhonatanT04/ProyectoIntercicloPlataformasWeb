@@ -78,7 +78,7 @@
             <td>{{ ticket.espacio.nombreEspacio }}</td>
             <td>{{ ticket.placa }}</td>
             <td>{{ ticket.fechaIngreso }}</td>
-            <td>{{ ticket.fechaSalida ? ticket.fechaSalida : "---------" }}</td>
+            <td>{{ ticket.fechaSalida ? ticket.fechaSalida : '' }}</td>
             <td>{{ ticket.valorTotal ? ticket.valorTotal : "Pendiente" }}</td>
           </tr>
           <tr *ngIf="listTicktes.length === 0">
