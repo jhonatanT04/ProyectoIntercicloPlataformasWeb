@@ -106,7 +106,7 @@
                             </div>
                         
                             <label for="fechaFin">Fecha de Fin:</label>
-                            <input type="date" id="fechaFin" formControlName="fechaFin" [min]="contratoForm.get('fechaInicio')?.value">
+                            <input type="date" id="fechaFin" formControlName="fechaFin" [min]="contratoForm.get('fechaInicio')?.value" readonly>
                             <div *ngIf="contratoForm.get('fechaFin')?.hasError('required') && contratoForm.get('fechaFin')?.touched"
                                 class="error-message">
                                 Ingrese la fecha de fin.

@@ -45,5 +45,10 @@ export class TicketService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  validarPlaca(placa: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/validarPlaca/${placa}`);
+  }
+  
+
 
 }
