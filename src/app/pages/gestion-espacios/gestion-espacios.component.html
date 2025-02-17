@@ -2,9 +2,7 @@
   <h2>Gestión de Espacios</h2>
 
   <div class="totales-disponibles">
-    <label class="totales" for="totales">Espacios Totales:</label>
-    <input class="total" type="number" id="totales" [(ngModel)]="espaciosTotales"/>
-    <button class="total-b" (click)="guardarEspaciosTotales()">Actualizar Total Espacios</button><hr/>
+    <label class="totales" for="totales">Espacios Totales: {{espaciosTotales}}</label>
     <span class="total-s">Espacios Disponibles: {{ espaciosDisponibles }}</span>
   </div>
   
