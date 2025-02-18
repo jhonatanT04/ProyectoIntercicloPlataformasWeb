@@ -79,7 +79,7 @@
             <td>{{ ticket.placa }}</td>
             <td>{{ ticket.fechaIngreso }}</td>
             <td>{{ ticket.fechaSalida ? ticket.fechaSalida : '' }}</td>
-            <td>{{ ticket.valorTotal ? ticket.valorTotal : "Pendiente" }}</td>
+            <td>{{ ticket.valorTotal ? (ticket.valorTotal | number:'1.2-2') : 'Pendiente' }}</td>
           </tr>
           <tr *ngIf="listTicktes.length === 0">
             <td>No tienes tickets registrados.</td>
