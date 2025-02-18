@@ -182,12 +182,9 @@ export class ContratosComponent implements OnInit {
                         espacio: espacioSeleccionado,
                         placa,
                         fechaInicio,
-                        fechaFin,
-                        tarifa,
-                    };
+y                        (contratoCreado) => {
+                            console.log('Contrato creado con ID:', contratoCreado.id);
 
-                    this.contratoS.createContrato(contrato).subscribe(
-                        (contratoCreado) => {
                             this.contratoS.actualizarEstadoEspacio(contratoCreado.id).subscribe(
                                 () => {
                                     this.cargarEspacios();
@@ -203,7 +200,7 @@ export class ContratosComponent implements OnInit {
                                 (error) => this.alertError(error.error.mensaje)
                             );
                         },
-                        (error) => this.alertError(error.error.mensaje)
+                        (error) => this.alertError('Error al agregar el contrato.')
                     );
                 },
                 (error) => this.alertError('Error al obtener el usuario del backend.'));
