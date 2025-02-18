@@ -48,11 +48,11 @@ export class ContratosComponent implements OnInit {
     fechaInicio: new FormControl('', [Validators.required]),
     fechaFin: new FormControl('', [Validators.required]),
     tarifa: new FormControl('', [Validators.required]),
-  },{validators: this.validarFechas('fechaInicio','fechaFin')},
+  }, { validators: this.validarFechas('fechaInicio', 'fechaFin') },
   );
-  constructor(private contratoS: ContratoService, private ticketS: TicketService,private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService,private tarifaS: TarifasService, private espacioS: EspacioService) { }
+  constructor(private contratoS: ContratoService, private ticketS: TicketService, private clienteS: UsuariosServiceService, private login: AuthentificServiceService, private userS: UsuariosServiceService, private tarifaS: TarifasService, private espacioS: EspacioService) { }
   ngOnInit(): void {
-    this.fechaHoy = new Date().toISOString().split('T')[0]; 
+    this.fechaHoy = new Date().toISOString().split('T')[0];
     this.cargarContratos()
     this.cargarEspacios()
     this.cargarClientes()
@@ -74,27 +74,27 @@ export class ContratosComponent implements OnInit {
       const fechaFin = formGroup.get(fieldFin)?.value;
 
       if (fechaInicio && fechaFin && new Date(fechaInicio) >= new Date(fechaFin)) {
-        return { fechaInvalida: true }; 
+        return { fechaInvalida: true };
       }
 
-      return null; 
+      return null;
     }
   }
 
-  selecionarEspacio(espacio:Espacio) {
+  selecionarEspacio(espacio: Espacio) {
     this.espacioSeleccionado = espacio
     this.selectEspacio = true
-  } 
+  }
 
   confirmarEspacio() {
     if (this.espacioSeleccionado) {
-        this.selectEspacio = true;
+      this.selectEspacio = true;
     }
-}
+  }
 
   cargarClientes() {
     this.clienteS.getPersonas().subscribe(
-      (data) =>{
+      (data) => {
         this.clientes = data;
       },
       (error) => this.alertError('Error al cargar clientes')
@@ -117,12 +117,12 @@ export class ContratosComponent implements OnInit {
         this.espaciosF.push(espacio);
       }
     }
-    
+
   }
 
   cargarContratos(): void {
     this.contratoS.getContratos().subscribe(
-      (data) => (this.contratos = data),  
+      (data) => (this.contratos = data),
       (error) => this.alertError('Error al cargar los contratos.')
     );
   }
@@ -130,7 +130,7 @@ export class ContratosComponent implements OnInit {
   cargarTarifas() {
     this.tarifaS.listTarifas().subscribe(
       (data) => {
-        this.tarifas = data.filter(t => t.tiempo === "Mensual"); 
+        this.tarifas = data.filter(t => t.tiempo === "Mensual");
       },
       (error) => this.alertError('Error al cargar las tarifas.')
     );
@@ -139,109 +139,109 @@ export class ContratosComponent implements OnInit {
 
   agregarContrato(): void {
     if (this.contratoForm.valid) {
-        const clienteId = Number(this.contratoForm.get('cliente')?.value);
-        const tarifaId = this.contratoForm.get('tarifa')?.value || '';
-        const espacioSeleccionado = this.espacioSeleccionado;
-        const placa = this.contratoForm.get('placa')?.value || '';
+      const clienteId = Number(this.contratoForm.get('cliente')?.value);
+      const tarifaId = this.contratoForm.get('tarifa')?.value || '';
+      const espacioSeleccionado = this.espacioSeleccionado;
+      const placa = this.contratoForm.get('placa')?.value || '';
 
-        if (!espacioSeleccionado) {
-            this.alertError('⚠️ Debe seleccionar un espacio antes de continuar.');
+      if (!espacioSeleccionado) {
+        this.alertError('⚠️ Debe seleccionar un espacio antes de continuar.');
+        return;
+      }
+
+      this.ticketS.validarPlaca(placa).subscribe(
+        (tieneTicketActivo) => {
+          if (tieneTicketActivo) {
+            this.alertError('⚠️ No puedes registrar un contrato: Esta placa ya tiene un ticket activo.');
             return;
-        }
+          }
 
-        this.ticketS.validarPlaca(placa).subscribe(
-            (tieneTicketActivo) => {
-                if (tieneTicketActivo) {
-                    this.alertError('⚠️ No puedes registrar un contrato: Esta placa ya tiene un ticket activo.');
-                    return;
-                }
+          this.clienteS.getPersonaById(clienteId).subscribe(usuario => {
+            const tarifa = this.tarifas.find(t => t.tiempo === tarifaId);
 
-                this.clienteS.getPersonaById(clienteId).subscribe(usuario => {
-                    const tarifa = this.tarifas.find(t => t.tiempo === tarifaId);
-
-                    if (!usuario || !tarifa) {
-                        this.alertError('⚠️ Usuario o tarifa no válidos.');
-                        return;
-                    }
-
-                    const fechaInicio = new Date(this.contratoForm.get('fechaInicio')?.value || '');
-                    const fechaFin = new Date(this.contratoForm.get('fechaFin')?.value || '');
-
-                    const contrato: Contrato = {
-                        id: 0,
-                        usuario,
-                        espacio: espacioSeleccionado,
-                        placa,
-                        fechaInicio,
-                        fechaFin,
-                        tarifa,
-                    };
-
-                    this.contratoS.createContrato(contrato).subscribe(
-                        (contratoCreado) => {
-                            console.log('Contrato creado con ID:', contratoCreado.id);
-
-                            this.contratoS.actualizarEstadoEspacio(contratoCreado.id).subscribe(
-                                () => {
-                                    this.cargarEspacios();
-                                    this.cargarContratos();
-
-                                    this.contratoForm.reset();
-                                    this.espacioSeleccionado = null;
-                                    this.selectEspacio = false;
-                                    this.agregaContrato = !this.agregaContrato;
-
-                                    this.alertConfirm('✅ Contrato agregado correctamente.');
-                                },
-                                (error) => this.alertError('⚠️ Error al actualizar el estado del espacio.')
-                            );
-                        },
-                        (error) => this.alertError('⚠️ Error al agregar el contrato.')
-                    );
-                },
-                (error) => this.alertError('⚠️ Error al obtener el usuario del backend.'));
-            },
-            (error) => this.alertError('⚠️ Error al validar la placa.')
-        );
-    } else {
-        this.contratoForm.markAllAsTouched();
-        this.alertError('⚠️ Formulario inválido. Revisa los campos.');
-    }
-}
-
-
-  
-  eliminarContrato(contrato: Contrato): void {
-    if (contrato.id) {
-        this.contratoS.actualizarEstadoEspacioalEliminar(contrato.id).subscribe(
-            () => {
-                this.cargarEspacios(); 
-                this.contratoS.deleteContrato(contrato.id).subscribe(
-                    () => {
-                        this.cargarContratos(); 
-                        this.alertConfirm('Contrato eliminado correctamente.');
-                    },
-                    (error) => {
-                        this.alertError('Error al eliminar el contrato.');
-                    }
-                );
-            },
-            (error) => {
-                this.alertError('Error al actualizar el estado del espacio.');
+            if (!usuario || !tarifa) {
+              this.alertError('⚠️ Usuario o tarifa no válidos.');
+              return;
             }
-        );
+
+            const fechaInicio = new Date(this.contratoForm.get('fechaInicio')?.value || '');
+            const fechaFin = new Date(this.contratoForm.get('fechaFin')?.value || '');
+
+            const contrato: Contrato = {
+              id: 0,
+              usuario,
+              espacio: espacioSeleccionado,
+              placa,
+              fechaInicio,
+              fechaFin,
+              tarifa,
+            };
+
+            this.contratoS.createContrato(contrato).subscribe(
+              (contratoCreado) => {
+                console.log('Contrato creado con ID:', contratoCreado.id);
+
+                this.contratoS.actualizarEstadoEspacio(contratoCreado.id).subscribe(
+                  () => {
+                    this.cargarEspacios();
+                    this.cargarContratos();
+
+                    this.contratoForm.reset();
+                    this.espacioSeleccionado = null;
+                    this.selectEspacio = false;
+                    this.agregaContrato = !this.agregaContrato;
+
+                    this.alertConfirm('✅ Contrato agregado correctamente.');
+                  },
+                  (error) => this.alertError('⚠️ Error al actualizar el estado del espacio.')
+                );
+              },
+              (error) => this.alertError('⚠️ Error al agregar el contrato.')
+            );
+          },
+            (error) => this.alertError('⚠️ Error al obtener el usuario del backend.'));
+        },
+        (error) => this.alertError('⚠️ Error al validar la placa.')
+      );
     } else {
-        this.alertError('⚠️ No se encontró el ID del contrato.');
+      this.contratoForm.markAllAsTouched();
+      this.alertError('⚠️ Formulario inválido. Revisa los campos.');
     }
   }
 
-  
+
+
+  eliminarContrato(contrato: Contrato): void {
+    if (contrato.id) {
+      this.contratoS.actualizarEstadoEspacioalEliminar(contrato.id).subscribe(
+        () => {
+          this.cargarEspacios();
+          this.contratoS.deleteContrato(contrato.id).subscribe(
+            () => {
+              this.cargarContratos();
+              this.alertConfirm('Contrato eliminado correctamente.');
+            },
+            (error) => {
+              this.alertError('Error al eliminar el contrato.');
+            }
+          );
+        },
+        (error) => {
+          this.alertError('Error al actualizar el estado del espacio.');
+        }
+      );
+    } else {
+      this.alertError('⚠️ No se encontró el ID del contrato.');
+    }
+  }
+
+
   agregaContrato = false
   contrato() {
-    this.contratoForm.reset() 
+    this.contratoForm.reset()
     this.agregaContrato = !this.agregaContrato
-    this.espacioSeleccionado = null; 
-    this.selectEspacio = false;  
+    this.espacioSeleccionado = null;
+    this.selectEspacio = false;
   }
 
   menuVisibleIndex: number | null = null;
