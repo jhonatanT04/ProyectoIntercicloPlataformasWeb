@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { Tarifa } from '../../models/tarifa';
 import { TarifasService } from '../../services/tarifas.service';
+import { parse } from 'node:path';
 
 @Component({
   selector: 'app-tarifas',
@@ -16,15 +17,18 @@ export class TarifasComponent implements OnInit{
   tarifas: Tarifa[] = [];
   tarifasAgregar = false;
   tarifasActualizar = false;
+  tipoChar: string = '';
   menuVisibleIndex: number | null = null;
-
+  tarifaActual: Tarifa | null = null;
   tarifaForm = new FormGroup({
     tiempo: new FormControl('', [Validators.required]),
+    tipo: new FormControl('', [Validators.required]),
     costo: new FormControl('', [Validators.required, Validators.min(0)]),
   });
 
   tarifaFormA = new FormGroup({
     tiempo: new FormControl('', [Validators.required]),
+    tipo: new FormControl('', [Validators.required]),
     costo: new FormControl('', [Validators.required, Validators.min(0)]),
   });
 
@@ -36,10 +40,21 @@ export class TarifasComponent implements OnInit{
 
   agregarTarifa(): void {
     if (this.tarifaFormA.valid) {
-      const tiempo = this.tarifaFormA.get('tiempo')?.value || '';
+      const tiempo = parseInt(this.tarifaFormA.get('tiempo')?.value || '0');
+      const tipo = this.tarifaFormA.get('tipo')?.value || '';
       const costo = parseFloat(this.tarifaFormA.get('costo')?.value || '0');
-      const nuevaTarifa = new Tarifa(0, tiempo, costo); 
-
+      const nuevaTarifa = new Tarifa(0, tiempo,costo, ''); 
+      if(tipo === 'Mensual'){
+        nuevaTarifa.tipo = 'M'
+      }else if(tipo === 'Dia'){
+        nuevaTarifa.tipo = 'D'
+      }else if(tipo === 'Hora'){
+        nuevaTarifa.tipo = 'H'
+      }else if(tipo === 'Minutos'){
+        nuevaTarifa.tipo = 'm'
+      }
+      console.log(tipo);
+      console.log(nuevaTarifa.tipo);
       this.tarifaS.createTarifa(nuevaTarifa).subscribe(
         () => {
           this.alertConfirm('Se agregó correctamente.');
@@ -47,7 +62,7 @@ export class TarifasComponent implements OnInit{
           this.tarifaFormA.reset();
           this.tarifasAgregar = false;
         },
-        (error) => this.alertError('Error al agregar la tarifa.')
+        (error) => this.alertError(error.error.mensaje)
       );
     } else {
       this.tarifaFormA.markAllAsTouched();
@@ -56,14 +71,21 @@ export class TarifasComponent implements OnInit{
 
   actualizarTarifa(): void {
     if (this.tarifaForm.valid) {
-      const tiempo = this.tarifaForm.get('tiempo')?.value || '';
+      const tiempo = parseInt(this.tarifaForm.get('tiempo')?.value || '');
       const costo = parseFloat(this.tarifaForm.get('costo')?.value || '0');
-      const tarifaExistente = this.tarifas.find(t => t.tiempo === tiempo);
-  
-      if (tarifaExistente) {
-        const id = tarifaExistente.id; 
-        const tarifaActualizada = new Tarifa(id, tiempo, costo);
-  
+      const tipo = this.tarifaForm.get('tipo')?.value || '';
+      
+      const tarifaActualizada = new Tarifa(this.tarifaActual?.id||0, tiempo, costo,'');
+      if(tipo === 'Mensual'){
+        tarifaActualizada.tipo = 'M';
+      }else if(tipo === 'Diaria'){
+        tarifaActualizada.tipo = 'D';
+      }else if(tipo === 'Hora'){
+        tarifaActualizada.tipo = 'H';
+      }else if(tipo === 'Minuto'){
+        tarifaActualizada.tipo = 'm';
+      }
+      if (this.tarifaActual) {
         this.tarifaS.updateTarifa(tarifaActualizada).subscribe(
           () => {
             this.alertConfirm('Tarifa actualizada correctamente.');
@@ -71,7 +93,7 @@ export class TarifasComponent implements OnInit{
             this.tarifaForm.reset();
             this.tarifasActualizar = false;
           },
-          (error) => this.alertError('Error al actualizar la tarifa.')
+          (error) => this.alertError(error.error.mesaje)
         );
       } else {
         this.alertError('No se encontró la tarifa para actualizar.');
@@ -109,8 +131,11 @@ export class TarifasComponent implements OnInit{
     this.tarifasAgregar = !this.tarifasAgregar;
   }
 
-  tarifass(): void {
+  tarifass(tarifa:Tarifa|null): void {
     this.tarifasActualizar = !this.tarifasActualizar;
+    if(this.tarifasActualizar){
+      this.tarifaActual = tarifa;
+    }
   }
 
   showDangerAlert = false;

@@ -6,19 +6,21 @@
     <thead>
       <tr>
         <th>Tiempo</th>
-        <th>Costo por Hora</th>
+        <th>      </th>
+        <th>Costo</th>
         <th class="puntos">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let tarifa of tarifas; let i = index">
         <td>{{ tarifa.tiempo }}</td>
-        <td>{{ tarifa.costo }}$ por hora</td>
+        <td>{{ tarifa.tipo=== 'm' ? 'Minutos' : (tarifa.tipo=== 'H' ? 'Horas' :(tarifa.tipo=== 'M' ? 'Meses' :tarifa.tipo=== 'D' ? 'Diario' :'   ')) }}</td>
+        <td>{{ tarifa.costo }} $ </td>
         <td class="acciones">
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
-              <button (click)="tarifass()">Editar</button>
+              <button (click)="tarifass(tarifa)">Editar</button>
               <button (click)="eliminarTarifa(tarifa)">Eliminar</button>
             </div>
           </div>
@@ -32,18 +34,25 @@
       <form [formGroup]="tarifaForm">
         <div class="description">
           <label for="tiempo">Tiempo:</label>
-                <select id="tiempo" formControlName="tiempo">
+                <select id="tiempo" formControlName="tipo" >
                     <option value="" disabled selected>Seleccione un tipo de tiempo</option>
                     <option value="Minutos">Minutos</option>
                     <option value="Hora">Hora</option>
                     <option value="Día">Día</option>
                     <option value="Mensual">Mensual</option>
                 </select>
-                <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('tiempo')?.touched"
+                <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched"
                     class="error-message">
                         Seleccione un tipo de tiempo.
                 </div>
 
+          <label for="tiempo">Cantidad de tiempo:</label>
+          <input type="number" id="tiempo" formControlName="tiempo" min="0">   
+          <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('costo')?.touched"
+            class="error-message">
+            La cantidad de tiempo es obligatoria.   
+          </div>  
+          
           <label for="costo">Costo por Hora:</label>
           <input type="number" id="costo" formControlName="costo" min="0">
           <div *ngIf="tarifaForm.get('costo')?.hasError('required') && tarifaForm.get('costo')?.touched"
@@ -54,7 +63,7 @@
 
         <div class="btns">
           <button class="btn" type="submit" (click)="actualizarTarifa()">Definir Tarifa</button>
-          <button class="btn" (click)="tarifass()">Cerrar</button>
+          <button class="btn" (click)="tarifass(null)">Cerrar</button>
         </div>
       </form>
     </div>
@@ -75,18 +84,23 @@
       <form [formGroup]="tarifaFormA">
         <div class="description">
           <label for="tiempo">Tiempo:</label>
-                <select id="tiempo" formControlName="tiempo">
+                <select id="tiempo" formControlName="tipo">
                     <option value="" disabled selected>Seleccione un tipo de tiempo</option>
                     <option value="Minutos">Minutos</option>
                     <option value="Hora">Hora</option>
-                    <option value="Día">Día</option>
+                    <option value="Dia">Día</option>
                     <option value="Mensual">Mensual</option>
                 </select>
-                <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('tiempo')?.touched"
+                <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched"
                     class="error-message">
                       Seleccione un tipo de tiempo.
                 </div>
-
+          <label for="tiempo">Cantidad de tiempo:</label>
+          <input type="number" id="tiempo" formControlName="tiempo" min="0">   
+          <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('costo')?.touched"
+            class="error-message">
+            La cantidad de tiempo es obligatoria.   
+          </div>  
           <label for="costo">Costo por Hora:</label>
           <input type="number" id="costo" formControlName="costo" min="0">
           <div *ngIf="tarifaFormA.get('costo')?.hasError('required') && tarifaFormA.get('costo')?.touched"

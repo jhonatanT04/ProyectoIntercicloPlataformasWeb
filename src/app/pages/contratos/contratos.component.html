@@ -33,7 +33,7 @@
 
     <div *ngIf="agregaContrato" class="popup-overlay-profile">
         <div class="popup-content-profile-edit">
-            
+
             <div *ngIf="!espacioSeleccionado" class="container-newTicket">
                 <div class="target-container-newTicket">
                     <h3>Seleccione un Espacio</h3>
@@ -43,34 +43,27 @@
                             <div class="espacio-card" *ngIf="espacio.estado!=='D'"
                                 [ngClass]="{'reservado': espacio.estado === 'R', 'ocupado': espacio.estado === 'O'}">
                                 <div class="espacio-info">
-                                    <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio.charAt(0) }}</h4>
+                                    <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) :
+                                        espacio.nombreEspacio.charAt(0) }}</h4>
                                 </div>
                             </div>
-                            <div class="espacio-card" (click)="selecionarEspacio(espacio)"
-                                *ngIf="espacio.estado==='D'"
+                            <div class="espacio-card" (click)="selecionarEspacio(espacio)" *ngIf="espacio.estado==='D'"
                                 [ngClass]="{'disponible': espacio.estado === 'D'}"
                                 [class.select]="espacio === espacioSeleccionado">
                                 <div class="espacio-info">
-                                    <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}</h4>
+                                    <h4>{{ espacio.nombreEspacio.length > 6 ? 'E' + (i + 1) : espacio.nombreEspacio }}
+                                    </h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button class="next-ticket-select" *ngIf="espacioSeleccionado" (click)="confirmarEspacio()">
-                            Continuar
-                        </button>
-                        <button class="next-ticket-notSelect" *ngIf="!espacioSeleccionado">
-                            Continuar
-                        </button>
-                    </div>
                 </div>
             </div>
-    
+
             <div *ngIf="espacioSeleccionado">
                 <div class="description">
                     <form [formGroup]="contratoForm">
-                        
+
                         <div>
                             <label for="cliente">Nombre del Cliente:</label>
                             <select id="cliente" formControlName="cliente">
@@ -82,12 +75,12 @@
                                 </ng-container>
                             </select>
                         </div>
-    
+
                         <div>
                             <label>Espacio Seleccionado:</label>
                             <p class="espacio-seleccionado">{{ espacioSeleccionado.nombreEspacio }}</p>
                         </div>
-    
+
                         <div>
                             <label for="placa">Placa:</label>
                             <input type="text" id="placa" formControlName="placa" placeholder="AAA-0000">
@@ -96,7 +89,7 @@
                                 Formato de placa inválido. Ejemplo: AAA-0000.
                             </div>
                         </div>
-    
+
                         <div>
                             <label for="fechaInicio">Fecha de Inicio:</label>
                             <input type="date" id="fechaInicio" formControlName="fechaInicio" [min]="fechaHoy">
@@ -104,41 +97,66 @@
                                 class="error-message">
                                 Ingrese la fecha de inicio.
                             </div>
-                        
+
                             <label for="fechaFin">Fecha de Fin:</label>
-                            <input type="date" id="fechaFin" formControlName="fechaFin" [min]="contratoForm.get('fechaInicio')?.value" readonly>
+                            <input type="date" id="fechaFin" formControlName="fechaFin"
+                                [min]="contratoForm.get('fechaInicio')?.value" readonly>
                             <div *ngIf="contratoForm.get('fechaFin')?.hasError('required') && contratoForm.get('fechaFin')?.touched"
                                 class="error-message">
                                 Ingrese la fecha de fin.
                             </div>
-                        
+
                             <div *ngIf="contratoForm.hasError('fechaInvalida') && contratoForm.touched"
                                 class="error-message">
                                 La fecha de fin debe ser mayor a la fecha de inicio.
                             </div>
                         </div>
-                        
-    
+
+
                         <div>
                             <label for="tarifa">Tarifa:</label>
-                            <select id="tarifa" formControlName="tarifa">
+                            <select id="tarifa" formControlName="tarifa" (change)="setTarifa($event)">
                                 <option value="" disabled selected>Seleccione una tarifa</option>
-                                <option *ngFor="let tarifa of tarifas" [value]="tarifa.tiempo">
-                                    {{ tarifa.tiempo }} - {{ tarifa.costo | currency }}
+                                <option *ngFor="let tarifa of tarifas" [value]="tarifa.id">
+                                    {{ tarifa.tiempo }} {{ tarifa.tipo === "M" ? "Meses" : " " }} - {{ tarifa.costo |
+                                    currency }}
                                 </option>
                             </select>
+
                         </div>
-    
+
                         <div class="btns">
                             <button class="btn" type="submit" (click)="agregarContrato()">Agregar</button>
                             <button class="btn" (click)="contrato()">Cerrar</button>
                         </div>
-    
+
                     </form>
                 </div>
             </div>
         </div>
+        
+
+        <div *ngIf="contratos.length === 0">No hay contratos registrados.</div>
     </div>
-    
-    <div *ngIf="contratos.length === 0">No hay contratos registrados.</div>
-</div>
+
+
+
+    <div class="alert-container">
+        <div *ngIf="showConfirmAlert" class="alert-conf">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25" height="25"
+                fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path
+                    d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+            </svg>
+            {{textConfirm}}
+        </div>
+        <div class="alert-container" *ngIf="showDangerAlert">
+            <div *ngIf="showDangerAlert" class="alert-danger">
+                <svg viewBox="0 0 24 24" class="icon">
+                    <path fill="currentColor"
+                        d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                </svg>
+                {{textError}}
+            </div>
+        </div>
+    </div>

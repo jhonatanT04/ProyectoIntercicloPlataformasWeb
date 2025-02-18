@@ -120,6 +120,7 @@ export class PerfilComponent implements OnInit{
       this.selectEspacio = false
       this.espacioSeleccionado = null
       this.selectHoraIngreso = false
+      this.placa = ''
   
     }
   }

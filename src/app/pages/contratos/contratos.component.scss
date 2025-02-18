@@ -754,3 +754,86 @@ tr .menu-button {
 .container-time .espacio-seleccionado {
     margin: 10px;
 }
+
+
+
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.alert-danger {
+
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    width: 300px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: var(--red);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    99% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-1000px);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.alert-danger .icon {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.alert-conf {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    width: 390px;
+    color: white !important;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: var(--green);
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease forwards, fadeOut 2.5s ease 2s forwards;
+}
+
+.alert-conf .icon {
+    width: 30px;
+    margin-right: 10px;
+}

@@ -29,7 +29,7 @@ export class ContratosComponent implements OnInit {
   clientes: Persona[] = []
   tarifas: Tarifa[] = []
   fechaHoy: string = '';
-
+  tarifaMesualSelected: Tarifa | null = null;
   email1: string = '';
   cliente = ''
   espacio = ''
@@ -130,37 +130,46 @@ export class ContratosComponent implements OnInit {
   cargarTarifas() {
     this.tarifaS.listTarifas().subscribe(
       (data) => {
-        this.tarifas = data.filter(t => t.tiempo === "Mensual"); 
+        this.tarifas = data.filter(t => t.tipo === 'M'); 
       },
       (error) => this.alertError('Error al cargar las tarifas.')
     );
   }
+  
+  setTarifa(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const idSeleccionado = Number(selectElement.value);
 
+    this.tarifaMesualSelected = this.tarifas.find(t => t.id === idSeleccionado) || null;
+    console.log("Tarifa seleccionada:", this.tarifaMesualSelected);
+}
 
   agregarContrato(): void {
     if (this.contratoForm.valid) {
         const clienteId = Number(this.contratoForm.get('cliente')?.value);
-        const tarifaId = this.contratoForm.get('tarifa')?.value || '';
         const espacioSeleccionado = this.espacioSeleccionado;
         const placa = this.contratoForm.get('placa')?.value || '';
-
+        console.log(this.contratoForm.get('tarifa')?.value || ''); 
         if (!espacioSeleccionado) {
-            this.alertError('⚠️ Debe seleccionar un espacio antes de continuar.');
+            this.alertError('Debe seleccionar un espacio antes de continuar.');
+            return;
+        }
+        if(this.tarifaMesualSelected === null){
+            this.alertError('Debe seleccionar una tarifa antes de continuar.');
             return;
         }
 
         this.ticketS.validarPlaca(placa).subscribe(
             (tieneTicketActivo) => {
                 if (tieneTicketActivo) {
-                    this.alertError('⚠️ No puedes registrar un contrato: Esta placa ya tiene un ticket activo.');
+                    this.alertError('No puedes registrar un contrato: Esta placa ya tiene un ticket activo.');
                     return;
                 }
 
                 this.clienteS.getPersonaById(clienteId).subscribe(usuario => {
-                    const tarifa = this.tarifas.find(t => t.tiempo === tarifaId);
-
+                    const tarifa = this.tarifas.find(t => t.id === this.tarifaMesualSelected?.id) || null;
                     if (!usuario || !tarifa) {
-                        this.alertError('⚠️ Usuario o tarifa no válidos.');
+                        this.alertError('Usuario o tarifa no válidos.');
                         return;
                     }
 
@@ -179,8 +188,6 @@ export class ContratosComponent implements OnInit {
 
                     this.contratoS.createContrato(contrato).subscribe(
                         (contratoCreado) => {
-                            console.log('Contrato creado con ID:', contratoCreado.id);
-
                             this.contratoS.actualizarEstadoEspacio(contratoCreado.id).subscribe(
                                 () => {
                                     this.cargarEspacios();
@@ -191,21 +198,21 @@ export class ContratosComponent implements OnInit {
                                     this.selectEspacio = false;
                                     this.agregaContrato = !this.agregaContrato;
 
-                                    this.alertConfirm('✅ Contrato agregado correctamente.');
+                                    this.alertConfirm('Contrato agregado correctamente.');
                                 },
-                                (error) => this.alertError('⚠️ Error al actualizar el estado del espacio.')
+                                (error) => this.alertError(error.error.mensaje)
                             );
                         },
-                        (error) => this.alertError('⚠️ Error al agregar el contrato.')
+                        (error) => this.alertError(error.error.mensaje)
                     );
                 },
-                (error) => this.alertError('⚠️ Error al obtener el usuario del backend.'));
+                (error) => this.alertError('Error al obtener el usuario del backend.'));
             },
-            (error) => this.alertError('⚠️ Error al validar la placa.')
+            (error) => this.alertError('Error al validar la placa.')
         );
     } else {
         this.contratoForm.markAllAsTouched();
-        this.alertError('⚠️ Formulario inválido. Revisa los campos.');
+        this.alertError('Formulario inválido. Revisa los campos.');
     }
 }
 
@@ -231,7 +238,7 @@ export class ContratosComponent implements OnInit {
             }
         );
     } else {
-        this.alertError('⚠️ No se encontró el ID del contrato.');
+        this.alertError('No se encontró el ID del contrato.');
     }
   }
 
