@@ -67,7 +67,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let horario of horariosEspeciales; let i = index">
-        <td>{{ horario.fechaEspecial }}</td>
+        <td>{{ horario.fechaEspecial | date: 'dd/MM/yyyy' }}</td>
         <td>{{ horario.horaApertura }}</td>
         <td>{{ horario.horaCierre }}</td>
         <td class="acciones">

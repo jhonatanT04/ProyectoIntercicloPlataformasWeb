@@ -100,37 +100,36 @@ export class GestionEspaciosComponent implements OnInit {
   }
 
   agregarEspacio(): void {
-    const sumaTotalEspacios = this.espacios.reduce((total, espacio) => total + espacio.id, 0);
-    const nuevoTotal = parseInt(this.espacioFormA.get('total')?.value || '0', 10);
-
-    if (sumaTotalEspacios + nuevoTotal > this.espaciosTotales) {
-      this.alertError('No se pueden agregar más espacios porque exceden el límite total permitido.');
+    const totalEspaciosActuales = this.espacios.length; 
+      if (totalEspaciosActuales >= this.espaciosTotales) {
+      this.alertError('⚠️ No se pueden agregar más espacios, se ha alcanzado el límite permitido.');
       return;
     }
-
+  
     if (this.espacioFormA.valid) {
       const nombre = this.espacioFormA.get('nombre')?.value || '';
-      const nuevoEspacio = new Espacio (
-        0, 
+      
+      const nuevoEspacio = new Espacio(
+        0,  
         nombre,
-        'D'
+        'D' 
       );
-
+  
       this.espacioS.createEspacio(nuevoEspacio).subscribe(
         () => {
-          this.cargarEspacios();
+          this.cargarEspacios();  
           this.espaciosMostrarAgregar = false;
           this.espacioFormA.reset();
-          this.alertConfirm('El espacio se agregó correctamente.');
+          this.alertConfirm('✅ Espacio agregado correctamente.');
         },
-        (error) => this.alertError('Error al agregar el espacio.')
+        (error) => this.alertError('⚠️ Error al agregar el espacio.')
       );
     } else {
       this.espacioFormA.markAllAsTouched();
-      this.alertError('Por favor, complete el formulario correctamente.');
+      this.alertError('⚠️ Por favor, complete el formulario correctamente.');
     }
   }
-
+  
   eliminarEspacio(espacio: Espacio): void {
     this.espacioS.deleteEspacio(espacio.id).subscribe(
       () => {
