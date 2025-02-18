@@ -21,19 +21,22 @@ export class TicketService {
   }
 
   getTicketsporPersona(id: number): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(`${this.apiUrl}/getTicketIDpersona/${id}`);
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Ticket[]>(`${this.apiUrl}/getTicketIDpersona/${id}`, { headers });
   }
 
   // Obtener un ticket por ID
   getTicketById(id: number): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Ticket>(`${this.apiUrl}/${id}`, { headers });
   }
 
   // Crear un nuevo ticket
   createTicket(ticket: Ticket): Observable<Ticket> {
-    // ticket.espacio.estado = 'R'
-    // this.espacioService.updateEspacio(ticket.espacio).subscribe({
-    // });
+   
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Ticket>(this.apiUrl, ticket, { headers });
@@ -41,16 +44,22 @@ export class TicketService {
 
   // Actualizar un ticket existente
   updateTicket(ticket: Ticket): Observable<void> {
-    return this.http.put<void>(this.apiUrl, ticket);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<void>(this.apiUrl, ticket, { headers });
   }
 
   // Eliminar un ticket por ID
   deleteTicket(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
   validarPlaca(placa: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/validarPlaca/${placa}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<boolean>(`${this.apiUrl}/validarPlaca/${placa}`, { headers });
   }
   
 

@@ -4,7 +4,7 @@ import { Espacio } from '../models/espacio';
 import { Contrato } from '../models/contrato';
 import { Tarifa } from '../models/tarifa';
 import { Horario } from '../models/horario';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Registro } from '../models/registro';
 
@@ -13,7 +13,7 @@ import { Registro } from '../models/registro';
 })
 export class AdministradoresServiceService {
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private http: HttpClient) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
     }
   }
@@ -21,18 +21,26 @@ export class AdministradoresServiceService {
   private apiUrl = 'http://localhost:8080/practica/rs/registros';
 
   registrarIngreso(registro: Registro): Observable<Registro> {
-    return this.http.post<Registro>(`${this.apiUrl}`, registro);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Registro>(`${this.apiUrl}`, registro, { headers });
   }
-  
+
   registrarSalida(registro: Registro): Observable<Registro> {
-    return this.http.put<Registro>(`${this.apiUrl}/salidaVehiculo`, registro);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Registro>(`${this.apiUrl}/salidaVehiculo`, registro, { headers });
   }
-  
+
   obtenerHistorial(periodo: String): Observable<Registro[]> {
-    return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Registro[]>(`${this.apiUrl}/historial?periodo=${periodo}`, { headers });
   }
-  
+
   obtenerVehiculosEnParqueadero(): Observable<Registro[]> {
-    return this.http.get<Registro[]>(`${this.apiUrl}/parqueadero`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Registro[]>(`${this.apiUrl}/parqueadero`, { headers });
   }
 }

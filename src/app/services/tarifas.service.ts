@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tarifa } from '../models/tarifa';
@@ -8,27 +8,37 @@ import { Tarifa } from '../models/tarifa';
 })
 export class TarifasService {
 
-  private apiUrl = 'http://localhost:8080/practica/rs/tarifas'; 
+  private apiUrl = 'http://localhost:8080/practica/rs/tarifas';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createTarifa(tarifa: Tarifa): Observable<Tarifa> {
-    return this.http.post<Tarifa>(this.apiUrl, tarifa);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Tarifa>(this.apiUrl, tarifa, { headers });
   }
 
   updateTarifa(tarifa: Tarifa): Observable<any> {
-    return this.http.put<any>(this.apiUrl, tarifa);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<any>(this.apiUrl, tarifa, { headers });
   }
 
   getTarifaById(id: number): Observable<Tarifa> {
-    return this.http.get<Tarifa>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Tarifa>(`${this.apiUrl}/${id}`, { headers });
   }
 
   deleteTarifa(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
 
   listTarifas(): Observable<Tarifa[]> {
-    return this.http.get<Tarifa[]>(`${this.apiUrl}`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Tarifa[]>(`${this.apiUrl}`, { headers });
   }
 }

@@ -19,15 +19,21 @@ export class EspacioService {
   }
 
   updateEspacio(espacio: Espacio): Observable<Espacio> {
-    return this.http.put<Espacio>(`${this.apiUrl}`, espacio);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Espacio>(`${this.apiUrl}`, espacio,{ headers });
   }
 
   getEspacioById(id: number): Observable<Espacio> {
-    return this.http.get<Espacio>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Espacio>(`${this.apiUrl}/${id}`,{ headers });
   }
 
   deleteEspacio(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`,{ headers });
   }
 
   listEspacios(): Observable<Espacio[]> {
