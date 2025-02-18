@@ -13,7 +13,9 @@ export class EspacioService {
   constructor(private http: HttpClient) {}
 
   createEspacio(espacio: Espacio): Observable<Espacio> {
-    return this.http.post<Espacio>(this.apiUrl, espacio);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<Espacio>(this.apiUrl, espacio,{ headers });
   }
 
   updateEspacio(espacio: Espacio): Observable<Espacio> {
