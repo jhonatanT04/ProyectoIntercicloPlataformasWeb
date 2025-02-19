@@ -102,7 +102,7 @@ export class GestionEspaciosComponent implements OnInit {
   agregarEspacio(): void {
     const totalEspaciosActuales = this.espacios.length; 
       if (totalEspaciosActuales >= this.espaciosTotales) {
-      this.alertError('⚠️ No se pueden agregar más espacios, se ha alcanzado el límite permitido.');
+      this.alertError('No se pueden agregar más espacios, se ha alcanzado el límite permitido.');
       return;
     }
   
@@ -120,13 +120,13 @@ export class GestionEspaciosComponent implements OnInit {
           this.cargarEspacios();  
           this.espaciosMostrarAgregar = false;
           this.espacioFormA.reset();
-          this.alertConfirm('✅ Espacio agregado correctamente.');
+          this.alertConfirm('Espacio agregado correctamente.');
         },
-        (error) => this.alertError('⚠️ Error al agregar el espacio.')
+        (error) => this.alertError('Error al agregar el espacio.')
       );
     } else {
       this.espacioFormA.markAllAsTouched();
-      this.alertError('⚠️ Por favor, complete el formulario correctamente.');
+      this.alertError('Por favor, complete el formulario correctamente.');
     }
   }
   

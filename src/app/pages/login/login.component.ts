@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit{
       const usuario = this.form.value as User;
       this.loginService.login(usuario)
         .then(persona => {
+          console.log(this.form.value)
           this.JWTsercice.serverLogin(this.form.value).subscribe(
           (a)=>{
               this.userService.getPerfil().subscribe(

@@ -61,7 +61,7 @@ export class ContratosComponent implements OnInit {
     this.contratoForm.get('fechaInicio')?.valueChanges.subscribe(fechaInicio => {
       if (fechaInicio) {
         const nuevaFechaFin = new Date(fechaInicio);
-        nuevaFechaFin.setMonth(nuevaFechaFin.getMonth() + 1); // Sumar un mes
+        nuevaFechaFin.setMonth(nuevaFechaFin.getMonth() + 1); 
         this.contratoForm.get('fechaFin')?.setValue(nuevaFechaFin.toISOString().split('T')[0]);
       }
     });
