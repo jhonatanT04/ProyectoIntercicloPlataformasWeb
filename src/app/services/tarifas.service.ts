@@ -8,7 +8,7 @@ import { Tarifa } from '../models/tarifa';
 })
 export class TarifasService {
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/tarifas';
+  private apiUrl = 'http://172.20.10.2:8080/demo65/rs/tarifas';
 
   constructor(private http: HttpClient) { }
 
