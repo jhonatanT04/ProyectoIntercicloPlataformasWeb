@@ -25,7 +25,10 @@ export class TarifasComponent implements OnInit{
     tipo: new FormControl('', [Validators.required]),
     costo: new FormControl('', [Validators.required, Validators.min(0)]),
   });
-
+  tarifaFormActualizar = new FormGroup({
+    tiempo: new FormControl('', [Validators.required]),
+    costo: new FormControl('', [Validators.required, Validators.min(0)]),
+  });
   tarifaFormA = new FormGroup({
     tiempo: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
@@ -70,27 +73,18 @@ export class TarifasComponent implements OnInit{
   }
 
   actualizarTarifa(): void {
-    if (this.tarifaForm.valid) {
-      const tiempo = parseInt(this.tarifaForm.get('tiempo')?.value || '');
-      const costo = parseFloat(this.tarifaForm.get('costo')?.value || '0');
-      const tipo = this.tarifaForm.get('tipo')?.value || '';
+    if (this.tarifaFormActualizar.valid) {
+      const tiempo = parseInt(this.tarifaFormActualizar.get('tiempo')?.value || '');
+      const costo = parseFloat(this.tarifaFormActualizar.get('costo')?.value || '0');
       
-      const tarifaActualizada = new Tarifa(this.tarifaActual?.id||0, tiempo, costo,'');
-      if(tipo === 'Mensual'){
-        tarifaActualizada.tipo = 'M';
-      }else if(tipo === 'Diaria'){
-        tarifaActualizada.tipo = 'D';
-      }else if(tipo === 'Hora'){
-        tarifaActualizada.tipo = 'H';
-      }else if(tipo === 'Minuto'){
-        tarifaActualizada.tipo = 'm';
-      }
+      const tarifaActualizada = new Tarifa(this.tarifaActual?.id||0, tiempo, costo,this.tarifaActual?.tipo||'');
+      
       if (this.tarifaActual) {
         this.tarifaS.updateTarifa(tarifaActualizada).subscribe(
           () => {
             this.alertConfirm('Tarifa actualizada correctamente.');
             this.cargarTarifa();
-            this.tarifaForm.reset();
+            this.tarifaFormActualizar.reset();
             this.tarifasActualizar = false;
           },
           (error) => this.alertError(error.error.mesaje)

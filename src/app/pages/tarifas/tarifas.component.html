@@ -31,33 +31,22 @@
 
   <div class="popup-overlay-profile" *ngIf="tarifasActualizar">
     <div class="popup-content-profile-edit">
-      <form [formGroup]="tarifaForm">
+      <form [formGroup]="tarifaFormActualizar">
         <div class="description">
-          <label for="tiempo">Tiempo:</label>
-                <select id="tiempo" formControlName="tipo" >
-                    <option value="" disabled selected>Seleccione un tipo de tiempo</option>
-                    <option value="Minutos">Minutos</option>
-                    <option value="Hora">Hora</option>
-                    <option value="Día">Día</option>
-                    <option value="Mensual">Mensual</option>
-                </select>
-                <div *ngIf="tarifaForm.get('tipo')?.hasError('required') && tarifaForm.get('tipo')?.touched"
-                    class="error-message">
-                        Seleccione un tipo de tiempo.
-                </div>
+          <label for="tiempo">Tiempo: {{ this.tarifaActual?.tipo=== 'm' ? 'Minutos' : (this.tarifaActual?.tipo=== 'H' ? 'Horas' :(this.tarifaActual?.tipo=== 'M' ? 'Meses' :this.tarifaActual?.tipo=== 'D' ? 'Diario' :'   ')) }}</label>
 
           <label for="tiempo">Cantidad de tiempo:</label>
-          <input type="number" id="tiempo" formControlName="tiempo" min="0">   
-          <div *ngIf="tarifaForm.get('tiempo')?.hasError('required') && tarifaForm.get('costo')?.touched"
+          <input type="number" id="tiempo" formControlName="tiempo" min="0" value="{{this.tarifaActual?.tiempo}}">   
+          <div *ngIf="tarifaFormActualizar.get('tiempo')?.hasError('required') && tarifaFormActualizar.get('costo')?.touched"
             class="error-message">
             La cantidad de tiempo es obligatoria.   
           </div>  
           
-          <label for="costo">Costo por Hora:</label>
-          <input type="number" id="costo" formControlName="costo" min="0">
-          <div *ngIf="tarifaForm.get('costo')?.hasError('required') && tarifaForm.get('costo')?.touched"
+          <label for="costo">Costo :</label>
+          <input type="number" id="costo" formControlName="costo" min="0" value="{{this.tarifaActual?.costo}}">
+          <div *ngIf="tarifaFormActualizar.get('costo')?.hasError('required') && tarifaFormActualizar.get('costo')?.touched"
             class="error-message">
-            El costo por hora es obligatorio.
+            El costo es obligatorio.
           </div>
         </div>
 
@@ -101,11 +90,11 @@
             class="error-message">
             La cantidad de tiempo es obligatoria.   
           </div>  
-          <label for="costo">Costo por Hora:</label>
+          <label for="costo">Costo:</label>
           <input type="number" id="costo" formControlName="costo" min="0">
           <div *ngIf="tarifaFormA.get('costo')?.hasError('required') && tarifaFormA.get('costo')?.touched"
             class="error-message">
-            El costo por hora es obligatorio.
+            El costo es obligatorio.
           </div>
         </div>
 

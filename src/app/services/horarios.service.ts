@@ -8,8 +8,8 @@ import { Horario } from '../models/horario';
 })
 export class HorariosService {
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/horarios';
-  private apiUrl1 = 'http://localhost:8080/demo65/rs/notificaciones';
+  private apiUrl = 'http://172.20.10.7:8080/demo65/rs/horarios';
+  private apiUrl1 = 'http://172.20.10.7:8080/demo65/rs/notificaciones';
 
   constructor(private http: HttpClient) { }
 

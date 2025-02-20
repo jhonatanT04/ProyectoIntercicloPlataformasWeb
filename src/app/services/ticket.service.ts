@@ -11,7 +11,7 @@ export class TicketService {
 
   constructor(private http: HttpClient, private espacioService: EspacioService) { }
 
-  private apiUrl = 'http://localhost:8080/demo65/rs/tickets';
+  private apiUrl = 'http://172.20.10.7:8080/demo65/rs/tickets';
 
   // Obtener todos los tickets
   getTickets(): Observable<Ticket[]> {
@@ -19,7 +19,11 @@ export class TicketService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<Ticket[]>(this.apiUrl, { headers });
   }
-
+  valorApagarTicket(placa: string): Observable<Ticket> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Ticket>(`${this.apiUrl}/valorApagaraTicket/${placa}`, { headers });
+  }
   getTicketsporPersona(id: number): Observable<Ticket[]> {
 
     const token = localStorage.getItem('token');

@@ -3,27 +3,28 @@ import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule, F
 import { Registro } from '../../models/registro';
 import { AdministradoresServiceService } from '../../services/administradores-service.service';
 import { CommonModule } from '@angular/common';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss'] 
+  styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent implements OnInit {
   registroForm: FormGroup;
   vehiculosEnParqueadero: Registro[] = [];
   historial: Registro[] = [];
-
-  constructor(private fb: FormBuilder, private parqueaderoService: AdministradoresServiceService) {
+  valorApagar = 0;
+  constructor(private fb: FormBuilder, private parqueaderoService: AdministradoresServiceService,private ticketService: TicketService) {
     this.registroForm = this.fb.group({
       placa: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9-]+$')]]
     });
   }
 
   ngOnInit(): void {
-    this.obtenerHistorial('dia'); 
+    this.obtenerHistorial('dia');
     this.cargarVehiculosEnParqueadero();
   }
 
@@ -33,10 +34,10 @@ export class RegistroComponent implements OnInit {
         id: 0,
         placa: this.registroForm.get('placa')?.value || '',
         tipo: " ",
-        fechaIngreso: new Date(), 
+        fechaIngreso: new Date(),
         fechaSalida: null
       };
-  
+
       this.parqueaderoService.registrarIngreso(nuevoVehiculo).subscribe(
         () => {
           this.registroForm.reset();
@@ -49,30 +50,42 @@ export class RegistroComponent implements OnInit {
       );
     }
   }
-  
+
+  confirmacionEdit = false
+  setConfirmacionEdit() {
+    this.confirmacionEdit = !this.confirmacionEdit
+  }
 
   registrarSalida(vehiculo: Registro) {
     const salidaVehiculo: Registro = {
-      id: vehiculo.id,      
-      placa: vehiculo.placa,  
-      tipo: " ",
-      fechaIngreso: vehiculo.fechaIngreso,  
-      fechaSalida: null  
+      id: vehiculo.id,
+      placa: vehiculo.placa,
+      tipo: vehiculo.tipo,
+      fechaIngreso: vehiculo.fechaIngreso,
+      fechaSalida: null
     };
-    //console.log(salidaVehiculo.fechaSalida)
-    this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
-      () => {
-        this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);
-        this.obtenerHistorial('dia');
-        this.cargarVehiculosEnParqueadero() 
-        this.alertConfirm('Salida registrada correctamente')
-      },
-      error => {
-        this.alertError(error.error.mensaje)
-      }
-    );
+    if (vehiculo.tipo === 'T') {
+      this.confirmacionEdit = true
+      this.ticketService.valorApagarTicket(vehiculo.placa).subscribe(
+        (a) => {
+          this.valorApagar = a.valorTotal
+        }
+      )
+    } else {
+      this.parqueaderoService.registrarSalida(salidaVehiculo).subscribe(
+        () => {
+          this.vehiculosEnParqueadero = this.vehiculosEnParqueadero.filter(v => v.placa !== vehiculo.placa);
+          this.obtenerHistorial('dia');
+          this.cargarVehiculosEnParqueadero()
+          this.alertConfirm('Salida registrada correctamente')
+        },
+        error => {
+          this.alertError(error.error.mensaje)
+        }
+      );
+    }
   }
-  
+
 
   obtenerHistorial(periodo: 'dia' | 'semana' | 'mes') {
     this.parqueaderoService.obtenerHistorial(periodo).subscribe(
@@ -97,7 +110,7 @@ export class RegistroComponent implements OnInit {
     setTimeout(() => {
       this.textError = ''
       this.showDangerAlert = false;
-    },5000);
+    }, 5000);
   }
 
 
@@ -109,6 +122,6 @@ export class RegistroComponent implements OnInit {
     setTimeout(() => {
       this.textConfirm = ''
       this.showConfirmAlert = false;
-    },5000);
+    }, 5000);
   }
 }

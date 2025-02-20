@@ -36,6 +36,12 @@
               "src/styles.scss"
             ],
             "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@firebase/auth",
+              "undici"
+            ],
+
+
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -62,7 +68,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-              
             }
           },
           "defaultConfiguration": "production"

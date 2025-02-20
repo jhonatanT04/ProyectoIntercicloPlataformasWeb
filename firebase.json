@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/proyectop-interciclo-plataformas-web",
+    "public": "dist/proyectop-interciclo-plataformas-web/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

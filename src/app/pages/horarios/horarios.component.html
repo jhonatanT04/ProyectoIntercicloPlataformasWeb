@@ -46,7 +46,7 @@
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
-              <button (click)="horarioE()">Editar</button>
+              <button (click)="horarioE(horario)">Editar</button>
               <button (click)="eliminarHorario(horario)">Eliminar</button>
             </div>
           </div>
@@ -74,7 +74,7 @@
           <div class="menu-container">
             <button class="menu-button" (click)="toggleMenu(i)">⋯</button>
             <div class="menu-options" *ngIf="menuVisibleIndex === i">
-              <button (click)="horarioE()">Editar</button>
+              <button (click)="horarioE(horario)">Editar</button>
               <button (click)="eliminarHorario(horario)">Eliminar</button>
             </div>
           </div>
@@ -119,7 +119,7 @@
 
           <div class="btns">
             <button class="btn" type="submit" (click)="actualizarHorario()">Definir Horario</button>
-            <button class="btn" (click)="horarioE()">Cerrar</button>
+            <button class="btn" (click)="horarioE(null)">Cerrar</button>
           </div>
         </form>
       </div>

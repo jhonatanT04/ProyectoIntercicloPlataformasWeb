@@ -17,6 +17,7 @@ export class HorariosComponent implements OnInit {
   horariosNormales: any[] = [];
   horariosEspeciales: Horario[] = [];
   horarioHoy: Horario | null = null;
+  horarioSelect: Horario | null = null;
   dia = '';
   horaApertura = '';
   horaCierre = '';
@@ -188,12 +189,18 @@ export class HorariosComponent implements OnInit {
     this.horarioS.getHorariosEspeciales().subscribe(data => this.horariosEspeciales = data);
   }
 
-  horarioE(): void {
+  horarioE(horario:Horario|null): void {
     this.horarioMostrar = !this.horarioMostrar;
+    if(this.horarioMostrarE){
+      this.horarioSelect = horario;
+    }else{
+      this.horarioSelect = null;
+    }
   }
 
   horarioEspecial(): void {
     this.horarioMostrarE = !this.horarioMostrarE;
+    
   }
 
   horarioA(): void {

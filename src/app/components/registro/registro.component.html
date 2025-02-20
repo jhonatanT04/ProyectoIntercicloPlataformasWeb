@@ -70,6 +70,13 @@
     </tbody>
   </table>
 </div>
+<div class="cofirmacion-overlay-edit" *ngIf="confirmacionEdit">
+  <div class="cofirmacion-edit">
+      <p>Valor a pagar : {{valorApagar}}</p>
+      <button (click)="setConfirmacionEdit()" class="btn"> Confirmar </button>
+      <button (click)="setConfirmacionEdit()" class="btn"> Cancelar </button>
+  </div>
+</div>
 <div class="alert-container">
   <div *ngIf="showConfirmAlert" class="alert-conf">
     <svg class="icon" xmlns="http://www.w3.org/2000/svg" margin-right="10" width="25" height="25" fill="currentColor"
