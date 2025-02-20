@@ -13,7 +13,11 @@ export class UsuariosServiceService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) {
   }
 
+<<<<<<< HEAD
   private apiUrl = 'http://172.20.10.7:8080/demo65/rs/personas'; 
+=======
+  private apiUrl = 'http://172.20.10.2:8080/demo65/rs/personas'; 
+>>>>>>> 8b214b67fc51c453abc2dea2fde241f6bd3ef9b5
   
   createPersona(persona: Persona): Observable<Persona> {
     const token = localStorage.getItem('token');

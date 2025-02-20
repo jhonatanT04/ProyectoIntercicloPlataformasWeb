@@ -8,7 +8,11 @@ import { Contrato } from '../models/contrato';
 })
 export class ContratoService {
 
+<<<<<<< HEAD
   private apiUrl = 'http://172.20.10.7/demo65/rs/contratos';
+=======
+  private apiUrl = 'http://172.20.10.2:8080/demo65/rs/contratos';
+>>>>>>> 8b214b67fc51c453abc2dea2fde241f6bd3ef9b5
 
   constructor(private http: HttpClient) { }
 
