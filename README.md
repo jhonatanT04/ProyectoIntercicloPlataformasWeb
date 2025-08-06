@@ -24,7 +24,7 @@ git clone https://github.com/usuario/ProyectoIntercicloPlataformasWeb.git
 cd ProyectoIntercicloPlataformasWeb
 ````
 
-### 2️⃣ Instalar dependencias
+### 2️ Instalar dependencias
 
 ```bash
 npm install
