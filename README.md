@@ -1,27 +1,74 @@
-# ProyectopIntercicloPlataformasWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+# Sistema de Parqueadero con Autenticación Firebase
 
-## Development server
+Este proyecto es una **aplicación web** desarrollada con **Angular** que ofrece una **interfaz gráfica** para la gestión de un parqueadero.  
+Incluye **autenticación de usuarios** mediante **correo electrónico** y **Google** usando **Firebase Authentication**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Funcionalidades
 
-## Code scaffolding
+- **Interfaz gráfica intuitiva** para gestión de parqueadero.
+- **Autenticación de usuarios** con Firebase:
+  - **Correo y contraseña**
+  - **Google Sign-In**
+- **Control de sesión** (inicio/cierre).
+- **Protección de rutas** (solo usuarios autenticados pueden acceder a la gestión).
+- **Diseño responsive** usando SCSS.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Instalación y Ejecución
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 1️ Clonar repositorio
+```bash
+git clone https://github.com/usuario/ProyectoIntercicloPlataformasWeb.git
+cd ProyectoIntercicloPlataformasWeb
+````
 
-## Running unit tests
+### 2️⃣ Instalar dependencias
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm install
+```
 
-## Running end-to-end tests
+### 3️ Configurar Firebase
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+* Crear un proyecto en [Firebase Console](https://console.firebase.google.com/).
+* Activar **Authentication** y habilitar:
 
-## Further help
+  * Email/Password
+  * Google
+* Copiar la configuración del proyecto en el archivo `environment.ts`:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```ts
+export const environment = {
+  production: false,
+  firebaseConfig: {
+    apiKey: "API_KEY",
+    authDomain: "PROJECT_ID.firebaseapp.com",
+    projectId: "PROJECT_ID",
+    storageBucket: "PROJECT_ID.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  }
+};
+```
+
+### 4️ Ejecutar en modo desarrollo
+
+```bash
+ng serve
+```
+
+La aplicación estará disponible en **[http://localhost:4200](http://localhost:4200)**
+
+---
+
+## Tecnologías Usadas
+
+* **Angular**
+* **Firebase Authentication**
+* **TypeScript**
+* **SCSS**
+* **Node.js** (para configuración del servidor)
+
+
